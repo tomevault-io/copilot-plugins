@@ -1,0 +1,44 @@
+{
+  "name": "vibestart",
+  "owner": "VinkyDev",
+  "repo": "vibestart",
+  "description": "Compose a full-stack TypeScript stack and get a verified project, built for AI coding agents: AGENTS.md, strict types, lint, tests. | \u81ea\u7531\u7ec4\u5408\u5168\u6808 TypeScript \u6280\u672f\u6808\uff0c\u5f97\u5230\u4e00\u4e2a\u7ecf\u8fc7\u9a8c\u8bc1\u3001\u4e3a AI \u7f16\u7801\u667a\u80fd\u4f53\u6253\u9020\u7684\u9879\u76ee\uff1aAGENTS.md\u3001\u4e25\u683c\u7c7b\u578b\u3001lint\u3001\u6d4b\u8bd5\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/VinkyDev/vibestart",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T04:41:35Z"
+}
