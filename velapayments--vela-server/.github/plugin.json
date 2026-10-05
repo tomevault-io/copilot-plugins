@@ -1,0 +1,9 @@
+{
+  "name": "velapayments--vela-server",
+  "displayName": "vela-server",
+  "description": "vela-server",
+  "version": "1.0.0",
+  "author": "VelaPayments",
+  "homepage": "https://github.com/VelaPayments/vela-server",
+  "skills": []
+}
