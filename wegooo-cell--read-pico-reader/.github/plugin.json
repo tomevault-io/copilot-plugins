@@ -1,0 +1,9 @@
+{
+  "name": "wegooo-cell--read-pico-reader",
+  "displayName": "read-pico-reader",
+  "description": "Independent open source Pico e-paper reader firmware with browser flashing",
+  "version": "1.0.0",
+  "author": "wegooo-cell",
+  "homepage": "https://github.com/wegooo-cell/read-pico-reader",
+  "skills": []
+}
