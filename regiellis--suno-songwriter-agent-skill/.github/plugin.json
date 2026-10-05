@@ -1,0 +1,9 @@
+{
+  "name": "regiellis--suno-songwriter-agent-skill",
+  "displayName": "suno-songwriter-agent-skill",
+  "description": "Agent skill for Suno v5.5-ready songs: hook-first lyrics, style prompts, instrumentals, multilingual, personas, and albums",
+  "version": "1.0.0",
+  "author": "regiellis",
+  "homepage": "https://github.com/regiellis/suno-songwriter-agent-skill",
+  "skills": []
+}
