@@ -1,0 +1,44 @@
+{
+  "name": "OpenAIO",
+  "owner": "OpenDrone-hw",
+  "repo": "OpenAIO",
+  "description": "Open-source AIO for 2-6S toothpick quads: flight controller, 4-in-1 AM32 ESC and ExpressLRS receiver, 25.5x25.5 mm.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/OpenDrone-hw/OpenAIO",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T22:40:14Z"
+}
