@@ -1,0 +1,9 @@
+{
+  "name": "sovantica--engrava",
+  "displayName": "engrava",
+  "description": "The memory database for AI agents - graph memory, hybrid search, tamper-evident thought/edge journal.",
+  "version": "1.0.0",
+  "author": "sovantica",
+  "homepage": "https://github.com/sovantica/engrava",
+  "skills": []
+}
