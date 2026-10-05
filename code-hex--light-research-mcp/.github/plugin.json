@@ -1,0 +1,9 @@
+{
+  "name": "code-hex--light-research-mcp",
+  "displayName": "light-research-mcp",
+  "description": "A lightweight MCP server for LLM orchestration with DuckDuckGo/GitHub Code search and content extraction",
+  "version": "1.0.0",
+  "author": "Code-Hex",
+  "homepage": "https://github.com/Code-Hex/light-research-mcp",
+  "skills": []
+}
