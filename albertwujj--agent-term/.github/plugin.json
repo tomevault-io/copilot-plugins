@@ -1,0 +1,9 @@
+{
+  "name": "albertwujj--agent-term",
+  "displayName": "agent-term",
+  "description": "A substantially expanded terminal with rich visuals and tools for the new way of working with AI CLIs. Claude Code, Codex, Cursor CLI, and more. macOS and Windows/WSL. Extend it further and share your",
+  "version": "1.0.0",
+  "author": "albertwujj",
+  "homepage": "https://github.com/albertwujj/agent-term",
+  "skills": []
+}
