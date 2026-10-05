@@ -1,0 +1,9 @@
+{
+  "name": "xiaolu-ai26--xy-agent",
+  "displayName": "XY-Agent",
+  "description": "\u95f2\u9c7c\u7535\u5546\u8fd0\u8425 Agent\uff1a\u81ea\u52a8\u9009\u54c1 / \u81ea\u52a8\u4e0a\u67b6 / RAG \u667a\u80fd\u5ba2\u670d (Python + DrissionPage + ChromaDB)",
+  "version": "1.0.0",
+  "author": "xiaolu-ai26",
+  "homepage": "https://github.com/xiaolu-ai26/XY-Agent",
+  "skills": []
+}
