@@ -1,0 +1,9 @@
+{
+  "name": "nagi-studio--skills",
+  "displayName": "skills",
+  "description": "Skills that make the agent prove it. Straight from Nagi Studio's .agents directory.",
+  "version": "1.0.0",
+  "author": "nagi-studio",
+  "homepage": "https://github.com/nagi-studio/skills",
+  "skills": []
+}
