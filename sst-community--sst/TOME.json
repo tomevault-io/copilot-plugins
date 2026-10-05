@@ -4,7 +4,7 @@
   "repo": "sst",
   "description": "Community-maintained fork of SST (anomalyco/sst). Not affiliated with SST or Anomaly.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sst-community/sst",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T18:31:43Z"
+  "distributed_at": "2026-10-05T18:32:43Z"
 }
