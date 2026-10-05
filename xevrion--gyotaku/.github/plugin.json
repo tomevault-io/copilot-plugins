@@ -1,0 +1,9 @@
+{
+  "name": "xevrion--gyotaku",
+  "displayName": "gyotaku",
+  "description": "search every screenshot you've ever taken by the text inside it. native linux, offline, PaddleOCR + sqlite + gpui",
+  "version": "1.0.0",
+  "author": "xevrion",
+  "homepage": "https://github.com/xevrion/gyotaku",
+  "skills": []
+}
