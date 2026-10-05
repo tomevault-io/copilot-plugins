@@ -1,11 +1,13 @@
-# kiri
+# Kiri
 
-> Tome by [yuxino](https://github.com/yuxino/kiri), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+> Tome by [yuxino](https://github.com/yuxino/Kiri), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+A screenshot and screen recording app for macOS, Windows, and Linux. 截图与录屏工具，支持标注和文字识别，素材保存在本机。
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yuxino/kiri](https://github.com/yuxino/kiri).
+Original source: `AGENTS.md` in [yuxino/Kiri](https://github.com/yuxino/Kiri).
 
 ## Also available for
 
@@ -15,14 +17,10 @@ Original source: `AGENTS.md` in [yuxino/kiri](https://github.com/yuxino/kiri).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [yuxino/kiri](https://github.com/yuxino/kiri) — a repo with 493+ stars on GitHub.
+From [yuxino/Kiri](https://github.com/yuxino/Kiri) — a repo with 584+ stars on GitHub.
 
 ---
 
-Install this config instantly:
-```
-npx tomevault install yuxino/kiri
-```
-Source: [github.com/yuxino/kiri](https://github.com/yuxino/kiri).
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
-<!-- genome:t-i-s -->
+<!-- genome:t-c-s -->
