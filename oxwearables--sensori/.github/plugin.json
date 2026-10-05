@@ -1,0 +1,9 @@
+{
+  "name": "oxwearables--sensori",
+  "displayName": "Sensori",
+  "description": "Sensori: a foundation model for 24-hour wrist movement",
+  "version": "1.0.0",
+  "author": "OxWearables",
+  "homepage": "https://github.com/OxWearables/Sensori",
+  "skills": []
+}
