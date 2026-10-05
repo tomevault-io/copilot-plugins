@@ -1,0 +1,9 @@
+{
+  "name": "ultralytics--sdk",
+  "displayName": "sdk",
+  "description": "Official Python SDK for the Ultralytics Platform API",
+  "version": "1.0.0",
+  "author": "ultralytics",
+  "homepage": "https://github.com/ultralytics/sdk",
+  "skills": []
+}
