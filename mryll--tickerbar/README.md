@@ -7,11 +7,11 @@ Market prices for Waybar and the Omarchy shell. Crypto, stocks, indices, forex, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mryll/tickerbar](https://github.com/mryll/tickerbar).
+Original source: `CLAUDE.md` in [mryll/tickerbar](https://github.com/mryll/tickerbar).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
