@@ -1,0 +1,9 @@
+{
+  "name": "packstub--filament-agents",
+  "displayName": "filament-agents",
+  "description": "An in-panel AI assistant and an MCP server for Filament v5 panels, built on laravel/ai and laravel/mcp: one tool list for both, the panel's own authorization, approve-in-chat writes, live tables and c",
+  "version": "1.0.0",
+  "author": "packstub",
+  "homepage": "https://github.com/packstub/filament-agents",
+  "skills": []
+}
