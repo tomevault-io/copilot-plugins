@@ -1,0 +1,9 @@
+{
+  "name": "cosmyo--ha-pi-durable",
+  "displayName": "ha-pi-durable",
+  "description": "Hearth Pi: experimental Home Assistant AI App with durable tasks, scoped reads and human-reviewed light/switch actions.",
+  "version": "1.0.0",
+  "author": "cosmyo",
+  "homepage": "https://github.com/cosmyo/ha-pi-durable",
+  "skills": []
+}
