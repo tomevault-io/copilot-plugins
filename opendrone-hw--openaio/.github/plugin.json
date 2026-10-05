@@ -1,0 +1,9 @@
+{
+  "name": "opendrone-hw--openaio",
+  "displayName": "OpenAIO",
+  "description": "Open-source AIO for 2-6S toothpick quads: flight controller, 4-in-1 AM32 ESC and ExpressLRS receiver, 25.5x25.5 mm.",
+  "version": "1.0.0",
+  "author": "OpenDrone-hw",
+  "homepage": "https://github.com/OpenDrone-hw/OpenAIO",
+  "skills": []
+}
