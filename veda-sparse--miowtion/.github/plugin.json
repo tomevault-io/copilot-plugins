@@ -1,0 +1,9 @@
+{
+  "name": "veda-sparse--miowtion",
+  "displayName": "Miowtion",
+  "description": "Sparse acceleration and LoRA fine-tuning of MiniMax-H3 on resource-constrained machines.",
+  "version": "1.0.0",
+  "author": "veda-sparse",
+  "homepage": "https://github.com/veda-sparse/Miowtion",
+  "skills": []
+}
