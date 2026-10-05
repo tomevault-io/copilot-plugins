@@ -1,0 +1,9 @@
+{
+  "name": "asturksever--network-constellation",
+  "displayName": "network-constellation",
+  "description": "See who you know: a 3D map of your LinkedIn connections, clustered by what people do. Runs in your browser; nothing uploaded.",
+  "version": "1.0.0",
+  "author": "asturksever",
+  "homepage": "https://github.com/asturksever/network-constellation",
+  "skills": []
+}
