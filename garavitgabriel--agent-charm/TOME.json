@@ -1,0 +1,44 @@
+{
+  "name": "agent-charm",
+  "owner": "garavitgabriel",
+  "repo": "agent-charm",
+  "description": "A pocket ESP32-S3 AMOLED charm with a living character on it: hold to talk to your AI agent (Hermes or any OpenAI-compatible model), glance at what's waiting, hold to say yes.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/garavitgabriel/agent-charm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T23:08:18Z"
+}
