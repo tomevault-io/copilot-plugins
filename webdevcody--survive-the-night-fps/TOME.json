@@ -4,7 +4,7 @@
   "repo": "survive-the-night-fps",
   "description": "Co-op horror survival FPS - scavenge by day, board up by night, fix the car and escape. three.js client, authoritative Node uWebSockets.js server",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/webdevcody/survive-the-night-fps",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T04:34:19Z"
+  "distributed_at": "2026-10-05T04:38:43Z"
 }
