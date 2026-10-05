@@ -1,0 +1,9 @@
+{
+  "name": "perpeer--lazychat",
+  "displayName": "lazychat",
+  "description": "One terminal for all your AI coding agents. Run Claude Code and Codex side by side, see which one needs you, with Git and a shell one key away. ",
+  "version": "1.0.0",
+  "author": "Perpeer",
+  "homepage": "https://github.com/Perpeer/lazychat",
+  "skills": []
+}
