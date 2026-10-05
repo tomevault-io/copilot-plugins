@@ -1,0 +1,26 @@
+# CSVM
+
+> Source: [Laeresh/CSVM](https://github.com/Laeresh/CSVM). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+
+Open-source remake of Crimson Skies (2000) — plays the original game using your own files
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [Laeresh/CSVM](https://github.com/Laeresh/CSVM).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [Laeresh/CSVM](https://github.com/Laeresh/CSVM) — a repo with 11+ stars on GitHub.
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:d-c-s -->
