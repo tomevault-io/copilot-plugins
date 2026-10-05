@@ -7,11 +7,11 @@ Community-maintained fork of SST (anomalyco/sst). Not affiliated with SST or Ano
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sst-community/sst](https://github.com/sst-community/sst).
+Original source: `AGENTS.md` in [sst-community/sst](https://github.com/sst-community/sst).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
