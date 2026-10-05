@@ -1,0 +1,9 @@
+{
+  "name": "andrisgauracs--needle-duck",
+  "displayName": "needle-duck",
+  "description": "A polite robot duck: MuJoCo Open Duck Mini driven by a fine-tuned Needle 3, with a desktop demo app and a GPU fine-tuning server",
+  "version": "1.0.0",
+  "author": "andrisgauracs",
+  "homepage": "https://github.com/andrisgauracs/needle-duck",
+  "skills": []
+}
