@@ -4,7 +4,7 @@
   "repo": "pi-orb",
   "description": "Putting pi in an orb",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/schani/pi-orb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T04:30:24Z"
+  "distributed_at": "2026-10-05T04:31:12Z"
 }
