@@ -1,0 +1,9 @@
+{
+  "name": "hussain-gull--ecommerce-store",
+  "displayName": "ecommerce-store",
+  "description": "Full-stack ecommerce platform in a Turborepo monorepo: Next.js 16 storefront, React + Vite admin panel and Express 5 + Prisma API. PostgreSQL, Redis, Cloudinary and Resend. Cart, wishlist, manual Jazz",
+  "version": "1.0.0",
+  "author": "hussain-gull",
+  "homepage": "https://github.com/hussain-gull/ecommerce-store",
+  "skills": []
+}
