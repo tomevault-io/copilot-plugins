@@ -1,0 +1,9 @@
+{
+  "name": "deepnar--presentation-forge",
+  "displayName": "presentation-forge",
+  "description": "Self-hosted AI presentation generator: topic or sources in, researched themed editable PPTX and report out. Docker, BYOK or Ollama; 74 slide types, 34 themes.",
+  "version": "1.0.0",
+  "author": "Deepnar",
+  "homepage": "https://github.com/Deepnar/presentation-forge",
+  "skills": []
+}
