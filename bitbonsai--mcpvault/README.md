@@ -1,8 +1,6 @@
 # AI instruction files for mcpvault
 
-> Sourced from [bitbonsai/mcpvault](https://github.com/bitbonsai/mcpvault) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A lightweight Model Context Protocol (MCP) server for safe Obsidian vault access
+> Sourced from [bitbonsai/mcpvault](https://github.com/bitbonsai/mcpvault), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,17 @@ Original source: `AGENTS.md` in [bitbonsai/mcpvault](https://github.com/bitbonsa
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [bitbonsai/mcpvault](https://github.com/bitbonsai/mcpvault) — a repo with 1429+ stars on GitHub.
+## Bundled Skills (4)
+
+- [mcpvault](https://github.com/bitbonsai/mcpvault/tree/main/website/public/skill.md)
+- [mcpvault](https://github.com/bitbonsai/mcpvault/tree/main/skills/obsidian/SKILL.md)
+- [mcpvault](https://github.com/bitbonsai/mcpvault/tree/main/skills/triage/SKILL.md)
+- [mcpvault](https://github.com/bitbonsai/mcpvault/tree/main/website-shibumi/public/skill.md)
+
+From [bitbonsai/mcpvault](https://github.com/bitbonsai/mcpvault) — a repo with 0+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
