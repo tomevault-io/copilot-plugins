@@ -1,0 +1,9 @@
+{
+  "name": "rovinax--embedded-skills",
+  "displayName": "embedded-skills",
+  "description": "Embedded firmware engineering skills for AI assistants \u2014 C coding standards, RTOS/ISR/driver design, project architecture, and docs for STM32, GD32, ESP32.",
+  "version": "1.0.0",
+  "author": "rovinax",
+  "homepage": "https://github.com/rovinax/embedded-skills",
+  "skills": []
+}
