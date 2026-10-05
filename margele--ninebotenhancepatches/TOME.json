@@ -1,0 +1,44 @@
+{
+  "name": "NinebotEnhancePatches",
+  "owner": "Margele",
+  "repo": "NinebotEnhancePatches",
+  "description": "\u628a Ninebot Enhance \u6253\u8fdb\u4e5d\u53f7\u51fa\u884c\u5b89\u88c5\u5305\u7684 ReVanced \u8865\u4e01",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Margele/NinebotEnhancePatches",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T10:31:29Z"
+}
