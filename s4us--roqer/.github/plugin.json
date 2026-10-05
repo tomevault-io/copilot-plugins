@@ -1,0 +1,9 @@
+{
+  "name": "s4us--roqer",
+  "displayName": "Roqer",
+  "description": "An open-source AI agent for Roblox Studio. Builds, scripts, and playtests in your place using your ChatGPT/Claude subscription or custom API.",
+  "version": "1.0.0",
+  "author": "S4US",
+  "homepage": "https://github.com/S4US/Roqer",
+  "skills": []
+}
