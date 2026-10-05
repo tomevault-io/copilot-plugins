@@ -1,0 +1,9 @@
+{
+  "name": "h9-tec--arabic-ai-atlas",
+  "displayName": "arabic-ai-atlas",
+  "description": "The Arabic AI ecosystem as a map, a list, and a skill your agent can install.",
+  "version": "1.0.0",
+  "author": "h9-tec",
+  "homepage": "https://github.com/h9-tec/arabic-ai-atlas",
+  "skills": []
+}
