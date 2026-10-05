@@ -1,0 +1,9 @@
+{
+  "name": "simonstorms--expo-app-template",
+  "displayName": "expo-app-template",
+  "description": "Production-ready feature-based Expo (SDK 57) app template: onboarding, Apple/Google/email-OTP auth (Supabase), a hard-gated Superwall paywall with RevenueCat, and a tabbed home + settings shell.",
+  "version": "1.0.0",
+  "author": "Simonstorms",
+  "homepage": "https://github.com/Simonstorms/expo-app-template",
+  "skills": []
+}
