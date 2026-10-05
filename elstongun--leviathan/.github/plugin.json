@@ -1,0 +1,9 @@
+{
+  "name": "elstongun--leviathan",
+  "displayName": "leviathan",
+  "description": "**Deep memory for agents over large datasets.**   Leviathan is a single static binary that turns your records (JSONL, JSON, CSV/TSV, SQLite, or anything a database CLI can export) into a ranked full-t",
+  "version": "1.0.0",
+  "author": "elstongun",
+  "homepage": "https://github.com/elstongun/leviathan",
+  "skills": []
+}
