@@ -1,0 +1,9 @@
+{
+  "name": "fuinsure--mma",
+  "displayName": "MMA",
+  "description": "\u6570\u5b66\u5efa\u6a21 AI Agent - \u672c\u5730\u90e8\u7f72\u589e\u5f3a\u7248\uff08\u65b0\u589e LaTeX \u8f93\u51fa + \u4e00\u952e\u542f\u52a8\uff09| Based on jihe520/MathModelAgent",
+  "version": "1.0.0",
+  "author": "FuInSure",
+  "homepage": "https://github.com/FuInSure/MMA",
+  "skills": []
+}
