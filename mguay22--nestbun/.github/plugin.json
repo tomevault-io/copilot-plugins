@@ -1,0 +1,9 @@
+{
+  "name": "mguay22--nestbun",
+  "displayName": "nestbun",
+  "description": "NestJS on Bun, natively \u2014 HTTP adapter running Nest on Bun.serve()",
+  "version": "1.0.0",
+  "author": "mguay22",
+  "homepage": "https://github.com/mguay22/nestbun",
+  "skills": []
+}
