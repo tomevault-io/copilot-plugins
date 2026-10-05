@@ -1,0 +1,9 @@
+{
+  "name": "kovenlabs--animated-icons",
+  "displayName": "animated-icons",
+  "description": "Animated React icons with 1\u20133 color slots that read from your shadcn/ui theme.",
+  "version": "1.0.0",
+  "author": "kovenlabs",
+  "homepage": "https://github.com/kovenlabs/animated-icons",
+  "skills": []
+}
