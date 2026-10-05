@@ -1,0 +1,9 @@
+{
+  "name": "ghuntley--jiti",
+  "displayName": "jiti",
+  "description": "Live Common Lisp image repair with OpenAI tools, persistent revisions, and a conversational CLI",
+  "version": "1.0.0",
+  "author": "ghuntley",
+  "homepage": "https://github.com/ghuntley/jiti",
+  "skills": []
+}
