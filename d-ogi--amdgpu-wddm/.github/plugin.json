@@ -1,0 +1,9 @@
+{
+  "name": "d-ogi--amdgpu-wddm",
+  "displayName": "amdgpu-wddm",
+  "description": "Open Windows (WDDM) driver stack for AMD GPUs, developed first on the ASRock BC-250 (gfx1013). Not affiliated with AMD, ASRock or Microsoft.",
+  "version": "1.0.0",
+  "author": "D-Ogi",
+  "homepage": "https://github.com/D-Ogi/amdgpu-wddm",
+  "skills": []
+}
