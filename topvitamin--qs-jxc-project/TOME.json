@@ -4,7 +4,7 @@
   "repo": "QS-JXC-Project",
   "description": "\u57fa\u4e8e\u201c\u4f9b\u5e94\u94fe\u4ea7\u54c1\u7ecf\u7406\u8bad\u7ec3\u8425\u201d\u4e2d\u5f3a\u76db\u79d1\u6280\u7684\u80cc\u666f\uff0c\u8f93\u51fa\u7684\u4e00\u6574\u5957\u201c\u8fdb\u9500\u5b58\u201d\u9879\u76ee\u7684\u4ea7\u54c1\u8bbe\u8ba1\u4ea7\u51fa\u7269\uff0c\u5305\u542b\u4e1a\u52a1\u80cc\u666f\uff0c\u9700\u6c42\u8c03\u7814\uff0c\u9700\u6c42\u8bbe\u8ba1\u6587\u6863\uff0c\u4ea7\u54c1\u539f\u578bDemo\u7b49\u2026\u2026",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TopVitamin/QS-JXC-Project",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T22:39:42Z"
+  "distributed_at": "2026-10-05T22:54:56Z"
 }
