@@ -4,7 +4,7 @@
   "repo": "filament-agents",
   "description": "An in-panel AI assistant and an MCP server for Filament v5 panels, built on laravel/ai and laravel/mcp: one tool list for both, the panel's own authorization, approve-in-chat writes, live tables and charts in answers, per-workspace budgets.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/packstub/filament-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T02:44:40Z"
+  "distributed_at": "2026-10-05T02:47:16Z"
 }
