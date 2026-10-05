@@ -1,0 +1,9 @@
+{
+  "name": "uzairansaruzi--p3-stack",
+  "displayName": "p3-stack",
+  "description": "pstack reworked for T3 Code: delegated subagents, worktree threads, PR watching, scheduled runs.",
+  "version": "1.0.0",
+  "author": "uzairansaruzi",
+  "homepage": "https://github.com/uzairansaruzi/p3-stack",
+  "skills": []
+}
