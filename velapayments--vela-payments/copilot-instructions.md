@@ -1,216 +1,84 @@
-## dapp
+## folder-layout
 
-> dApp
+> folder layout
 
 
-# Global Development Context (Next.js Monorepo)
+# Feature folders — vertical slice layout (`src/features`)
 
-You are acting as a **Senior Fullstack Developer** working on a **Next.js monorepo** that contains **three applications**:
-
-- **Admin**
-- **Maintainer**
-- **Contributor**
-
-The main goal is to ensure **high code quality, consistency, scalability, and reusability** across the entire ecosystem.
+A portable convention for organizing application code by **product domain** instead of only by technical layer (all components here, all API code there). This doc is **framework-agnostic** in intent: it applies most directly to **component-based frontends** (React, Vue, Svelte, etc.); adapt names like `hooks/` to your ecosystem (`composables/`, `stores/`, …).
 
 ---
 
-## 🧠 General Principles
+## What `features/` is for
 
-- **Strict TypeScript** (`strict: true`)
-- **No usage of `any`**
-- Everything must be **explicitly typed**:
-  - Models
-  - Entities
-  - Payloads
-  - Responses
-  - Hooks
-  - Functions
-  - State
-- **Never leave unused variables, imports, or functions**
-- Always apply **Prettier formatting**
-- Carefully analyze and respect all **existing ESLint rules**
-- **Strictly follow existing code patterns**
-- Maintain a **minimalist approach** aligned with the current UI design system
-- Do not use unnecesary comments
+**`features/`** (sometimes `modules/` or `domains/`) groups code into **vertical slices**:
+
+- One **top-level folder per domain**—e.g. billing, profile, checkout, admin reports—not per file type at the repository root.
+- Everything that usually changes **together** for that part of the product stays **under the same slice** (UI, data loading, API clients for that area), so imports are local and ownership is obvious.
+
+This is independent of **monorepo vs single app**: you can have `src/features` inside one package or `apps/web/src/features` inside an app package.
 
 ---
 
-## 🧩 Architecture & Componentization
+## Typical subfolders inside a feature
 
-- Highly **componentized codebase**
-- ❌ Never create large, monolithic, or heavy components
-- ✅ Prefer small, focused, and reusable components
-- **UI components** must:
-  - Focus only on **rendering UI**
-  - Contain **minimal interaction logic**
-- **Reusable or complex logic** (state + effects):
-  - Must be moved to **custom hooks**
-- Before creating:
-  - A **component**
-  - A **hook**
-  - A **type**
+Slices vary by team; treat this as a **menu of patterns**, not a required checklist.
 
-  👉 Always **verify that it does not already exist**
-  - If it exists → reuse it
-  - If it does not exist → create it following existing patterns
+| Subfolder                            | Purpose                                                                                                                                                                                         |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`components/`**                    | UI building blocks **specific to this feature**—forms, tables, panels, wizards. Use a global `components/` (or design system package) only for truly generic primitives (button, layout shell). |
+| **`views/`** (or **`screens/`**)     | **Large compositions**: full pages or route segments that assemble feature components and wire data. Routing files stay thin and import from here.                                              |
+| **`hooks/`** (or **`composables/`**) | Stateful logic tied to the UI framework: queries/mutations, form state, subscriptions, browser APIs. **No** raw HTTP client usage scattered everywhere—call into **`services/`** from here.     |
+| **`services/`**                      | **Side-effectful I/O**: HTTP clients, SDK wrappers, WebSocket setup. Exposes functions or a small class per use case. **No** framework-specific render API (no JSX in React, etc.).             |
+| **`schemas/`**                       | Validation and types for inputs/API payloads (Zod, Yup, Valibot, io-ts, …) when you co-locate rules with the feature.                                                                           |
+| **`utils/`**                         | Pure helpers used only in this slice (formatting, sorting, feature-specific guards).                                                                                                            |
+| **`state/`** (optional)              | Feature-scoped global state if your architecture uses stores (Redux slice, Zustand, Pinia, …).                                                                                                  |
+| **`constants/`** (optional)          | Magic strings, config keys, route fragments for this domain only.                                                                                                                               |
+| **`extensions/`** (optional)         | Plugins or adapters (rich text, analytics bridges) that belong to this slice.                                                                                                                   |
 
 ---
 
-## ⚛️ Components & Functions
+## Files at the feature root
 
-- **UI Components**
-  - Must always use **arrow functions**
-  - Use **named exports**
-    ```ts
-    export const Component = () => {};
-    ```
-- **Non-UI functions** (formatting, helpers, utils, etc.)
-  - Must use the `function` keyword
-  - Use **named exports**
-    ```ts
-    export function formatX() {}
-    ```
-- Always use **Shadcn UI components**
-  - ❌ Do not create custom components if an equivalent already exists
+It is normal to have **entry screens or layout chunks** directly under `features/<name>/` (not nested):
+
+- **`SomethingView.tsx` / `SomethingScreen.vue`** — main surface for the slice when the team prefers a flat layout.
+- **Section shells** — sidebars, split layouts, headers that anchor a subsection.
+
+Prefer consistency inside a repo: either favor **`views/`** for all pages or root-level `*View` files—mixing both is fine if documented.
 
 ---
 
-## 🌐 Data Fetching & Rendering
+## How slices talk to the rest of the repo
 
-- Use **TanStack Query** for data fetching
-- Properly apply:
-  - **Server-Side Rendering (SSR)**
-  - **Client-Side Rendering (CSR)**
-- Choose the rendering strategy based on:
-  - SEO
-  - Performance
-  - UX
-- Avoid over-fetching and unnecessary re-renders
+- **Routing** — route modules (`app/`, `pages/`, `routes/`) should mostly **compose** feature `views/` and pass params; avoid duplicating domain logic there.
+- **Dependency rule (recommended)** — **`features/A`** should not import **`features/B`** implementation; shared needs go through **shared** modules or the **router** layer. Adjust strictness to your team.
+
+Path aliases (e.g. `@/features/...`) are a tooling choice, not part of the pattern itself.
 
 ---
 
-## 📝 Forms Structure & Patterns
+## Rules of thumb when adding code
 
-- **Core Libraries:**
-  - `react-hook-form` - Form state management
-  - `zod` - Schema validation
-  - `@hookform/resolvers/zod` - Integration between zod and react-hook-form
-
-- **Base Components** (from `/form.tsx`):
-  - `Form` - Wrapper around `FormProvider` from react-hook-form
-  - `FormField` - Wrapper around `Controller` for field management
-  - `FormItem` - Field container
-  - `FormLabel` - Field label
-  - `FormControl` - Input control wrapper
-  - `FormDescription` - Optional field description
-  - `FormMessage` - Error message display
-
-- **File Structure Pattern:**
-
-  ```
-  features/[feature]/
-    ├── schemas/
-    │   └── [feature].schema.ts      # Zod schema definition
-    ├── hooks/
-    │   └── use[Feature].ts          # Custom hook with useForm
-    ├── components/
-    │   └── [Feature]Form.tsx         # Form component
-    └── services/
-        └── [feature].service.ts      # API calls
-  ```
-
-- **Code Patterns:**
-  - **Schema Definition:**
-    ```ts
-    export const featureSchema = z.object({
-      field: z.string().min(1, "Field is required"),
-      // ...
-    });
-    export type FeatureFormData = z.infer<typeof featureSchema>;
-    ```
-  - **Custom Hook:**
-    ```ts
-    const form = useForm<z.infer<typeof schema>>({
-      resolver: zodResolver(schema),
-      defaultValues: {
-        /* ... */
-      },
-      mode: "onChange", // Real-time validation
-    });
-    const onSubmit = async (values) => {
-      /* ... */
-    };
-    ```
-  - **Form Component:**
-    ```ts
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="fieldName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Label</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </form>
-    </Form>
-    ```
-
-- **Common Features:**
-  - Real-time validation (`mode: "onChange"`)
-  - Separation of concerns: schema → hook → component
-  - Full TypeScript support with `z.infer<typeof schema>`
-  - Error handling with `FormMessage`
-  - Loading states and toast notifications with `sonner`
+1. **New user-facing area** → new top-level folder under `features/` (or extend the slice that already owns that journey).
+2. **New screen** → `views/` or root `*View*`, composed from `components/` + `hooks/`.
+3. **New backend or third-party integration** → `services/` first; consume from `hooks/` or server handlers.
+4. **New multi-field form** → validation in `schemas/` (if used), orchestration in a hook, markup in `components/` (see also layered form docs in your project if you maintain one).
+5. **Uncertainty** → mirror the **closest existing slice** so the repo stays predictable.
 
 ---
 
-## 🎨 UI / UX Standards
+## Naming and legacy folders
 
-- Everything must be:
-  - **100% responsive**
-    - Using **all Tailwind breakpoints**
-  - **100% compatible with Light / Dark mode**
-- Maintain:
-  - Clean design
-  - Minimalism
-  - Visual consistency
-- Respect existing UI patterns
-- Do not introduce new styles unless strictly necessary
-
-### Responsive data tables (lists)
-
-When building or refactoring a **data table** (TanStack Table, HTML `Table`, or similar) that shows **multiple columns of text, badges, amounts, and actions**:
-
-- **Mobile & small viewports** (`default` through `md` breakpoint): render a **card list**, not a horizontal scroll-only table. Use `@packages/ui` `Card` (and related primitives) so each row is a scannable block: title or primary field in the header area, secondary fields in a **2-column label grid** (same pattern as contributor **My applications** and maintainer **UX bounties** lists).
-- **Tablet and desktop** (`md` and up): keep the **table** as the primary layout (`overflow-x-auto` on the wrapper when needed).
-- **Implementation pattern:**
-  - Two sibling blocks: cards `className="md:hidden"` and table `className="hidden md:block"` (or equivalent), fed from the **same row data** (same query / same array).
-  - **Loading:** show a **card skeleton list** on small screens and the **table skeleton** on `md+`, not only one or the other.
-  - **Empty and error states** stay a single block unless a design requires otherwise.
-- **DRY:** extract shared cell content (e.g. actions, status badge) into small components reused by both the table row and the card footer/content—avoid duplicating mutation handlers or button trees.
-- Do **not** ship a wide multi-column table as the only representation on narrow screens without a card (or equally usable) alternative.
+Folder names on disk are the **source of truth** for imports. Legacy or misspelled names often persist for stability; document them in onboarding rather than “fixing” names in a drive-by change.
 
 ---
 
-## 🧠 Senior Engineering Mindset
+## Summary
 
-- Always think about:
-  - Scalability
-  - Maintainability
-  - Reusability
-  - Readability
-- Prefer **clear code over clever code**
-- Every technical decision must be justifiable
-- Avoid logic and style duplication
-- Ensure consistency across the entire monorepo
+**`features/` = one folder per domain**, with common inner folders **`components`**, **`views`** (or **`screens`**), **`hooks`** (or **`composables`**), **`services`**, and optionally **`schemas`**, **`utils`**, **`state`**. Routing and shared libraries stay **outside** the slice; **shared types and UI** live in neutral packages so features do not entangle.
+
+You can copy this file into another repository as-is and only adjust examples (e.g. `hooks/` → `composables/`) to match that codebase.
 
 ---
 > Source: [VelaPayments/vela-payments](https://github.com/VelaPayments/vela-payments) — distributed by [TomeVault](https://tomevault.io).
