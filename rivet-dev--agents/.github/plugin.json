@@ -1,0 +1,9 @@
+{
+  "name": "rivet-dev--agents",
+  "displayName": "agents",
+  "description": "A durable process per agent, with memory that survives restarts",
+  "version": "1.0.0",
+  "author": "rivet-dev",
+  "homepage": "https://github.com/rivet-dev/agents",
+  "skills": []
+}
