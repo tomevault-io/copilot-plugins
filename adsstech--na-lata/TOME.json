@@ -4,7 +4,7 @@
   "repo": "na_lata",
   "description": "Laborat\u00f3rio Flutter colaborativo com Supabase. Alunos livres para criar novas tasks, implementar funcionalidades e escrever testes. Design system e clientes compartilhados.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ADSSTech/na_lata",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T23:31:18Z"
+  "distributed_at": "2026-10-05T23:35:20Z"
 }
