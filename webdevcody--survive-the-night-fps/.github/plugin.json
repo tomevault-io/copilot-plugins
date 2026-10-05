@@ -1,0 +1,9 @@
+{
+  "name": "webdevcody--survive-the-night-fps",
+  "displayName": "survive-the-night-fps",
+  "description": "Co-op horror survival FPS - scavenge by day, board up by night, fix the car and escape. three.js client, authoritative Node uWebSockets.js server",
+  "version": "1.0.0",
+  "author": "webdevcody",
+  "homepage": "https://github.com/webdevcody/survive-the-night-fps",
+  "skills": []
+}
