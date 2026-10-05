@@ -1,0 +1,44 @@
+{
+  "name": "XY-Agent",
+  "owner": "xiaolu-ai26",
+  "repo": "XY-Agent",
+  "description": "\u95f2\u9c7c\u7535\u5546\u8fd0\u8425 Agent\uff1a\u81ea\u52a8\u9009\u54c1 / \u81ea\u52a8\u4e0a\u67b6 / RAG \u667a\u80fd\u5ba2\u670d (Python + DrissionPage + ChromaDB)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiaolu-ai26/XY-Agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T00:41:38Z"
+}
