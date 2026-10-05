@@ -1,0 +1,44 @@
+{
+  "name": "memx",
+  "owner": "shiaho777",
+  "repo": "memx",
+  "description": "MemX \u2014 ~100\u00d7 lower LLM memory on Apple, original precision. Stable planes: ~9\u00d7 phys \u00b7 ~100\u00d7 engine \u00b7 ~300\u00d7 vessel capability (bitexact).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shiaho777/memx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T03:32:02Z"
+}
