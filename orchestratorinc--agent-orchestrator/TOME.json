@@ -4,7 +4,7 @@
   "repo": "agent-orchestrator",
   "description": "Run and supervise teams of coding agents from planning to merge. Any harness (Claude code, codex, +25 more). Desktop, web, mobile, and cloud agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OrchestratorInc/agent-orchestrator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T07:30:27Z"
+  "distributed_at": "2026-10-05T07:31:27Z"
 }
