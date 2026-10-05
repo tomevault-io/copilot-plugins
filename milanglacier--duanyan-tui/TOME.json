@@ -1,0 +1,44 @@
+{
+  "name": "duanyan-tui",
+  "owner": "milanglacier",
+  "repo": "duanyan-tui",
+  "description": "\u7aef\u781a\uff1a\u57fa\u4e8e rime \u7684\u7ec8\u7aef\u4e2d\u6587\u8f93\u5165\u6cd5 TUI App\uff0c\u652f\u6301 fullscreen \u6a21\u5f0f\u4ee5\u53ca fzf inline \u6a21\u5f0f\u3002\u652f\u6301\u5f00\u7bb1\u5373\u7528\uff08\u81ea\u5e26\u767d\u971c\u65b9\u6848\uff09\uff0c\u65e0\u9700\u5b89\u88c5\u4efb\u4f55\u7cfb\u7edf\u4f9d\u8d56\u6216\u65b9\u6848\u6570\u636e\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/milanglacier/duanyan-tui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T04:42:28Z"
+}
