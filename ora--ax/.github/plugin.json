@@ -1,0 +1,9 @@
+{
+  "name": "ora--ax",
+  "displayName": "ax",
+  "description": "Score any site's agent readiness from your terminal or CI. The open-source CLI for ora.",
+  "version": "1.0.0",
+  "author": "ora",
+  "homepage": "https://github.com/ora/ax",
+  "skills": []
+}
