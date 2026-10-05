@@ -1,0 +1,44 @@
+{
+  "name": "v2rayN-Smart-Routing",
+  "owner": "lanyun122",
+  "repo": "v2rayN-Smart-Routing",
+  "description": "Maintained routing rules for v2rayN with LAN direct access, ad blocking, AI/media routing, fixed exchange egress and one-click import.\uff5c\u53ef\u7ef4\u62a4\u7684 v2rayN \u667a\u80fd\u5206\u6d41\u89c4\u5219\u96c6\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lanyun122/v2rayN-Smart-Routing",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T10:30:25Z"
+}
