@@ -4,7 +4,7 @@
   "repo": "vela-payments",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/VelaPayments/vela-payments",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T23:30:24Z"
+  "distributed_at": "2026-10-05T23:42:16Z"
 }
