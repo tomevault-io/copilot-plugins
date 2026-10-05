@@ -1,0 +1,9 @@
+{
+  "name": "kismet-engineering--polykube",
+  "displayName": "polykube",
+  "description": "Multicloud Kubernetes Workloads",
+  "version": "1.0.0",
+  "author": "Kismet-Engineering",
+  "homepage": "https://github.com/Kismet-Engineering/polykube",
+  "skills": []
+}
