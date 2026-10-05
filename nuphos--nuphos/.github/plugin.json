@@ -1,0 +1,9 @@
+{
+  "name": "nuphos--nuphos",
+  "displayName": "nuphos",
+  "description": "The agent workspace for your team \u2014 run, manage and collaborate on coding agents across people, machines and tools.",
+  "version": "1.0.0",
+  "author": "nuphos",
+  "homepage": "https://github.com/nuphos/nuphos",
+  "skills": []
+}
