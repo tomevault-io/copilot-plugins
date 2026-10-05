@@ -1,0 +1,9 @@
+{
+  "name": "georgernstgraf--polished-recognition",
+  "displayName": "polished-recognition",
+  "description": "A voice keyboard for Android powered by your own AI \u2014 dictate, and polished text appears. Bring your own OpenAI-compatible STT + LLM.",
+  "version": "1.0.0",
+  "author": "georgernstgraf",
+  "homepage": "https://github.com/georgernstgraf/polished-recognition",
+  "skills": []
+}
