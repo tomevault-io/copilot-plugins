@@ -1,0 +1,9 @@
+{
+  "name": "chmouel--liseur-sync",
+  "displayName": "liseur-sync",
+  "description": "Self-hostable reading-position sync and statistics server for Liseur, KOReader, and friends",
+  "version": "1.0.0",
+  "author": "chmouel",
+  "homepage": "https://github.com/chmouel/liseur-sync",
+  "skills": []
+}
