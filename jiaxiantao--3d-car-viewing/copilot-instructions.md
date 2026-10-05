@@ -1,48 +1,28 @@
-## 3d-car-viewing
+## git-commit-on-session
 
-> <!-- BEGIN:nextjs-agent-rules -->
+> 仅在用户明确要求时才提交并推送到 GitHub；改完代码不要自动 commit/push
 
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+# Git 提交与推送约定
 
-# 3D Car Viewing
+远程仓库：`https://github.com/jiaxiantao/3d-car-viewing.git`（`origin` / `main`）
 
-Browser showroom: https://jiaxiantao.github.io/3d-car-viewing/
+## 默认行为
 
-Repository: https://github.com/jiaxiantao/3d-car-viewing
+- 完成代码或配置改动后，**不要**自动 `git add` / `git commit` / `git push`。
+- 只有用户明确说要提交、推送、或「提交并推送」时，才执行对应动作。
+- 未获明确指示时，可在回复中简要说明有哪些未提交改动，等用户确认后再操作。
 
-Source code is MIT. GLB files under `public/models/` are third-party and are not MIT. Read `documentation/ATTRIBUTION.md` before adding, replacing, or redistributing models.
+## 用户要求提交 / 推送时
 
-Machine-readable index for answer engines: `public/llms.txt` and `public/llms-full.txt`. Citation file: `CITATION.cff`.
+1. 并行执行 `git status`、`git diff`、`git log -1 --oneline`。
+2. 不要提交 `.env` 或含密钥的文件；`.env.example` 可以提交。
+3. 有改动时：`git add`（相关文件）→ `git commit`（HEREDOC 写清「为什么」）。
+4. 仅在用户要求推送时执行 `git push origin main`（或当前分支）；只说「提交」则只 commit、不 push。
+5. 若无任何可提交改动且已同步远程，不要空提交。
+6. 不要使用 `git push --force` 到 `main`，除非用户明确要求。
 
-## Commands
-
-```bash
-pnpm install
-pnpm dev
-pnpm test
-pnpm typecheck
-pnpm lint
-```
-
-## Where to change behavior
-
-- Car list and GLB paths: `src/lib/car-categories.ts`
-- Mesh discovery: `src/lib/asset-car-rig/`
-- Per-model name overrides: `src/lib/market-rig-profiles.ts`
-- URL query (`model`, `paint`, `camera`, `mode`, `light`): `src/lib/use-showroom-url-state.ts`
-- Venues and day/night lighting: `src/lib/showroom-scene-modes.ts`
-- Page state, presets, and capability gating: `src/lib/use-showroom-page-state.ts`
-- Canvas lifecycle: `src/components/car-showroom-scene.tsx`
-
-`mode=day` and `mode=night` are legacy studio links. New links use `mode=studio|hall|road` and `light=day|night`.
-
-## Checks before finishing
-
-Run `pnpm test`, `pnpm typecheck`, and `pnpm lint`. Do not commit `.env` files. Do not claim the bundled car meshes are MIT.
+在最终回复中简短告知：commit hash（如有）、分支、push 是否成功（若执行了 push）。
 
 ---
 > Source: [jiaxiantao/3d-car-viewing](https://github.com/jiaxiantao/3d-car-viewing) — distributed by [TomeVault](https://tomevault.io).
