@@ -4,7 +4,7 @@
   "repo": "engrava",
   "description": "The memory database for AI agents - graph memory, hybrid search, tamper-evident thought/edge journal.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sovantica/engrava",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T08:31:24Z"
+  "distributed_at": "2026-10-05T08:33:54Z"
 }
