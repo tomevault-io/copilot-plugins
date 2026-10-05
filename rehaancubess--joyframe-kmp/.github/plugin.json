@@ -1,0 +1,9 @@
+{
+  "name": "rehaancubess--joyframe-kmp",
+  "displayName": "joyframe-kmp",
+  "description": "Kotlin Multiplatform game toolkit: 3D rendering, water, chase camera, split screen, controllers and audio on Android, iOS, desktop and web.",
+  "version": "1.0.0",
+  "author": "rehaancubess",
+  "homepage": "https://github.com/rehaancubess/joyframe-kmp",
+  "skills": []
+}
