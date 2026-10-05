@@ -1,0 +1,9 @@
+{
+  "name": "aristo94--gsqhalo-cpp",
+  "displayName": "GSQHalo.cpp",
+  "description": "llama.cpp fork for GSQ-quantized Qwen3.8-Flash-Next on AMD Strix Halo (gfx1151): faster ROCm prefill, MTP that fits 2\u00d7256K, persistent KV cache on SSD. Fork of halo-box/strix-llama.cpp.",
+  "version": "1.0.0",
+  "author": "Aristo94",
+  "homepage": "https://github.com/Aristo94/GSQHalo.cpp",
+  "skills": []
+}
