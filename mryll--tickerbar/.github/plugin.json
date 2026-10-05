@@ -1,0 +1,9 @@
+{
+  "name": "mryll--tickerbar",
+  "displayName": "tickerbar",
+  "description": "Market prices for Waybar and the Omarchy shell. Crypto, stocks, indices, forex, and BYMA. No API key. Rust, AUR.",
+  "version": "1.0.0",
+  "author": "mryll",
+  "homepage": "https://github.com/mryll/tickerbar",
+  "skills": []
+}
