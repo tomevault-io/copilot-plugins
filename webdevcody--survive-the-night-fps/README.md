@@ -7,11 +7,11 @@ Co-op horror survival FPS - scavenge by day, board up by night, fix the car and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [webdevcody/survive-the-night-fps](https://github.com/webdevcody/survive-the-night-fps).
+Original source: `AGENTS.md` in [webdevcody/survive-the-night-fps](https://github.com/webdevcody/survive-the-night-fps).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
