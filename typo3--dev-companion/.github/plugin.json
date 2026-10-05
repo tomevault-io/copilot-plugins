@@ -1,0 +1,9 @@
+{
+  "name": "typo3--dev-companion",
+  "displayName": "dev-companion",
+  "description": "A local MCP server (plain PHP) that gives MCP-enabled clients a curated TYPO3 knowledge base, for the three audiences that work with TYPO3: the core contributor, the extension author, and the site dev",
+  "version": "1.0.0",
+  "author": "TYPO3",
+  "homepage": "https://github.com/TYPO3/dev-companion",
+  "skills": []
+}
