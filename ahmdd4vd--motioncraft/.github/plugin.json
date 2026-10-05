@@ -1,0 +1,9 @@
+{
+  "name": "ahmdd4vd--motioncraft",
+  "displayName": "MotionCraft",
+  "description": "Clean, high-taste motion graphics videos made by your AI agent with Remotion. One-command Agent Skill: npx skills add ahmdd4vd/motioncraft",
+  "version": "1.0.0",
+  "author": "ahmdd4vd",
+  "homepage": "https://github.com/ahmdd4vd/MotionCraft",
+  "skills": []
+}
