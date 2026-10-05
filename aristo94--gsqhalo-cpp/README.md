@@ -7,11 +7,11 @@ llama.cpp fork for GSQ-quantized Qwen3.8-Flash-Next on AMD Strix Halo (gfx1151):
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Aristo94/GSQHalo.cpp](https://github.com/Aristo94/GSQHalo.cpp).
+Original source: `CLAUDE.md` in [Aristo94/GSQHalo.cpp](https://github.com/Aristo94/GSQHalo.cpp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
