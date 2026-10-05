@@ -1,0 +1,9 @@
+{
+  "name": "dewil--ai-control",
+  "displayName": "ai-control",
+  "description": "Manage Claude Code and Codex agents across projects: remote sessions, background tasks, Telegram control, and a web panel for answering questions and reviewing results.",
+  "version": "1.0.0",
+  "author": "dewil",
+  "homepage": "https://github.com/dewil/ai-control",
+  "skills": []
+}
