@@ -1,0 +1,9 @@
+{
+  "name": "orchestratorinc--agent-orchestrator",
+  "displayName": "agent-orchestrator",
+  "description": "Run and supervise teams of coding agents from planning to merge. Any harness (Claude code, codex, +25 more). Desktop, web, mobile, and cloud agents.",
+  "version": "1.0.0",
+  "author": "OrchestratorInc",
+  "homepage": "https://github.com/OrchestratorInc/agent-orchestrator",
+  "skills": []
+}
