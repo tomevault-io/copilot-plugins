@@ -1,0 +1,9 @@
+{
+  "name": "frust-rs--frust",
+  "displayName": "frust",
+  "description": "Frust \u2014 a Rust-native, mobile-first declarative UI framework",
+  "version": "1.0.0",
+  "author": "frust-rs",
+  "homepage": "https://github.com/frust-rs/frust",
+  "skills": []
+}
