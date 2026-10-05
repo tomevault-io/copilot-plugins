@@ -1,0 +1,44 @@
+{
+  "name": "ninfer-v100-tpx",
+  "owner": "huangserva",
+  "repo": "ninfer-v100-tpx",
+  "description": "\u4e24\u5f20 V100 \u8dd1 Qwen3.8-27B \u5230 100 tok/s\uff08186K \u4e0a\u4e0b\u6587\uff09\uff1a\u91cd\u5199 sm70 \u6ce8\u610f\u529b\u5185\u6838 + \u591a\u5361\u5f20\u91cf\u5e76\u884c\u3002Fork of geoffwatts/ninfer-v100.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/huangserva/ninfer-v100-tpx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T02:39:01Z"
+}
