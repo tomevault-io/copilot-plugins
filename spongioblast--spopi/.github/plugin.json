@@ -1,0 +1,9 @@
+{
+  "name": "spongioblast--spopi",
+  "displayName": "spopi",
+  "description": "SPOPI: A desktop GUI for the Pi coding agent. Editor, diff review, checkpoints and LSP around pi --mode rpc, with the session tree, live steering, context composition and local-model metrics Cursor hi",
+  "version": "1.0.0",
+  "author": "spongioblast",
+  "homepage": "https://github.com/spongioblast/spopi",
+  "skills": []
+}
