@@ -7,11 +7,11 @@ Skills that make the agent prove it. Straight from Nagi Studio's .agents directo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nagi-studio/skills](https://github.com/nagi-studio/skills).
+Original source: `CLAUDE.md` in [nagi-studio/skills](https://github.com/nagi-studio/skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
