@@ -1,0 +1,86 @@
+## margin-words
+
+> A static reader for English novels, for Chinese junior-high learners. It is a plain Vite + React 19 +
+
+# Margin Words: project notes
+
+A static reader for English novels, for Chinese junior-high learners. It is a plain Vite + React 19 +
+Tailwind 4 + zustand single-page app. It has no AI calls. The reader works fully with no account.
+Optional accounts (email, password, and sync of shelf, progress, saved words, and settings) are
+Cloudflare Pages Functions in `functions/` plus a D1 database. See docs/ACCOUNTS.md. Do not store user
+data in R2. Books and word lists come from **book packs** (see README.md, "Reader and book packs"). A pack is one `.zip` with exactly `book.epub` + `glossary.json` (docs/book-pack-spec.md, section 3; `src/lib/pack-check.ts`, used by the pack tools in `scripts/`). **The app has no file import**: books are added ONLY from the Discover page, and only by a signed-in reader (`canAddBooks` in `src/lib/can-add.ts`; signed-out visitors browse everything, the add button says "Sign in to add", and books already stored on the device stay readable). A word-list book takes the reader's own EPUB from its Discover card (the own-EPUB dialog with the 80% match check). A standalone EPUB is never imported as a new book.
+
+## Where to work
+
+- Develop, push, and open pull requests only in the public repository
+  `https://github.com/duwqijlk/margin-words`.
+- The private archive `https://github.com/duwqijlk/margin-words-archive` was archived by the owner on
+  2026-10-04. It is read-only. Pull requests #1 through #34 stay there. #1 through #32 still contain
+  copyrighted EPUB files, so that archive must stay private. Do not unarchive it, and do not make it public.
+  Do not develop, push, or open pull requests there.
+- The site is not connected to GitHub. The Cloudflare Pages project is `margin-words`. The domains are
+  `https://inputread.site` and `https://www.inputread.site`. D1 and R2 do not follow the repository.
+  Archiving the old repository does not take the site down.
+- Copyrighted EPUBs live only in the private bucket `margin-words-private`. Public-domain EPUBs live on
+  `https://books.inputread.site`. Do not put a third-party EPUB in git. The only EPUB in this history is
+  `examples/sample-book/the-lantern-seller.epub`.
+- Deploy stays manual, from this public repository: `npm run build` (leave `VITE_BOOKS_BASE` unset; an empty
+  value is `npm run build:local`, for tests only), then
+  `npx wrangler pages deploy dist --project-name margin-words --branch main`. That deploy uploads the built
+  site (`dist/` and `functions/`). Do not upload `dist-books/`, `packs/`, or `dist-private/` with it.
+
+## Rules
+
+- The UI has two languages, `en` and `zh`. Every visible string (labels, aria-labels, toasts, errors) goes
+  through `useT()` / `tr()` from `src/lib/i18n.ts` and lives in BOTH `src/lib/i18n-en.ts` (plain, simple English)
+  and `src/lib/i18n-zh.ts` (simple Simplified Chinese for junior-high students). Both must have the same keys (tsc
+  and `npm test` check this). Book content (meanings, paragraph/sentence help, phrases, titles) is English and is
+  never translated.
+- Chinese text is allowed ONLY in `src/lib/i18n-zh.ts`, `docs/` and `README.zh-CN.md`. No Chinese in other
+  files of `src/`, `public/`, `packs/`, `examples/` or `scripts/`. `npm run check:cjk` must pass. (The Chinese
+  text of the guide page in the app is in `docs/guide-chrome.json` and built into `dist/kit/`, never stored in `public/`.)
+- Never change the reading layout when a panel opens. Panels are overlays. Test with a layout-shift run.
+- The pack word lists (`packs/<id>/glossary.json`) are book content. Do not edit them by hand; copy them
+  byte for byte. `node scripts/build-packs.mjs --check` must pass.
+- No network call may depend on a server of ours except the optional account API on the same Pages
+ host (`/api/*`, Pages Functions + D1). The reader may only fetch the catalog and pack files the user
+ chose, plus that same-origin account API when someone is signed in. Book files stay on the books host.
+
+## Commands
+
+- `npm run dev` : dev server (also serves `/packs/*`, `/public-books/*` and `/word-lists/*` from the repo; book URLs stay on this origin)
+- `npx vite build` (or `npm run build`) : static front end in `dist/` only (HTML, JS, CSS, fonts, guide). Book files are not in `dist/`. The build bakes `https://books.inputread.site` unless `VITE_BOOKS_BASE` is set. `npm run build:local` sets it empty so a preview server can serve the repo copies (used by e2e).
+- `npm run build:books` : write `dist-books/`, the object keys to upload to the books bucket (loose `public-books/` epub, glossary, cover, catalog; loose `word-lists/` glossaries, card-sized `cover.jpg` when `packs/<id>/cover.jpg` exists, and catalog). No zip, no `all-packs.zip`, no copyrighted EPUB. A word-list book with no cover keeps the generated cover in the app.
+- `npm run build:private` : write `dist-private/`, every copyrighted pack's EPUB (when it has one) plus its glossary and cover. Upload that folder to the private R2 bucket `margin-words-private`. That bucket has no public access. The app never fetches it. Never put `dist-private/` inside `dist/` or `dist-books/`.
+- Upload (set `BUCKET` to the bucket for `https://books.inputread.site`): `cd dist-books && find . -type f | sed 's|^\./||' | while read -r key; do npx wrangler r2 object put "$BUCKET/$key" --file "$key" --remote; done`. The same keys work with the S3 API. The bucket must allow cross-origin reads from `https://inputread.site`, `https://www.inputread.site`, `https://margin-words.pages.dev` and localhost, or the service worker cannot keep a book after it is opened.
+- `node scripts/build-packs.mjs` : rebuild `packs/catalog.json` and the local sideload zips (not uploaded)
+- `node scripts/build-packs.mjs --out public-books` : rebuild the catalog and local zips of the free classics. The hosted catalog drops the zip entries.
+- `node scripts/build-site.mjs` : `site/` = `dist/` + `packs/` (private local folder, not the public books host)
+- `node scripts/validate-glossary.mjs packs/<id>/book.epub packs/<id>/glossary.json`
+- `npx tsc --noEmit`, `npm run check:cjk`, `npm run check:example`, `npm test`
+- `node scripts/build-guide.mjs --check` : the tiny in-app page (`/kit/`: title, 2-3 lines, one Download button) is made from `docs/guide-chrome.json` at build time. It serves `/kit/book-pack-kit.zip`.
+- `npm run build:kit` : writes `book-pack-kit.zip` = `docs/book-pack-spec.md` + `examples/sample-book/` (EPUB + glossary.json) + `the-lantern-seller.pack.zip` (a ready-to-import pack).
+- `node scripts/make-pack.mjs book.epub glossary.json out.pack.zip` : build and check one pack zip. `vite build` builds the same zip into `dist/kit/`.
+- `npm run make:sample` : rewrite `examples/sample-book/the-lantern-seller.epub`
+- A spine file the chapter list already shows keeps its chapter index and paragraph indexes. Files the reader used to drop (and only those) are extras: own ids `x0`, `x1`, …, spine order, labelled Extra. Word anchors and phrase notes do not resolve on an extra. A contents file with zero paragraphs is not inserted as a numbered chapter. The following non-contents spine files, up to the next contents file, are one extra in that reading-order place, titled with the contents title (`fromToc` on `EpubExtra`). A contents title that is front matter (Cover, Title Page, Copyright, Contents, and the same kind of label) is not recovered: those following files stay separate extras, with the same ids as before. A sentence note may set `chapter` to a recovered id only when `fromToc` is set. A paragraph note may set `chapter` to any extra id (`x2`, `x3`, an appendix included) and is placed by the paragraph-lightbulb rule. A short heading file is not this case, and its split files stay ordinary extras. The empty or one-entry contents fallback (one spine file, one chapter) is unchanged and has no extras. Optional glossary field `"spine": { "merge": { "<dropped href or manifest id>": "<contents chapter href>" } }` appends a dropped file after that chapter's existing paragraphs (`applySpineMerge` in `src/lib/epub.ts`). The file's title is shown as a heading in front of the appended paragraphs when the file does not already have that heading. The heading is not a paragraph and its words are not counted (`data-merge-title`), so paragraph indexes and word occurrences stay put. A merge key may name the empty contents file or a content file absorbed into that extra; either name, or both, appends that extra once. A name that matches no spine item is a warning from the glossary check, and it names the key. A key that matches a spine item but merges nothing into or from that file warns too (`spine.merge key "<key>" matches a spine item but nothing is merged into or from it.`). The command-line check prints it, and the app shows it in the own-EPUB dialog (the one place a reader pairs a book with a list). The checker is `scripts/validate-glossary.mjs` in a git checkout, not in `dist/` or the kit zip: `node scripts/validate-glossary.mjs book.epub glossary.json` from the repository root. The validator accepts the field. Do not put it into a pack glossary by hand; teachers add it for the books that need it (Magic Tree House 33 `split_009`, Wings of Fire 3 `part0006_split_001` and `part0005_split_001`, Wings of Fire 4 `split_013`, Wings of Fire 5 `split_014`). Optional top-level `"segmentation": 2` splits a chapter-wrapper blockquote (a `calibre` class, or a blockquote that contains an `h1`–`h4`) into its headings and paragraphs (`skipNestedParagraph` in `src/lib/flow-text.ts`). Without that field a blockquote stays one paragraph, byte for byte the same as before, so a live note on `c2.p0` stays on `c2.p0`. Magic Tree House 33 sets the field. Magic Tree House 17 and 24 leave it off until their notes are re-anchored. `node scripts/seg-report.mjs <epub> <glossary.json>` prints chapter ids, segment ids, a hash per chapter, and whether segmentation is on.
+- Glossary entries may carry `senseOnly: true` (optional boolean; docs/GLOSSARY_FORMAT.md 7.5, docs/book-pack-spec.md 4.7). Such an entry holds only position-based senses, and the reader underlines/opens the word ONLY at the places its senses name (`readingHtml`, `entryAppliesAt` in `src/lib/glossary-format.ts`). The flag must survive every copy of the list: validator (`validateGlossary`), `applyGlossary`, `applyPackGlossary`, and the stored `Gloss` in IndexedDB (`gloss:<bookId>`). `node scripts/sense-only-e2e.mjs` checks this end to end (needs the e2e preview server, see `scripts/e2e-ui.mjs`).
+- For anyone (or any AI) who makes packs: `docs/book-pack-spec.md`. Keep it in step with `src/lib/glossary-format.ts`; `npm run check:example` validates its JSON example.
+
+## App structure notes
+
+- Routes: `/shelf`, `/discover`, `/guide`, `/words`, `/read/<bookId>` (`src/lib/router.ts`, History API; `/` redirects to `/shelf`). `/about` is the old About page and opens `/guide`. Pages are lazy chunks. `public/_redirects` is the SPA fallback; `public/_headers` sets `no-cache` for the shell and `immutable` for `/assets/*`. The service worker stays and is network-first for navigations; `_headers`/`_redirects` are never precached. The static kit page is `/kit/`.
+- On wide screens (`lg`, 1024px and up) the reading column stays centered at the text-width setting. The word, phrase, and paragraph cards float over the text near the tapped word and do not cover that word. Phones keep the bottom sheet. Tablets (`md` up to `lg`) keep the right-hand column. Opening a panel never shifts the text.
+- One book = one shelf card: identity matching is in `src/lib/shelf-identity.ts`. `repairShelf()` (merge duplicates) and `refreshCovers()` (re-derive covers, catalog cover cache-busted by `cover.sha256`) run on load (`src/lib/shelf-repair.ts`).
+- A new shelf is empty (`src/components/first-book.tsx` suggests Alice; its card and the empty-shelf text link to Discover; nothing is preinstalled). Alice has no special case. The shelf has no add button: the header links to Discover.
+- Word lists update by themselves: on catalog load (app boot and Discover) `autoUpdateWordLists()` (`src/lib/word-list-update.ts`) replaces the glossary of every installed book whose catalog `rev` changed — one book at a time, EPUB/reading place/saved words/settings kept. The decisions are pure (`planListUpdate`, `checkListAgainstBook`, `wordListUpdateActions` in `src/lib/word-list-plan.ts`): a hand-added or edited list (`extras.source === "custom"`) is never replaced, not even by the manual Update path (that path skips `applyPackGlossary` and only moves the saved copy and the revision on), and its Discover card says the edited list is kept instead of offering an Update button; a classic whose book file changed, or a word-list book whose new list matches the reader's EPUB under 80%, keeps the old list and shows the manual Update button on its Discover card with the reason; offline or open-in-the-reader books wait for the next load. A quiet banner says how many books were updated (`msg.listsUpdated`).
+- Global wordbook: one card per lemma (`src/lib/wordbook.ts`, `vocab-store.ts`), each with `sources[]` (book key, title, chapter, sentence, anchor). The SRS schedule fields are unchanged. Sync kind `wordbook` (27 letter shards) in `sync-merge.ts`/`sync-diff.ts`/`sync-engine.ts`; legacy per-book `words` items are folded in on pull and never rewritten.
+- File-independent places: `src/lib/position.ts` (`TextAnchor` = word-list paragraph id + quote + offset, resolved per device, nearest-paragraph fallback). Reading positions and word sources carry one; the old chapter/scroll stays as a hint. A reading position may also set optional `extraId` (`x2`, `x3`); restore then uses the anchor inside that extra (`restoreReadingPlace`). Both fields stay optional, so an older save with neither or only one still loads. Never download or swap a book file for sync.
+- Paragraph lightbulb: a PERMANENT small bulb (no hover-follow) next to every paragraph that owns a note, in the margin on wide screens and at the text edge on phones; geometry in `src/lib/paragraph-bulbs.ts` (`planBulbs`), drawn position-fixed by `ParagraphBulbs` in `help-panels.tsx` so the text never moves. A paragraph owns a note (`resolveParagraphNotes` in `src/lib/paragraph-note.ts`, over all chapters of the book, including extra spine files (`x0`, `x1`, …): own id + `context` (an extra id such as `x2` names that extra), else the nearest paragraph of its chapter holding the context, else the whole book, but only when exactly ONE paragraph there holds the context (every matching paragraph counts, in numbered chapters and in extras, also one that owns notes; 0 or 2+ matches = no bulb, one match = the note joins that paragraph and the first note placed stays primary; `onUnresolved` reports it, and `help-lookup.ts` logs it in dev); `help-lookup.ts` loads the stored chapters and extras; real non-blank English `mainIdea` and `simple`; no length minimum; a note never lights other paragraphs). The help panel uses the same owner. Senses with `trickyMeaning: true` get the wavy `book-tricky` mark only at the anchored token (`trickyAt`; boolean only).
+- Guide page: `src/components/guide-page.tsx`, `/guide`. One menu item for how to use the app and about the site (marks, notebook, accounts, privacy, copyright, contact). Contact from `VITE_CONTACT_EMAIL` (`src/lib/site-info.ts`). `/about` opens this page.
+- Series stacks: `src/lib/shelf-stacks.ts`, `src/components/series-stack.tsx`.
+- Text extraction treats `<br>`, `<hr>` and block boundaries as one space (`src/lib/flow-text.ts`); stored HTML and token indexes are unchanged, and example matching tolerates words glued at a `<br>`.
+- Tests: `npm test` (unit), `node scripts/e2e-ui.mjs`, `npm run test:routes`, `node scripts/wordbook-e2e.mjs` (wordbook, positions, About), `npm run test:sense-only` (the e2e ones need `npm run build:local` plus a preview server).
+
+---
+> Source: [duwqijlk/margin-words](https://github.com/duwqijlk/margin-words) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-05 -->
