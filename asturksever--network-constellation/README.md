@@ -7,11 +7,11 @@ See who you know: a 3D map of your LinkedIn connections, clustered by what peopl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [asturksever/network-constellation](https://github.com/asturksever/network-constellation).
+Original source: `CLAUDE.md` in [asturksever/network-constellation](https://github.com/asturksever/network-constellation).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
