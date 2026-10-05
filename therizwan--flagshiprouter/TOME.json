@@ -1,0 +1,44 @@
+{
+  "name": "FlagshipRouter",
+  "owner": "theRizwan",
+  "repo": "FlagshipRouter",
+  "description": "Free AI models for every coding tool \u2014 a local OpenAI-compatible gateway for Claude Code, Codex, Cursor, Cline and OpenCode. Based on 9router (MIT).",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/theRizwan/FlagshipRouter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T04:39:15Z"
+}
