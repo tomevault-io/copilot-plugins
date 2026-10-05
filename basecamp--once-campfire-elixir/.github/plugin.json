@@ -1,0 +1,9 @@
+{
+  "name": "basecamp--once-campfire-elixir",
+  "displayName": "once-campfire-elixir",
+  "description": "Campfire ported to Elixir, with Rails compatibility checks and Rust benchmark comparisons",
+  "version": "1.0.0",
+  "author": "basecamp",
+  "homepage": "https://github.com/basecamp/once-campfire-elixir",
+  "skills": []
+}
