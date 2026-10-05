@@ -4,7 +4,7 @@
   "repo": "mdcp",
   "description": "MarkDown Context Protocol is an AI Skill that assists with managing documentation",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/betsalel-williamson/mdcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T00:36:49Z"
+  "distributed_at": "2026-10-05T00:42:29Z"
 }
