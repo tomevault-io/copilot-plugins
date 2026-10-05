@@ -4,7 +4,7 @@
   "repo": "framejam",
   "description": "Make videos with your coding agent: pick a style, then point at the frame and say what to change. Works with Hyperframes, Remotion or any video tool, over MCP.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/moritzkremb/framejam",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T20:32:10Z"
+  "distributed_at": "2026-10-05T20:32:48Z"
 }
