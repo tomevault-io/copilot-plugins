@@ -1,0 +1,9 @@
+{
+  "name": "drowzeys--keys-tensorfold-glm-5-3-tp4-4x-dgx-spark",
+  "displayName": "keys-TensorFold-GLM-5.3-TP4-4x-DGX-Spark",
+  "description": "Full GLM-5.3 (753B) served by TensorFold with tensor parallel 4 across four NVIDIA DGX Sparks: results, recipe, node settings, benches",
+  "version": "1.0.0",
+  "author": "drowzeys",
+  "homepage": "https://github.com/drowzeys/keys-TensorFold-GLM-5.3-TP4-4x-DGX-Spark",
+  "skills": []
+}
