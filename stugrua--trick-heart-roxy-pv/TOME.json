@@ -1,0 +1,44 @@
+{
+  "name": "trick-heart-roxy-pv",
+  "owner": "StuGRua",
+  "repo": "trick-heart-roxy-pv",
+  "description": "\u6d1b\u742a\u5e0c\u300a\u9b54\u672f\u4e4b\u5fc3\u300b\u89c6\u89c9\u4e8c\u521b\uff1aAI\u4eba\u7269\u5dee\u5206\u3001Python\u5408\u6210\u3001\u5b57\u5e55\u4e0e\u5b8c\u6574\u590d\u73b0\u5de5\u7a0b\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/StuGRua/trick-heart-roxy-pv",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T10:36:14Z"
+}
