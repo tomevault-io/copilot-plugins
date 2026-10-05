@@ -1,0 +1,9 @@
+{
+  "name": "alejandro-publius--blackbox-datahub",
+  "displayName": "blackbox-datahub",
+  "description": "BlackBox, Grand Prize winner of the Build with DataHub Agent Hackathon 2026. Autonomous data incident response with an evidence gate, verified repair, real PRs, and DataHub write-back.",
+  "version": "1.0.0",
+  "author": "alejandro-publius",
+  "homepage": "https://github.com/alejandro-publius/blackbox-datahub",
+  "skills": []
+}
