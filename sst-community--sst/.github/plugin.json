@@ -1,0 +1,9 @@
+{
+  "name": "sst-community--sst",
+  "displayName": "sst",
+  "description": "Community-maintained fork of SST (anomalyco/sst). Not affiliated with SST or Anomaly.",
+  "version": "1.0.0",
+  "author": "sst-community",
+  "homepage": "https://github.com/sst-community/sst",
+  "skills": []
+}
