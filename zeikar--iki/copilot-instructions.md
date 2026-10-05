@@ -1,0 +1,42 @@
+## iki
+
+> Read [README.md](./README.md) first for what Iki is, the package map, and the roadmap.
+
+# AGENTS
+
+Read [README.md](./README.md) first for what Iki is, the package map, and the roadmap.
+
+## Core Rules
+
+- Keep the engine host-agnostic: `@ikijs/engine` depends only on `@ikijs/format`. It must never import a host framework (e.g. Charivo); hosts consume Iki through their own thin adapter.
+- Preserve the layering: `@ikijs/format` (schema/types/validator) -> `@ikijs/engine` (runtime) -> examples / host adapters. Do not collapse these boundaries.
+- `@ikijs/format` is the single source of truth for the `.iki` model contract. Engine code reads the format types; it does not redefine them.
+- Validate external/model input in `@ikijs/format` and throw `IkiFormatError` with a path-qualified message. Never let unchecked data reach the renderer, and do not fail silently.
+- Match the surrounding style. Keep changes surgical — every changed line should trace to the request.
+
+## Format versioning
+
+- `IKI_FORMAT_VERSION` identifies the `.iki` model contract.
+- **Before 1.0**, v1 is unstable: the schema may change (including tightening or removing fields) without a version bump. The packages are published from 0.1.0 on, so such a change DOES reach users — a 0.x release can reject a model an earlier one accepted. Call it out in the changeset even though no bump is required.
+- **From 1.0 on**, any breaking change to the `.iki` schema must bump `IKI_FORMAT_VERSION`.
+
+## Claude Code plugin
+
+- `plugin/` is the Claude Code plugin — the character-generation skills, their two agents, and `.mcp.json` — published from the root `.claude-plugin/marketplace.json` and declared for this repo in `.claude/settings.json`. `.claude/` keeps only what is meaningless outside a checkout (`iki-visual-test`).
+- Those skills document the auto-rig contract: the role table, the `compose_layers_from_parts`, `measure_layers` and `auto_rig_from_layers` schemas, the parameter ids, and the `@ikijs/mcp` range pinned in `.mcp.json`. Change one of those in `packages/` and update `plugin/` in the SAME commit — that co-location is why the plugin lives here instead of its own repo.
+- Bump `plugin/.claude-plugin/plugin.json` `version` by hand. The plugin is not an npm package, so it takes no changeset.
+
+## Validation
+
+- Run `pnpm verify` (build + typecheck + format:check) for repo-wide validation.
+- Never read the full output of long build commands — check the exit code, or `tail` the summary.
+
+## Versioning (packages)
+
+- Publishable packages (`@ikijs/*`, excluding the private examples `@ikijs/playground` and `@ikijs/editor-app`) use Changesets. Add one with `pnpm changeset` when a package changes in a way that should reach npm.
+- Use `minor` for public API or `.iki` format-contract changes, `patch` for fixes and non-breaking updates.
+- Do not add a changeset for example-only or docs-only changes.
+
+---
+> Source: [zeikar/iki](https://github.com/zeikar/iki) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-05 -->
