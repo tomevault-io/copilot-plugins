@@ -1,0 +1,9 @@
+{
+  "name": "codewhale-hq--codewhale",
+  "displayName": "Codewhale",
+  "description": "Open-source coding agent for your terminal, built in Rust and on a journey of continuous community improvement. Issues and PRs welcome.",
+  "version": "1.0.0",
+  "author": "codewhale-hq",
+  "homepage": "https://github.com/codewhale-hq/Codewhale",
+  "skills": []
+}
