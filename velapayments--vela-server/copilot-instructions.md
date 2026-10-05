@@ -1,54 +1,57 @@
-## nest-modules
+## prisma
 
-> NestJS module, controller, and service patterns for core-api
+> Prisma schema and database conventions for core-api
 
 
-# NestJS Module Patterns
+# Prisma & Database Conventions
 
-## Controllers
+## Schema Conventions
 
-- Thin layer: validate input, delegate to service, return response
-- Always decorate with `@ApiTags('feature')` and `@ApiOperation()`
-- Use DTOs for request validation (never raw `body: any`)
-- Anti-farming check: maintainers cannot earn FoxPoints in their own projects
+- Table names use `@@map("snake_case")` — Prisma models use PascalCase
+- UUIDs for all primary keys: `@id @default(uuid()) @db.Uuid`
+- Always add `created_at` and `updated_at` timestamps
+- Use enums for finite states: `ProjectStatus`, `ApplicationStatus`, `TierLevel`, etc.
+- Use `BigInt` for GitHub IDs (`github_repo_id`, `github_issue_id`, `github_pr_id`)
+
+## Relations & Cascade
+
+- `onDelete: Cascade` for child records that shouldn't exist without parent (IssueApplication → Issue, Issue → Repository)
+- `onDelete: SetNull` for optional associations (Issue → Campaign)
+- Always add `@@index` on FK columns and frequently queried fields
+- Use `@@unique` for composite natural keys (e.g. `[repository_id, github_issue_number]`)
+
+## Prisma Usage in Services
 
 ```typescript
-@ApiTags('feature')
-@Controller('feature')
-export class FeatureController {
-  constructor(private readonly featureService: FeatureService) {}
+// Transactions for multi-step writes
+await this.prisma.$transaction(async (tx) => {
+  await tx.model.create({ data: { ... } });
+  await tx.otherModel.update({ where: { ... }, data: { ... } });
+});
 
-  @Post()
-  @ApiOperation({ summary: 'Create feature' })
-  async create(
-    @Body() dto: CreateFeatureDto,
-    @CurrentUser() user: JwtPayload,
-  ) {
-    return this.featureService.create(dto, user.user_id);
-  }
-}
+// Use updateMany when the record might not exist (avoids throwing)
+await this.prisma.issue.updateMany({
+  where: { repository_id: repoId, github_issue_number: issueNum },
+  data: { state: 'closed' },
+});
+
+// Use deleteMany for safe deletes (no throw if not found)
+await this.prisma.issue.deleteMany({
+  where: { repository_id: repoId, github_issue_number: issueNum },
+});
 ```
 
-## Services
+## Commands
 
-- All business logic, validations, and Prisma queries live here
-- Validate existence before operations (`findUnique` → `NotFoundException`)
-- Validate permissions before mutations (`ForbiddenException`)
-- Use transactions for multi-step writes: `this.prisma.$transaction(async (tx) => { ... })`
-- Emit events for cross-module side effects: `this.eventEmitter.emit('event.name', payload)`
+| Command | Use |
+|---------|-----|
+| `npm run prisma:generate` | After schema changes |
+| `npm run prisma:migrate` | Create migration (production) |
+| `npm run prisma:push` | Push schema (dev only) |
+| `npm run prisma:studio` | Visual DB browser |
+| `npm run prisma:seed` | Seed data (TierDefinitions, categories) |
 
-## DTOs
-
-- Use `class-validator` decorators: `@IsString()`, `@IsUUID()`, `@IsOptional()`, etc.
-- Use `class-transformer`: `@Transform()`, `@Type()`
-- Export types from DTOs, never define inline types in controllers
-- Follow naming: `Create{Feature}Dto`, `Update{Feature}Dto`, `{Feature}ResponseDto`
-
-## Module Registration
-
-- Import `DatabaseModule` is global — no need to import in each module
-- Export services that other modules need
-- Use `forwardRef()` only when circular deps are unavoidable
+See `docs/DATABASE.md` for full setup guide.
 
 ---
 > Source: [VelaPayments/vela-server](https://github.com/VelaPayments/vela-server) — distributed by [TomeVault](https://tomevault.io).
