@@ -1,0 +1,9 @@
+{
+  "name": "jadzziaa--moonglow-toolset",
+  "displayName": "moonglow-toolset",
+  "description": "A cross-platform reimplementation of the Neverwinter Nights: Enhanced Edition Aurora Toolset (Rust, egui, wgpu)",
+  "version": "1.0.0",
+  "author": "jadzziaa",
+  "homepage": "https://github.com/jadzziaa/moonglow-toolset",
+  "skills": []
+}
