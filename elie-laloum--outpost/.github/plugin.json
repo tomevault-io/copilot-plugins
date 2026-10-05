@@ -1,0 +1,9 @@
+{
+  "name": "elie-laloum--outpost",
+  "displayName": "outpost",
+  "description": "TypeScript library for reusable coding-agent sandboxes, Git workspaces and typed workflows.",
+  "version": "1.0.0",
+  "author": "elie-laloum",
+  "homepage": "https://github.com/elie-laloum/outpost",
+  "skills": []
+}
