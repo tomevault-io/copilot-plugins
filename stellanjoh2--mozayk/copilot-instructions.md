@@ -1,0 +1,36 @@
+## backdrop-frost
+
+> Never break About overlay or theme-shelf mosaic frost
+
+
+# Mosaic frost (`backdrop-filter`) — do not regress
+
+This has broken many times. Do not "simplify" stacking, portals, blur layers, or CSS minify.
+
+`backdrop-filter` only samples what is **behind that element**, and only if no ancestor is a backdrop root (`isolation`, `transform`, `filter`, `opacity < 1`, `zoom`, `overflow` other than visible).
+
+## Production CSS
+
+- Keep `build.cssMinify: false` in `vite.config.ts`.
+- LightningCSS minify rewrites `backdrop-filter` to `-webkit-backdrop-filter` only. Chrome ignores that, so frost works in `vite dev` and dies on GitHub Pages.
+- `npm run check:frost` must stay in the Pages deploy workflow.
+
+## About overlay
+
+- Keep it portaled to `document.body`.
+- Put **tint and blur on the same node** (`.about-overlay.is-open`).
+- Do not use `::before` for blur while the parent has a fill — that frosts the wash, not the mosaic.
+- Question modals (confirm / reset / video-import / import-error) use a **transparent** click-catcher — no fullscreen wash. A tint dim blinks frost chrome even without `backdrop-filter` on the overlay.
+- Busy overlay / new-canvas wipe / About still need full-viewport effects; call `pauseFrost()` for those mounts so shelf/tips/menus solidify instead of re-blurring.
+
+## Colour theme shelf
+
+- Keep it portaled to `document.body` with `position: fixed`.
+- `z-index: 1`, `.app-chrome` at `z-index: 2` so it still slides out **from behind** the controls. Do not raise the shelf above chrome.
+- Slide with `left` / `--ui-chrome-width`, never `transform` on the frost node.
+- Do not nest it in `.app-chrome` (zoom + overflow clip the backdrop to empty chrome).
+- Never put `isolation: isolate` on `.app-chrome`.
+
+---
+> Source: [stellanjoh2/mozayk](https://github.com/stellanjoh2/mozayk) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-05 -->
