@@ -1,0 +1,9 @@
+{
+  "name": "huangserva--ninfer-v100-tpx",
+  "displayName": "ninfer-v100-tpx",
+  "description": "\u4e24\u5f20 V100 \u8dd1 Qwen3.8-27B \u5230 100 tok/s\uff08186K \u4e0a\u4e0b\u6587\uff09\uff1a\u91cd\u5199 sm70 \u6ce8\u610f\u529b\u5185\u6838 + \u591a\u5361\u5f20\u91cf\u5e76\u884c\u3002Fork of geoffwatts/ninfer-v100.",
+  "version": "1.0.0",
+  "author": "huangserva",
+  "homepage": "https://github.com/huangserva/ninfer-v100-tpx",
+  "skills": []
+}
