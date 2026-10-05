@@ -1,0 +1,9 @@
+{
+  "name": "dun-john--worldspring",
+  "displayName": "worldspring",
+  "description": "A procedural fantasy world for tabletop games, from the continent down to the battlemap, in the browser (Rust/WASM + Svelte/PixiJS)",
+  "version": "1.0.0",
+  "author": "Dun-John",
+  "homepage": "https://github.com/Dun-John/worldspring",
+  "skills": []
+}
