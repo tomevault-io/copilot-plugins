@@ -1,0 +1,9 @@
+{
+  "name": "thorazine--charger-invoice",
+  "displayName": "charger-invoice",
+  "description": "A backend in Laravel to make invoices for your own car charger",
+  "version": "1.0.0",
+  "author": "Thorazine",
+  "homepage": "https://github.com/Thorazine/charger-invoice",
+  "skills": []
+}
