@@ -1,0 +1,9 @@
+{
+  "name": "jason5330--ai-memory-system",
+  "displayName": "ai-memory-system",
+  "description": "Self-evolving memory for Claude Code & Codex \u2014 two-layer (personal + per-project), reflects into doctrine, harvests repeated workflows into skills, hard-blocks broken tools.",
+  "version": "1.0.0",
+  "author": "Jason5330",
+  "homepage": "https://github.com/Jason5330/ai-memory-system",
+  "skills": []
+}
