@@ -4,7 +4,7 @@
   "repo": "Codewhale",
   "description": "Open-source coding agent for your terminal, built in Rust and on a journey of continuous community improvement. Issues and PRs welcome.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/codewhale-hq/Codewhale",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T11:30:31Z"
+  "distributed_at": "2026-10-05T11:31:32Z"
 }
