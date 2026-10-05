@@ -1,0 +1,9 @@
+{
+  "name": "thankost--pedal-cues",
+  "displayName": "pedal-cues",
+  "description": "Drag-and-drop MIDI cues for Quad Cortex, Kemper, Fractal, Helix, HeadRush, Whammy and any MIDI device (VST3 / AU / LV2 / Standalone)",
+  "version": "1.0.0",
+  "author": "thankost",
+  "homepage": "https://github.com/thankost/pedal-cues",
+  "skills": []
+}
