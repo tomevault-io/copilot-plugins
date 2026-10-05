@@ -1,0 +1,9 @@
+{
+  "name": "dog-hero--pg-lens",
+  "displayName": "pg_lens",
+  "description": "A blazing-fast, modern TUI for PostgreSQL observability",
+  "version": "1.0.0",
+  "author": "dog-hero",
+  "homepage": "https://github.com/dog-hero/pg_lens",
+  "skills": []
+}
