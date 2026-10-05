@@ -1,0 +1,9 @@
+{
+  "name": "yichen-zju--claude-for-research",
+  "displayName": "claude-for-research",
+  "description": "Autonomous research for Claude Code: literature, ideas, unattended experiments, writing and review. 115 skills, two loops.",
+  "version": "1.0.0",
+  "author": "Yichen-ZJU",
+  "homepage": "https://github.com/Yichen-ZJU/claude-for-research",
+  "skills": []
+}
