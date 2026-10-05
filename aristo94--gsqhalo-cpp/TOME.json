@@ -4,7 +4,7 @@
   "repo": "GSQHalo.cpp",
   "description": "llama.cpp fork for GSQ-quantized Qwen3.8-Flash-Next on AMD Strix Halo (gfx1151): faster ROCm prefill, MTP that fits 2\u00d7256K, persistent KV cache on SSD. Fork of halo-box/strix-llama.cpp.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Aristo94/GSQHalo.cpp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T02:37:18Z"
+  "distributed_at": "2026-10-05T02:41:35Z"
 }
