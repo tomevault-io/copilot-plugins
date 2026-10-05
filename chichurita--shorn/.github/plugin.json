@@ -1,0 +1,9 @@
+{
+  "name": "chichurita--shorn",
+  "displayName": "shorn",
+  "description": "Compact binary serialization for Zod, Valibot, and ArkType",
+  "version": "1.0.0",
+  "author": "ChiChuRita",
+  "homepage": "https://github.com/ChiChuRita/shorn",
+  "skills": []
+}
