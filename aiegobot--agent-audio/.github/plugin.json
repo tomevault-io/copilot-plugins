@@ -1,0 +1,9 @@
+{
+  "name": "aiegobot--agent-audio",
+  "displayName": "agent-audio",
+  "description": "Standalone local audio generation MCP and Agent Skill for AI coding agents. Install Stable Audio 3 Medium and generate sound effects and music without ComfyUI.",
+  "version": "1.0.0",
+  "author": "AIEGOBOT",
+  "homepage": "https://github.com/AIEGOBOT/agent-audio",
+  "skills": []
+}
