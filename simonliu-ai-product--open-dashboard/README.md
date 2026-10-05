@@ -7,11 +7,11 @@ Describe the dashboard you want. Your coding agent builds it — live, over your
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [simonliu-ai-product/open-dashboard](https://github.com/simonliu-ai-product/open-dashboard).
+Original source: `CLAUDE.md` in [simonliu-ai-product/open-dashboard](https://github.com/simonliu-ai-product/open-dashboard).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
