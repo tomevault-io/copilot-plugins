@@ -1,0 +1,44 @@
+{
+  "name": "ecommerce-store",
+  "owner": "hussain-gull",
+  "repo": "ecommerce-store",
+  "description": "Full-stack ecommerce platform in a Turborepo monorepo: Next.js 16 storefront, React + Vite admin panel and Express 5 + Prisma API. PostgreSQL, Redis, Cloudinary and Resend. Cart, wishlist, manual JazzCash checkout with payment-proof review, JWT auth with revocable refresh tokens, JSON-driven branding. MIT licensed.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hussain-gull/ecommerce-store",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T08:30:27Z"
+}
