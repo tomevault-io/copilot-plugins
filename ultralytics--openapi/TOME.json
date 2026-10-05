@@ -4,7 +4,7 @@
   "repo": "openapi",
   "description": "Generate interactive API documentation and typed Python SDKs from any OpenAPI specification",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ultralytics/openapi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T23:03:02Z"
+  "distributed_at": "2026-10-05T23:17:20Z"
 }
