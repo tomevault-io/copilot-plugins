@@ -1,0 +1,9 @@
+{
+  "name": "iyansr--d1-studio",
+  "displayName": "d1-studio",
+  "description": "Zero-config studio for Cloudflare D1, local or remote",
+  "version": "1.0.0",
+  "author": "iyansr",
+  "homepage": "https://github.com/iyansr/d1-studio",
+  "skills": []
+}
