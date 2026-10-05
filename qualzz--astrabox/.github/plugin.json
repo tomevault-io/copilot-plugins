@@ -1,0 +1,9 @@
+{
+  "name": "qualzz--astrabox",
+  "displayName": "astrabox",
+  "description": "Create, play and reshape arcade games with Codex. Local-first, browser-based, optional Raspberry Pi cabinet.",
+  "version": "1.0.0",
+  "author": "Qualzz",
+  "homepage": "https://github.com/Qualzz/astrabox",
+  "skills": []
+}
