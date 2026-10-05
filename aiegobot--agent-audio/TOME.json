@@ -1,0 +1,44 @@
+{
+  "name": "agent-audio",
+  "owner": "AIEGOBOT",
+  "repo": "agent-audio",
+  "description": "Standalone local audio generation MCP and Agent Skill for AI coding agents. Install Stable Audio 3 Medium and generate sound effects and music without ComfyUI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AIEGOBOT/agent-audio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T13:31:33Z"
+}
