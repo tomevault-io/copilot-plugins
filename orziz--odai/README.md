@@ -5,22 +5,18 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [orziz/odai](https://github.com/orziz/odai).
+Original source: `` in [orziz/odai](https://github.com/orziz/odai).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [odai](https://github.com/orziz/odai/tree/main/skills/odai/SKILL.md)
-- [odai](https://github.com/orziz/odai/tree/main/skills/skill-author/SKILL.md)
-
-From [orziz/odai](https://github.com/orziz/odai) — a repo with 76+ stars on GitHub.
+From [orziz/odai](https://github.com/orziz/odai) — a repo with 95+ stars on GitHub.
 
 ---
 
