@@ -1,120 +1,63 @@
-## backend-architecture
+## core-api
 
-> Core API architecture and project structure for Vela
+> Core backend conventions for the NestJS Vela server
 
 
-# Core API Architecture — Vela
+# Backend Core — Vela server
 
-## Architecture Overview
+You are a Senior Backend Engineer working on a **NestJS API** with **Prisma** and **Supabase PostgreSQL**.
 
-NestJS + Prisma + Supabase Auth, organized by **feature modules** with global guards.
+## Architecture
 
-```
-Request → Helmet / CORS → ThrottlerGuard → SupabaseAuthGuard → RolesGuard → Controller → Service → Prisma → PostgreSQL
-```
-
-- **Auth is global**: `SupabaseAuthGuard` and `RolesGuard` registered as `APP_GUARD`. No need for `@UseGuards()` on controllers.
-- **Public endpoints**: Use `@Public()` decorator.
-- **Optional auth**: Use `@OptionalAuth()` to enrich response when token is present.
-- **New user flow**: Use `@AllowNewUsers()` for registration endpoints.
-- **Role-based access**: Use `@Roles(UserRole.ADMIN)` etc.
-- **Events for decoupling**: Use `EventEmitter2` to emit events instead of importing other feature modules directly.
+- **Clean Architecture**: Controllers → Services → PrismaService → Database
+- All business logic lives in **Services**, never in Controllers
+- Controllers only handle HTTP concerns (params, auth, delegation to service, response)
+- Database access is exclusively through **PrismaService** (global module)
 
 ## Project Structure
 
 ```
-vela-server/
-├── prisma/
-│   ├── schema.prisma
-│   └── seed.ts
-│
-├── src/
-│   ├── main.ts                          # Bootstrap: Helmet, CORS, ValidationPipe, Swagger
-│   ├── app.module.ts                    # Root module: ConfigModule, Throttler, EventEmitter, guards
-│   │
-│   ├── auth/                            # Auth module (self-contained)
-│   │   ├── auth.module.ts              # Imports PassportModule, provides SupabaseStrategy
-│   │   ├── index.ts                    # Barrel export
-│   │   ├── interfaces/
-│   │   │   ├── authenticated-user.interface.ts
-│   │   │   └── jwt-payload.interface.ts
-│   │   ├── strategies/
-│   │   │   └── supabase.strategy.ts    # Validates JWT via Supabase, looks up user in DB
-│   │   ├── guards/
-│   │   │   ├── supabase-auth.guard.ts  # Handles @Public, @OptionalAuth, @AllowNewUsers
-│   │   │   └── roles.guard.ts          # Checks @Roles() metadata
-│   │   └── decorators/
-│   │       ├── public.decorator.ts
-│   │       ├── roles.decorator.ts
-│   │       ├── current-user.decorator.ts
-│   │       ├── allow-new-users.decorator.ts
-│   │       └── optional-auth.decorator.ts
-│   │
-│   ├── database/                        # Global database module
-│   │   ├── database.module.ts
-│   │   ├── prisma.service.ts           # PrismaClient + pg adapter + lifecycle hooks
-│   │   └── index.ts
-│   │
-│   └── modules/                         # Feature modules
-│       ├── users/
-│       │   ├── users.module.ts
-│       │   ├── users.controller.ts
-│       │   ├── users.service.ts
-│       │   ├── users.controller.spec.ts
-│       │   ├── users.service.spec.ts
-│       │   └── dto/
-│       │       ├── index.ts
-│       │       ├── create-user.dto.ts
-│       │       ├── update-user.dto.ts
-│       │       └── ...
-│       │
-│       ├── payment-requests/
-│       ├── payments/
-│       ├── transactions/
-│       └── ...
-│
-├── test/                                # E2E tests
-├── .env.example
-├── package.json
-├── tsconfig.json
-└── prisma.config.ts
+src/modules/{feature}/
+├── {feature}.module.ts
+├── {feature}.controller.ts
+├── {feature}.service.ts
+├── {feature}.controller.spec.ts
+├── {feature}.service.spec.ts
+└── dto/
+    ├── create-{feature}.dto.ts
+    └── update-{feature}.dto.ts
 ```
 
-## Key Conventions
+## TypeScript Standards
 
-### Feature Module Pattern
-Each module is self-contained: `module.ts`, `controller.ts`, `service.ts`, `dto/`, `*.spec.ts`.
-Register every new module in `app.module.ts` imports.
+- **Strict TypeScript** — never use `any` (use `unknown` + type narrowing instead)
+- Explicitly type all function parameters and return types
+- No unused variables, imports, or functions
+- No unnecessary comments — code should be self-documenting
 
-### Controller Rules
-- Thin controllers: validate access, delegate to service, return result.
-- Use `@CurrentUser()` with `AuthenticatedUser` type (never `any`).
-- Use `ForbiddenException` for access control, `BadRequestException` for validation.
-- All endpoints must have `@ApiOperation`, `@ApiResponse`, `@ApiParam`/`@ApiQuery` for Swagger.
+## NestJS Conventions
 
-### Service Rules
-- All business logic lives in services.
-- Throw HTTP exceptions directly (`NotFoundException`, `ConflictException`, etc.).
-- Use `EventEmitter2` for side effects (notifications, activity logs, reputation).
-- Never import other feature modules — use events for cross-module communication.
+- Use `class-validator` + `class-transformer` for DTOs
+- Use `@ApiTags`, `@ApiOperation` on all controllers (Swagger)
+- Use custom `@Public()` decorator for unauthenticated endpoints
+- Use `@CurrentUser()` decorator to get the authenticated user
+- Errors must use NestJS exceptions: `NotFoundException`, `ForbiddenException`, `BadRequestException`, etc.
+- Use `EventEmitter2` for cross-module communication (notifications, audit logs)
 
-### DTO Rules
-- Use `class-validator` decorators on every field.
-- Use `@ApiProperty` / `@ApiPropertyOptional` for Swagger docs.
-- Use `@Transform()` for normalization (trim, lowercase, etc.).
+## Error Handling
 
-### Imports
-```typescript
-// Auth decorators/interfaces — always from barrel
-import { CurrentUser, Roles, Public, AllowNewUsers, OptionalAuth } from '../../auth';
-import { AuthenticatedUser } from '../../auth/interfaces';
+- Business validation failures: throw specific NestJS HTTP exceptions (e.g. `BadRequestException`, `ConflictException`)
+- Database errors: let Prisma exceptions propagate (handled by global filter)
 
-// Prisma — from database module
-import { PrismaService } from '../../database/prisma.service';
+## Documentation
 
-// Prisma enums — from @prisma/client
-import { StellarNetwork, PaymentStatus } from '@prisma/client';
-```
+Detailed docs for each subsystem live in `docs/`. Reference them for deep context:
+
+- `vela-overview.md` — overall product flows and UX
+- `server-build-plan.md` — server backend build plan
+- `server-build-plan-consolidated.md` — consolidated plan
+- `unit-tests.md` — testing patterns and conventions
+- `DATABASE.md` — Prisma setup and commands
 
 ---
 > Source: [VelaPayments/vela-server](https://github.com/VelaPayments/vela-server) — distributed by [TomeVault](https://tomevault.io).
