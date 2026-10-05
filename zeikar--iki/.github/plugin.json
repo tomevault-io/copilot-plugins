@@ -1,0 +1,9 @@
+{
+  "name": "zeikar--iki",
+  "displayName": "iki",
+  "description": "The open Live2D alternative that AI can build \u2014 a free, MIT-licensed 2D puppet engine for the web, with an open .iki format, an AI auto-rigger and a bundled Claude Code plugin.",
+  "version": "1.0.0",
+  "author": "zeikar",
+  "homepage": "https://github.com/zeikar/iki",
+  "skills": []
+}
