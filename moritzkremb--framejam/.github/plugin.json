@@ -1,0 +1,9 @@
+{
+  "name": "moritzkremb--framejam",
+  "displayName": "framejam",
+  "description": "Make videos with your coding agent: pick a style, then point at the frame and say what to change. Works with Hyperframes, Remotion or any video tool, over MCP.",
+  "version": "1.0.0",
+  "author": "moritzkremb",
+  "homepage": "https://github.com/moritzkremb/framejam",
+  "skills": []
+}
