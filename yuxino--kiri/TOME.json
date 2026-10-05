@@ -1,8 +1,8 @@
 {
-  "name": "kiri",
+  "name": "Kiri",
   "owner": "yuxino",
-  "repo": "kiri",
-  "description": "",
+  "repo": "Kiri",
+  "description": "A screenshot and screen recording app for macOS, Windows, and Linux. \u622a\u56fe\u4e0e\u5f55\u5c4f\u5de5\u5177\uff0c\u652f\u6301\u6807\u6ce8\u548c\u6587\u5b57\u8bc6\u522b\uff0c\u7d20\u6750\u4fdd\u5b58\u5728\u672c\u673a\u3002",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/yuxino/kiri",
+  "source_url": "https://github.com/yuxino/Kiri",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T19:08:04Z"
+  "distributed_at": "2026-10-05T23:33:04Z"
 }
