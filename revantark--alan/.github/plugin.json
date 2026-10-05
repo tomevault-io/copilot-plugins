@@ -1,0 +1,9 @@
+{
+  "name": "revantark--alan",
+  "displayName": "alan",
+  "description": "Alan is a minimal coding agent for your terminal, built in Rust. It lets you explore codebases, make edits, answer questions, and run commands with the help of an LLM.",
+  "version": "1.0.0",
+  "author": "Revantark",
+  "homepage": "https://github.com/Revantark/alan",
+  "skills": []
+}
