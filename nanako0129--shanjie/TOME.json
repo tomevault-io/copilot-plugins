@@ -1,0 +1,44 @@
+{
+  "name": "shanjie",
+  "owner": "Nanako0129",
+  "repo": "shanjie",
+  "description": "\u5584\u89e3\uff1a\u4ee5\u9078\u5c0d\u540c\u97f3\u5b57\u70ba\u7b2c\u4e00\u512a\u5148\u7684\u958b\u6e90 macOS \u6ce8\u97f3\u8f38\u5165\u6cd5\uff08\u958b\u767c\u4e2d\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Nanako0129/shanjie",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T19:31:25Z"
+}
