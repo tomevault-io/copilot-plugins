@@ -1,0 +1,9 @@
+{
+  "name": "indeliblevivi--agent-memory-study",
+  "displayName": "agent-memory-study",
+  "description": "Source-linked readings and reproducible studies of agent memory, belief revision, and experience reuse.",
+  "version": "1.0.0",
+  "author": "IndelibleVivi",
+  "homepage": "https://github.com/IndelibleVivi/agent-memory-study",
+  "skills": []
+}
