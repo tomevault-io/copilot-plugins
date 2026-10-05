@@ -1,10 +1,10 @@
 {
-  "name": "HextaUI",
+  "name": "hextaui",
   "owner": "preetsuthar17",
-  "repo": "HextaUI",
-  "description": "Ready-to-use foundation components/blocks built on top of shadcn/ui.",
+  "repo": "hextaui",
+  "description": "beautiful components built on top of shadcn/ui",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/preetsuthar17/HextaUI",
+  "source_url": "https://github.com/preetsuthar17/hextaui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T02:22:20Z"
+  "distributed_at": "2026-10-05T15:32:21Z"
 }
