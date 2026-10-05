@@ -1,138 +1,64 @@
 ## mcpvault
 
-> MCPVault is a Model Context Protocol (MCP) server that provides a universal AI bridge for Obsidian vaults. It enables any MCP-compatible AI assistant (Claude, ChatGPT, Gemini, etc.) to safely read and write notes in Obsidian vaults while preserving YAML frontmatter and enforcing security boundaries.
+> This website serves content in two formats. When updating content, **both must be updated together**:
 
-# Agent Instructions
+# Website Agent Instructions
 
-## Project Overview
+## Dual Content Maintenance
 
-MCPVault is a Model Context Protocol (MCP) server that provides a universal AI bridge for Obsidian vaults. It enables any MCP-compatible AI assistant (Claude, ChatGPT, Gemini, etc.) to safely read and write notes in Obsidian vaults while preserving YAML frontmatter and enforcing security boundaries.
-
-## Commands
-
-```bash
-# MCP server
-npm run build          # Compile TypeScript to dist/
-npm test               # Run test suite (Vitest)
-npm run test:watch     # Tests in watch mode
-npm start /path/vault  # Run server locally with tsx
-
-# Single test
-npm test -- path/to/test.test.ts
-npm test -- -t "test name pattern"
-
-# Publishing
-npm run publish:dry     # Dry run
-npm run publish:beta    # Publish with beta tag
-npm run publish:latest  # Publish as latest
-
-# Website
-npm run website         # Start Astro dev server with Bun (http://localhost:4321)
-
-# MCP Inspector
-npx @modelcontextprotocol/inspector npm start /path/to/vault
-```
-
-## Architecture
-
-### File Structure
-
-```
-server.ts              # MCP server entry point, tool registration, request handlers
-src/
-  filesystem.ts        # FileSystemService — all file operations with security
-  frontmatter.ts       # FrontmatterHandler — YAML parsing via gray-matter
-  pathfilter.ts        # PathFilter — security layer for path validation
-  search.ts            # SearchService — full-text search with token-optimized output
-  uri.ts               # Obsidian URI generation
-  types.ts             # All TypeScript interfaces
-  *.test.ts            # Co-located test files
-website/               # Astro 5 website (separate package, see website/AGENTS.md)
-```
-
-### Core Components
-
-**server.ts** — Entry point. Registers 15 MCP tools, handles CLI args (--help, --version, vault path), initializes services, routes tool calls. Auto-trims whitespace from all path arguments.
-
-**FileSystemService** (`src/filesystem.ts`) — Orchestrates file ops with security. Path resolution and traversal prevention. Implements: read, write, patch, delete, move, list, batch read, frontmatter update, tag management, vault stats. Uses native `fs/promises`.
-
-**FrontmatterHandler** (`src/frontmatter.ts`) — Parses/stringifies YAML frontmatter via `gray-matter`. Validates structure (blocks functions, symbols, invalid types). Preserves original content.
-
-**PathFilter** (`src/pathfilter.ts`) — Blocks `.obsidian/`, `.git/`, `node_modules/`, system files, dot files. Note tools allow `.md`, `.markdown`, `.txt`; directory listings may include other file types by filename. Checks path components independently.
-
-**SearchService** (`src/search.ts`) — Content and frontmatter search with multi-word matching and BM25 relevance reranking. Returns token-optimized results with minified field names: `{p, t, ex, mc, ln, uri}`. Max 20 results.
-
-### 15 MCP Tools
-
-| Tool | Description |
-|------|-------------|
-| read_note | Read a single note with frontmatter |
-| write_note | Create or overwrite (supports overwrite, append, prepend modes) |
-| patch_note | Efficient partial update via find-and-replace |
-| list_directory | List files and folders in the vault |
-| delete_note | Delete a note (requires path confirmation) |
-| search_notes | Full-text search across vault content |
-| move_note | Move or rename a note |
-| move_file | Move or rename any file (binary-safe, file-only, requires path confirmation) |
-| read_multiple_notes | Batch read up to 10 notes |
-| update_frontmatter | Safely update YAML frontmatter |
-| get_notes_info | Get metadata without reading content |
-| get_frontmatter | Extract frontmatter only |
-| manage_tags | Add, remove, or list tags |
-| get_vault_stats | Vault statistics: total notes, folders, size, recent files |
-| list_all_tags | List all tags across the vault with occurrence counts |
-
-### Design Patterns
-
-- **Service layer**: Each service has single responsibility, dependency-injected into server.ts, independently testable
-- **Security-first**: All paths validated through PathFilter, `resolvePath()` prevents traversal, confirmation required for destructive ops
-- **Token optimization**: Minified field names by default (`fm` not `frontmatter`), optional `prettyPrint` parameter, compact search format
-- **Error handling**: Structured results with `success` boolean, failed batch ops return partial results (`ok` + `err` arrays)
-
-### Key Implementation Details
-
-- **Paths**: Always relative to vault root. Leading slashes stripped. Whitespace trimmed automatically.
-- **Frontmatter**: Always use FrontmatterHandler for read/write. `originalContent` field has raw file content. Empty frontmatter = no YAML block.
-- **Write modes**: overwrite (default), append (content to end, merge frontmatter), prepend (content to beginning, merge frontmatter)
-- **Patch**: Exact string match including whitespace/newlines. `replaceAll: false` (default) fails on multiple matches to prevent accidents.
-- **Version**: Read from `package.json` at runtime. Used in MCP server init, --version flag, and website nav badge.
-
-## Website (Dual Content)
-
-The `website/` directory is a separate Astro package. It serves content in two formats that **must be kept in sync**:
+This website serves content in two formats. When updating content, **both must be updated together**:
 
 | Format | Location | Audience |
 |--------|----------|----------|
-| HTML (rich, interactive) | `website/src/components/` | Browsers |
-| Markdown (plain text) | `website/public/*.md` + `llm.txt` | LLMs and AI agents |
+| HTML pages | `src/components/*.astro`, `src/components/*.tsx` | Browsers (rich, interactive) |
+| Markdown pages | `public/*.md`, `public/llm.txt` | LLMs and AI agents (plain text) |
 
-When updating content, always update both. See `website/AGENTS.md` for full details and file mapping.
+The markdown files are simplified representations of the same content shown in the HTML pages. They are NOT auto-generated — they are manually maintained static files.
 
-## Testing
+### When adding or changing content:
+1. Update the Astro/React component in `src/components/`
+2. Update the corresponding `.md` file in `public/`
+3. If adding a new page, also update `public/llm.txt` (the index file agents read first)
 
-Vitest with globals enabled, node environment. Test files co-located as `*.test.ts`.
+### File mapping:
 
-When writing tests:
-- Test both success and error cases
-- Test path security (traversal, access denied)
-- Test frontmatter parsing edge cases
-- Use `Promise.allSettled` patterns for batch operations
+| Page | Component(s) | Markdown |
+|------|-------------|----------|
+| Home `/` | `Hero.astro`, `UpdateCallout.astro` | `public/index.md` |
+| Install `/install` | `Terminal.astro` | `public/install.md` |
+| Features `/features` | `FeatureGrid.astro`, `ComparisonTable.astro` | `public/features.md` |
+| Demo `/demo` | `InteractiveDemo.tsx` | `public/demo.md` |
+| How It Works `/how-it-works` | `HowItWorks.astro` | `public/how-it-works.md` |
 
-## Security
+## Architecture
 
-When modifying file operations:
-- Always validate paths through PathFilter
-- Always use `resolvePath()` to prevent traversal
-- Never expose system directories or configuration
-- Validate frontmatter before writing
-- Require confirmation for destructive operations
+- **Framework**: Astro 5.x with React islands for interactive components
+- **Styling**: Tailwind CSS with custom dark theme (`tailwind.config.mjs`)
+- **View Transitions**: Astro `ClientRouter` for SPA-like page transitions
+- **Nav**: `Nav.astro` uses `transition:persist` to stay mounted across navigations
+- **Layout**: Single `Layout.astro` wraps all pages with shared head, meta tags, background effects
 
-## Config Files
+## Key Technical Details
 
-- `tsconfig.json` — Main TypeScript config (strict mode, ES2022)
-- `tsconfig.build.json` — Build config (excludes tests, outputs to `dist/`)
-- `vitest.config.ts` — Test config (globals, node environment)
+- The version number is read from the root `../../package.json` (monorepo structure)
+- The nav version badge and Hero version display both pull from `package.json`
+- `InteractiveDemo.tsx` and `ResponseRenderer.tsx` are React client components — use `client:visible` or `client:only="react"` directives
+- Theme color is `#0a0a0a` (near-black) — set on `<html>` element, `<meta name="theme-color">`, `<meta name="color-scheme">`, and `::view-transition-group(root)` to prevent white flash during transitions
+
+## Demo Accuracy
+
+The demo examples in `InteractiveDemo.tsx` and `HowItWorks.astro` show actual MCP tool request/response formats. When modifying the MCP server tools (in `server.ts` or `src/`), verify demos still match:
+
+- Tool parameter names and types must match `server.ts` `ListToolsRequestSchema`
+- Response formats must match the `CallToolRequestSchema` handler output
+- The server currently has **15 tools** — this count appears in `FeatureGrid.astro`, `public/features.md`, `public/llm.txt`, and `public/how-it-works.md`
+
+## Commands
+
+- `npm run dev` — Start dev server (http://localhost:4321)
+- `npm run build` — Type-check with `astro check` then build to `dist/`
+- From project root: `npm run website` — Starts the dev server
 
 ---
 > Source: [bitbonsai/mcpvault](https://github.com/bitbonsai/mcpvault) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
