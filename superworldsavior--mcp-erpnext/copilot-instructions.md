@@ -1,0 +1,546 @@
+## mcp-erpnext
+
+> Repository guidelines for AI coding agents working on this codebase.
+
+# AGENTS.md
+
+Repository guidelines for AI coding agents working on this codebase.
+
+- Repo: https://github.com/Casys-AI/mcp-erpnext
+- In chat replies, file references must be repo-root relative only (example:
+  `src/tools/sales.ts:42`); never absolute paths.
+
+## Project Overview
+
+MCP server that lets AI agents operate an ERPNext/Frappe instance: documents,
+workflows, and interactive UI viewers. Published as `@casys/mcp-erpnext` on npm
+(Node bundle) and JSR (Deno).
+
+## Project Structure & Module Organization
+
+- **Entry points**: `mod.ts` (JSR public API), `server.ts` (MCP server — stdio +
+  HTTP).
+- **Config**: `deno.json` is the primary config (version, tasks, import map).
+  `src/ui/package.json` manages UI-only npm deps (React, Vite, Recharts).
+- **Source code**: all under `src/`. Server-side TypeScript uses Deno
+  conventions; UI viewers use Vite/React with standard npm imports.
+- **Tool categories**: one file per category under `src/tools/` (`sales.ts`,
+  `inventory.ts`, `accounting.ts`, etc.). All registered in `src/tools/mod.ts`.
+- **Tests**: colocated with source files (Deno convention) — `foo.ts` /
+  `foo_test.ts`. Not all modules have tests yet; the convention is the target,
+  not a guarantee.
+- **UI viewers**: each viewer is a standalone React app under
+  `src/ui/{viewer-name}/`, bundled to a single HTML file. Built output goes to
+  `src/ui/dist/` (gitignored but included in published artifacts via `deno.json`
+  publish config).
+- **Kanban**: `src/kanban/` contains types, definitions, field-utils, and
+  per-DocType adapters in `adapters/`.
+- **Cache**: `src/cache/` — pluggable `Cache` interface, `MemoryCache`/
+  `NoopCache` implementations, app-wide singleton.
+- **Runtime adapters**: `src/runtime.ts` (Deno) and `src/runtime.node.ts`
+  (Node.js) — the build script swaps them.
+- **Scripts**: `scripts/build-node.sh` produces the npm bundle.
+- **Docs**: `docs/` contains roadmap, known issues, and coverage notes.
+- Keep UI-only deps in `src/ui/package.json`; do not add them to `deno.json`.
+  Conversely, server-side deps go in the `deno.json` import map.
+
+## Build, Test, and Development Commands
+
+```bash
+# Run all tests (also: deno task test)
+deno test --allow-all src/
+
+# Run a single test file
+deno test --allow-all src/tools/sales_test.ts
+
+# Type check
+deno check mod.ts server.ts
+
+# Format (Deno built-in)
+deno fmt
+
+# Lint (Deno built-in)
+deno lint
+
+# Start HTTP server (dev)
+deno task serve                    # --http --port=3012
+
+# Start with MCP inspector
+deno task inspect
+
+# Compile to standalone binary
+deno task compile
+
+# Build UI viewers
+deno task ui:build                 # or: cd src/ui && npm ci && node build-all.mjs
+
+# Build Node.js npm bundle
+deno task ui:build && ./scripts/build-node.sh
+
+# Full local release preflight (does not publish)
+deno task release:check
+
+# Dev a specific UI viewer with HMR
+cd src/ui && npm run dev:kanban    # also: dev:invoice, dev:stock, dev:doclist
+```
+
+- Runtime baseline: **Deno 2.x** (development), **Node 20+** (npm bundle target
+  — CI uses Node 22).
+- If UI deps are missing, run `cd src/ui && npm ci` (prefer `npm ci` over
+  `npm install` for reproducibility).
+- Run `deno test --allow-all src/` before pushing when you touch logic.
+- Run `deno check mod.ts server.ts` to verify type safety after changes.
+- Hard gate: if the change affects the build pipeline or published surfaces,
+  `scripts/build-node.sh` must be tested.
+
+## Architecture
+
+### Dual-runtime design
+
+The project runs on **Deno** (development/JSR) and **Node.js** (npm).
+Platform-specific APIs are abstracted through a runtime adapter:
+
+- `src/runtime.ts` — Deno implementation (uses `Deno.env`, `Deno.readTextFile`,
+  etc.)
+- `src/runtime.node.ts` — Node.js implementation (uses `process.env`, `node:fs`)
+
+The build script `scripts/build-node.sh` swaps `runtime.ts` with
+`runtime.node.ts`, strips `.ts` extensions from imports, and produces a single
+esbuild bundle at `dist-node/bin/mcp-erpnext.mjs`.
+
+**All source code imports `from "./runtime.ts"` — never import Deno or Node APIs
+directly.**
+
+### Tool architecture
+
+Each tool is an `ErpNextTool` object (`src/tools/types.ts`) with: `name`,
+`description`, `category`, `inputSchema` (JSON Schema), `handler`, and optional
+`_meta` (UI viewer binding). Tools are grouped by category in individual files
+under `src/tools/`, registered in `src/tools/mod.ts`, and exposed through
+`ErpNextToolsClient` (`src/client.ts`).
+
+Tool naming: `erpnext_{entity}_{operation}` (e.g. `erpnext_customer_list`,
+`erpnext_sales_order_create`).
+
+The `handler` receives `(input, ctx)` where `ctx.client` is the `FrappeClient`
+singleton. The client is lazily initialized from env vars on first use.
+
+### Frappe REST client
+
+`src/api/frappe-client.ts` is a zero-dependency HTTP client wrapping the Frappe
+REST API. Key methods: `list()`, `get()`, `create()`, `update()`, `delete()`,
+`callMethod()`, `invalidate()`. All errors throw `FrappeAPIError` with HTTP
+status and parsed body — no silent fallbacks.
+
+**Submit handlers must GET the doc first** to pass `modified` for Frappe's
+optimistic locking (see `docs/erpnext-quirks.md`), and must pass
+`{ skipCache: true }` so that read isn't served from a stale cache entry. Cancel
+does not need the pre-fetch, but both submit and cancel must call
+`ctx.client.invalidate(doctype, name)` after the mutating `callMethod` succeeds
+— see `src/tools/operations.ts`.
+
+### Caching
+
+`FrappeClient.list()` and `.get()` are cached through a pluggable `Cache`
+(`src/cache/types.ts`). `MemoryCache` (`src/cache/memory.ts`) is the default
+in-process implementation — a hand-rolled TTL `Map`, zero dependencies;
+`NoopCache` (`src/cache/noop.ts`) disables caching without branching inside
+`FrappeClient`. A future backend (e.g. Redis) just implements `Cache`.
+
+- **Per-instance vs. shared**: `FrappeClient` defaults to a _fresh, unshared_
+  `MemoryCache` per instance unless a `cache` is passed in `FrappeClientConfig`.
+  `getFrappeClient()` (the app-wide singleton in the same file) explicitly wires
+  in the shared `getCache()` singleton (`src/cache/cache.ts`) so all tool calls
+  in the process share one cache. Tests that construct their own `FrappeClient`
+  (e.g. `frappe-client_test.ts`) get isolated per-test caches for free — don't
+  change this default.
+- **Invalidation**: `create()`, `update()`, `delete()` call
+  `this.invalidate(doctype, name)` automatically. Any handler that mutates via
+  `callMethod` (submit, cancel, or a custom business method) must call
+  `ctx.client.invalidate(doctype, name)` itself afterward.
+- **Config**: `MCP_CACHE_ENABLED` (`"false"` disables caching entirely, default
+  enabled) and `MCP_CACHE_TTL_MS` (default `15000`).
+- **Warming**: `src/cache/warm.ts`'s `warmCache()` optionally pre-populates the
+  cache on startup by calling a configured set of read-only `_list` tool
+  handlers with no filters — matching the exact cache key a real unfiltered call
+  would use (fields/limit/order_by come from the tool itself, not a hand-rolled
+  `client.list()` guess). Configured via `MCP_CACHE_WARM_TOOLS` (comma-separated
+  tool names; unset/empty = disabled). Refuses to call unknown or non-read-only
+  tools, and never lets one tool's failure abort the rest or the server — see
+  the fire-and-forget call in `server.ts` right after tool registration.
+
+### Date-range filters
+
+List tools whose DocType has a natural date field accept `date_from`/`date_to`
+(`"Start date filter YYYY-MM-DD"` / `"End date filter YYYY-MM-DD"`), filtering
+`[field, ">=", date_from]` / `[field, "<=", date_to]`. Doctypes with distinct
+start/end fields (Timesheet, Project, Task, Leave Application, Campaign) filter
+the start field with `date_from` and the end field with `date_to` — not both
+bounds on one column. Master-data lists (Customer, Item, Warehouse, etc.)
+intentionally have no date filter.
+
+### Link-field resolution
+
+`src/api/resolve.ts`'s `resolveLink(client, doctype, identifier, searchField)`
+lets a tool filter accept either a document's real ID or a human-readable
+identifier (name, email) and resolves it server-side in the same call: try
+`get(doctype, identifier)` first (fast path if it's already a valid ID), then
+fall back to an exact then partial (`like`) match on `searchField`. Wrapped as
+`resolveEmployee`/`resolveCustomer`/`resolveSupplier`/`resolveItem` for the
+common fixed-target cases; `erpnext_timesheet_list` in `src/tools/project.ts`
+shows the pattern. Use this instead of asking the agent to call a `_list` tool
+first to look up an ID before calling the tool that actually needs it.
+
+The fast-path `get()` always 404s when `identifier` is a human name rather than
+a real ID, and `FrappeClient` only caches successful reads — so that 404 would
+otherwise be re-probed over the network on every call to the same name.
+`resolveLink` remembers confirmed 404s itself, in the app-wide `getCache()`
+singleton under `resolve:miss:{doctype}:{identifier}` (15s TTL), so repeat
+resolution of a known-not-an-ID name skips straight to the `list()` fallback.
+
+**Dynamic-link fields** — where the target DocType isn't fixed but comes from a
+companion field (Payment Entry's `party`, target given by `party_type`;
+Quotation/Opportunity's `party_name`, target given by
+`quotation_to`/`opportunity_from`) — use
+`resolveDynamicLink(client, targetDoctype, identifier)` instead, a thin dispatch
+table over `resolveLink` keyed by the resolved doctype. The convention: if the
+identifier field is set but its companion type field isn't, throw a validation
+error (`'{type_field}' is required when filtering by '{identifier_field}'`)
+rather than guessing or passing the raw value through unresolved. See
+`erpnext_payment_entry_list` (`src/tools/accounting.ts`),
+`erpnext_quotation_list`/`erpnext_quotation_create` (`src/tools/sales.ts`), and
+`erpnext_opportunity_list` (`src/tools/crm.ts`).
+
+### Kanban system
+
+The kanban viewer is the canonical read-write MCP App. Architecture:
+
+- `src/kanban/types.ts` — shared contracts (`KanbanBoard`, `KanbanCard`,
+  `KanbanAdapter`, etc.)
+- `src/kanban/definitions.ts` — board registry (Task, Opportunity, Issue)
+- `src/kanban/adapters/{task,opportunity,issue}.ts` — per-DocType adapters that
+  define columns, transitions, card mapping, and move execution
+- `src/tools/kanban.ts` — two tools (`erpnext_kanban_get_board`,
+  `erpnext_kanban_move_card`) that dispatch to the right adapter
+
+To add a new kanban DocType: create an adapter in `src/kanban/adapters/`,
+register it in `definitions.ts`, and add it to the `ADAPTERS` map in
+`src/tools/kanban.ts`.
+
+Card design conventions:
+
+- **Accent strip**: 3px colored bar at top of each card, color from
+  `card.accent` (matches column color)
+- **Badge tones**: `tone` field maps to semantic colors — `error` (red),
+  `warning` (amber), `success` (green), `info` (blue), `neutral` (muted)
+- **Metrics**: Vertical layout with micro-caps labels (9px uppercase) and mono
+  bold values
+- **Move buttons**: Integrated card footer with column-colored destination dots
+  (6px circles matching target column color)
+- **Column focus mode**: On viewports ≤920px, switches to single-column tab
+  navigation. Drag-and-drop is disabled; only button-based moves are available
+
+### UI viewers
+
+7 React viewers built with Vite, bundled as single HTML files via
+`vite-plugin-singlefile`. Located under `src/ui/{viewer-name}/`. Built output
+goes to `src/ui/dist/{viewer-name}/index.html`.
+
+Viewers: `invoice-viewer`, `stock-viewer`, `doclist-viewer`, `chart-viewer`,
+`kpi-viewer`, `funnel-viewer`, `kanban-viewer`. Resource URIs:
+`ui://mcp-erpnext/{viewer-name}`.
+
+Viewers use the MCP Apps SDK (`@modelcontextprotocol/ext-apps`). Interactive
+viewers use `app.callServerTool()` for mutations and typed in-view navigation,
+`app.updateModelContext()` for bounded selections, and `app.sendMessage()` as a
+capability-gated conversational fallback.
+
+All viewers carry a `refreshRequest` payload for safe revalidation (injected by
+`src/tools/ui-refresh.ts`).
+
+Registered in `src/ui/viewers.ts` — add new viewer names there and in
+`server.ts`'s resource loop.
+
+### Server bootstrap
+
+`server.ts` creates a `McpApp` (from `@casys/mcp-server`), registers all tools +
+UI resources, and starts in stdio or HTTP mode. Supports `--http`, `--port=`,
+`--hostname=`, and `--categories=` flags.
+
+### HTTP authentication
+
+`src/auth/config.ts` reads env vars and builds an `@casys/mcp-server`
+`AuthProvider`, wired straight into `McpApp`'s own `auth: { provider }` option —
+no separate proxy or listener. Two combinable modes:
+
+- **Static tokens** — `MCP_AUTH_TOKEN` (single) or `MCP_AUTH_TOKENS`
+  (comma-separated), via `createStaticTokenAuthProvider`.
+- **OAuth 2.0 JWT** — `MCP_OAUTH_JWKS_URL` + `MCP_OAUTH_AUDIENCE` +
+  `MCP_OAUTH_ISSUER` (all required), via `createOIDCAuthProvider`. See
+  `docs/oauth-setup.md`.
+
+Both modes also require `MCP_AUTH_RESOURCE` — the exact public MCP endpoint URL
+(RFC 9728), normally `https://mcp.example.com/mcp`. The server also serves the
+path-qualified metadata URL that RFC 9728 derives from that endpoint. Ensure a
+reverse proxy forwards both paths. `buildAuthProvider()` throws a targeted error
+naming the missing var if a mode is partially configured, rather than silently
+accepting requests it can't verify.
+
+If both static tokens and OAuth are configured, `src/auth/composite-provider.ts`
+(`CompositeAuthProvider`) combines them — a token is accepted if either provider
+accepts it. The framework's own `AuthProvider` only takes one provider at a
+time, so this small wrapper is what preserves that documented "mix both modes"
+behavior.
+
+If neither is configured, `server.ts` calls `startHttp()` without a provider;
+HTTP mode starts unauthenticated with a startup warning — never assume auth is
+on without checking. `/health`, `/metrics`, and
+`/.well-known/oauth-protected-resource` are exempt from the auth gate by the
+framework itself.
+
+## Coding Style & Naming Conventions
+
+- Language: TypeScript (Deno-flavored ESM). Prefer strict typing; avoid `any`.
+- Formatting/linting: use `deno fmt` and `deno lint`. Respect the exclude rules
+  in `deno.json` (UI `.tsx`/`.mjs` files are excluded from Deno lint).
+- **Server-side code** (`src/` except `src/ui/`): all imports use `.ts`
+  extensions (Deno convention). External deps use the import map in `deno.json`
+  (e.g. `import { ... } from "@casys/mcp-server"`). Never add bare npm
+  specifiers in server-side files.
+- **UI viewer code** (`src/ui/`): standard npm imports resolved by Vite (e.g.
+  `import { ... } from "react"`). These follow `src/ui/package.json` deps, not
+  the Deno import map.
+- Use `import type { ... }` for type-only imports everywhere.
+- Tool names: `erpnext_{entity}_{operation}` — snake_case, always prefixed with
+  `erpnext_`.
+- Tool categories: one of the 14 registered categories in `src/tools/mod.ts`.
+  New categories require updating the registry.
+- Add brief code comments for tricky or non-obvious logic only. Do not add
+  JSDoc/comments to straightforward code.
+- Keep files concise; extract helpers rather than letting files bloat.
+
+### Import boundaries
+
+- **Runtime APIs**: always import from `"./runtime.ts"` — never use `Deno.*` or
+  `node:*` directly in source files (only inside the runtime adapters).
+- **Tool files**: import `FrappeClient` type from `"../api/frappe-client.ts"`,
+  tool types from `"./types.ts"`, viewer meta from `"./viewer-meta.ts"`.
+- **UI viewers**: import from `@modelcontextprotocol/ext-apps` for MCP Apps SDK.
+  Shared components go in `src/ui/shared/`.
+- **Kanban adapters**: import types from `../types.ts`, not from other adapters.
+  Each adapter is self-contained.
+
+## Testing Guidelines
+
+- Framework: Deno's built-in test runner with `jsr:@std/assert`.
+- Test files are colocated: `src/tools/sales.ts` → `src/tools/sales_test.ts`.
+- Run all: `deno test --allow-all src/`; run one:
+  `deno test --allow-all src/tools/sales_test.ts`.
+
+Two test styles exist:
+
+### Tool tests (mock FrappeClient)
+
+Tool handler tests inject a mock `FrappeClient` — no real network calls:
+
+```typescript
+function makeMockClient(overrides: Record<string, unknown> = {}): FrappeClient {
+  return {
+    list: async () => [],
+    get: async () => ({ name: "TEST-001" }),
+    create: async (_doctype: string, data: Record<string, unknown>) => ({ name: "NEW-001", ...data }),
+    update: async () => ({ name: "TEST-001" }),
+    delete: async () => {},
+    callMethod: async () => null,
+    invalidate: () => {},
+    ...overrides,
+  } as unknown as FrappeClient;
+}
+const ctx = { client: makeMockClient({ list: async () => [...] }) };
+const result = await tool.handler(input, ctx);
+```
+
+### Pure unit tests (no mock needed)
+
+Utility and UI-shared modules (e.g. `src/ui/shared/refresh_test.ts`,
+`src/ui/viewer-resource-paths_test.ts`) test pure functions without a
+`FrappeClient` mock.
+
+### General rules
+
+- When adding a new tool, add at least one test for the happy path and one for
+  error handling.
+- When modifying tool behavior, update the corresponding tests.
+- Do not add integration tests against real ERPNext instances in the main test
+  suite.
+
+## CI/CD
+
+Two GitHub Actions workflows matter:
+
+1. `.github/workflows/test.yml` runs on pull requests and pushes to `main`:
+   `deno fmt --check`, `deno lint`, `deno task check`, UI build, and
+   `deno test --allow-all src/`.
+2. `.github/workflows/publish.yml` is reusable/manual:
+   - **publish-jsr**: builds UI → `npx jsr publish --allow-dirty`
+   - **publish-npm**: builds UI → `scripts/build-node.sh` →
+     `npm publish --access public` (skips only if the version is already
+     published)
+
+Run `deno task release:check` locally before merging release-sensitive work. It
+performs the local preflight without publishing anything.
+
+## Versioning
+
+This project follows **semver** (`MAJOR.MINOR.PATCH`):
+
+- **MAJOR**: breaking changes to the MCP tool API (renamed/removed tools,
+  changed input schemas, changed response shapes that break existing consumers).
+- **MINOR**: new tools, new viewers, new features, non-breaking additions.
+- **PATCH**: bug fixes, documentation, internal refactors with no user-facing
+  change.
+
+Version locations (both must stay in sync):
+
+1. `deno.json` → `version` field (used by JSR publish and npm build script)
+2. `server.ts` → `McpApp` constructor `version` parameter (runtime metadata)
+
+Rules:
+
+- Do not bump version numbers during feature work.
+- Release version bumps require explicit approval and must update both
+  `deno.json` and `server.ts`.
+- CHANGELOG follows [Keep a Changelog](https://keepachangelog.com/) format. Only
+  user-facing changes.
+
+## Commit & Pull Request Guidelines
+
+- Use concise, action-oriented commit messages (e.g.
+  `feat: add supplier quotation tools`,
+  `fix: submit handler optimistic locking`).
+- Conventional commit prefixes: `feat:`, `fix:`, `refactor:`, `test:`, `docs:`,
+  `chore:`, `style:`.
+- Group related changes; avoid bundling unrelated refactors.
+- CHANGELOG: user-facing changes only in `CHANGELOG.md`; no internal/meta notes.
+
+## Security & Configuration
+
+- Environment variables: `ERPNEXT_URL`, `ERPNEXT_API_KEY`, `ERPNEXT_API_SECRET`
+  (all required at runtime).
+- HTTP-mode auth (optional but recommended when exposed beyond localhost):
+  `MCP_AUTH_TOKEN` / `MCP_AUTH_TOKENS`, or `MCP_OAUTH_JWKS_URL` +
+  `MCP_OAUTH_AUDIENCE` + `MCP_OAUTH_ISSUER` — either mode also requires
+  `MCP_AUTH_RESOURCE`. See [HTTP authentication](#http-authentication).
+- Caching (optional): `MCP_CACHE_ENABLED` (default enabled), `MCP_CACHE_TTL_MS`
+  (default `15000`), `MCP_CACHE_WARM_TOOLS` (comma-separated tool names to warm
+  on startup, default disabled). See [Caching](#caching).
+- Never commit `.env` files, API keys, or credentials. The `.gitignore` already
+  covers `.env*`.
+- `FrappeClient` (talking to ERPNext) authenticates via API key/secret headers
+  only — no OAuth or session-based auth on that side. The MCP server's own HTTP
+  endpoint is a separate auth layer (see above).
+- All errors throw `FrappeAPIError` — no silent fallbacks or swallowed errors.
+  Do not introduce `try/catch` blocks that hide errors.
+
+## Docker
+
+`Dockerfile` is a two-stage build:
+
+1. **`ui-builder`** (`node:20-slim`) — `npm ci` + `node build-all.mjs` in
+   `src/ui/`, producing `src/ui/dist/{viewer-name}/index.html` for all 7
+   viewers.
+2. **Runtime** (`denoland/deno:2.3.3`) — copies the app source plus the built
+   `src/ui/dist/` from stage 1, pre-caches deps with
+   `deno cache --allow-import server.ts`, and runs
+   `server.ts --http --port=7654`.
+
+Skipping the UI build stage (e.g. a naive single-stage Dockerfile that never
+runs `npm ci && node build-all.mjs`) silently degrades every viewer — tools
+still work, but `resolveViewerDistPath` finds nothing, each viewer logs
+`Warning: UI not built for ui://mcp-erpnext/{name}` at startup, and
+`Resources: 0` instead of `7`. Check for that count in the startup log after any
+Dockerfile change.
+
+`docker-compose.yml` reads config from `.env` (not baked into the image) and
+binds port 7654 to `127.0.0.1` by default. Expose it beyond the host only with
+MCP auth configured and an appropriate firewall or reverse proxy. To make the
+server reachable by name from another container stack (e.g. a chat client
+running in its own compose project), join that stack's external network instead
+— see the comment at the top of `docker-compose.yml`.
+
+## Key Conventions
+
+- Tool `_meta.ui.resourceUri` binds a tool's output to a specific UI viewer
+  (e.g. `"ui://mcp-erpnext/doclist-viewer"`). Use `uiMeta()` from
+  `src/tools/viewer-meta.ts`.
+- `FrappeFilter` is a `[field, operator, value]` tuple for Frappe list queries.
+- Generic operations tools (`erpnext_doc_*`) are the escape hatch for any
+  DocType not yet wrapped with dedicated tools.
+- The `annotations` field on tools signals read-only vs write behavior (e.g.
+  `{ readOnlyHint: true }` for list/get tools).
+- `structuredContent` in tool responses: tools that bind to a UI viewer return
+  `structuredContent` with the viewer's MIME type so MCP clients can render the
+  viewer.
+- Link-field list filters (e.g. `employee`, `customer`, `supplier`, `item`)
+  should accept either the document's ID or its human-readable name and resolve
+  via `resolveLink`/`resolveEmployee`/etc. from `src/api/resolve.ts` — see
+  [Link-field resolution](#link-field-resolution). Mention "ID or name" in the
+  param's `inputSchema` description when you do this.
+
+## Known Issues & Frappe Gotchas
+
+- **Optimistic locking on submit**: Frappe requires the `modified` timestamp.
+  Submit handlers must `GET` the doc first with `{ skipCache: true }`, then pass
+  the full doc to `frappe.client.submit`, then call
+  `ctx.client.invalidate(doctype, name)`. Cancel doesn't need the pre-fetch but
+  must still invalidate. See `docs/erpnext-quirks.md`.
+- **`_server_messages`**: Frappe error responses have 2 levels — `exc_type` and
+  `_server_messages`. The client now parses both and includes `_server_messages`
+  in the error message (see `src/api/frappe-client.ts`).
+- **Fresh ERPNext instances**: may fail on submit with
+  `base_rounded_total = None` until the setup wizard is completed.
+
+## Common Task Recipes
+
+### Add a new tool
+
+1. Add the tool object to the appropriate `src/tools/{category}.ts` file
+2. Follow the `ErpNextTool` shape: `name`, `description`, `category`,
+   `inputSchema`, `handler`, optional `_meta` and `annotations`
+3. If the category file is new, export it and register it in `src/tools/mod.ts`
+4. Add tests in `src/tools/{category}_test.ts`
+5. Run `deno test --allow-all src/tools/{category}_test.ts`
+
+### Add a new UI viewer
+
+1. Create `src/ui/{viewer-name}/` with a Vite React app (copy an existing viewer
+   as template)
+2. Add the viewer name to `src/ui/viewers.ts`
+3. Add a `VIEWER_META` constant in `src/tools/viewer-meta.ts`
+4. Add a build entry in `src/ui/build-all.mjs`
+5. The server automatically picks it up from the `UI_VIEWERS` array
+
+### Release a version
+
+1. Get explicit approval for the version.
+2. Update `deno.json` and `server.ts`.
+3. Update `CHANGELOG.md` with user-facing changes.
+4. Run `deno task release:check`.
+5. Commit and push to `main`.
+6. Create the GitHub release/tag, for example `v2.3.0`.
+7. Run the `Publish` workflow manually to ship JSR and npm.
+
+## Collaboration Notes
+
+- When answering questions, verify in code; do not guess.
+- When working on a GitHub Issue or PR, print the full URL at the end of the
+  task.
+- Do not modify generated/built files (`src/ui/dist/`, `dist-node/`). They are
+  gitignored.
+- Never update dependencies without explicit approval.
+- Lint/format churn: if staged diffs are formatting-only, auto-resolve without
+  asking.
+
+---
+> Source: [superWorldSavior/mcp-erpnext](https://github.com/superWorldSavior/mcp-erpnext) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
