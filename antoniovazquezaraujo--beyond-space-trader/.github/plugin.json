@@ -1,0 +1,9 @@
+{
+  "name": "antoniovazquezaraujo--beyond-space-trader",
+  "displayName": "beyond-space-trader",
+  "description": "A terminal (TUI) space trading game in Java, continuing SpaceTrader for Java with a Lanterna interface (GPL-3.0-or-later)",
+  "version": "1.0.0",
+  "author": "antoniovazquezaraujo",
+  "homepage": "https://github.com/antoniovazquezaraujo/beyond-space-trader",
+  "skills": []
+}
