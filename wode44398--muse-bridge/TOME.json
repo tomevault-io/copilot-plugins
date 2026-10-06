@@ -1,0 +1,44 @@
+{
+  "name": "muse-bridge",
+  "owner": "Wode44398",
+  "repo": "muse-bridge",
+  "description": "One-message Claude Code deployment on your Muse agent VM, plus dimensio, a multi-model agent workspace. \u5728 Muse \u4e0a\u4e00\u952e\u90e8\u7f72 Claude Code \u548c\u591a\u6a21\u578b agent \u5de5\u4f5c\u53f0\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Wode44398/muse-bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T04:40:21Z"
+}
