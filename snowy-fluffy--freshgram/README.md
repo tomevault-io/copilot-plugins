@@ -1,0 +1,26 @@
+# freshGram
+
+> Tome by [Snowy-Fluffy](https://github.com/Snowy-Fluffy/freshGram), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+Telegram Desktop fork: Better materialgram look + AyuGram features and more
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [Snowy-Fluffy/freshGram](https://github.com/Snowy-Fluffy/freshGram).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [Snowy-Fluffy/freshGram](https://github.com/Snowy-Fluffy/freshGram) — a repo with 15+ stars on GitHub.
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-s -->
