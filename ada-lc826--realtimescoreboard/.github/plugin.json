@@ -1,0 +1,9 @@
+{
+  "name": "ada-lc826--realtimescoreboard",
+  "displayName": "RealtimeScoreboard",
+  "description": "\u73b0\u573a\u5927\u5c4f\u8bc4\u59d4\u6253\u5206\u7cfb\u7edf\u591a\u4eba\u8bc4\u5206\u5927\u4f17\u4e13\u5bb6\u8bc4\u59d4\u6f14\u8bb2\u6bd4\u8d5b\u8bc4\u5206\u8f6f\u4ef6\u7cfb\u7edf A real-time scoring system for live events. Judges score via mobile devices, with results instantly syncing to the big screen, calculating averages (with high/low drop) ",
+  "version": "1.0.0",
+  "author": "ada-lc826",
+  "homepage": "https://github.com/ada-lc826/RealtimeScoreboard",
+  "skills": []
+}
