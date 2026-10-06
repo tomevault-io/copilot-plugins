@@ -15,6 +15,10 @@ Original source: `AGENTS.md` in [hivecommons/hive](https://github.com/hivecommon
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
+## Bundled Skills (1)
+
+- [hive](https://github.com/hivecommons/hive/tree/main/src/pkg/jev/skill/SKILL.md)
+
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/hivecommons/hive](https://github.com/hivecommons/hive)
 
 ---
