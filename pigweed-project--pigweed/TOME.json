@@ -4,7 +4,7 @@
   "repo": "pigweed",
   "description": "",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -79,9 +79,45 @@
       "path": ".agents/skills/pw_rpc_creating_services/SKILL.md",
       "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/pw_rpc_creating_services/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/gerrit/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/gerrit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/oncall/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/oncall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/pw_async2/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/pw_async2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/ghish/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/ghish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/saleae/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/saleae/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/worktree/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/worktree/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/pigweed-project/pigweed",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T07:44:22Z"
+  "distributed_at": "2026-10-06T13:32:10Z"
 }
