@@ -1,0 +1,44 @@
+{
+  "name": "jeff-code",
+  "owner": "firelex",
+  "repo": "jeff-code",
+  "description": "Coding agent where a 0.8B decision model works alongside Qwen 3.8-27B: Jeff takes the routine steps itself and decides when Qwen should think. 47% faster (32% less time) per task at the same pass rate. A fork of Pi.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/firelex/jeff-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T10:32:22Z"
+}
