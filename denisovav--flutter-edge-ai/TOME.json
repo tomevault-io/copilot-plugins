@@ -1,0 +1,165 @@
+{
+  "name": "flutter_edge_ai",
+  "owner": "DenisovAV",
+  "repo": "flutter_edge_ai",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flutter_edge_ai",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": ".claude/skills/ci-status/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/.claude/skills/ci-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": ".claude/skills/build-native/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/.claude/skills/build-native/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": ".claude/skills/upgrade-genkit/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/.claude/skills/upgrade-genkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai/skills/flutter-edge-ai-rag/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai/skills/flutter-edge-ai-rag/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai/skills/flutter-edge-ai-onnx/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai/skills/flutter-edge-ai-onnx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai_agent/assets/skills/qr-code/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai_agent/assets/skills/qr-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai/skills/flutter-edge-ai-speech/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai/skills/flutter-edge-ai-speech/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai_agent/assets/skills/send-email/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai_agent/assets/skills/send-email/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai/skills/flutter-edge-ai-inference/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai/skills/flutter-edge-ai-inference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai/skills/flutter-edge-ai-mediapipe/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai/skills/flutter-edge-ai-mediapipe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai/skills/flutter-edge-ai-builtin-ai/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai/skills/flutter-edge-ai-builtin-ai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai/skills/flutter-edge-ai-diagnostics/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai/skills/flutter-edge-ai-diagnostics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai_agent/assets/skills/calculate-hash/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai_agent/assets/skills/calculate-hash/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai_agent/assets/skills/interactive-map/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai_agent/assets/skills/interactive-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai_agent/assets/skills/query-wikipedia/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai_agent/assets/skills/query-wikipedia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai_agent/assets/skills/get-current-time/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai_agent/assets/skills/get-current-time/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai_agent/assets/skills/kitchen-adventure/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai_agent/assets/skills/kitchen-adventure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai/skills/flutter-edge-ai-function-calling/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai/skills/flutter-edge-ai-function-calling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_edge_ai",
+      "path": "packages/flutter_edge_ai_agent/assets/skills/create-calendar-event/SKILL.md",
+      "github_url": "https://github.com/DenisovAV/flutter_edge_ai/tree/main/packages/flutter_edge_ai_agent/assets/skills/create-calendar-event/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/DenisovAV/flutter_edge_ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T18:58:30Z"
+}
