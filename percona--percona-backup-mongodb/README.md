@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [percona/percona-backup-mongodb](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [percona/percona-backup-mongodb](https://github.com/percona/percona-backup-mongodb) — a repo with 335+ stars on GitHub.
+From [percona/percona-backup-mongodb](https://github.com/percona/percona-backup-mongodb) — a repo with 336+ stars on GitHub.
 
 ---
 
