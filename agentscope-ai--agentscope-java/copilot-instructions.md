@@ -1,71 +1,128 @@
 ## agentscope-java
 
-> **DESIGN → Agents** 管理 Agent 的身份、行为和执行方式。Agent 定义可以被 Chat、Issue、Team 和 Endpoint 复用；保存定义本身不会执行任务。
+> AI coding instructions for AgentScope Java.
 
+# AGENTS.md
 
-<Note>
-此为预览文档，正式版本尚未发布。
-</Note>
+AI coding instructions for AgentScope Java.
 
-**DESIGN → Agents** 管理 Agent 的身份、行为和执行方式。Agent 定义可以被 Chat、Issue、Team 和 Endpoint 复用；保存定义本身不会执行任务。
+## 1. Collaboration principles
 
-## 按运行方式接入
+### Think before writing
 
-- **Managed Agent**：在控制台创建云端 Agent，再配置模型和资源。
-- **AgentScope 框架**：注册你编写并部署的应用，以 External Agent 方式接入；任务执行能力需要相应适配。
-- **Hosted**：连接 Runtime Host，选择已经安装并登录的 Coding Agent provider。
+- State assumptions; ask when unsure — do not guess.
+- List competing interpretations; let the user choose.
+- Suggest simpler solutions; challenge needless complexity.
+- Stop when blocked; name the exact blocker.
 
-左侧三个子菜单用于完成创建、注册和验证。详细参数、资源配置与工作原理统一收录于下方的参考手册。完成接入后，继续[通过 Endpoint 分派任务](/v2/zh/service/endpoints)或[在控制台创建 Issue](/v2/zh/service/issues)。
+### Simplicity first
 
-## 界面导览
+- Write the minimum code that solves the task; avoid unrequested features, abstractions, dependencies, and configuration.
+- Add error handling only for failures supported by the contract or a realistic execution path.
+- Keep the diff small; trim it when it grows unnecessarily large.
 
-<Frame caption="当前控制台截图，使用固定演示数据。">
-  <img src="/imgs/service/agents.png" alt="Agent 目录与 Managed、Hosted、External 筛选" />
-</Frame>
+### Surgical edits
 
-顶部筛选用于区分运行方式，卡片说明 Agent 的用途。点击卡片进入配置；需要新能力时点击 **New agent**。示例中三类 Agent 并列展示，实际可用性仍需检查各自的运行环境。
+- Touch only task-related lines; do not clean up nearby code or normalize its style.
+- Do not refactor working code just because it differs from yours.
+- Mention unrelated dead code; do not delete it proactively.
+- Remove unused imports, variables, and functions introduced by your change.
 
-## 选择运行方式
+### Verifiable outcomes
 
-| 方式 | 谁运行 Agent | 如何接入 |
-| --- | --- | --- |
-| Managed | Service 的 Harness 与 Dataplane | 在控制台创建并选择 AgentScope Managed |
-| Hosted | 你电脑或服务器上的 Coding Agent provider | 先连接 Runtime Host，再选择发现的 Runtime |
-| External | 你独立部署的 Agent 应用 | 应用通过 SDK 注册，进入统一 Agent 目录 |
+- Turn the task into checkable acceptance criteria.
+- Pair each non-trivial step with a verification command.
+- Report checks, results, and remaining gaps; skipped tests are gaps.
 
-三种方式共享工作入口，但模型、工具、会话恢复和配置投影能力不同。不要把“目录中可见”当成“具备所有会话和派发能力”。接入细节见 [Managed](/v2/zh/service/managed-agent)、[Hosted](/v2/zh/service/hosted-agent) 和 [External](/v2/zh/service/external-agent)。
+## 2. Project map
 
-## 创建一个 Agent
+### Modules
 
-1. 点击创建按钮，填写 Name、用途和 Instructions。
-2. 按需要关联 Workspace，复用其中的操作说明、技能、工具和子 Agent 定义。
-3. 在 Execution 中明确选择 Runtime。存在在线 Host 时页面可能优先选择 Hosted provider；体验托管 Agent 时请主动选择 **AgentScope Managed**。
-4. Model 留空使用运行时默认值，或填写该 provider 接受的模型标识。
-5. Managed Agent 在 Advanced settings 中选择 Environment；只有管理员允许 Local 时才使用自动本地默认环境。
-6. 点击 **Create & open agent**，进入详情检查配置。
+- `agentscope-core/` — core agent APIs, ReAct loop, messages, events, tools, middleware, state.
+- `agentscope-harness/` — workspace, memory, subagents, channels, `HarnessAgent`.
+- `agentscope-extensions/` — model, storage, protocol, channel, sandbox, framework integrations.
+- `agentscope-service/` — Java services; `aistio/` is Go, `frontend/` is React.
+- `agentscope-examples/` — runnable examples.
+- `agentscope-dependencies-bom/` — third-party versions.
+- `agentscope-distribution/` — published BOM and aggregate distribution.
+- `docs/` — Mintlify documentation.
 
-Agent key 是稳定身份，用于区分同一空间中的 Agent；显示名称用于让同事理解用途。
+### Read when relevant
 
-## 按详情菜单配置
+- Contribution rules: [CONTRIBUTING.md](CONTRIBUTING.md).
+- Harness behavior: [docs/v2/en/docs/harness/architecture.md](docs/v2/en/docs/harness/architecture.md).
+- Channel vocabulary: [CONTEXT.md](CONTEXT.md).
+- Service work: [agentscope-service/README.md](agentscope-service/README.md).
+- Documentation work: [docs/README.md](docs/README.md).
+- POMs, manifests, and workflows are the source of truth for commands and versions.
 
-| 页面 | 主要内容 | 验证方式 |
-| --- | --- | --- |
-| Behavior | 职责、指令与模型 | 发送职责边界明确的小请求 |
-| Workspace | 关联资料与执行资源 | 读取一份已知文件 |
-| Skills | 可复用任务流程和辅助文件 | 指定一个技能任务并核对输出 |
-| Tools | 工具和 MCP 连接 | 执行只读工具调用，检查认证与确认策略 |
-| Subagents | 可委派的专项能力 | 检查子任务结果如何返回主 Agent |
-| Versions | 查看定义版本 | 用新工作验证目标版本 |
-| Connections → Channels | 消息入口关联 | 从实际渠道发送请求并检查路由 |
+## 3. Engineering rules
 
-## 一次只扩展一种能力
+### Boundaries
 
-先验证纯对话，再加文件读取、一个外部工具和一个专项技能。将需要的凭据放入 [Vault](/v2/zh/service/vault)，共享知识放入 [Memory](/v2/zh/service/memory)。添加配置文件不会给运行时自动安装二进制工具，也不会授予外部系统权限。
+- Reusable agent behavior belongs in `agentscope-core`; higher-level capabilities belong in Harness.
+- Provider-specific code belongs in `agentscope-extensions`; application wiring belongs in examples or Service.
+- Library modules must not depend on `agentscope-examples/*`.
+- Keep core independent of Harness, Service, and concrete extensions.
+- Keep Service gateway, control plane, dataplane, and scheduler responsibilities separate.
+- Keep transport handlers thin: decode → call → map.
+- New extension → update parent module, distribution, and BOM; run `.github/scripts/check-shade-and-bom-sync.sh`.
 
-修改共享 Workspace 可能影响多个 Agent。保存前查看消费者，保存后使用新 Chat 或 Issue 验证；正在运行的任务不应被假定会即时切换到新定义。
+### Runtime
 
-下一步：[Teams](/v2/zh/service/teams) · [Workspaces](/v2/zh/service/workspaces)。
+- Preserve public builders, interfaces, serialized state, and event payloads.
+- Keep `call()` and `streamEvents()` terminal results consistent.
+- Use `RuntimeContext` for user/session identity; do not share session state through agent fields.
+- Use the configured state store and Harness workspace abstraction.
+- Preserve Reactor cancellation, errors, cleanup, middleware order, and permission checks.
+- Extend agent behavior with `MiddlewareBase`/`MiddlewareChain`; do not fork agent classes.
+- Do not block reactive event-loop threads.
+
+### Code and tests
+
+- Target Java 17; use no preview features or switch pattern matching; run Spotless; preserve license headers.
+- Keep dependency versions in the existing BOM/POM hierarchy.
+- Add regression tests for bugs and behavior tests for new features.
+- Prefer JUnit 5, Mockito, Reactor `StepVerifier`, fakes, and local fixtures.
+- Use temporary directories and portable paths; do not use real credentials or provider services.
+- Do not weaken assertions for Windows-only flakes; mirror the production guard in the test.
+- Edit UI source in `agentscope-service/frontend/`; do not hand-edit generated `agentscope-service/aistio/ui/`.
+- Keep English and Chinese docs aligned; follow `.editorconfig`.
+
+## 4. Commands
+
+### Java
+
+- Run from the repository root with `-T1`.
+- Module tests: `mvn -T1 -pl <module> -am test`.
+- One test: add `-Dtest=<TestClass>` and confirm it ran.
+- Format: `mvn -T1 -pl <module> -am spotless:check`.
+- Full check: `mvn -B -T1 clean verify`.
+
+### Service and docs
+
+- UI: `cd agentscope-service/frontend; npm test; npm run lint; npm run build`.
+- Go: `cd agentscope-service/aistio; make build; make test`.
+- Docs: `cd docs; npm test; npm run validate; npm run broken-links`.
+- Packaging/deployment: run the relevant release and source checks too.
+
+## 5. Change workflow
+
+- Inspect `git status` and relevant code first.
+- Clarify public behavior, compatibility, and scope before coding.
+- Implement → test → inspect the complete diff.
+- User-visible behavior change → update matching `docs/v2` EN and ZH pages and affected examples.
+- Run the relevant §4 check; cross-module or public-contract changes require the full check.
+- Check for unrelated files, generated output, format errors, and secrets.
+- Do not commit or push without user authorization.
+- Follow [CONTRIBUTING.md](CONTRIBUTING.md) for contribution details.
+
+## 6. Communication
+
+- Lead with the result.
+- Include changed files, checks and results, and remaining gaps.
+- Keep unrelated findings brief and separate.
 
 ---
 > Source: [agentscope-ai/agentscope-java](https://github.com/agentscope-ai/agentscope-java) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
