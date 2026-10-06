@@ -1,0 +1,9 @@
+{
+  "name": "ww485000--ninfer-windows-v100",
+  "displayName": "ninfer-windows-v100",
+  "description": "Windows-only NInfer port for NVIDIA Tesla V100 32GB (sm_70), with Qwen3.8-27B NVFP4 at 228 tok/s.",
+  "version": "1.0.0",
+  "author": "ww485000",
+  "homepage": "https://github.com/ww485000/ninfer-windows-v100",
+  "skills": []
+}
