@@ -1,0 +1,9 @@
+{
+  "name": "jjat00--hf-studio",
+  "displayName": "hf-studio",
+  "description": "Self-hosted AI video, image and audio studio on the Higgsfield and ElevenLabs APIs: MCP server for Claude Code, Codex and ChatGPT, REST API and web UI. Runs on Windows, macOS and Linux.",
+  "version": "1.0.0",
+  "author": "Jjat00",
+  "homepage": "https://github.com/Jjat00/hf-studio",
+  "skills": []
+}
