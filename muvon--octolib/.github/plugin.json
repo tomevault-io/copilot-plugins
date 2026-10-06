@@ -1,0 +1,9 @@
+{
+  "name": "muvon--octolib",
+  "displayName": "octolib",
+  "description": "One Rust API for 30+ AI providers \u2014 chat, tool calls, structured output, embeddings, reranking and media generation behind a single provider:model string, with built-in cost tracking",
+  "version": "1.0.0",
+  "author": "Muvon",
+  "homepage": "https://github.com/Muvon/octolib",
+  "skills": []
+}
