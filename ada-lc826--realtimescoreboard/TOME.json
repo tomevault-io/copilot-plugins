@@ -1,0 +1,44 @@
+{
+  "name": "RealtimeScoreboard",
+  "owner": "ada-lc826",
+  "repo": "RealtimeScoreboard",
+  "description": "\u73b0\u573a\u5927\u5c4f\u8bc4\u59d4\u6253\u5206\u7cfb\u7edf\u591a\u4eba\u8bc4\u5206\u5927\u4f17\u4e13\u5bb6\u8bc4\u59d4\u6f14\u8bb2\u6bd4\u8d5b\u8bc4\u5206\u8f6f\u4ef6\u7cfb\u7edf A real-time scoring system for live events. Judges score via mobile devices, with results instantly syncing to the big screen, calculating averages (with high/low drop) and rankings. \u7528\u8054\u7f51\u7684\u7535\u8111\u6253\u5f00\u6211\u4eec\u7cfb\u7edf\uff0c\u6295\u5c4f\u3002  \u8bc4\u59d4\u53ef\u901a\u8fc7\u624b\u673a\uff0cipad\u5e73\u677f\u7535\u8111\u8fdb\u5165\u7f51\u7ad9\u8f93\u5165\u8bc4\u59d4\u7801\u6253\u5f00\u8bc4\u5206\u7aef\u8fdb\u884c\u8bc4\u5206\u3002  \u5206\u6570\u4f1a\u5b9e\u65f6\u540c\u6b65\u5230\u5927\u5c4f\u7aef\uff0c\u7136\u540e\u80fd\u81ea\u52a8\u8ba1\u7b97\u5e73\u5747\u5206\u5e76\u7edf\u8ba1\u6392\u540d\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ada-lc826/RealtimeScoreboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T08:44:09Z"
+}
