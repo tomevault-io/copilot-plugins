@@ -1,16 +1,15 @@
 # charmcraft
 
-> Source: [canonical/charmcraft](https://github.com/canonical/charmcraft). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [canonical/charmcraft](https://github.com/canonical/charmcraft). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [canonical/charmcraft](https://github.com/canonical/charmcraft).
+Original source: `AGENTS.md` in [canonical/charmcraft](https://github.com/canonical/charmcraft).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -25,7 +24,7 @@ Original source: `` in [canonical/charmcraft](https://github.com/canonical/charm
 - [charmcraft](https://github.com/canonical/charmcraft/tree/main/.github/skills/documentation-diataxis/SKILL.md)
 - [charmcraft](https://github.com/canonical/charmcraft/tree/main/.github/skills/documentation-structure/SKILL.md)
 
-From [canonical/charmcraft](https://github.com/canonical/charmcraft) — a repo with 88+ stars on GitHub.
+From [canonical/charmcraft](https://github.com/canonical/charmcraft) — a repo with 90+ stars on GitHub.
 
 ---
 
