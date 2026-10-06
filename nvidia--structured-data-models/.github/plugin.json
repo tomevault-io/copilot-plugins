@@ -1,0 +1,22 @@
+{
+  "name": "nvidia--structured-data-models",
+  "displayName": "structured-data-models",
+  "description": "structured-data-models",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/structured-data-models",
+  "skills": [
+    {
+      "name": "structured-data-models",
+      "description": ""
+    },
+    {
+      "name": "structured-data-models",
+      "description": ""
+    },
+    {
+      "name": "structured-data-models",
+      "description": ""
+    }
+  ]
+}
