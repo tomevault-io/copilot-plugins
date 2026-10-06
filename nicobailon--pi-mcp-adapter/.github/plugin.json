@@ -1,0 +1,14 @@
+{
+  "name": "nicobailon--pi-mcp-adapter",
+  "displayName": "pi-mcp-adapter",
+  "description": "pi-mcp-adapter",
+  "version": "1.0.0",
+  "author": "nicobailon",
+  "homepage": "https://github.com/nicobailon/pi-mcp-adapter",
+  "skills": [
+    {
+      "name": "pi-mcp-adapter",
+      "description": ""
+    }
+  ]
+}
