@@ -1,50 +1,21 @@
 ## examples
 
-> - Shortwave is a link-shortener example; see the [deployment and release checklist](docs/v1-readiness.md). Cloudflare Workers is the implemented host. Keep local development in the isolated VM.
+> - Read [README.md](README.md). This is a small Hono + Bun + Bun.SQL application backed by ClickHouse Managed Postgres. Preserve its four-route scope: inventory, reserve, inspect, release.
 
 # Agent instructions
 
-## Project context
-
-- Shortwave is a link-shortener example; see the [deployment and release checklist](docs/v1-readiness.md). Cloudflare Workers is the implemented host. Keep local development in the isolated VM.
-- Start with [README.md](README.md); read the relevant brief, architecture, or setup document linked there. Keep proposals distinct from settled decisions.
-- Use TanStack, Click UI, and Clerk. Deploy both databases and ClickPipes in ClickHouse Cloud; use `clickhousectl` for Cloud provisioning and orchestration. Use Wrangler for Cloudflare resources. `pg_clickhouse` and ClickStack remain proposals.
-
-## Implementation and deployment contract
-
-- Keep deployer hostnames, resource IDs, personal paths, and credentials out of the public example. Generate configuration from explicit inputs; keep `.deployment`, `.private`, `.secrets`, environment files and credential-bearing logs private.
-- Document infrastructure as explicit `clickhousectl` and Wrangler commands in README and the hosting guide. Keep database setup in SQL files passed to the CLI; do not add JavaScript provisioning wrappers. Review inputs before creation and verify the built Worker config matches the recorded account, bindings and hostnames before deployment.
-- Postgres owns authorization and redirects. ClickPipes owns `cdc_links`; never apply the local metadata fixture to Cloud. Preserve CDC version/delete handling and event-ID deduplication across delivery retries.
-- Separate runtime, migration, and management credentials. Preserve TLS verification and account isolation. Reuse recorded resources on setup retries; reconcile ambiguous outcomes before retrying, and target cleanup by recorded IDs. Never delete a receipt to force recreation.
-- For assessments, deliver findings and acceptance criteria. For implementation requests, finish authorized work and verification; follow the user's scope over conflicting skill advice and identify concrete blockers.
-- Run relevant checks in the VM: `npm test`, `npm run typecheck`, and `npm run build:workers`. Live integration/browser checks require their documented Cloud fixtures. Report passed, skipped, and unverified checks separately; publication requires the fresh-deployment checklist.
-
-## Development sandbox
-
-- This VM workflow is for maintainer/agent development. Public deployment instructions assume CLI tools on the reader's laptop; see [maintainer environment](docs/maintainer-environment.md) for our setup.
-
-- Before installing dependencies or running application code, create a dedicated OrbStack Linux VM using the CLI. Reuse `link-shortener-dev` only after checking its isolation settings with `orb info`.
-
-  ```sh
-  orb list
-  orb create --isolated --isolate-network ubuntu:noble link-shortener-dev
-  orb info link-shortener-dev
-  orb -m link-shortener-dev -w /home sh -lc 'mkdir -p "$HOME/link-shortener"'
-  orb -m link-shortener-dev -w /home sh -lc 'cd "$HOME/link-shortener" && <command>'
-  ```
-
-- Create only if absent; replace `<command>` with the intended command. Verify flags with installed CLI help if needed; do not silently fall back to an unisolated machine.
-- Copy source into the VM's own filesystem with `scripts/vm.sh push`. Use `scripts/install-tools.sh` inside Linux for the pinned tools; run dependency installs, development servers, builds and tests there. Keep caches, `node_modules` and build output inside the VM; databases remain in ClickHouse Cloud.
-- Keep host mounts, SSH-agent forwarding, host command execution, and host Docker sockets disabled. Transfer only project files and explicitly needed credentials; copy reviewed source changes back without generated files or secrets.
-- Host-side document/source editing, read-only inspection, and OrbStack management are fine. Do not install project dependencies on macOS. Documentation-only tasks do not require starting a VM.
-
-## Keep changes reviewable
-
-- UI copy: use plain task names. Do not add promotional subtitles, taglines, or routine explanatory captions unless the user requests them. Helper text must resolve a concrete ambiguity or explain an actionable state; audit new visible strings before handover.
-- Update the relevant documentation when decisions change. Link to authoritative sources for platform claims; mark untested commands and unresolved assumptions.
-- For code changes, run appropriate checks inside the VM; report what passed and what remains unverified. For documentation, check links and consistency. See README for build, typecheck, and test commands.
-- Keep this file short and operational. Put architecture, setup walkthroughs, and task history in `docs/`, not here.
+- Read [README.md](README.md). This is a small Hono + Bun + Bun.SQL application backed by ClickHouse Managed Postgres. Preserve its four-route scope: inventory, reserve, inspect, release.
+- Install dependencies and run application code only inside the isolated OrbStack machine `stock-reservation-dev`. Create it with `orb create --isolated --isolate-network ubuntu:noble stock-reservation-dev` if absent, and verify its isolation settings before use. Keep macOS file sharing, host integration, host network access, SSH-agent forwarding, and host Docker sockets disabled. Host-side source editing and read-only inspection are fine.
+- Keep infrastructure commands visible in the README. Keep bootstrap, grants, ordered migrations, seed data, and cleanup in readable SQL files. Do not hide provisioning or migrations in application scripts.
+- Never commit credentials, Cloud resource IDs, private endpoints, personal paths, `.deployment/`, or environment files other than the generic `.env.example`. Transfer only the credentials needed for a specific VM task; the running app receives only runtime credentials.
+- Preserve the plain PostgreSQL connection URL and explicit CA and hostname verification. Do not disable TLS checks or copy driver-specific URL parameters into Bun.SQL. Separate Cloud management, database administration, migrations, and runtime access.
+- Postgres must enforce stock integrity across processes. Keep inventory updates, reservation insertion, and the successful idempotency response in one transaction. Keep releases atomic and repeat-safe. Failed reservations roll back their idempotency key; successful requests replay their original response even after release.
+- Derive client identity from a configured API token. Every reservation lookup and release must include the authenticated client. Do not accept an owner from a request body.
+- Run `bun run typecheck` and `bun run test` in the VM. Run the documented integration suite against a disposable managed-service fixture after database changes. Recheck concurrency, rollback, ownership, and strict TLS when their implementation changes; report skipped checks explicitly.
+- Record actual test commands and results in the pull request. An expected result in the README is not evidence that a check ran.
+- Reuse recorded Cloud resources after interrupted setup. Inspect uncertain create/delete outcomes before retrying. Target destructive cleanup by the recorded service ID and keep receipts until deletion is confirmed.
+- Keep article drafts, verification reports, and maintainer notes outside this example and its pull request. Add an article link only after publication.
 
 ---
 > Source: [ClickHouse/examples](https://github.com/ClickHouse/examples) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
