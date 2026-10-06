@@ -1,0 +1,51 @@
+{
+  "name": "novelai-image-desktop",
+  "owner": "2786886095",
+  "repo": "novelai-image-desktop",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "novelai-image-desktop",
+      "path": "skills/novelai-prompt-codex/SKILL.md",
+      "github_url": "https://github.com/2786886095/novelai-image-desktop/tree/main/skills/novelai-prompt-codex/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/2786886095/novelai-image-desktop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T22:15:58Z"
+}
