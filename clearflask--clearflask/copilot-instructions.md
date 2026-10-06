@@ -113,4 +113,4 @@ work to customers, each individually board-approved. The test loop is local:
 
 ---
 > Source: [clearflask/clearflask](https://github.com/clearflask/clearflask) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
