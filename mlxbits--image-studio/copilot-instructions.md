@@ -1,0 +1,260 @@
+## image-studio
+
+> Orientation for coding agents. This is the canonical file; `CLAUDE.md` is a
+
+# Agent notes — MLXBits Image Studio
+
+Orientation for coding agents. This is the canonical file; `CLAUDE.md` is a
+symlink to it (see "Using this file with your agent" at the bottom).
+
+SwiftUI macOS app that drives [mflux](https://github.com/filipstrand/mflux)
+subprocesses to generate images. Xcode 26+, macOS 26 deployment target.
+
+## Build and verify
+
+`project.yml` is the source of truth. **Never edit `.xcodeproj` directly** — it
+is generated and your changes will be overwritten.
+
+```bash
+xcodegen generate                       # after any project.yml change
+scripts/build-python-runtime.sh          # bundled Python runtime → build/python-runtime/ (cached)
+python3 -m unittest discover -s scripts/tests   # runtime build-script tests
+```
+
+**Before every commit, run CI's lint gate exactly** — both must pass:
+
+```bash
+swiftformat --lint --config .swiftformat .
+swiftlint lint --config .swiftlint.yml --baseline .swiftlint-baseline.json --strict
+```
+
+A plain `swiftlint lint` is not enough: it reports new violations as warnings
+among ~139 baselined ones, so they are easy to miss, and CI fails on them under
+`--strict`. `type_contents_order` is the usual catch — a property added below
+`init` or methods. Run both before building, too: the pre-build SwiftFormat pass
+rewrites files and would hide what `--lint` catches.
+
+If `~/MLXBits.xcworkspace` exists (the multi-Studio workspace: Image Studio,
+Video Studio, LTX Dataset Studio), you **must** build through it — never
+`-project` against the `.xcodeproj`:
+
+```bash
+xcodebuild -workspace "$HOME/MLXBits.xcworkspace" \
+           -scheme "MLXBits Image Studio" -configuration Debug build
+xcodebuild -workspace "$HOME/MLXBits.xcworkspace" \
+           -scheme "MLXBits Image Studio" test
+```
+
+On a plain clone without that workspace, substitute
+`-project "MLXBits Image Studio.xcodeproj"`.
+
+SwiftFormat and SwiftLint also run as pre-build scripts, so a build rewrites
+formatting. Lint before you build to avoid a confusing second diff.
+
+## Repo map
+
+```
+App/           Entry point + ContentView root layout
+Models/        Job models, model catalog, LoRA entries, prompt history/templates
+Runner/        Generic JobRunner<Spec> engine, per-family specs, warm-driver controller
+Stores/        @Observable app state (settings, per-family job stores, gallery, timings)
+Utilities/     Keychain, metadata sidecars, progress parsing, the Python toolchain, caption/scenario LLMs
+Views/         SwiftUI, one subdirectory per surface (see below)
+Tests/         Swift Testing unit tests — pure logic only, no UI tests
+Resources/     Info.plist, entitlements, and the Python drivers shipped in the bundle
+project.yml    XcodeGen manifest — source of truth for targets, sources, Info.plist
+```
+
+`Resources/mflux_driver.py` and `Resources/scenario_llm_driver.py` are bundled
+resources, not build inputs. Changing the NDJSON protocol means changing both
+the Python driver and `Runner/DriverProtocol.swift`.
+
+## Naming conventions
+
+Five model families, defined in `Models/ModelFamily.swift`: `flux`, `ideogram4`,
+`krea2`, `zimage`, `seedvr2`. Files follow the family name exactly:
+
+| Concern | Path |
+|---|---|
+| Job model | `Models/<Family>Job.swift` |
+| Runner spec | `Runner/<Family>JobRunner.swift` — `enum <Family>RunnerSpec: JobRunnerSpec` plus `typealias <Family>JobRunner = JobRunner<<Family>RunnerSpec>` |
+| Job store | `Stores/<Family>JobStore.swift` |
+| Params UI | `Views/<Family>/<Family>ParamsPanelView.swift` + `…ParamsPanelState.swift` |
+| Preview UI | `Views/<Family>/<Family>PreviewViews.swift` |
+| Settings form | `Views/Settings/ModelDefaultsView+<Family>Form.swift` |
+
+Glob for these rather than grepping file contents.
+
+**Three irregularities to know before you search:**
+
+1. **Flux is the unprefixed default.** Its store is `Stores/JobStore.swift` (not
+   `FluxJobStore`), its panel state is `Stores/ParamsPanelState.swift`, and its
+   views live in `Views/ParamsPanel/`, not `Views/Flux/`. There is no
+   `Views/Flux/` directory.
+2. **SeedVR2 has no `Views/SeedVR2/`.** It is an upscale action on an existing
+   image, not a pickable family, so its UI lives in
+   `Views/PreviewPane/SeedVR2PreviewViews.swift` and `SeedVR2UpscaleSheet.swift`.
+   It appears in `ModelFamily` only to get its own `GenerationCoordinator` gate
+   identity (the OOM guard that serializes it against generative runs).
+   `ModelFamily.generative` is the list that excludes it.
+3. **Ideogram 4 is much larger than the others.** `Views/Ideogram4/` carries a
+   whole bounding-box editor (`BBoxEditorView` plus `+Canvas`, `+Gestures`,
+   `+Subviews` extensions) and a caption editor. Start at `BBoxSemantics.swift`
+   and `BBoxGeometry.swift` for the model behind that UI.
+
+## Do not search these
+
+Gitignored but present on disk, and expensive to grep:
+
+- `build/`, `DerivedData/` — build output
+- `.jscpd-report/` — duplication-checker HTML
+- `*.xcodeproj/` — generated from `project.yml`; read the manifest instead
+- `docs/screenshots/` — binary PNGs
+- `build/python-runtime/` — the bundled Python runtime (~1.6 GB)
+
+## Architecture in one paragraph
+
+`Runner/JobRunner.swift` is a generic engine: `JobRunner<Spec: JobRunnerSpec>`
+owns queueing, progress parsing, cancellation, and output handling, while each
+family's `Spec` supplies only `buildArgs(job:ctx:settings:)` and a few hooks.
+Jobs conform to `GeneratedJob`, stores to `GenerationJobStore`.
+`GenerationCoordinator` serializes runs across families so two models never sit
+resident at once. `MfluxDriverController` is the alternative fast path: a
+long-lived warm Python process spoken to over NDJSON on stdio
+(`Runner/DriverProtocol.swift`), keyed by a fingerprint of family + model +
+quantization + LoRA stack — a fingerprint mismatch forces an unload before the
+next load.
+
+When adding a parameter, prefer extending the family's `buildArgs` over touching
+`JobRunner` itself. If a change needs `JobRunner` edits, it probably belongs to
+all five families.
+
+Every Python tool runs through `Utilities/Toolchain.swift`:
+`<interpreter> Resources/run_tool.py <tool> <args>`, on the bundled runtime or
+the DMG's Custom Python (mflux tools and the warm driver only). Add new tools to
+`PythonTool` and `Runtime/tools.txt` together; a test keeps them equal.
+
+## Recipe: add a model family
+
+Adding Z-Image touched 24 files. In dependency order:
+
+1. `Models/ModelFamily.swift` — add the case; add to `.generative` unless it is
+   an action like SeedVR2.
+2. `Models/<Family>Job.swift` — the job model, conforming to `GeneratedJob`.
+3. `Models/FluxModelCatalog.swift` — model IDs, variants, defaults.
+4. `Runner/<Family>JobRunner.swift` — the spec enum, `buildArgs`, the typealias.
+5. `Stores/<Family>JobStore.swift` — conform to `GenerationJobStore`.
+6. `Stores/AppSettings.swift` — persisted per-family defaults.
+7. `Views/<Family>/` — params panel, panel state, preview views.
+8. `Views/Settings/ModelDefaultsView+<Family>Form.swift`, then register it in
+   `ModelDefaultsView.swift`.
+9. Wire the surfaces that switch on family: `App/ContentView.swift`,
+   `App/MLXBitsImageStudioApp.swift`, `Views/ParamsPanel/ModelPickerView.swift`,
+   `Views/ParamsPanel/ParamsPanelView.swift`, `Views/PreviewPane/PreviewPaneView.swift`,
+   `Views/Queue/QueueDrawerView.swift`, `Views/Gallery/GenerationGalleryView.swift`,
+   `Views/PreviewPane/GalleryItemDetailView.swift`.
+10. Metadata and constraints: `Utilities/MetadataSidecar.swift`,
+    `Views/Shared/ImageMetadataInfo.swift`, `Views/Shared/DimensionConstraints.swift`,
+    `Stores/GalleryStore.swift`, `Utilities/PythonTool.swift` (a case for the
+    new CLI) plus `Runtime/tools.txt` (same name), and the catalog's `generateTool`.
+11. If the family needs a new *directory*, add it to `sources:` in `project.yml`
+    and re-run `xcodegen generate`. New files inside an existing directory are
+    picked up automatically — no manifest change needed.
+
+Grepping for `ZImage` is the fastest way to find any touchpoint this list misses.
+
+## Icon buttons and hit targets
+
+Every icon-only control goes through `Views/Shared/IconButtonStyle.swift`. There
+are exactly **two** sizes and no third — do not invent one, and do not hand-roll
+`.frame(width:height:) + .contentShape(Rectangle())` on a new button.
+
+```swift
+Button { … } label: { Image(systemName: "dice").font(.caption) }
+    .buttonStyle(.iconButton)         // 28pt — the default, use this
+    .buttonStyle(.iconButtonCompact)  // 22pt — dense rows only
+```
+
+- **28pt (`IconButtonMetrics.size`)** is the default for anything icon-only.
+- **22pt (`IconButtonMetrics.compact`)** is only for a row already built around a
+  ~22pt line height: capsule chips, list-row accessories, the gallery filter bar,
+  inline affordances beside `.caption2` labels. If a 28 fits, use 28.
+- The style owns the frame, the hover fill, `contentShape`, and the pressed and
+  disabled states. It deliberately does **not** set a font — glyph size stays with
+  the caller.
+- `Menu` ignores `ButtonStyle`. Use `.iconMenuLabel()` on the label content, with
+  `.menuStyle(.borderlessButton)`. For bare shapes and `.onTapGesture` targets use
+  `.iconHitTarget()`; a `Circle()` alone hit-tests only its filled path.
+- For a label of content-driven width (icon + count, a progress readout), pin only
+  the height: `.frame(minWidth:minHeight:) + .contentShape(Rectangle())`.
+
+Two traps that produced most of the original ~45 undersized targets:
+
+- **`.padding()` after `.buttonStyle(...)` is not hit area.** It offsets layout, so
+  the control *looks* large and behaves glyph-sized. Chrome that should be
+  clickable — padding, a capsule or circle background — belongs **inside** the
+  label, before the style is applied.
+- **`.bordered` + `.controlSize(.small)`** draws an icon-only button at ~20pt.
+  Use `.controlSize(.regular)`, or give the label its own internal padding.
+
+Exempt: window `.toolbar` items (AppKit sizes those), non-interactive badges and
+status glyphs, whole-row `contentShape(Rectangle())` headers, and the full-size
+viewer's 44pt nav arrows (fullscreen media chrome; the standard is a floor, not a
+cap — see the comment in `FullSizeImageView.swift`).
+
+## Params panel width budget
+
+The params pane is a fixed 350pt (`ContentView.paramsPane`), and a row that needs
+more does **not** clip locally: the panel's content column reports the oversize
+width, the fixed frame centres it, and every label in the panel loses its leading
+edge — section titles first, because they sit outermost. It looks like the window
+is cutting off the sidebar; it is one row inside it.
+
+Budget for a row inside a `SectionContainerView`: **305pt** — 350 less the panel's
+12pt side padding, the scroll view's 5pt trailing content margin, and the
+container's 8pt side padding. Outside a section container it is 321pt.
+
+Widest rows today: the dimension picker header (295) and steps + seed (301). Both
+are near the line, so measure rather than eyeball when adding to either — a
+`NSHostingController(rootView:).sizeThatFits(in:)` probe on the row is enough.
+This is what four 28pt icon buttons in the dimension row cost the first time.
+
+## Conventions and gotchas
+
+- Swift 5.9 with `SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor` — types are
+  main-actor isolated by default. Annotate explicitly to move work off the main
+  actor.
+- Tests are Swift Testing (`@Test`, `#expect`), not XCTest, and cover pure logic
+  only. Do not add UI tests.
+- Progress reporting parses mflux's tqdm output (`Utilities/JobProgressParser.swift`).
+  Use the raw step value; do not add app-side ETA estimates on top.
+- Secrets go through `Utilities/KeychainHelper.swift`. `.env` holds the Apple
+  Team ID for release builds and is gitignored — never commit it or echo it.
+- The DMG is unsandboxed; the App Store flavor is sandboxed (`Utilities/FileAccess.swift`, spec §4). In both:
+  - **Every open panel** that picks a folder or LoRA goes through `GrantingPanel` (or `LibraryFolderPanel`), so the App Store build keeps access across relaunches.
+  - **Every new source-image entry point** passes its path through `settings.adoptSourceImage(_:)`.
+  - **Anything a job reads from disk** goes in its spec's `accessPaths(job:)`.
+- Support (spec §5): the Support window (`Views/Support/`) shows StoreKit tips in the App Store build and the Ko-fi link in the DMG; the App Store build never shows external donation links (`SupportLinks`). The one-time nudge appears after 50 saved images (`SupportStore`); in DEBUG builds, lower the threshold with the launch argument `-supportNudgeThreshold <n>`. Never call `Product.purchase()` from unit tests: in the hosted test run it shows a real Apple Account sign-in.
+  - **Local tips** come from `Resources/Tips.storekit`, set as the App Store scheme's StoreKit configuration. The tracked path (`../Git/MLXBits Image Studio/Resources/Tips.storekit`) is relative to the owner's `~/MLXBits.xcworkspace`; opening the project directly shows a missing-file warning, which is harmless. `xcodegen generate` drops it (XcodeGen can't write a workspace-relative path): re-pick it in Edit Scheme ▸ Run ▸ Options and commit the scheme. `StoreKitStorefrontTests` don't need it, and are off on CI (`TEST_RUNNER_STOREKIT_TESTS=0`), where unsigned runs aren't entitled to StoreKitTest.
+- Do not script bulk reads or edits over the user's image output directory.
+  Fix the code and describe the manual cleanup instead.
+
+## Using this file with your agent
+
+`AGENTS.md` is the portable convention, read by Cursor, Codex, and others.
+Claude Code auto-loads `CLAUDE.md`, so point one at the other locally:
+
+```bash
+ln -s AGENTS.md CLAUDE.md
+```
+
+That symlink is gitignored — this file is the only tracked copy, so there is no
+second document to keep in sync. Recreate the link after a fresh clone.
+
+If you ever stage the link, use a plain `git add`. Do **not** use `git add -N`
+on it: unstaging an intent-to-add symlink writes the empty blob over the link
+target and silently breaks it.
+
+---
+> Source: [MLXBits/image-studio](https://github.com/MLXBits/image-studio) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-05 -->
