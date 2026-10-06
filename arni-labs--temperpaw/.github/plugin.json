@@ -1,0 +1,9 @@
+{
+  "name": "arni-labs--temperpaw",
+  "displayName": "temperpaw",
+  "description": "TemperPaw \u2014 Agent daemon built on Temper platform",
+  "version": "1.0.0",
+  "author": "arni-labs",
+  "homepage": "https://github.com/arni-labs/temperpaw",
+  "skills": []
+}
