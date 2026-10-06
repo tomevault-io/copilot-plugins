@@ -1,0 +1,9 @@
+{
+  "name": "suin--biome-json",
+  "displayName": "biome.json",
+  "description": "\u2699\ufe0f Opinionated Biome configuration extending ultracite with additional rules",
+  "version": "1.0.0",
+  "author": "suin",
+  "homepage": "https://github.com/suin/biome.json",
+  "skills": []
+}
