@@ -1,0 +1,9 @@
+{
+  "name": "foxlight-foundation--skulk",
+  "displayName": "Skulk",
+  "description": "Skulk is an interconnect fabric for multi-node AI compute; it features intelligent model storage, adjustable sharding, speculative decoding across ranks, support for heterogeneous nodes (Apple Silicon",
+  "version": "1.0.0",
+  "author": "Foxlight-Foundation",
+  "homepage": "https://github.com/Foxlight-Foundation/Skulk",
+  "skills": []
+}
