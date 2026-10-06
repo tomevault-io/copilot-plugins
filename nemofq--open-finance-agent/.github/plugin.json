@@ -1,0 +1,9 @@
+{
+  "name": "nemofq--open-finance-agent",
+  "displayName": "open-finance-agent",
+  "description": "An open-source financial research harness that enforces analyst standards in the agent loop itself: trusted sources first, no mental math with every figure computed in a Python sandbox, and every numb",
+  "version": "1.0.0",
+  "author": "nemofq",
+  "homepage": "https://github.com/nemofq/open-finance-agent",
+  "skills": []
+}
