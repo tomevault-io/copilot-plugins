@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [pigweed-project/pigweed](https://github.com/pigweed-project/pigweed).
+Original source: `AGENTS.md` in [pigweed-project/pigweed](https://github.com/pigweed-project/pigweed).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (7)
+## Bundled Skills (13)
 
 - [pigweed](https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/docs/SKILL.md)
 - [pigweed](https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/bluetooth/SKILL.md)
@@ -24,8 +24,14 @@ Original source: `GEMINI.md` in [pigweed-project/pigweed](https://github.com/pig
 - [pigweed](https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/run_presubmit_checks/SKILL.md)
 - [pigweed](https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/use_pw_toolchain_tools/SKILL.md)
 - [pigweed](https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/pw_rpc_creating_services/SKILL.md)
+- [pigweed](https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/gerrit/SKILL.md)
+- [pigweed](https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/oncall/SKILL.md)
+- [pigweed](https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/pw_async2/SKILL.md)
+- [pigweed](https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/ghish/SKILL.md)
+- [pigweed](https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/saleae/SKILL.md)
+- [pigweed](https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/worktree/SKILL.md)
 
-From [pigweed-project/pigweed](https://github.com/pigweed-project/pigweed) — a repo with 524+ stars on GitHub.
+From [pigweed-project/pigweed](https://github.com/pigweed-project/pigweed) — a repo with 547+ stars on GitHub.
 
 ---
 
