@@ -1,0 +1,9 @@
+{
+  "name": "hawkeye-xb--p-pass",
+  "displayName": "P-Pass",
+  "description": "Family photo backup, peer-to-peer: your phone backs up automatically to the computer at home. No cloud, no account, open source.",
+  "version": "1.0.0",
+  "author": "hawkeye-xb",
+  "homepage": "https://github.com/hawkeye-xb/P-Pass",
+  "skills": []
+}
