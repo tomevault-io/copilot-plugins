@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [double-coding-lab/Flow2Spec](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [double-coding-lab/Flow2Spec](https://github.com/double-coding-lab/Flow2Spec) — a repo with 43+ stars on GitHub.
+From [double-coding-lab/Flow2Spec](https://github.com/double-coding-lab/Flow2Spec) — a repo with 50+ stars on GitHub.
 
 ---
 
