@@ -3,7 +3,7 @@
   "owner": "hivecommons",
   "repo": "hive",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "hive",
+      "path": "src/pkg/jev/skill/SKILL.md",
+      "github_url": "https://github.com/hivecommons/hive/tree/main/src/pkg/jev/skill/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/hivecommons/hive",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-26T22:35:01Z"
+  "distributed_at": "2026-10-06T18:44:43Z"
 }
