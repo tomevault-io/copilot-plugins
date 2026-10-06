@@ -1,0 +1,9 @@
+{
+  "name": "lakhwan--startup-game",
+  "displayName": "startup-game",
+  "description": "A browser startup simulator where you probably die. Hire a team, ship features, manage burn rate, survive crises \u2014 get to $10k MRR before the cash runs out.",
+  "version": "1.0.0",
+  "author": "LaKhWaN",
+  "homepage": "https://github.com/LaKhWaN/startup-game",
+  "skills": []
+}
