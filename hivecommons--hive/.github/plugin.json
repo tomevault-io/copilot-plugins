@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "hivecommons",
   "homepage": "https://github.com/hivecommons/hive",
-  "skills": []
+  "skills": [
+    {
+      "name": "hive",
+      "description": ""
+    }
+  ]
 }
