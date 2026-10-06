@@ -1,0 +1,9 @@
+{
+  "name": "impoai--impo",
+  "displayName": "impo",
+  "description": "An open-source personal agent, similar in spirit to MUSE. Full-stack architecture with a shared backend, native iOS, and planned Android and Web clients.",
+  "version": "1.0.0",
+  "author": "impoai",
+  "homepage": "https://github.com/impoai/impo",
+  "skills": []
+}
