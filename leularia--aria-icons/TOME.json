@@ -1,0 +1,57 @@
+{
+  "name": "Aria-Icons",
+  "owner": "LeulAria",
+  "repo": "Aria-Icons",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Aria-Icons",
+      "path": "skills/SKILL.md",
+      "github_url": "https://github.com/LeulAria/Aria-Icons/tree/main/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Aria-Icons",
+      "path": "packages/cli/skills/SKILL.md",
+      "github_url": "https://github.com/LeulAria/Aria-Icons/tree/main/packages/cli/skills/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/LeulAria/Aria-Icons",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T19:06:11Z"
+}
