@@ -1,0 +1,9 @@
+{
+  "name": "bazodev--open-vids",
+  "displayName": "open-vids",
+  "description": "Open-source desktop video editor for macOS that you work in together with AI agents. Runs locally; projects are folders of plain files.",
+  "version": "1.0.0",
+  "author": "bazodev",
+  "homepage": "https://github.com/bazodev/open-vids",
+  "skills": []
+}
