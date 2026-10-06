@@ -1,0 +1,14 @@
+{
+  "name": "laminlabs--lamindb",
+  "displayName": "lamindb",
+  "description": "lamindb",
+  "version": "1.0.0",
+  "author": "laminlabs",
+  "homepage": "https://github.com/laminlabs/lamindb",
+  "skills": [
+    {
+      "name": "lamindb",
+      "description": ""
+    }
+  ]
+}
