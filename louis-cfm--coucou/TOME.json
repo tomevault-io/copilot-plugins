@@ -2,9 +2,9 @@
   "name": "coucou",
   "owner": "Louis-CFM",
   "repo": "coucou",
-  "description": "A tiny friend that lives in your MacBook's notch and keeps an eye on your Claude Code sessions.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Louis-CFM/coucou",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T16:37:37Z"
+  "distributed_at": "2026-10-06T14:05:49Z"
 }
