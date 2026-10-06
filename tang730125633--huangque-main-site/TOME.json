@@ -1,0 +1,44 @@
+{
+  "name": "huangque-main-site",
+  "owner": "tang730125633",
+  "repo": "huangque-main-site",
+  "description": "\u9ec4\u96c0\u4e3b\u7ad9\u5efa\u8bbe \u2014 \u6296\u97f3\u8bc4\u8bba\u533a\u83b7\u5ba2 + AI \u5185\u5bb9\u5de5\u4f5c\u53f0\u5b98\u7f51",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tang730125633/huangque-main-site",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T00:44:30Z"
+}
