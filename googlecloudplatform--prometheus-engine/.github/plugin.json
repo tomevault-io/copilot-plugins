@@ -1,0 +1,14 @@
+{
+  "name": "googlecloudplatform--prometheus-engine",
+  "displayName": "prometheus-engine",
+  "description": "prometheus-engine",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/prometheus-engine",
+  "skills": [
+    {
+      "name": "prometheus-engine",
+      "description": ""
+    }
+  ]
+}
