@@ -1,423 +1,508 @@
-## nextjs16-server-client-boundaries
+## nextjs16-typescript-strict
 
-> Perfect — this is exactly the right way to design **Cursor rules for a Next.js 16 codebase**: encode the **architecture discipline around Server vs Client Components** so the AI never generates incorrect patterns.
+> Enforces strict TypeScript configuration for Next.js 16. Type safety, proper compiler options, and IDE integration for catching errors at development time.
 
-Perfect — this is exactly the right way to design **Cursor rules for a Next.js 16 codebase**: encode the **architecture discipline around Server vs Client Components** so the AI never generates incorrect patterns.
-B
-Below is a **Next.js-16-correct rule** that avoids deprecated patterns and enforces the **App Router + React Server Components model**.
 
-This rule should live at:
+# Next.js 16 TypeScript - Strict Configuration
 
-```
-.cursor/rules/nextjs16-server-client-boundaries.mdc
-```
+This rule enforces **strict TypeScript settings** that catch errors during development, not production.
+
+**Philosophy**: If it compiles with strict TypeScript, it's probably correct.
 
 ---
 
-# `.cursor/rules/nextjs16-server-client-boundaries.mdc`
+## 🎯 Core Principle
 
-```mdc
----
-description: "Enforces correct usage of React Server Components and Client Components in Next.js 16 applications."
-alwaysApply: false
----
+TypeScript is your **first line of defense** against bugs. Configure it strictly to catch:
+- Type errors
+- Null/undefined issues
+- Missing return types
+- Unused variables
+- Import errors
 
-# Next.js 16 Server and Client Component Architecture
-
-This rule defines how Server Components and Client Components must be used in a Next.js 16 application.
-
-Next.js 16 uses **React Server Components (RSC)** by default. All pages, layouts, and components should remain **Server Components unless client behavior is required**.
-
-The primary goal is to:
-
-- minimize client JavaScript
-- protect secrets
-- fetch data on the server
-- maintain fast streaming rendering
+**We enforce**: Strict mode, proper paths, typed routes, typed environment variables.
 
 ---
 
-# 1. Default: Server Components
+## ✅ REQUIRED: Base tsconfig.json
 
-All components must be **Server Components by default**.
+### Minimal Strict Configuration
 
-This includes:
+Every Next.js 16 + TypeScript project MUST have this baseline:
 
-```
+```json filename="tsconfig.json"
+{
+  "compilerOptions": {
+    // ===== STRICT TYPE CHECKING =====
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
 
-app/page.tsx
-app/layout.tsx
-app/**/page.tsx
-app/**/layout.tsx
+    // ===== MODULE RESOLUTION =====
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
 
-````
+    // ===== EMIT =====
+    "noEmit": true,
+    "incremental": true,
 
-Server Components allow:
+    // ===== NEXT.JS SPECIFIC =====
+    "target": "ES2020",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
 
-- server-side data fetching
-- access to environment variables
-- access to API keys
-- reduced client bundle size
-- streaming UI rendering
-
-Example:
-
-```tsx
-export default async function Page() {
-  const data = await fetchData()
-  return <div>{data.title}</div>
-}
-````
-
-Never mark pages or layouts with `"use client"` unless absolutely required.
-
----
-
-# 2. When to Use Client Components
-
-Client Components must only be used when browser interactivity is required.
-
-Use Client Components for:
-
-* React state (`useState`)
-* React effects (`useEffect`)
-* event handlers (`onClick`, `onChange`)
-* browser APIs (`window`, `localStorage`, `navigator`)
-* client hooks
-
-Example:
-
-```tsx
-'use client'
-
-import { useState } from 'react'
-
-export default function Counter() {
-  const [count, setCount] = useState(0)
-
-  return <button onClick={() => setCount(count + 1)}>{count}</button>
+    // ===== PATH ALIASES =====
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
 ```
 
 ---
 
-# 3. Client Boundary Rules
+## 🔒 REQUIRED: Strict Mode Flags
 
-The `"use client"` directive creates a **client boundary**.
+### What Each Flag Does
 
-Once a file is marked with `"use client"`:
+```json
+{
+  "compilerOptions": {
+    // ===== STRICT MODE (enables all strict checks) =====
+    "strict": true,
+    // This enables:
+    // - strictNullChecks: null and undefined must be explicit
+    // - strictFunctionTypes: function params are contravariant
+    // - strictBindCallApply: bind/call/apply are correctly typed
+    // - strictPropertyInitialization: class properties must be initialized
+    // - noImplicitThis: 'this' must have explicit type
+    // - alwaysStrict: emit "use strict"
+    // - noImplicitAny: no implicit 'any' types
 
-* all imports become part of the client bundle
-* all child components become client-rendered
+    // ===== ADDITIONAL STRICT CHECKS =====
+    "noUncheckedIndexedAccess": true,
+    // Array/object access returns 'T | undefined'
+    // Catches: array[999] might be undefined
 
-Rule:
+    "noImplicitOverride": true,
+    // Must use 'override' keyword when overriding methods
+    // Catches: accidental method name typos in subclasses
 
-Never place `"use client"` higher in the tree than necessary.
-
-Bad:
-
-```
-app/layout.tsx
-'use client'
-```
-
-Good:
-
-```
-app/ui/search.tsx
-'use client'
-```
-
-Only the interactive component should be client-side.
-
----
-
-# 4. Server → Client Data Flow
-
-Data must flow **from Server Components to Client Components via props**.
-
-Example:
-
-Server Component:
-
-```tsx
-import LikeButton from './like-button'
-
-export default async function Page() {
-  const post = await getPost()
-
-  return <LikeButton likes={post.likes} />
+    "noFallthroughCasesInSwitch": true,
+    // Prevents missing 'break' in switch statements
+    // Catches: switch fallthrough bugs
+  }
 }
 ```
 
-Client Component:
+**Why strict mode is mandatory**:
+- Catches null/undefined errors at compile time
+- Forces explicit type annotations
+- Prevents common runtime errors
+- Industry standard for production TypeScript
 
-```tsx
-'use client'
+---
 
-export default function LikeButton({ likes }: { likes: number }) {
-  return <button>{likes}</button>
+## 📁 REQUIRED: Next.js Include Paths
+
+### What Must Be Included
+
+```json
+{
+  "include": [
+    "next-env.d.ts",        // Next.js type definitions
+    ".next/types/**/*.ts",  // Generated route types
+    "**/*.ts",              // All TypeScript files
+    "**/*.tsx"              // All React TypeScript files
+  ],
+  "exclude": [
+    "node_modules"          // Never check dependencies
+  ]
 }
 ```
 
-Rules:
-
-* Props must be **serializable**
-* Do not pass database objects directly
-* Do not pass functions
+**Why `.next/types/**/*.ts` is critical**:
+- Contains generated route types for typed routes
+- Enables `typedRoutes: true` in next.config.ts
+- Auto-generated on `next dev`, `next build`, `next typegen`
 
 ---
 
-# 5. Interleaving Server and Client Components
+## 🎯 REQUIRED: Path Aliases
 
-Server Components may render Client Components.
+### Standard Next.js Aliases
 
-Example:
-
-```
-Server Page
-   ↓
-Client Modal
-   ↓
-Server Content
-```
-
-Pattern example:
-
-Server Component:
-
-```tsx
-import Modal from './modal'
-import Cart from './cart'
-
-export default function Page() {
-  return (
-    <Modal>
-      <Cart />
-    </Modal>
-  )
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],                    // Everything from root
+      "@/components/*": ["components/*"], // Optional: specific paths
+      "@/lib/*": ["lib/*"],
+      "@/features/*": ["features/*"]
+    }
+  }
 }
 ```
 
-Client Component:
+**Benefits**:
+- Absolute imports instead of `../../..`
+- Easy refactoring
+- Consistent import paths
 
+**Usage**:
 ```tsx
-'use client'
+// ✅ GOOD: Absolute import
+import { Button } from "@/components/ui/button"
 
-export default function Modal({ children }: { children: React.ReactNode }) {
-  return <div>{children}</div>
+// ❌ BAD: Relative import
+import { Button } from "../../components/ui/button"
+```
+
+---
+
+## 🚀 RECOMMENDED: IDE Integration
+
+### VS Code TypeScript Plugin
+
+Enable the Next.js TypeScript plugin:
+
+1. `Ctrl/⌘ + Shift + P`
+2. "TypeScript: Select TypeScript Version"
+3. "Use Workspace Version"
+
+**What it provides**:
+- Warning for invalid segment config options
+- IntelliSense for available options
+- Ensures `'use client'` is used correctly
+- Validates client hooks only in Client Components
+
+### TypeScript Version
+
+Use TypeScript 5.1.3+ for async Server Components:
+
+```json filename="package.json"
+{
+  "devDependencies": {
+    "typescript": "^5.7.3"  // Latest version
+  }
 }
 ```
 
-This pattern allows server-rendered UI to be nested inside interactive components.
-
 ---
 
-# 6. Context Providers
+## ✅ RECOMMENDED: Typed Routes
 
-React context **cannot run in Server Components**.
+### Enable Statically Typed Links
 
-Context providers must be Client Components.
+```ts filename="next.config.ts"
+import type { NextConfig } from 'next'
 
-Example:
+const nextConfig: NextConfig = {
+  typedRoutes: true,  // Enable typed routing
+}
 
+export default nextConfig
 ```
-app/theme-provider.tsx
+
+```json filename="tsconfig.json"
+{
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",  // Required for typed routes
+    "**/*.ts",
+    "**/*.tsx"
+  ]
+}
 ```
+
+**What you get**:
 
 ```tsx
-'use client'
+import Link from 'next/link'
+import type { Route } from 'next'
 
-import { createContext } from 'react'
+// ✅ Valid routes are typed
+<Link href="/dashboard" />       // ✅ Compiles
+<Link href="/blog/[slug]" />     // ✅ Compiles
 
-export const ThemeContext = createContext({})
+// ❌ Invalid routes are errors
+<Link href="/dashbord" />        // ❌ TypeScript error
+
+// ✅ Dynamic routes need casting
+const slug = "nextjs"
+<Link href={`/blog/${slug}` as Route} />
 ```
 
-Then imported into the root layout:
+**Benefits**:
+- Catch typos in routes at compile time
+- Refactor routes safely
+- Auto-complete for valid routes
 
-```
-app/layout.tsx
+---
+
+## ✅ RECOMMENDED: Typed Environment Variables
+
+### Enable Environment Variable Types
+
+```ts filename="next.config.ts"
+const nextConfig: NextConfig = {
+  experimental: {
+    typedEnv: true,  // Generate .d.ts for env vars
+  },
+}
 ```
 
+**What it does**:
+- Generates `.next/types/process.env.d.ts`
+- Editor IntelliSense for `process.env.X`
+- Catches typos in env var names
+
+**Example**:
 ```tsx
-import ThemeProvider from './theme-provider'
-```
+// With typedEnv: true
 
-Providers should be placed **as deep as possible** in the tree.
+// ✅ Auto-complete shows available vars
+const apiKey = process.env.NEXT_PUBLIC_API_KEY
 
-Bad:
-
-```
-<html>
-  <ThemeProvider>
-```
-
-Better:
-
-```
-<body>
-  <ThemeProvider>{children}</ThemeProvider>
+// ❌ Typo is caught at compile time
+const key = process.env.NEXT_PUBLIC_API_KY  // Error: Property doesn't exist
 ```
 
 ---
 
-# 7. Data Sharing With React.cache
+## 🔧 RECOMMENDED: Build Optimizations
 
-Shared server data should use `React.cache`.
+### Incremental Compilation
 
-Example:
-
-```
-lib/user.ts
-```
-
-```ts
-import { cache } from 'react'
-
-export const getUser = cache(async () => {
-  const res = await fetch('https://api.example.com/user')
-  return res.json()
-})
+```json filename="tsconfig.json"
+{
+  "compilerOptions": {
+    "incremental": true  // Enable incremental compilation
+  }
+}
 ```
 
-Rules:
+**What it does**:
+- Faster subsequent builds
+- Only recompiles changed files
+- Creates `.tsbuildinfo` cache file
 
-* Cache expensive fetches
-* Reuse cached functions across components
-* Avoid duplicate requests during a single render
+**Add to `.gitignore`**:
+```
+.tsbuildinfo
+```
 
-`React.cache` is scoped per request.
+### Skip Lib Check
+
+```json
+{
+  "compilerOptions": {
+    "skipLibCheck": true  // Don't type-check dependencies
+  }
+}
+```
+
+**Why**: Your dependencies should already be correctly typed. Checking them wastes time.
 
 ---
 
-# 8. Streaming and Suspense
+## 🎯 RECOMMENDED: Project Structure Paths
 
-Server Components should use **Suspense boundaries** for streaming UI.
+### For Feature-Based Architecture
 
-Example:
-
-```tsx
-import { Suspense } from 'react'
-
-<Suspense fallback={<Loading />}>
-  <Profile />
-</Suspense>
+```json filename="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@/components/*": ["components/*"],
+      "@/ui/*": ["components/ui/*"],
+      "@/features/*": ["features/*"],
+      "@/lib/*": ["lib/*"],
+      "@/actions/*": ["actions/*"],
+      "@/services/*": ["services/*"],
+      "@/types/*": ["types/*"],
+      "@/hooks/*": ["hooks/*"]
+    }
+  }
+}
 ```
 
-This allows progressive rendering.
+**Benefits**:
+- Clear separation of concerns
+- Easy to find code
+- Consistent import paths
 
 ---
 
-# 9. Prevent Environment Poisoning
+## 🚨 FORBIDDEN Patterns
 
-Server-only code must never be imported into Client Components.
+### ❌ NEVER: Disable Strict Mode
 
-Example:
-
-```
-lib/data.ts
-```
-
-```ts
-import 'server-only'
-```
-
-Use `server-only` when:
-
-* accessing database
-* accessing private APIs
-* using environment secrets
-
-Client-only modules may use:
-
-```
-client-only
+```json
+// ❌ NEVER DO THIS
+{
+  "compilerOptions": {
+    "strict": false,              // ❌ Defeats purpose of TypeScript
+    "noImplicitAny": false,       // ❌ Allows any types
+    "strictNullChecks": false     // ❌ Allows null bugs
+  }
+}
 ```
 
-to prevent server usage.
+**These are NEVER acceptable.**
+
+### ❌ NEVER: Ignore Build Errors in Config
+
+```ts filename="next.config.ts"
+// ❌ NEVER DO THIS
+const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,      // ❌ Allows broken builds
+  },
+}
+```
+
+**Only exception**: If you run `tsc --noEmit` separately in CI.
+
+### ❌ NEVER: Missing Include Paths
+
+```json
+// ❌ INCOMPLETE
+{
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+    // ❌ Missing: ".next/types/**/*.ts"
+  ]
+}
+```
+
+**This breaks**: Typed routes, generated types.
 
 ---
 
-# 10. Third-Party Client Libraries
+## 📋 TypeScript Configuration Checklist
 
-If a third-party library uses client features but lacks `"use client"`, wrap it.
+Before deploying, verify:
 
-Example wrapper:
-
-```
-app/carousel.tsx
-```
-
-```tsx
-'use client'
-
-import { Carousel } from 'acme-carousel'
-
-export default Carousel
-```
-
-Then use normally in Server Components.
+- [ ] `strict: true` is enabled
+- [ ] `noUncheckedIndexedAccess: true` is set
+- [ ] `noImplicitOverride: true` is set
+- [ ] `.next/types/**/*.ts` is in `include` array
+- [ ] Path aliases configured (`@/*`)
+- [ ] TypeScript 5.1.3+ installed
+- [ ] `typedRoutes: true` in next.config.ts (if using)
+- [ ] `typedEnv: true` in next.config.ts (if using)
+- [ ] `incremental: true` for faster builds
+- [ ] `.tsbuildinfo` in `.gitignore`
 
 ---
 
-# 11. Performance Rules
+## 🎓 Complete Production tsconfig.json
 
-To maintain optimal performance:
+```json filename="tsconfig.json"
+{
+  "compilerOptions": {
+    // ===== STRICT TYPE CHECKING =====
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
 
-Always:
+    // ===== MODULE RESOLUTION =====
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
 
-* fetch data in Server Components
-* keep client components small
-* avoid unnecessary `"use client"`
+    // ===== EMIT =====
+    "noEmit": true,
+    "incremental": true,
 
-Never:
+    // ===== NEXT.JS SPECIFIC =====
+    "target": "ES2020",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
 
-* fetch database data in Client Components
-* move entire pages to the client
-* expose API keys to the browser
+    // ===== PATH ALIASES =====
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@/components/*": ["components/*"],
+      "@/ui/*": ["components/ui/*"],
+      "@/features/*": ["features/*"],
+      "@/lib/*": ["lib/*"],
+      "@/actions/*": ["actions/*"],
+      "@/services/*": ["services/*"],
+      "@/types/*": ["types/*"],
+      "@/hooks/*": ["hooks/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",  // Generated types (typed routes, env vars)
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+```
 
 ---
 
-# 12. Absolute Rules
+## 🔑 Key Takeaways
 
-Never:
-
-* add `"use client"` to layouts unnecessarily
-* fetch secrets in client components
-* run heavy logic in client components
-* send non-serializable props to client components
-
-Prefer:
-
-```
-Server Component → Client Component (interactive)
-```
-
-This architecture ensures minimal JavaScript and maximum performance.
-
-```
+1. **Always strict** - `strict: true` is non-negotiable
+2. **Type your routes** - `typedRoutes: true` catches navigation errors
+3. **Type your env vars** - `typedEnv: true` catches config errors
+4. **Use path aliases** - `@/*` instead of relative imports
+5. **Include generated types** - `.next/types/**/*.ts` is required
+6. **Incremental builds** - `incremental: true` for speed
+7. **Never ignore errors** - Fix them, don't hide them
 
 ---
 
-# Recommended Next Rule (Very Important)
-
-The next rule you should add is **data fetching discipline**, because Next.js 16 introduced **Cache Components and new caching APIs**.
-
-The rule would be:
-
-```
-
-nextjs16-data-fetching-and-caching.mdc
-
-```
-
-This one teaches Cursor:
-
-- `use cache`
-- `revalidateTag(tag, 'max')`
-- `updateTag()`
-- request-time execution
-- Partial Pre-Rendering
+**Remember**: TypeScript is only as good as your configuration. Start strict, and you'll catch bugs before your users do.
 
 ---
 > Source: [Mark0025/npm-auth-gateway](https://github.com/Mark0025/npm-auth-gateway) — distributed by [TomeVault](https://tomevault.io).
