@@ -1,59 +1,21 @@
 ## gvisor-tap-vsock
 
-> gosec is a Go static analysis tool that inspects Go source code for security vulnerabilities by scanning the Go AST and SSA form.
+> Issues and specs live in GitHub Issues, operated with the `gh` CLI. See `docs/agents/issue-tracker.md`.
 
-# gosec - Go Security Checker
+## Agent skills
 
-gosec is a Go static analysis tool that inspects Go source code for security vulnerabilities by scanning the Go AST and SSA form.
+### Issue tracker
 
-## Build & Test
+Issues and specs live in GitHub Issues, operated with the `gh` CLI. See `docs/agents/issue-tracker.md`.
 
-```bash
-# Build
-go build ./cmd/gosec/
+### Triage labels
 
-# Run all tests
-go test ./...
+Use the default five canonical triage labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix`. See `docs/agents/triage-labels.md`.
 
-# Run a specific test
-go test -run TestName ./path/to/package/
+### Domain docs
 
-# Lint
-golangci-lint run
-
-# Run gosec against a sample file
-go run ./cmd/gosec/ ./path/to/sample.go
-```
-
-## Code Style
-
-- Idiomatic Go; follow existing patterns in the codebase.
-- Prefer SSA-based analyzers over AST-based rules when feasible.
-- Optimize for performance — avoid unnecessary repeated AST or SSA traversals.
-
-## Project Structure
-
-- `rules/` — AST-based rule implementations
-- `analyzers/` — SSA-based analyzer implementations
-- `cmd/gosec/` — CLI entry point
-- `testutils/` — sample files used in tests (positive and negative cases)
-- `issue/` — issue and CWE type definitions
-- `report/` — output formatters
-
-## Adding Rules
-
-- Select an appropriate CWE aligned with current repository mappings.
-- Integrate the rule in all required registration points.
-- Add sample files in `testutils/` with at least 2 positive and 2 negative cases.
-- Update rule documentation in `README.md` in the same style as other rules.
-
-## Custom Commands
-
-- `/create-gosec-rule` — Design and implement a new gosec rule from an issue description
-- `/fix-gosec-bug` — Investigate and fix a bug from a GitHub issue URL
-- `/update-go-versions` — Bump supported Go versions across the repo
-- `/update-action-version` — Update the gosec GHCR image version in action.yml
+This is a single-context repo using root `CONTEXT.md` and `docs/adr/`. See `docs/agents/domain.md`.
 
 ---
 > Source: [containers/gvisor-tap-vsock](https://github.com/containers/gvisor-tap-vsock) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
