@@ -2,7 +2,7 @@
   "name": "loading",
   "owner": "jakubkrehel",
   "repo": "loading",
-  "description": "A lightweight library full of beautiful loading indicators for React.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jakubkrehel/loading",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T17:32:26Z"
+  "distributed_at": "2026-10-06T23:13:22Z"
 }
