@@ -1,508 +1,443 @@
-## nextjs16-typescript-strict
+## nextjs16feature-architecture
 
-> Enforces strict TypeScript configuration for Next.js 16. Type safety, proper compiler options, and IDE integration for catching errors at development time.
+> Below is a **production-grade Cursor rule** for **feature-based architecture in Next.js 16**.
 
+Below is a **production-grade Cursor rule** for **feature-based architecture in Next.js 16**.
+This rule teaches Cursor to generate **large-scale maintainable applications** instead of flat folder chaos.
 
-# Next.js 16 TypeScript - Strict Configuration
+This architecture is used in **large SaaS and enterprise Next.js apps** because it scales to **millions of users and large teams**.
 
-This rule enforces **strict TypeScript settings** that catch errors during development, not production.
+Place it at:
 
-**Philosophy**: If it compiles with strict TypeScript, it's probably correct.
-
----
-
-## 🎯 Core Principle
-
-TypeScript is your **first line of defense** against bugs. Configure it strictly to catch:
-- Type errors
-- Null/undefined issues
-- Missing return types
-- Unused variables
-- Import errors
-
-**We enforce**: Strict mode, proper paths, typed routes, typed environment variables.
-
----
-
-## ✅ REQUIRED: Base tsconfig.json
-
-### Minimal Strict Configuration
-
-Every Next.js 16 + TypeScript project MUST have this baseline:
-
-```json filename="tsconfig.json"
-{
-  "compilerOptions": {
-    // ===== STRICT TYPE CHECKING =====
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "noFallthroughCasesInSwitch": true,
-
-    // ===== MODULE RESOLUTION =====
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-
-    // ===== EMIT =====
-    "noEmit": true,
-    "incremental": true,
-
-    // ===== NEXT.JS SPECIFIC =====
-    "target": "ES2020",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-
-    // ===== PATH ALIASES =====
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    }
-  },
-  "include": [
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
-}
+```
+.cursor/rules/nextjs16-feature-architecture.mdc
 ```
 
 ---
 
-## 🔒 REQUIRED: Strict Mode Flags
+# `.cursor/rules/nextjs16-feature-architecture.mdc`
 
-### What Each Flag Does
+```mdc
+---
+description: "Defines feature-based architecture for scalable Next.js 16 applications using domain modules and vertical slicing."
+alwaysApply: false
+---
 
-```json
-{
-  "compilerOptions": {
-    // ===== STRICT MODE (enables all strict checks) =====
-    "strict": true,
-    // This enables:
-    // - strictNullChecks: null and undefined must be explicit
-    // - strictFunctionTypes: function params are contravariant
-    // - strictBindCallApply: bind/call/apply are correctly typed
-    // - strictPropertyInitialization: class properties must be initialized
-    // - noImplicitThis: 'this' must have explicit type
-    // - alwaysStrict: emit "use strict"
-    // - noImplicitAny: no implicit 'any' types
+# Next.js 16 Feature Architecture Rules
 
-    // ===== ADDITIONAL STRICT CHECKS =====
-    "noUncheckedIndexedAccess": true,
-    // Array/object access returns 'T | undefined'
-    // Catches: array[999] might be undefined
+This rule defines how to organize **large Next.js 16 applications** using **feature-based architecture** (also called domain architecture or vertical slicing).
 
-    "noImplicitOverride": true,
-    // Must use 'override' keyword when overriding methods
-    // Catches: accidental method name typos in subclasses
+The goal is to:
 
-    "noFallthroughCasesInSwitch": true,
-    // Prevents missing 'break' in switch statements
-    // Catches: switch fallthrough bugs
-  }
-}
-```
+- prevent flat folder chaos
+- scale to large applications
+- isolate domains
+- keep routing separate from business logic
 
-**Why strict mode is mandatory**:
-- Catches null/undefined errors at compile time
-- Forces explicit type annotations
-- Prevents common runtime errors
-- Industry standard for production TypeScript
+This architecture should be used whenever the application contains **multiple domains or complex business logic**.
 
 ---
 
-## 📁 REQUIRED: Next.js Include Paths
+# 1. Architecture Philosophy
 
-### What Must Be Included
+Next.js routing lives in `/app`, but business logic should be organized by **feature domains**.
 
-```json
-{
-  "include": [
-    "next-env.d.ts",        // Next.js type definitions
-    ".next/types/**/*.ts",  // Generated route types
-    "**/*.ts",              // All TypeScript files
-    "**/*.tsx"              // All React TypeScript files
-  ],
-  "exclude": [
-    "node_modules"          // Never check dependencies
-  ]
-}
+Bad architecture:
+
 ```
 
-**Why `.next/types/**/*.ts` is critical**:
-- Contains generated route types for typed routes
-- Enables `typedRoutes: true` in next.config.ts
-- Auto-generated on `next dev`, `next build`, `next typegen`
+components/
+utils/
+hooks/
+services/
+
+```
+
+This becomes impossible to maintain at scale.
+
+Instead use **domain modules**.
 
 ---
 
-## 🎯 REQUIRED: Path Aliases
+# 2. Domain Feature Structure
 
-### Standard Next.js Aliases
+Each feature represents a **business domain**.
 
-```json
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"],                    // Everything from root
-      "@/components/*": ["components/*"], // Optional: specific paths
-      "@/lib/*": ["lib/*"],
-      "@/features/*": ["features/*"]
-    }
-  }
-}
+Example domains:
+
+- auth
+- users
+- billing
+- dashboard
+- products
+- analytics
+
+Each feature must contain its own:
+
+- components
+- server logic
+- actions
+- types
+
+Example structure:
+
 ```
 
-**Benefits**:
-- Absolute imports instead of `../../..`
-- Easy refactoring
-- Consistent import paths
+features/
+auth/
+components/
+actions/
+services/
+hooks/
+types.ts
+users/
+components/
+actions/
+services/
+types.ts
 
-**Usage**:
-```tsx
-// ✅ GOOD: Absolute import
-import { Button } from "@/components/ui/button"
-
-// ❌ BAD: Relative import
-import { Button } from "../../components/ui/button"
 ```
 
 ---
 
-## 🚀 RECOMMENDED: IDE Integration
+# 3. Relationship With App Router
 
-### VS Code TypeScript Plugin
+The `/app` directory **only defines routing**.
 
-Enable the Next.js TypeScript plugin:
+Business logic should live inside **features**.
 
-1. `Ctrl/⌘ + Shift + P`
-2. "TypeScript: Select TypeScript Version"
-3. "Use Workspace Version"
+Example:
 
-**What it provides**:
-- Warning for invalid segment config options
-- IntelliSense for available options
-- Ensures `'use client'` is used correctly
-- Validates client hooks only in Client Components
-
-### TypeScript Version
-
-Use TypeScript 5.1.3+ for async Server Components:
-
-```json filename="package.json"
-{
-  "devDependencies": {
-    "typescript": "^5.7.3"  // Latest version
-  }
-}
 ```
 
----
+app/dashboard/page.tsx
+features/dashboard/components/Dashboard.tsx
 
-## ✅ RECOMMENDED: Typed Routes
-
-### Enable Statically Typed Links
-
-```ts filename="next.config.ts"
-import type { NextConfig } from 'next'
-
-const nextConfig: NextConfig = {
-  typedRoutes: true,  // Enable typed routing
-}
-
-export default nextConfig
 ```
 
-```json filename="tsconfig.json"
-{
-  "include": [
-    "next-env.d.ts",
-    ".next/types/**/*.ts",  // Required for typed routes
-    "**/*.ts",
-    "**/*.tsx"
-  ]
-}
+Page files should remain thin.
+
+Bad:
+
 ```
 
-**What you get**:
+app/dashboard/page.tsx
+400 lines of UI + logic
+
+```
+
+Good:
+
+```
+
+app/dashboard/page.tsx
+
+````
 
 ```tsx
-import Link from 'next/link'
-import type { Route } from 'next'
-
-// ✅ Valid routes are typed
-<Link href="/dashboard" />       // ✅ Compiles
-<Link href="/blog/[slug]" />     // ✅ Compiles
-
-// ❌ Invalid routes are errors
-<Link href="/dashbord" />        // ❌ TypeScript error
-
-// ✅ Dynamic routes need casting
-const slug = "nextjs"
-<Link href={`/blog/${slug}` as Route} />
-```
-
-**Benefits**:
-- Catch typos in routes at compile time
-- Refactor routes safely
-- Auto-complete for valid routes
+import { DashboardPage } from "@/features/dashboard/components/dashboard-page"
+````
 
 ---
 
-## ✅ RECOMMENDED: Typed Environment Variables
+# 4. Feature Folder Layout
 
-### Enable Environment Variable Types
+Each feature must follow this structure:
 
-```ts filename="next.config.ts"
-const nextConfig: NextConfig = {
-  experimental: {
-    typedEnv: true,  // Generate .d.ts for env vars
-  },
-}
+```
+features/
+  feature-name/
+    components/
+    actions/
+    services/
+    hooks/
+    lib/
+    types.ts
 ```
 
-**What it does**:
-- Generates `.next/types/process.env.d.ts`
-- Editor IntelliSense for `process.env.X`
-- Catches typos in env var names
+Responsibilities:
 
-**Example**:
-```tsx
-// With typedEnv: true
+components → UI
+actions → server actions
+services → business logic
+hooks → client hooks
+lib → utilities internal to the feature
 
-// ✅ Auto-complete shows available vars
-const apiKey = process.env.NEXT_PUBLIC_API_KEY
-
-// ❌ Typo is caught at compile time
-const key = process.env.NEXT_PUBLIC_API_KY  // Error: Property doesn't exist
-```
+Never place unrelated logic inside a feature.
 
 ---
 
-## 🔧 RECOMMENDED: Build Optimizations
+# 5. Server Actions Inside Features
 
-### Incremental Compilation
+Server actions should live inside the feature.
 
-```json filename="tsconfig.json"
-{
-  "compilerOptions": {
-    "incremental": true  // Enable incremental compilation
-  }
-}
+Example:
+
+```
+features/users/actions/update-user.ts
 ```
 
-**What it does**:
-- Faster subsequent builds
-- Only recompiles changed files
-- Creates `.tsbuildinfo` cache file
+Bad:
 
-**Add to `.gitignore`**:
 ```
-.tsbuildinfo
+actions/update-user.ts
 ```
 
-### Skip Lib Check
-
-```json
-{
-  "compilerOptions": {
-    "skipLibCheck": true  // Don't type-check dependencies
-  }
-}
-```
-
-**Why**: Your dependencies should already be correctly typed. Checking them wastes time.
+unless the action is globally shared.
 
 ---
 
-## 🎯 RECOMMENDED: Project Structure Paths
+# 6. Feature Components
 
-### For Feature-Based Architecture
+Feature UI should live inside:
 
-```json filename="tsconfig.json"
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"],
-      "@/components/*": ["components/*"],
-      "@/ui/*": ["components/ui/*"],
-      "@/features/*": ["features/*"],
-      "@/lib/*": ["lib/*"],
-      "@/actions/*": ["actions/*"],
-      "@/services/*": ["services/*"],
-      "@/types/*": ["types/*"],
-      "@/hooks/*": ["hooks/*"]
-    }
-  }
-}
+```
+features/<feature>/components
 ```
 
-**Benefits**:
-- Clear separation of concerns
-- Easy to find code
-- Consistent import paths
+Example:
+
+```
+features/dashboard/components/dashboard-page.tsx
+features/dashboard/components/revenue-chart.tsx
+```
+
+Never place domain-specific UI in global `components/`.
 
 ---
 
-## 🚨 FORBIDDEN Patterns
+# 7. Shared UI Components
 
-### ❌ NEVER: Disable Strict Mode
+Only **truly reusable UI** should live in the global components folder.
 
-```json
-// ❌ NEVER DO THIS
-{
-  "compilerOptions": {
-    "strict": false,              // ❌ Defeats purpose of TypeScript
-    "noImplicitAny": false,       // ❌ Allows any types
-    "strictNullChecks": false     // ❌ Allows null bugs
-  }
-}
+Examples:
+
+```
+components/button.tsx
+components/modal.tsx
+components/input.tsx
+components/card.tsx
 ```
 
-**These are NEVER acceptable.**
+Rule:
 
-### ❌ NEVER: Ignore Build Errors in Config
-
-```ts filename="next.config.ts"
-// ❌ NEVER DO THIS
-const nextConfig: NextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,      // ❌ Allows broken builds
-  },
-}
-```
-
-**Only exception**: If you run `tsc --noEmit` separately in CI.
-
-### ❌ NEVER: Missing Include Paths
-
-```json
-// ❌ INCOMPLETE
-{
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-    // ❌ Missing: ".next/types/**/*.ts"
-  ]
-}
-```
-
-**This breaks**: Typed routes, generated types.
+If a component is used by only **one feature**, it belongs inside that feature.
 
 ---
 
-## 📋 TypeScript Configuration Checklist
+# 8. Feature Services
 
-Before deploying, verify:
+Business logic must live in services.
 
-- [ ] `strict: true` is enabled
-- [ ] `noUncheckedIndexedAccess: true` is set
-- [ ] `noImplicitOverride: true` is set
-- [ ] `.next/types/**/*.ts` is in `include` array
-- [ ] Path aliases configured (`@/*`)
-- [ ] TypeScript 5.1.3+ installed
-- [ ] `typedRoutes: true` in next.config.ts (if using)
-- [ ] `typedEnv: true` in next.config.ts (if using)
-- [ ] `incremental: true` for faster builds
-- [ ] `.tsbuildinfo` in `.gitignore`
+Example:
 
----
+```
+features/users/services/user-service.ts
+```
 
-## 🎓 Complete Production tsconfig.json
+Responsibilities:
 
-```json filename="tsconfig.json"
-{
-  "compilerOptions": {
-    // ===== STRICT TYPE CHECKING =====
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "noFallthroughCasesInSwitch": true,
+* database access
+* external APIs
+* domain logic
 
-    // ===== MODULE RESOLUTION =====
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
+Never place business logic directly inside:
 
-    // ===== EMIT =====
-    "noEmit": true,
-    "incremental": true,
-
-    // ===== NEXT.JS SPECIFIC =====
-    "target": "ES2020",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-
-    // ===== PATH ALIASES =====
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"],
-      "@/components/*": ["components/*"],
-      "@/ui/*": ["components/ui/*"],
-      "@/features/*": ["features/*"],
-      "@/lib/*": ["lib/*"],
-      "@/actions/*": ["actions/*"],
-      "@/services/*": ["services/*"],
-      "@/types/*": ["types/*"],
-      "@/hooks/*": ["hooks/*"]
-    }
-  },
-  "include": [
-    "next-env.d.ts",
-    ".next/types/**/*.ts",  // Generated types (typed routes, env vars)
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
-}
+```
+page.tsx
+layout.tsx
+components
 ```
 
 ---
 
-## 🔑 Key Takeaways
+# 9. Feature Types
 
-1. **Always strict** - `strict: true` is non-negotiable
-2. **Type your routes** - `typedRoutes: true` catches navigation errors
-3. **Type your env vars** - `typedEnv: true` catches config errors
-4. **Use path aliases** - `@/*` instead of relative imports
-5. **Include generated types** - `.next/types/**/*.ts` is required
-6. **Incremental builds** - `incremental: true` for speed
-7. **Never ignore errors** - Fix them, don't hide them
+Types must live inside the feature.
+
+Example:
+
+```
+features/billing/types.ts
+```
+
+Global types should only be used when shared across domains.
+
+Example:
+
+```
+types/global.ts
+```
 
 ---
 
-**Remember**: TypeScript is only as good as your configuration. Start strict, and you'll catch bugs before your users do.
+# 10. Feature Hooks
+
+Client hooks belong to the feature.
+
+Example:
+
+```
+features/analytics/hooks/use-metrics.ts
+```
+
+Bad:
+
+```
+hooks/useMetrics.ts
+```
+
+unless globally reusable.
+
+---
+
+# 11. Route to Feature Pattern
+
+The correct pattern is:
+
+```
+app route → feature component → services/actions
+```
+
+Example flow:
+
+```
+app/dashboard/page.tsx
+   ↓
+features/dashboard/components/dashboard-page.tsx
+   ↓
+features/dashboard/services/dashboard-service.ts
+```
+
+This keeps routing separate from domain logic.
+
+---
+
+# 12. Feature Imports
+
+Use absolute imports.
+
+Example:
+
+```
+import { getUser } from "@/features/users/services/user-service"
+```
+
+Never use deep relative imports like:
+
+```
+../../../services/user-service
+```
+
+---
+
+# 13. Large Feature Modules
+
+Large features may contain nested domains.
+
+Example:
+
+```
+features/billing/
+  subscriptions/
+  invoices/
+  payments/
+```
+
+Each subdomain may contain its own:
+
+```
+components
+services
+actions
+```
+
+---
+
+# 14. When NOT to Use Feature Architecture
+
+Small projects can remain simple.
+
+Feature architecture is recommended when:
+
+* application exceeds 10–15 routes
+* multiple teams work on the project
+* application contains multiple domains
+* significant server logic exists
+
+---
+
+# 15. Absolute Rules
+
+Never generate:
+
+```
+utils/
+helpers/
+misc/
+stuff/
+```
+
+These folders lead to architectural decay.
+
+All logic must belong to either:
+
+* a feature domain
+* shared infrastructure
+* the routing layer
+
+---
+
+# 16. Final Architecture Example
+
+A production-grade Next.js 16 structure:
+
+```
+app/
+components/
+features/
+  auth/
+  dashboard/
+  users/
+  billing/
+lib/
+types/
+public/
+```
+
+Routing lives in `app`.
+
+Business domains live in `features`.
+
+Shared infrastructure lives in `lib`.
+
+This architecture scales cleanly as the application grows.
+
+```
+
+---
+
+## Result
+
+With these **three rules together**:
+
+```
+
+nextjs16-core-architecture.mdc
+nextjs16-project-structure.mdc
+nextjs16-feature-architecture.mdc
+
+```
+
+Cursor will now automatically generate **clean enterprise-grade Next.js architecture** instead of things like:
+
+```
+
+utils/
+helpers/
+hooks/
+components/
+services/
 
 ---
 > Source: [Mark0025/npm-auth-gateway](https://github.com/Mark0025/npm-auth-gateway) — distributed by [TomeVault](https://tomevault.io).
