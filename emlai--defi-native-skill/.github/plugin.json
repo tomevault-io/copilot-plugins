@@ -1,0 +1,14 @@
+{
+  "name": "emlai--defi-native-skill",
+  "displayName": "defi-native-skill",
+  "description": "defi-native-skill",
+  "version": "1.0.0",
+  "author": "emlai",
+  "homepage": "https://github.com/emlai/defi-native-skill",
+  "skills": [
+    {
+      "name": "defi-native-skill",
+      "description": ""
+    }
+  ]
+}
