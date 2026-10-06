@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [agentscope-ai/agentscope-java](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [agentscope-ai/agentscope-java](https://github.com/agentscope-ai/agentscope-java) — a repo with 5763+ stars on GitHub.
+From [agentscope-ai/agentscope-java](https://github.com/agentscope-ai/agentscope-java) — a repo with 5879+ stars on GitHub.
 
 ---
 
