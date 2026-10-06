@@ -1,0 +1,14 @@
+{
+  "name": "fastlane--fastlane",
+  "displayName": "fastlane",
+  "description": "fastlane",
+  "version": "1.0.0",
+  "author": "fastlane",
+  "homepage": "https://github.com/fastlane/fastlane",
+  "skills": [
+    {
+      "name": "fastlane",
+      "description": ""
+    }
+  ]
+}
