@@ -1,0 +1,44 @@
+{
+  "name": "interview-experience",
+  "owner": "wearzdk",
+  "repo": "interview-experience",
+  "description": "\u6bcf\u5929\u81ea\u52a8\u91c7\u96c6\u725b\u5ba2\u3001\u8109\u8109\u7b49\u5e73\u53f0\u6700\u65b0\u9762\u7ecf\uff0c\u8986\u76d6\u5b57\u8282\u8df3\u52a8\u3001\u817e\u8baf\u3001\u7f8e\u56e2\u3001\u5feb\u624b\u3001\u6ef4\u6ef4\u3001\u963f\u91cc\u5df4\u5df4\u3001\u643a\u7a0b\u7b49\u516c\u53f8\uff0c\u6db5\u76d6 Java\u3001\u524d\u7aef\u3001Go\u3001\u7b97\u6cd5\u7b49\u70ed\u95e8\u5c97\u4f4d\u3002\u652f\u6301\u6309 \u516c\u53f8 / \u5c97\u4f4d / \u6280\u672f\u6807\u7b7e \u591a\u7ef4\u5ea6\u7b5b\u9009\uff0c\u5feb\u901f\u627e\u5230\u4f60\u9700\u8981\u7684\u9762\u7ecf\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wearzdk/interview-experience",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T22:29:29Z"
+}
