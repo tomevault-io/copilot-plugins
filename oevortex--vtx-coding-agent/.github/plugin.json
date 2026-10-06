@@ -1,0 +1,9 @@
+{
+  "name": "oevortex--vtx-coding-agent",
+  "displayName": "vtx-coding-agent",
+  "description": "Minimalist coding agent harness with a Textual TUI and headless CLI. <1k-token system prompt, 18+ LLM providers, AGENTS.md + skills context, session tree, prompt/auto permissions.",
+  "version": "1.0.0",
+  "author": "OEvortex",
+  "homepage": "https://github.com/OEvortex/vtx-coding-agent",
+  "skills": []
+}
