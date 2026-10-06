@@ -2,13 +2,13 @@
 
 > This repository uses Nx as the task runner and monorepo manager for building and testing Angular ESLint packages.
 
-# Guidelines for Claude Code
+# Guidelines for coding agents
 
 This repository uses Nx as the task runner and monorepo manager for building and testing Angular ESLint packages.
 
 ## Package Manager
 
-This project uses **pnpm** (version 10) as the package manager. Always use `pnpm` commands instead of `npm` or `yarn`.
+This project uses **pnpm** as the package manager. Use the Node.js and pnpm versions declared in `package.json`. Always use `pnpm` commands instead of `npm` or `yarn`.
 
 ## Required checks
 
@@ -25,7 +25,7 @@ pnpm nx run-many -t check-rule-configs # run pnpm nx run-many -t update-rule-con
 When working on an individual rule, the preferred way to run tests is to target the specific spec file. For example, to run tests for the `prefer-standalone` rule within the `eslint-plugin` project, run:
 
 ```bash
-pnpm nx test eslint-plugin packages/eslint-plugin/tests/rules/prefer-standalone/spec.ts
+pnpm nx test eslint-plugin tests/rules/prefer-standalone/spec.ts
 ```
 
 Once rule specific tests have passed, run commands for all projects:
@@ -93,6 +93,16 @@ When creating or modifying ESLint rules:
 - **Snapshot testing**: Used for E2E tests and some rule outputs
 - **Test organization**: Tests mirror the source structure in separate `tests/` directories
 
+### Rule test layout
+
+- Put rule test fixtures in `packages/<project>/tests/rules/<rule-name>/cases.ts`, in the exported `valid` or `invalid` array.
+- Keep `spec.ts` focused on setting up `RuleTester` and passing the imported `valid` and `invalid` arrays to `ruleTester.run()`.
+- Never add rule test fixtures directly to `spec.ts`, including by spreading an imported array and appending cases inline. Adding regression coverage to an existing rule should normally only change `cases.ts`.
+- Follow the existing fixture types and helpers in `cases.ts`. For annotated invalid cases, use `convertAnnotatedSourceToFailureCase()` and the shared typed `messageId` constant when present.
+- Preserve exact expected autofix output, including whitespace, in `annotatedOutput`.
+- Rule documentation is generated from `cases.ts`. After changing cases, run `pnpm nx run <project>:update-rule-docs` and commit any generated documentation changes; do not edit rule documentation manually.
+- Before committing, review the diff and confirm that new cases are in `cases.ts` and that `spec.ts` has no unnecessary changes.
+
 ### Build and Release
 
 - **Build**: Uses Nx with TypeScript compilation
@@ -100,7 +110,7 @@ When creating or modifying ESLint rules:
 - **Release**: Conventional Commits with automated changelogs
 - **Versioning**: Uses Nx release management with GitHub integration
 
-Claude should NEVER run versioning or publishing commands.
+Agents should NEVER run versioning or publishing commands.
 
 ## Commit conventions
 
@@ -135,7 +145,7 @@ pnpm test
 pnpm e2e
 
 # Run E2E tests and update snapshots
-pnpm update-e2e-snapshots
+pnpm update-e2e-snapshots-ci
 
 # Format code
 pnpm format
@@ -175,4 +185,4 @@ pnpm update-rule-configs
 
 ---
 > Source: [angular-eslint/angular-eslint](https://github.com/angular-eslint/angular-eslint) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
