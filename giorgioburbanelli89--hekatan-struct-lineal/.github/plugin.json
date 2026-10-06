@@ -1,0 +1,9 @@
+{
+  "name": "giorgioburbanelli89--hekatan-struct-lineal",
+  "displayName": "hekatan-struct-lineal",
+  "description": "Hekatan Struct \u2014 an\u00e1lisis estructural por elementos finitos en el navegador (p\u00f3rticos, losas, cimentaciones). Validado contra ETABS, SAP2000 y SAFE.",
+  "version": "1.0.0",
+  "author": "GiorgioBurbanelli89",
+  "homepage": "https://github.com/GiorgioBurbanelli89/hekatan-struct-lineal",
+  "skills": []
+}
