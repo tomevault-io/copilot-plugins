@@ -1,0 +1,14 @@
+{
+  "name": "ikaleio--lm-detector",
+  "displayName": "lm-detector",
+  "description": "lm-detector",
+  "version": "1.0.0",
+  "author": "Ikaleio",
+  "homepage": "https://github.com/Ikaleio/lm-detector",
+  "skills": [
+    {
+      "name": "lm-detector",
+      "description": ""
+    }
+  ]
+}
