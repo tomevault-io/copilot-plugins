@@ -1,0 +1,9 @@
+{
+  "name": "flyfish-dev--word-ai",
+  "displayName": "word-ai",
+  "description": "AGPL-licensed structure-preserving Word (DOCX) editing MCP server, Codex Skill, and Office.js bridge for AI agents.",
+  "version": "1.0.0",
+  "author": "flyfish-dev",
+  "homepage": "https://github.com/flyfish-dev/word-ai",
+  "skills": []
+}
