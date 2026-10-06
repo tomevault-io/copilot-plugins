@@ -1,0 +1,9 @@
+{
+  "name": "affinidi-ai--agent-gateway",
+  "displayName": "agent-gateway",
+  "description": "The control layer for agentic AI. A protocol-aware proxy that applies identity, policy, trust and payment controls to A2A, MCP and DIDComm traffic between callers and agents.",
+  "version": "1.0.0",
+  "author": "affinidi-ai",
+  "homepage": "https://github.com/affinidi-ai/agent-gateway",
+  "skills": []
+}
