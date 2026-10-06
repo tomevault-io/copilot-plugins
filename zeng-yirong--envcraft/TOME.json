@@ -1,0 +1,171 @@
+{
+  "name": "EnvCraft",
+  "owner": "zeng-yirong",
+  "repo": "EnvCraft",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/crm_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/crm_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/post_mails/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/post_mails/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/sensor_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/sensor_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/expense_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/expense_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/finance_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/finance_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/car_navi_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/car_navi_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/security_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/security_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/logistics_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/logistics_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/itinerary_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/itinerary_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/scheduling_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/scheduling_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/smart_home_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/smart_home_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/excel_data_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/excel_data_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/car_control_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/car_control_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/mail_client_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/mail_client_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/music_player_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/music_player_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/secure_vault_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/secure_vault_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/flight_delay_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/flight_delay_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/compete_track_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/compete_track_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "ClawForge-Claw_env/travel_policy_envs/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/ClawForge-Claw_env/travel_policy_envs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "train_code/uni-agent/verl/verl_0720_2/.agent/skills/pr/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/train_code/uni-agent/verl/verl_0720_2/.agent/skills/pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EnvCraft",
+      "path": "train_code/uni-agent/verl/verl_0720_2/.agent/skills/issue/SKILL.md",
+      "github_url": "https://github.com/zeng-yirong/EnvCraft/tree/main/train_code/uni-agent/verl/verl_0720_2/.agent/skills/issue/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zeng-yirong/EnvCraft",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T15:57:41Z"
+}
