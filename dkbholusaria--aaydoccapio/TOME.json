@@ -4,7 +4,7 @@
   "repo": "AayDocCapio",
   "description": "Automates secure bulk retrieval of Form 26AS, AIS and TIS from the Income Tax e-Filing Portal for multiple clients.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dkbholusaria/AayDocCapio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T08:32:36Z"
+  "distributed_at": "2026-10-06T08:43:25Z"
 }
