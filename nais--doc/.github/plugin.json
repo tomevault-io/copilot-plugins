@@ -1,0 +1,14 @@
+{
+  "name": "nais--doc",
+  "displayName": "doc",
+  "description": "doc",
+  "version": "1.0.0",
+  "author": "nais",
+  "homepage": "https://github.com/nais/doc",
+  "skills": [
+    {
+      "name": "doc",
+      "description": ""
+    }
+  ]
+}
