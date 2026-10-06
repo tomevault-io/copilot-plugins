@@ -1,0 +1,195 @@
+{
+  "name": "lightx2v",
+  "owner": "ModelTC",
+  "repo": "lightx2v",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/support_new_model/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/support_new_model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/Model_Enable_Intel_XPU/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/Model_Enable_Intel_XPU/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/Model_Enable_Intel_XPU/xpu_exec/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/Model_Enable_Intel_XPU/xpu_exec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/Model_Enable_Intel_XPU/xpu_enable/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/Model_Enable_Intel_XPU/xpu_enable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/esimd-lsc-slm/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/esimd-lsc-slm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/xe2-sdp-bf16/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/xe2-sdp-bf16/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/intel-esimd-base/skill.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/intel-esimd-base/skill.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/xe2-sdp-hd256/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/xe2-sdp-hd256/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/intel-esimd-fuse/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/intel-esimd-fuse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/intel-gpu-hw-info/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/intel-gpu-hw-info/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/xe2-esimd-gemv/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/xe2-esimd-gemv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/xe2-dpas-patterns/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/xe2-dpas-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/xe2-esimd-gemm/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/xe2-esimd-gemm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/onednn-fp8-gemm/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/onednn-fp8-gemm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/xe2-sdp-kernels/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_specific_skills/xe2-sdp-kernels/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/intel-gpu-kernel-opt/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/intel-gpu-kernel-opt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/xe2-nbarrier-pipelining/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/xe2-nbarrier-pipelining/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/integration_skills/sycl-esimd-to-python-wheel/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/integration_skills/sycl-esimd-to-python-wheel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/esimd-lsc-2d-gather-scatter/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/lightx2v_kernel_skills/Intel_XPU/kernel_basic_skills/esimd-lsc-2d-gather-scatter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/support_model_warmup/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/support_model_warmup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/support_model_compile/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/support_model_compile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/remove-ai-code-smell/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/remove-ai-code-smell/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightx2v",
+      "path": ".claude/skills/support-cpu-block-offload/SKILL.md",
+      "github_url": "https://github.com/ModelTC/lightx2v/tree/main/.claude/skills/support-cpu-block-offload/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ModelTC/lightx2v",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T18:35:59Z"
+}
