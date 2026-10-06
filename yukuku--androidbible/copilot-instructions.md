@@ -1,10 +1,10 @@
 ## androidbible
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to coding agents when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to coding agents when working with code in this repository.
 
 ## Project Overview
 
@@ -12,6 +12,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - Official site: https://alkitab.app
 - Developer docs: https://alkitab.app/developer
+
+## Branches
+
+**`develop` is the main integration branch — base all work on `develop` and target every PR at `develop`, never `master`.** The repo follows git-flow: `master` only receives merges from `release/*` branches when a version ships.
+
+## Complete implementation tasks with a pull request
+
+Unless the user explicitly requests otherwise, finish every implementation task by committing the changes, pushing a task branch to `yukuku/androidbible`, and opening a pull request targeting `develop`. This is part of completing the task, including requests phrased as building a feature or fixing a bug; do not ask for separate permission to create the PR.
+
+Use a branch in this repository so the PR triggers GitHub Actions to build signed release APKs and publish APK preview links. See [the CI and preview documentation](docs/build-system.md#cicd).
+
+- Run the checks appropriate to the changes before pushing; CI supplements local verification.
+- When continuing a task that already has an open PR, push updates to its branch and update its description as needed.
+- Return the PR link and the observed CI status to the user.
+- Leave merging the PR and publishing a production release to an explicit user request.
+
+Read-only analysis and advice do not require a PR.
 
 ## Build Commands
 
@@ -32,31 +49,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ./gradlew testPlainDebugUnitTest --tests "yuku.alkitab.base.util.QueryTokenizerTest.testQuotedPhrases"
 ```
 
-**Requirements**: JDK 17 (Zulu recommended), Android SDK with compile SDK 36, NDK 28.2.13676358.
+**Requirements**: JDK 21 (Zulu recommended), Android SDK with compile SDK 36, NDK 28.2.13676358.
+
+**Versioning**: `versionName` comes from `version.properties` (`versionBase` +
+`betaNumber`) combined with a stage: `dev` by default (`5.0.0-dev.<commits
+since versionBase last changed>`), `beta` via `-PversionStage=beta`
+(`5.0.0-beta.<n>`), `release` via `-PversionStage=release` (`5.0.0`). `versionCode` is derived from wall-clock
+time and is unrelated to the stage. Never hardcode a version in
+`Alkitab/build.gradle.kts`; see the "Versioning" section of
+`docs/build-system.md`.
 
 The `plain` flavor is the open-source development build and works out of the box with the placeholder `Alkitab/google-services.json` checked into the repo (Firebase features won't function at runtime, but the app builds and runs). Production flavors (`yuku_alkitab`, `yuku_quick_bible`, `sabda_alkitab`) require:
 - `$ALKITAB_PROPRIETARY_DIR/overlay/<applicationId>/text_raw/` — proprietary Bible text
 - `$ALKITAB_PROPRIETARY_DIR/google-services.json` — real Firebase config (one file with client entries for all production applicationIds)
-- Signing-key env vars: `SIGN_KEYSTORE`, `SIGN_ALIAS`, `SIGN_PASSWORD`
+- Signing-key env vars: `SIGN_KEYSTORE`, `SIGN_ALIAS`, `SIGN_PASSWORD`. The `sabda_alkitab` flavor has its own upload key and needs `SIGN_SABDA_KEYSTORE`, `SIGN_SABDA_ALIAS`, `SIGN_SABDA_PASSWORD` instead (there is no fallback to `SIGN_*`)
 
 With those set, build with a plain `./gradlew assembleYuku_alkitabRelease` (or any other production flavor).
 
 ### Building in the Claude Code sandbox (one-time setup)
 
-The Claude Code VM does not ship with a compatible JDK or the Android SDK. You must provision them yourself before running Gradle — do not rely on GitHub Actions for verification. Prefer `plainDebug` since it needs no proprietary overlay or signing secrets.
+The Claude Code VM does not ship with the Android SDK — you must provision it yourself before running Gradle, and do not rely on GitHub Actions for verification. Its preinstalled JDK is version 21, matching the `jvmToolchain(21)` used across modules; run `java -version` first, and skip step 1 below if it already reports 21. Prefer `plainDebug` since it needs no proprietary overlay or signing secrets.
 
 Install paths used below (pick any, but keep them consistent):
 
-- JDK 17: `/home/user/tools/zulu17.64.17-ca-jdk17.0.18-linux_x64`
+- JDK 21 (only if not already preinstalled): `/home/user/tools/zulu21.52.203-ca-jdk21.0.12.1-linux_x64`
 - Android SDK: `/home/user/android-sdk`
 
-**Disk footprint:** expect ~6 GB across all of these combined — NDK r28c alone is ~2 GB unpacked, the rest of the SDK is ~1 GB, and `~/.gradle` grows to ~2 GB after the first build. Check free space before starting.
+**Disk footprint:** expect ~5 GB across all of these combined (less if the preinstalled JDK 21 is used directly) — NDK r28c alone is ~2 GB unpacked, the rest of the SDK is ~1 GB, and `~/.gradle` grows to ~2 GB after the first build. Check free space before starting.
 
-**Environment.** Every step after the JDK install needs the same env vars. Write them once and source them each time:
+**Environment.** Every step below needs the same env vars. Write them once and source them each time — point `JAVA_HOME` at the preinstalled JDK (`dirname $(dirname $(readlink -f $(which java)))`) unless you installed Zulu JDK 21 yourself in step 1, in which case use that path instead:
 
 ```bash
 cat > /home/user/tools/android-env.sh <<'EOF'
-export JAVA_HOME=/home/user/tools/zulu17.64.17-ca-jdk17.0.18-linux_x64
+export JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(which java)")")")"
 export ANDROID_HOME=/home/user/android-sdk
 export PATH="$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
 unset JAVA_TOOL_OPTIONS  # strip the sandbox's -Dhttp.proxyHost that would poison Gradle downloads
@@ -65,20 +90,22 @@ EOF
 
 Then `source /home/user/tools/android-env.sh` at the start of any shell that runs `sdkmanager` or Gradle.
 
-1. **Install Zulu JDK 17** (the preinstalled JDK is 21, which the Android Gradle Plugin rejects for the `jvmToolchain(17)` used across modules):
+1. **Install Zulu JDK 21** — only needed if `java -version` did not already report 21 (e.g. the sandbox image changed):
 
    ```bash
    mkdir -p /home/user/tools && cd /home/user/tools
-   curl -fsSL -o zulu17.tar.gz \
-     https://cdn.azul.com/zulu/bin/zulu17.64.17-ca-jdk17.0.18-linux_x64.tar.gz
-   echo "819e3f09ea628901a21b2104ed8f5256e17ae91a4145b272b2eb2131f832af1d  zulu17.tar.gz" | sha256sum -c -
-   tar xzf zulu17.tar.gz && rm zulu17.tar.gz
+   curl -fsSL -o zulu21.tar.gz \
+     https://cdn.azul.com/zulu/bin/zulu21.52.203-ca-jdk21.0.12.1-linux_x64.tar.gz
+   echo "068872f682e4157896649c242a13660b33ece808f395095a00fbbd3de8b4bbca  zulu21.tar.gz" | sha256sum -c -
+   tar xzf zulu21.tar.gz && rm zulu21.tar.gz
    ```
 
-2. **Trust the sandbox egress CA in the JDK truststore.** Outbound HTTPS in the Claude Code sandbox goes through an Anthropic TLS-inspection proxy (`sandbox-egress-production TLS Inspection CA`). `curl` trusts it via `/etc/ssl/certs`, but the JDK keeps its own `cacerts`, so `sdkmanager` and Gradle will fail with `PKIX path building failed` until you import the system CAs:
+   Then edit `android-env.sh` to point `JAVA_HOME` at `/home/user/tools/zulu21.52.203-ca-jdk21.0.12.1-linux_x64` instead of the `which java` lookup, and re-source it.
+
+2. **Trust the sandbox egress CA in the JDK truststore.** Outbound HTTPS in the Claude Code sandbox goes through an Anthropic TLS-inspection proxy (`sandbox-egress-production TLS Inspection CA`). `curl` trusts it via `/etc/ssl/certs`, but the JDK keeps its own `cacerts`, so `sdkmanager` and Gradle will fail with `PKIX path building failed` until you import the system CAs. This applies to the preinstalled JDK too, not just a freshly downloaded one:
 
    ```bash
-   JAVA_HOME=/home/user/tools/zulu17.64.17-ca-jdk17.0.18-linux_x64
+   source /home/user/tools/android-env.sh
    for crt in /usr/local/share/ca-certificates/*.crt; do
      "$JAVA_HOME/bin/keytool" -importcert -noprompt -trustcacerts \
        -keystore "$JAVA_HOME/lib/security/cacerts" -storepass changeit \
@@ -114,7 +141,7 @@ Then `source /home/user/tools/android-env.sh` at the start of any shell that run
    ./gradlew assemblePlainDebug
    ```
 
-   Expect ~3 minutes cold (Gradle downloads the 9.0.0 distribution and dependencies into `~/.gradle`). The APK lands at `Alkitab/build/outputs/apk/plain/debug/Alkitab-<code>-<version>-<hash>-yuku.alkitab.debug-dev.apk`.
+   Expect ~3 minutes cold (Gradle downloads its pinned wrapper distribution and dependencies into `~/.gradle`). The APK lands at `Alkitab/build/outputs/apk/plain/debug/Alkitab-<code>-<version>-<hash>-yuku.alkitab.debug-dev.apk`.
 
 Code changes should be verified with a local `./gradlew assemblePlainDebug` (and relevant `testPlainDebugUnitTest` invocations) before committing — do not treat the GitHub Actions run as the first build.
 
@@ -144,8 +171,8 @@ Bible-version downloads run inside `VersionDownloadWorker` (a `CoroutineWorker`)
 ### Key Singletons and Entry Points
 
 - **`App.java`** — Application class, extends `yuku.afw.App`. Initializes Firebase, FCM registration, preference defaults, extension receivers. Holds the eagerly-initialized `App.services` (`AppServices` container) introduced by REM-24.
-- **`S.kt`** — Legacy service locator (~317 lines). Holds lazy references to `InternalDb`, `SongDb`, active Bible version state, and calculated UI dimensions. New code should depend on the narrower `StorageProvider` / `VersionManager` / `UiDimensionsProvider` interfaces via `App.services.*`; existing `S.foo` call sites are being migrated incrementally (REM-24).
-- **`IsiActivity.kt`** (~2170 lines, at `yuku/alkitab/base/IsiActivity.kt`) — Main Bible reader activity. Verse display, navigation history, and volume-button navigation still live here; gesture handling, the action-mode callback, and split-view management have been extracted into `ReaderGestureHandler` (REM-06), `VerseActionModeController` (REM-07), and `SplitViewManager` (REM-08) respectively.
+- **`S.kt`** — Legacy service locator. Holds lazy references to `InternalDb`, `SongDb`, active Bible version state, and calculated UI dimensions. New code should depend on the narrower `StorageProvider` / `VersionManager` / `UiDimensionsProvider` interfaces via `App.services.*`; existing `S.foo` call sites are being migrated incrementally (REM-24).
+- **`IsiActivity.kt`** (at `yuku/alkitab/base/IsiActivity.kt`) — Main Bible reader activity. Verse display, navigation history, and volume-button navigation still live here; gesture handling, the action-mode callback, and split-view management have been extracted into `ReaderGestureHandler` (REM-06), `VerseActionModeController` (REM-07), and `SplitViewManager` (REM-08) respectively.
 
 ### Data Flow: Bible Text Rendering
 
@@ -158,6 +185,20 @@ S.activeVersion() → MVersion → Version (abstract)
   → VerseRenderer / FormattedTextRenderer (applies formatting codes)
   → VerseItem (custom RelativeLayout with highlight/selection drawing)
 ```
+
+Every verse list is built through `createVersesController`, which swaps the
+list's RecyclerView for a `VersesComposeView` driven by
+`VersesComposeControllerImpl` (a LazyColumn-based implementation of the same
+`VersesController` interface): `VerseRendererCompose` renders verse text to an
+`AnnotatedString`, rows reuse `VerseItemComposeContent`, and pericope headers
+are composed natively. `IsiActivity`'s two panes, `VersesDialog` and
+`XrefDialog` all go through it. The RecyclerView pipeline above is kept as an
+opt-out, reachable through the "Verse (legacy views)" experimental setting.
+
+Screens that show verse text outside a verse list (search results, the marker
+list, the progress-mark list, the report screen) hold a `VerseTextSlot`
+instead, which swaps the row's snippet TextView for a `VerseTextComposeView`
+rendering the same `AnnotatedString` in the reader's verse appearance.
 
 ### ARI (Alkitab Resource Identifier)
 
@@ -185,10 +226,10 @@ The app uses three SQLite files — `AlkitabDb` and `SongDb` (hand-rolled `SQLit
   - **SyncShadow** / **SyncLog** — sync state tracking (last-synced entity snapshot per sync set) plus an append-only audit log of every sync event.
 - **`SongDb`** — hand-rolled `SQLiteOpenHelper` (`SongDbHelper`). After REM-32, every table here is a rollback safety net only, plus the source of legacy rows for `SongDbDataMigration` on first launch with the migrated code.
 - **`AlkitabSongRoomDb`** — Room database (`yuku.alkitab.base.storage.room.SongRoomDatabase`, at `@Database(version = 1)`). Holds the Songs subsystem tables migrated as part of REM-32. Lives in its own SQLite file because the Songs module is genuinely self-contained — it shares no rows, FKs, or transactions with the Bible-reading tables.
-  - **song_info** (REM-32) — one row per song, with `(bookName, code)` and `(bookName, ordering)` indexes. The `data` BLOB stores a Parcelable-marshalled `yuku.kpri.model.Song` snapshot (REM-21 will swap this to JSON without touching the storage layer).
+  - **song_info** (REM-32) — one row per song, with `(bookName, code)` and `(bookName, ordering)` indexes. The `data` BLOB holds a UTF-8 JSON-encoded `yuku.alkitab.songs.newdoc.SongDocument` at `dataFormatVersion = 5` (REM-21); rows still at an older `dataFormatVersion` are a legacy Parcelable-marshalled `yuku.kpri.model.Song`, decoded and converted to JSON lazily on first read (`SongDb.readDocument`), at most once per row.
   - **song_book_info** (REM-32) — one row per installed song book, indexed by `name`.
 
-The legacy `SongInfo` / `SongBookInfo` tables are still created in `SongDb` as a rollback safety net. `SongDbDataMigration` (wired from `S.songDb`'s lazy initializer) copies them into Room on first launch with the migrated code; the `SongDb` facade preserves the public surface so callers don't change. `InternalDb` plus its per-table facades (`MarkerDao`, `LabelDao`, `Marker_LabelDao`, `VersionDao`, `DevotionDao`, `PerVersionDao`, `ProgressMarkDao`, `ReadingPlanDao`, `SyncShadowDao`) talk directly to `AlkitabDb` via raw SQL — Room was previously rolled in here (REM-10/11/27-31) but reverted before reaching production; see `docs/tech-debt-remediation.md` for the rationale.
+The legacy `SongInfo` / `SongBookInfo` tables are still created in `SongDb` as a rollback safety net. `SongDbDataMigration` (wired from `S.songDb`'s lazy initializer) copies them into Room on first launch with the migrated code; the `SongDb` facade preserves the public surface so callers don't change. `InternalDb` plus its per-table facades (`MarkerDao`, `LabelDao`, `Marker_LabelDao`, `VersionDao`, `DevotionDao`, `PerVersionDao`, `ProgressMarkDao`, `ReadingPlanDao`, `SyncShadowDao`) talk directly to `AlkitabDb` via raw SQL.
 
 ### Verse Text Formatting Codes
 
@@ -198,7 +239,7 @@ Verse text uses inline formatting codes (processed by `VerseRenderer` and `Forma
 - `@6`/`@5` — red letter (Jesus' words) start/end
 - `@9`/`@7` — italic start/end
 - `@8` — line break
-- `@<tag@>...@/` — special inline elements (cross-references, footnotes)
+- `@<tag@>...@/` — special inline elements (cross-references, footnotes, and `@<r=reading@>base@/` ruby, rendered by the Compose pipeline only; see `docs/features/ruby/design.md`)
 
 `FormattedVerseText.removeSpecialCodes()` strips these for plain-text operations (copy, search).
 
@@ -244,6 +285,8 @@ Detailed documentation for each major feature module:
 
 - [Architecture Deep Dive](docs/architecture.md) — Singleton patterns, data flow, module dependencies
 - [Build System](docs/build-system.md) — Flavors, signing, CI/CD, release process
+- [Google Play Publishing](docs/play-publishing.md) — Manual store uploads via `tools/play/publish.py`, GPP-shaped metadata layout
+- [Tools](docs/tools.md) — The desktop converters in `tools/` for Bible versions and reading plans, and the prebuilt jars
 - [Text Rendering](docs/text-rendering.md) — Verse formatting pipeline and codes
 - [Binary Formats](docs/binary-formats.md) — YES2, Bintex, RPB file format specs
 - [Storage & Database](docs/storage.md) — SQLite schema, preferences, file storage
@@ -253,14 +296,19 @@ Detailed documentation for each major feature module:
 
 ## Code Conventions
 
+- **IMPORTANT. Never write change-narrating comments.** Code comments must describe the code as it is *now*, not the history of how it got there. Do not reference past revisions, removed approaches, or the act of editing: no "previously", "used to", "formerly", "earlier iterations", "an earlier version", "we changed/renamed/moved this from…", "now uses…", "no longer…", and the like. Git history is the record of *change*; the code and its comments describe the *present*. When explaining why the current design was chosen over an alternative is genuinely useful, state it as present-tense rationale about the alternative ("the cluster is centered with Spacers because a weighted slot would clip the label"), not as a story about what the code used to do. This applies to all comments, KDoc/Javadoc, and commit-adjacent code. Keep the narrative of change out of the source. The same rule applies to milestone labels: do not tag comments with the sprint or task that produced the code ("(M3)", "Out of scope for M4"), because they date instantly and mean nothing to a later reader.
+- **IMPORTANT. Never use em dashes to join clauses in comments or docs.** The "—" character (U+2014) is hard to read in running prose. Write two plain sentences instead, or use a comma, colon, semicolon, or parentheses, whichever reads most naturally. This applies to code comments, KDoc/Javadoc, Markdown docs, commit messages, and PR descriptions. (Existing prose in older files may still contain them; leave it alone unless you are already editing that comment or were asked to sweep the file.)
+- **IMPORTANT. Do not add explaining comments except for non-obvious code.** Default to writing no comment. A comment earns its place only by explaining a non-obvious *why*: a hidden constraint, a subtle invariant, a threading or lifecycle rule, a workaround for a specific bug, or behavior that would surprise a reader. Never restate what a well-named symbol already says, never narrate the happy path line by line, and never write multi-paragraph rationale where one or two sentences do the job. If deleting a comment would not confuse a future reader, delete it.
+- **A Compose `modifier: Modifier = Modifier` parameter is an exception to any "drop the unused default" cleanup.** Keep it on every composable that emits UI, even when no call site passes one and the default is the only value it ever takes. It is the Compose convention, callers expect to be able to size, pad or position a composable without editing it, and a composable that has to be reopened to accept a modifier is a worse API than one carrying an unused parameter. This applies to the parameter and its default together: leave both in place.
 - Mixed Java/Kotlin codebase (Kotlin preferred for new code, many files still Java)
-- JVM toolchain 17 across all modules
+- JVM toolchain 21 across all modules
 - No obfuscation in ProGuard (`-dontobfuscate`), only shrinking
-- EditorConfig disables `import-ordering` and `no-wildcard-imports` for Kotlin
+- EditorConfig enforces a single alphabetical import layout (`ij_kotlin_imports_layout=*`, no `java.*`/`kotlin.*`/static exceptions) and disables `no-wildcard-imports` for Kotlin
 - Preference keys are defined as enum entries in `Prefkey.kt`
 - GIDs (globally unique IDs) are used alongside database `_id` for sync-capable entities
 - `Ari` encoding is used universally for verse references — never store book/chapter/verse separately
 - Version IDs follow format `"internal"`, `"preset/[name]"`, or `"file/[path]"`
+- **IMPORTANT. The app has its own in-app language setting (`pref_language`), independent of the device locale.** Only activities pick it up automatically: `BaseActivity.attachBaseContext` runs the context through `ConfigurationWrapper.wrap`, so anything resolving strings against an activity (including Compose `stringResource`, whose `LocalContext` is the activity) is already correct. Everything else is not. A `Service`, a `BroadcastReceiver`, a `Worker`, `App.context`, or any `applicationContext` resolves against the *device* locale, so `getString` there prints the wrong language for every user whose in-app choice differs from their device. When such a component produces user-visible text, resolve it against `ConfigurationWrapper.localizedContext(...)` instead. Cache that context rather than rebuilding it per string, and rebuild when `ConfigurationWrapper.getSerialCounter()` changes, which is how a language change is signalled. Prefer keeping the string resource unresolved (a res id plus args) until it reaches whatever component knows the right context — see `AudioLogMessage`.
 
 ## Unit Testing
 
@@ -279,12 +327,12 @@ Detailed documentation for each major feature module:
 
 ## Documentation Conventions
 
-- **Do not include SHAs or commit hashes** in long-lived docs (`docs/tech-debt.md`, `docs/tech-debt-remediation.md`, this `CLAUDE.md`, etc.). They rot on rebase/squash-merge and are fragile to maintain. When recording that a step is done, describe what shipped (file paths, test counts, scope) and use an absolute date — never a SHA. (Older entries in these docs may still reference SHAs; leave them alone unless explicitly asked to clean up.)
+- **Do not include SHAs, commit hashes, line numbers, line counts, or library version numbers** in long-lived docs (`docs/tech-debt.md`, `docs/tech-debt-remediation.md`, this `AGENTS.md`, etc.). They rot on rebase/squash-merge, refactors, and dependency bumps, and are fragile to maintain. Refer to code by symbol name (class/method), and point at `gradle/libs.versions.toml` instead of naming dependency versions. When recording that a step is done, describe what shipped (file paths, test counts, scope) and use an absolute date — never a SHA. (Older entries in these docs may still reference SHAs; leave them alone unless explicitly asked to clean up.)
 
 ## Important Caveats
 
-- `IsiActivity.kt` is ~2170 lines — still large, but no longer monolithic: gesture handling, the action-mode callback, and split-view management were extracted (REM-06/07/08) into `ReaderGestureHandler`, `VerseActionModeController`, and `SplitViewManager` under `widget/`. Bible reading, navigation history, and volume-button handling are still inline; changes here require careful testing.
-- `KpriModel.Song` uses `Parcelable` serialization for database storage (acknowledged as a bad design decision in the code). REM-32 migrated the storage *engine* to Room but preserves the Parcelable payload byte-for-byte; REM-21 (Phase 4) will swap the payload to JSON without touching the storage layer.
+- `IsiActivity.kt` is still large, but no longer monolithic: gesture handling, the action-mode callback, and split-view management were extracted (REM-06/07/08) into `ReaderGestureHandler`, `VerseActionModeController`, and `SplitViewManager` under `widget/`. Bible reading, navigation history, and volume-button handling are still inline; changes here require careful testing.
+- `KpriModel.Song` (`Parcelable`, acknowledged as a bad design decision in the code) is retained only as the on-device legacy decoder's target type. REM-32 migrated the storage *engine* to Room; REM-21 (app-side done 2026-07-13) swapped the payload to JSON (`yuku.alkitab.songs.newdoc.SongDocument`) on top of that, with legacy Parcelable rows converted lazily on first read — see `docs/modules/songs.md` and `docs/features/portable-songs/design.md`. Backend redirect branching and `kidung-data` authoring support are separate repos and out of scope for this app.
 - The `Snappy` module has native C++ code — NDK must be installed for builds.
 - A placeholder `Alkitab/google-services.json` is checked in so `plainDebug` works out of the box; Firebase features won't actually function with it. For production flavors, the real `google-services.json` is sourced from `$ALKITAB_PROPRIETARY_DIR/google-services.json` at build time and copied into the gitignored `Alkitab/src/<flavor>/google-services.json` (where the GMS plugin's source-set lookup finds it).
 - The internal Bible version data is split per flavor: the placeholder `ddd_*` files live under `Alkitab/src/plain/assets/internal/` (used by the `plain` open-source build only). Production flavors get their `tb_*`/`kjv_*` files copied from the proprietary overlay into `build/generated/proprietaryAssets/<flavor>/internal/` at build time.
@@ -292,4 +340,4 @@ Detailed documentation for each major feature module:
 
 ---
 > Source: [yukuku/androidbible](https://github.com/yukuku/androidbible) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
