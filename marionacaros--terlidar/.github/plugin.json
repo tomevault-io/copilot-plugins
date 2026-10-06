@@ -1,0 +1,9 @@
+{
+  "name": "marionacaros--terlidar",
+  "displayName": "terlidar",
+  "description": "Enhancing Point Cloud Semantic Segmentation via Scalable Domain Adaptation with LoRA-Enabled PointNet++",
+  "version": "1.0.0",
+  "author": "marionacaros",
+  "homepage": "https://github.com/marionacaros/terlidar",
+  "skills": []
+}
