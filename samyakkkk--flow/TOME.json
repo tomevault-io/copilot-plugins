@@ -4,7 +4,7 @@
   "repo": "flow",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/samyakkkk/flow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T22:47:32Z"
+  "distributed_at": "2026-10-06T22:48:05Z"
 }
