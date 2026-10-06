@@ -1,33 +1,33 @@
 ## lavinmq
 
-> Message queue server implementing the AMQP 0-9-1 and MQTT 3.1.1 protocols, built with Crystal.
+> LavinMQ: message queue and streaming server (AMQP 0-9-1, MQTT 3.1.1) in Crystal.
 
-# CLAUDE.md
-
-Message queue server implementing the AMQP 0-9-1 and MQTT 3.1.1 protocols, built with Crystal.
+LavinMQ: message queue and streaming server (AMQP 0-9-1, MQTT 3.1.1) in Crystal.
 
 ## Commands
+- `make test SPEC=spec/foo_spec.cr` — one spec (iterate with this); `make test` — full suite, once at the end
+- `make lint`; `crystal tool format`
+- `make bin/lavinmq CRYSTAL_FLAGS=` — debug build; `bin/lavinmq --data-dir ./tmp/data --debug` — run
+- Frontend (views/, static/js/): `make views`, then `make test-frontend [SPEC=spec/frontend/foo.spec.js]` against a running server
+- `crystal env CRYSTAL_PATH` — stdlib sources; read them instead of guessing APIs
 
-- `make test SPEC=spec/foo_spec.cr` — run a single spec
-- `make test` — run all specs
-- `make lint` — run linter
+## Architecture
+- Clustering: one leader replicates to followers; Raft election; only ISR members can be promoted.
+- Stream queues retain messages with per-consumer offsets.
+- views/ generates static/*.html; HTTP API docs in openapi/ and static/docs/.
+- Storage layout and internals: CONTRIBUTING.md.
 
-## Development Workflow
+## Rules
+- No allocations, per-message fibers, or polling in hot paths (publish, delivery, MessageStore).
+- Message data is mmap'd segments exposed as raw Pointers; reading after the mmap closes segfaults rather than raising.
 
-- Run `make test` and `make lint` before considering work complete.
+## Specs
+- Add specs for behavior that could plausibly break (protocol semantics, persistence/recovery, concurrency, edge cases); bug fixes get a regression spec that fails before the fix.
+- Skip trivial code (getters, covered refactors, config plumbing); extend existing spec files rather than adding new ones.
 
-## Running locally
-
-- `make bin/lavinmq CRYSTAL_FLAGS=` - Build debug version of the main server binary
-- `bin/lavinmq --data-dir ./tmp/data --debug` - Run server with specified data directory in debug logging mode
-
-Standard library sources: `crystal env CRYSTAL_PATH` shows compiler search paths.
-
-## Key Patterns
-
-- Avoid allocations in hot paths (message publishing and delivery)
-- All code changes must have corresponding specs. New features need specs, bug fixes need regression specs.
+## Docs
+- Add a short CHANGELOG.md entry linking the PR; describe user-facing features in docs/.
 
 ---
 > Source: [cloudamqp/lavinmq](https://github.com/cloudamqp/lavinmq) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
