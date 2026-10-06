@@ -1,0 +1,9 @@
+{
+  "name": "phughesmcr--deno-project-template",
+  "displayName": "deno-project-template",
+  "description": "My usual Deno project setup",
+  "version": "1.0.0",
+  "author": "phughesmcr",
+  "homepage": "https://github.com/phughesmcr/deno-project-template",
+  "skills": []
+}
