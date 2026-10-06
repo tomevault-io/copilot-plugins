@@ -1,0 +1,14 @@
+{
+  "name": "neetly--figma-agent-linux",
+  "displayName": "figma-agent-linux",
+  "description": "figma-agent-linux",
+  "version": "1.0.0",
+  "author": "neetly",
+  "homepage": "https://github.com/neetly/figma-agent-linux",
+  "skills": [
+    {
+      "name": "figma-agent-linux",
+      "description": ""
+    }
+  ]
+}
