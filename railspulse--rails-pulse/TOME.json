@@ -2,9 +2,9 @@
   "name": "rails_pulse",
   "owner": "railspulse",
   "repo": "rails_pulse",
-  "description": "Rails Pulse is a comprehensive performance monitoring and debugging gem that provides insights into your Rails application's health.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/railspulse/rails_pulse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T09:24:39Z"
+  "distributed_at": "2026-10-06T14:16:45Z"
 }
