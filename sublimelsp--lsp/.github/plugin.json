@@ -1,0 +1,9 @@
+{
+  "name": "sublimelsp--lsp",
+  "displayName": "LSP",
+  "description": "LSP",
+  "version": "1.0.0",
+  "author": "sublimelsp",
+  "homepage": "https://github.com/sublimelsp/LSP",
+  "skills": []
+}
