@@ -3,8 +3,8 @@
   "owner": "GoogleCloudPlatform",
   "repo": "horizon-sdv",
   "description": "",
-  "type": "config",
-  "source_format": "GEMINI.md",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "horizon-sdv",
+      "path": ".agents/plugins/horizon-ops/skills/horizon-deploy/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/horizon-sdv/tree/main/.agents/plugins/horizon-ops/skills/horizon-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horizon-sdv",
+      "path": ".agents/plugins/horizon-dev/skills/horizon-create-module/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/horizon-sdv/tree/main/.agents/plugins/horizon-dev/skills/horizon-create-module/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/GoogleCloudPlatform/horizon-sdv",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T23:47:26Z"
+  "distributed_at": "2026-10-06T19:03:36Z"
 }
