@@ -1,7 +1,7 @@
 {
   "name": "smughead--loupe",
   "displayName": "Loupe",
-  "description": "macOS accessibility inspector for AI-agent workflows. Hover, annotate, copy structured output.",
+  "description": "Loupe",
   "version": "1.0.0",
   "author": "smughead",
   "homepage": "https://github.com/smughead/Loupe",
