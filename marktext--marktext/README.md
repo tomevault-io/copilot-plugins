@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [marktext/marktext](https://github.com/marktext/marktext).
+Original source: `AGENTS.md` in [marktext/marktext](https://github.com/marktext/marktext).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [marktext/marktext](https://github.com/marktext/marktext) — a repo with 59065+ stars on GitHub.
+From [marktext/marktext](https://github.com/marktext/marktext) — a repo with 62157+ stars on GitHub.
 
 ---
 
