@@ -1,22 +1,20 @@
-## otr-cli-hold
+## otr-loop
 
-> When a CLI task in this repo says not to commit or not to update GO_FORWARD, obey that and leave both alone
+> OTR Windows loop — pull first, venv tests, obs publish, git on main
 
 
-# CLI hold — this repo only
+# OTR loop (Windows)
 
-This applies while working in `ComfyUI-OldTimeRadio`. It does not travel to other projects.
+Start every session: `git fetch origin main` then `git log --oneline HEAD..origin/main` then `git pull --rebase origin main`. Say what came down. Do not edit `workflows/otr_canonical.json` on a stale checkout.
 
-The standing law is still: a finished green chunk is committed and pushed to `main`, named files only. `apple/GO_FORWARD_PLAN.md` is still where shared multi-step work is written down.
-
-When the current CLI task, prompt, or plan says not to commit, or not to update `apple/GO_FORWARD_PLAN.md`:
-
-- Do not commit.
-- Do not push.
-- Do not edit `apple/GO_FORWARD_PLAN.md`.
-- Do not stage unrelated files that are already dirty in the tree.
-
-That hold lasts for that task only. A later task that does not say it returns to the standing commit-and-push law.
+- Edit real Windows files. Test with `C:\Users\jeffr\Documents\ComfyUI\.venv\Scripts\python.exe`, `$env:PYTHONUTF8=1`, `pytest -q -p no:cacheprovider`.
+- PowerShell: chain with `;` not `&&`. Nested `python -c` quotes fail — write a temp `.py`, run it, delete it.
+- Two boxes: 4060 owns portability/profiles; 5080 owns `nodes/`, canonical JSON, registry. Do not silently change the other machine. `apple/PROD_BUG_LOG.md` is append-only.
+- Publish success is a file in `otr/obs/` (`obs_publish OK`). Never move or hide harness runs out of that folder.
+- Git: one branch `main`. Never ask to commit. Always commit and push green chunks in the same turn (operator 2026-09-17). Named files only -- never `git add .`. Never push `v2.0-alpha`. Do not edit `pyproject.toml` just to tidy (it publishes).
+- After push: HEAD == origin, no 0-byte files, no BOM, AST-parse touched `.py`.
+- Reset before a headless run: selective CIM kill of the Comfy server (never a blanket `python` kill). Port 8000 empty, VRAM at desktop baseline.
+- Models live at `C:\ComfyUI-Models` via `_otr_models_root._models_root()`, not under Documents.
 
 ---
 > Source: [jbrick2070/ComfyUI-OldTimeRadio](https://github.com/jbrick2070/ComfyUI-OldTimeRadio) — distributed by [TomeVault](https://tomevault.io).
