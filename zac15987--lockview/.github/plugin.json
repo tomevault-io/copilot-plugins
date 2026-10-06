@@ -1,0 +1,9 @@
+{
+  "name": "zac15987--lockview",
+  "displayName": "LockView",
+  "description": "An Android image viewer with lock functionality, gesture controls, and automatic device-unlock integration that prevents accidental interactions.",
+  "version": "1.0.0",
+  "author": "zac15987",
+  "homepage": "https://github.com/zac15987/LockView",
+  "skills": []
+}
