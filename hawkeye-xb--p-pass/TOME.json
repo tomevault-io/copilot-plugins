@@ -4,7 +4,7 @@
   "repo": "P-Pass",
   "description": "Family photo backup, peer-to-peer: your phone backs up automatically to the computer at home. No cloud, no account, open source.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hawkeye-xb/P-Pass",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T04:30:26Z"
+  "distributed_at": "2026-10-06T04:31:16Z"
 }
