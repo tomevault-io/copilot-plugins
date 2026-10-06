@@ -1,0 +1,9 @@
+{
+  "name": "dayumsam--lead-enrich",
+  "displayName": "lead-enrich",
+  "description": "Chrome extension that helps sales teams import LinkedIn profiles into [Twenty CRM]",
+  "version": "1.0.0",
+  "author": "dayumsam",
+  "homepage": "https://github.com/dayumsam/lead-enrich",
+  "skills": []
+}
