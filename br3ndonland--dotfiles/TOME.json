@@ -4,7 +4,7 @@
   "repo": "dotfiles",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/br3ndonland/dotfiles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-01T09:32:39Z"
+  "distributed_at": "2026-10-06T17:35:03Z"
 }
