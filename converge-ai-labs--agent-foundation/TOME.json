@@ -1,0 +1,69 @@
+{
+  "name": "agent-foundation",
+  "owner": "converge-ai-labs",
+  "repo": "agent-foundation",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-foundation",
+      "path": ".agents/skills/uiux-polish/SKILL.md",
+      "github_url": "https://github.com/converge-ai-labs/agent-foundation/tree/main/.agents/skills/uiux-polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-foundation",
+      "path": ".agents/skills/spec-writing/SKILL.md",
+      "github_url": "https://github.com/converge-ai-labs/agent-foundation/tree/main/.agents/skills/spec-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-foundation",
+      "path": ".agents/skills/commit-push-pr/SKILL.md",
+      "github_url": "https://github.com/converge-ai-labs/agent-foundation/tree/main/.agents/skills/commit-push-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-foundation",
+      "path": ".agents/skills/audit-repository-consistency/SKILL.md",
+      "github_url": "https://github.com/converge-ai-labs/agent-foundation/tree/main/.agents/skills/audit-repository-consistency/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/converge-ai-labs/agent-foundation",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T15:56:13Z"
+}
