@@ -1,0 +1,321 @@
+{
+  "name": "Quark",
+  "owner": "amd",
+  "repo": "Quark",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-install/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-onnx-ptq/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-onnx-ptq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-torch-ptq/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-torch-ptq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-onnx-debug/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-onnx-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-torch-debug/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-torch-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-torch-export/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-torch-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-onnx-install/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-onnx-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-torch-install/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-torch-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-env-preflight/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-env-preflight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-torch-llm-eval/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-torch-llm-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-onnx-model-intake/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-onnx-model-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-torch-model-intake/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-torch-model-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-torch-llm-ptq-eval/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-torch-llm-ptq-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-onnx-autosearch-pro/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-onnx-autosearch-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-onnx-result-validator/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-onnx-result-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-torch-result-validator/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-torch-result-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills/quark-torch-file2file-quantization/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills/quark-torch-file2file-quantization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/shared/quark-install/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/shared/quark-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/meta/shared/quark-skill-creator/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/meta/shared/quark-skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/onnx/quark-onnx-debug/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/onnx/quark-onnx-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/meta/onnx/quark-onnx-skill-sync/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/meta/onnx/quark-onnx-skill-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/onnx/quark-onnx-router/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/onnx/quark-onnx-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/meta/onnx/quark-onnx-eval-runner/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/meta/onnx/quark-onnx-eval-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/onnx/quark-onnx-install/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/onnx/quark-onnx-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/torch/quark-torch-debug/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/torch/quark-torch-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/meta/torch/quark-torch-skill-sync/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/meta/torch/quark-torch-skill-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/torch/quark-torch-export/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/torch/quark-torch-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/torch/quark-torch-router/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/torch/quark-torch-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/meta/torch/quark-torch-eval-runner/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/meta/torch/quark-torch-eval-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/torch/quark-torch-install/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/torch/quark-torch-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/onnx/quark-onnx-quant-plan/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/onnx/quark-onnx-quant-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/torch/quark-torch-llm-eval/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/torch/quark-torch-llm-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/meta/onnx/quark-onnx-doc-drift-check/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/meta/onnx/quark-onnx-doc-drift-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/torch/quark-torch-quant-plan/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/torch/quark-torch-quant-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/onnx/quark-onnx-model-intake/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/onnx/quark-onnx-model-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/meta/torch/quark-torch-doc-drift-check/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/meta/torch/quark-torch-doc-drift-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/torch/quark-torch-model-intake/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/torch/quark-torch-model-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l0-foundation/shared/quark-env-preflight/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l0-foundation/shared/quark-env-preflight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l2-workflows/onnx/quark-onnx-ptq-workflow/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l2-workflows/onnx/quark-onnx-ptq-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l3-recipes/onnx/quark-onnx-autosearch-pro/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l3-recipes/onnx/quark-onnx-autosearch-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l3-recipes/torch/quark-torch-llm-ptq-eval/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l3-recipes/torch/quark-torch-llm-ptq-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/onnx/quark-onnx-result-validator/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/onnx/quark-onnx-result-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/torch/quark-torch-result-validator/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/torch/quark-torch-result-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l0-foundation/shared/quark-workspace-validate/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l0-foundation/shared/quark-workspace-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l2-workflows/torch/quark-torch-llm-ptq-workflow/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l2-workflows/torch/quark-torch-llm-ptq-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Quark",
+      "path": ".claude/skills-impl/l1-atomic/torch/quark-torch-file2file-quantization/SKILL.md",
+      "github_url": "https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/torch/quark-torch-file2file-quantization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/amd/Quark",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T15:33:27Z"
+}
