@@ -1,51 +1,63 @@
-## earnie
+## roadmap-nomenclature
 
-> Project rules live in `.cursor/rules/*.mdc` and `.cursor/skills/*/SKILL.md` (written for Cursor). They apply to Claude Code too — read the matching rule before acting in its area. This file only lists the essentials and points there.
+> * **Cycle Logic:** Development steps proceed alphabetically up to Release `.0` (e.g., `1.24.a` → `1.24.b` → Release `1.24.0` → Next Minor `1.25.0`).
 
-# CLAUDE.md — Earnie (Energy-Optimizer)
 
-Project rules live in `.cursor/rules/*.mdc` and `.cursor/skills/*/SKILL.md` (written for Cursor). They apply to Claude Code too — read the matching rule before acting in its area. This file only lists the essentials and points there.
+# Roadmap & Versioning Nomenclature
 
-## Tests
+## 1. Backlog Versioning (`backlog/Backlog.md`)
 
-- Always run pytest through the wrapper, never plain `python -m pytest`:
+* **Cycle Logic:** Development steps proceed alphabetically up to Release `.0` (e.g., `1.24.a` → `1.24.b` → Release `1.24.0` → Next Minor `1.25.0`).
 
-  ```powershell
-  $env:PYTHONIOENCODING='utf-8'; $env:PYTHONUTF8='1'
-  .venv\Scripts\python.exe -m scripts.run_pytest tests -q --tb=short
-  ```
+* **Placeholders:** Future minors that are not yet numbered are designated as `N.+1` (e.g., `2.+1`).
 
-  The wrapper adds `-n auto` (pytest-xdist) unless `-n` is given — full suite ≈ 2.5 min in parallel vs. > 10 min sequential. Use it for small subsets too (`... -m scripts.run_pytest tests/test_ha_adapter.py -q`). Sequential (`-n 0`) only for debugging, `--dead-fixtures`, mutmut.
-- UTF-8 env is required on Windows (cp1252 console crashes on `→`, umlauts). See `.cursor/skills/windows-unicode-console/`.
-- Test health / quality gate: `.cursor/rules/test-health.mdc`, `.cursor/skills/quality-gate/`.
-- Backtesting / SE runs: always `--workers N` with the largest useful N (`.cursor/rules/backtesting-max-workers.mdc`).
+* **`version.py` vs. Backlog:** `version.py` holds SemVer (`X.Y.Z` or pre-release `X.Y.Z-alpha.N` / `-rc.N`) — not backlog letters (`.a`, `.b`). Changes to `version.py` **always** require explicit user approval (no automatic increment).
 
-## Shell
+* **Granularity:** Backlog letter (`1.24.a`) = Entire chapter/feature block. Incremental steps within this process utilize the Step level (`P3a`).
 
-Windows PowerShell 5.x: no `&&` / `||` (`.cursor/rules/powershell-shell.mdc`). In the Bash tool (Git Bash) POSIX syntax is fine.
+## 2. The 3 Hierarchy Levels
 
-## Versioning, backlog, branching
+1. **Epic:** Short name or full text (e.g., `UI S-2`).
 
-- **Never change `version.py` without explicit user approval** — propose and ask (`versioning.mdc`).
-- Backlog IDs and hierarchy: `roadmap-nomenclature.mdc`, `backlog.mdc`. Backlog files are **English**; done items go to `backlog/Backlog-Erledigt.md` (newest on top, dated heading).
-- Before committing `Backlog-Bugfixes.md` / `Backlog-Erledigt.md`: scrub real user/customer names with stable aliases (`backlog-anonymize-users.mdc`; local map `.cursor/user-aliases.local.md`, never committed).
-- Branching / hotfix / tagging: `branching-hotfix-playbook.mdc` — warn before long-lived branches or tag rewrites.
+2. **Phase:** `<Epic> P<Number>` (e.g., `S-2 P3`, `Adaptation P1`).
 
-## Chat language
+3. **Step:** `<Epic> P<Number><Letter>` (e.g., `S-2 P3a`) $\rightarrow$ Only permitted within open phases.
 
-Reply in **German** in Claude Code chat (the user switches language spontaneously when needed — follow that). `.cursor/rules/english-chat.mdc` applies to Cursor only. Commit messages, backlog and `docs/spec/` stay English as in the rules below.
+## 3. Strict Communication Rules
 
-## Docs language
+* **Precision:** Always use exact identifiers in dialogue/chat (e.g., *"Continue with 1.24.b"* or *"S-2 P3a"*).
 
-- User docs (`docs/README.md`, `docs/user-manual/`, `docs/einrichtung/`, `docs/konfiguration/`, `docs/ui/`, `docs/referenz/`) are **German**; update them in the same change when behaviour changes (`german-user-docs.mdc`).
-- `docs/spec/` and backlog: English.
+* **Forbidden:** No isolated phase specifications (*"Phase 3"* without an epic), no fabricated clusters (*"Package A"*), and no vague placeholders (*"1.+1"*).
 
-## Area notes
+**Backlog Logic:** Subsequent tasks (follow-ups) are separate items, not new phases.
 
-- **Streamlit UI state:** `.cursor/rules/streamlit-ui-state.mdc`, skills `streamlit-ui-state`, `streamlit-apptest`.
-- **HouseSim** (`house_sim/`, spec `docs/spec/house-sim.md`): after changing `house_sim/core/` or `house_sim/fixtures/`, run `python -m scripts.sync_house_sim_integration` (UTF-8 env) — the S4 integration copy is generated and checked by `tests/test_house_sim_s4_packaging.py`.
-- **HA mapping:** units via `integrations/ha_units.py` (only physically compatible bindings, factor from `unit_of_measurement` at runtime); function completeness via `ehal/functions.py` (a function is unavailable until all its fields are mapped).
-- `.cursorignore`: if something is blocked, ask the user instead of guessing (`cursorignore-access.mdc`).
+
+**Forbidden:** No isolated phase specifications (*"Phase 3"* without an epic), no fabricated clusters (*"Package A"*), and no vague placeholders (*"1.+1"*).
+
+**Backlog Logic:** Subsequent tasks (follow-ups) are separate items, not new phases.
+
+** ## 4. Validated Epics & Phases
+
+* **UI Sunset-2-Sunset (`UI S-2`):** P1 (Navi/Mode), P2 (Data/Table), P3 (Charts/Markers/Steps 3a–3d), P4 (Docs/Tests)
+* **Parameter Adaptation (`Adaptation`):** P1 (Skeleton), P2 (PV New), P3 (PV Pilot), P4 (UI Viz)
+* **Generic Thermal Models (`Thermals`):** P1 (Single-Node), P2 (Coupled), P3 (Adaptation)
+* **MILP Sunset Horizon (`MILP Horizon`):** Phases P1-P5
+* **Release Regression Suite (`Regression`):** P1 (MVP: runner, cases, golden), P2 (customer data / private repo), P3 (CI gate + scrubber)
+* **Session Conclusion:** Phases P1-P2
+* **Migration (`MIGRATION.md`):** Phases P1-P7
+
+## 5. Commit & Chat Syntax
+
+Format: `<Scope>: <Version> <Phase/Step> <Description>` or directly via Epic-Scope:
+
+```text
+houseconfig: 1.24.a P5 UI House Configurator and Scenario Editor
+refactor: 1.24.b Epic 1 milp.py LOC Split
+houseconfig: 1.24.0 P2 UI New/Remove Electric Car Profile
+runtime: 1.25.0 P1 Data Model Live Entities
+ui(s2): P3a Chart 2 Actual/Forecast Separated
+
+```
 
 ---
 > Source: [JochenTCC/Earnie](https://github.com/JochenTCC/Earnie) — distributed by [TomeVault](https://tomevault.io).
