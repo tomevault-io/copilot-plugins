@@ -1,0 +1,69 @@
+{
+  "name": "HeiGe-GEO-SEO",
+  "owner": "HeiGeAi",
+  "repo": "HeiGe-GEO-SEO",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "HeiGe-GEO-SEO",
+      "path": "source/SKILL.md",
+      "github_url": "https://github.com/HeiGeAi/HeiGe-GEO-SEO/tree/main/source/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HeiGe-GEO-SEO",
+      "path": "adapters/hermes/heige-geo-seo/skill.md",
+      "github_url": "https://github.com/HeiGeAi/HeiGe-GEO-SEO/tree/main/adapters/hermes/heige-geo-seo/skill.md",
+      "description": ""
+    },
+    {
+      "name": "HeiGe-GEO-SEO",
+      "path": "adapters/openclaw/heige-geo-seo/SKILL.md",
+      "github_url": "https://github.com/HeiGeAi/HeiGe-GEO-SEO/tree/main/adapters/openclaw/heige-geo-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HeiGe-GEO-SEO",
+      "path": "adapters/claude-code/heige-geo-seo/SKILL.md",
+      "github_url": "https://github.com/HeiGeAi/HeiGe-GEO-SEO/tree/main/adapters/claude-code/heige-geo-seo/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/HeiGeAi/HeiGe-GEO-SEO",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T13:33:37Z"
+}
