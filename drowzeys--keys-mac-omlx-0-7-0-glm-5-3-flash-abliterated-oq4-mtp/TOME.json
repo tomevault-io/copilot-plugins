@@ -1,0 +1,44 @@
+{
+  "name": "keys-Mac-oMLX-0.7.0-GLM-5.3-Flash-Abliterated-oQ4-MTP",
+  "owner": "drowzeys",
+  "repo": "keys-Mac-oMLX-0.7.0-GLM-5.3-Flash-Abliterated-oQ4-MTP",
+  "description": "GLM-5.3-Flash Abliterated oQ4-MTP on oMLX 0.7.0, Mac Studio M5 Ultra: 60.9 tok/s greedy decode (2.6x the M3U pack), ~1.1k tok/s prefill, Lightning MTP fixed depth 2, one-shot setup",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/drowzeys/keys-Mac-oMLX-0.7.0-GLM-5.3-Flash-Abliterated-oQ4-MTP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T02:41:17Z"
+}
