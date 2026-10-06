@@ -2,9 +2,9 @@
   "name": "flow",
   "owner": "Facets-cloud",
   "repo": "flow",
-  "description": "Turn isolated Claude sessions into a continuous working relationship",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Facets-cloud/flow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T12:14:11Z"
+  "distributed_at": "2026-10-06T16:52:58Z"
 }
