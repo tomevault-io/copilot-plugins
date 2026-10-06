@@ -4,7 +4,7 @@
   "repo": "ContentEngineAI",
   "description": "AI-powered video production pipeline that scrapes e-commerce products, generates short-form review videos with voiceover and subtitles, and publishes them to YouTube, TikTok, and Instagram on a schedule.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stkzlv/ContentEngineAI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T02:33:41Z"
+  "distributed_at": "2026-10-06T02:48:34Z"
 }
