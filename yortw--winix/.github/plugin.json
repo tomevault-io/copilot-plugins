@@ -1,0 +1,9 @@
+{
+  "name": "yortw--winix",
+  "displayName": "winix",
+  "description": "Cross-platform CLI tools for the gaps between Windows and *nix \u2014 timeit, peep, squeeze, wargs, files, treex",
+  "version": "1.0.0",
+  "author": "Yortw",
+  "homepage": "https://github.com/Yortw/winix",
+  "skills": []
+}
