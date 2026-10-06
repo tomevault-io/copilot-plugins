@@ -1,0 +1,22 @@
+{
+  "name": "talend--ui",
+  "displayName": "ui",
+  "description": "ui",
+  "version": "1.0.0",
+  "author": "Talend",
+  "homepage": "https://github.com/Talend/ui",
+  "skills": [
+    {
+      "name": "ui",
+      "description": ""
+    },
+    {
+      "name": "ui",
+      "description": ""
+    },
+    {
+      "name": "ui",
+      "description": ""
+    }
+  ]
+}
