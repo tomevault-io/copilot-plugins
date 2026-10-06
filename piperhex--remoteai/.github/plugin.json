@@ -1,0 +1,22 @@
+{
+  "name": "piperhex--remoteai",
+  "displayName": "remoteai",
+  "description": "remoteai",
+  "version": "1.0.0",
+  "author": "piperhex",
+  "homepage": "https://github.com/piperhex/remoteai",
+  "skills": [
+    {
+      "name": "remoteai",
+      "description": ""
+    },
+    {
+      "name": "remoteai",
+      "description": ""
+    },
+    {
+      "name": "remoteai",
+      "description": ""
+    }
+  ]
+}
