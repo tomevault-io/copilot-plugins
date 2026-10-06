@@ -5,5 +5,18 @@
   "version": "1.0.0",
   "author": "vllm-project",
   "homepage": "https://github.com/vllm-project/ci-infra",
-  "skills": []
+  "skills": [
+    {
+      "name": "ci-infra",
+      "description": ""
+    },
+    {
+      "name": "ci-infra",
+      "description": ""
+    },
+    {
+      "name": "ci-infra",
+      "description": ""
+    }
+  ]
 }
