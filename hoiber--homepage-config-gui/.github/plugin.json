@@ -1,0 +1,9 @@
+{
+  "name": "hoiber--homepage-config-gui",
+  "displayName": "homepage-config-gui",
+  "description": "A comprehensive web-based GUI for creating, editing, and managing Homepage dashboard configurations with live file updates and Docker integration.",
+  "version": "1.0.0",
+  "author": "hoiber",
+  "homepage": "https://github.com/hoiber/homepage-config-gui",
+  "skills": []
+}
