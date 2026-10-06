@@ -1,0 +1,9 @@
+{
+  "name": "xingrz--tapecap",
+  "displayName": "tapecap",
+  "description": "Raw DV / HDV tape capture over FireWire for macOS.",
+  "version": "1.0.0",
+  "author": "xingrz",
+  "homepage": "https://github.com/xingrz/tapecap",
+  "skills": []
+}
