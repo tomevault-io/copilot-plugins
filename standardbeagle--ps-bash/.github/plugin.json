@@ -1,0 +1,9 @@
+{
+  "name": "standardbeagle--ps-bash",
+  "displayName": "ps-bash",
+  "description": "Bash commands for PowerShell \u2014 real flags, real output, typed objects underneath. 67 commands, 775 tests, cross-platform.",
+  "version": "1.0.0",
+  "author": "standardbeagle",
+  "homepage": "https://github.com/standardbeagle/ps-bash",
+  "skills": []
+}
