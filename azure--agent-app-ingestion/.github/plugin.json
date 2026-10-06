@@ -1,0 +1,34 @@
+{
+  "name": "azure--agent-app-ingestion",
+  "displayName": "agent-app-ingestion",
+  "description": "agent-app-ingestion",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/agent-app-ingestion",
+  "skills": [
+    {
+      "name": "agent-app-ingestion",
+      "description": ""
+    },
+    {
+      "name": "agent-app-ingestion",
+      "description": ""
+    },
+    {
+      "name": "agent-app-ingestion",
+      "description": ""
+    },
+    {
+      "name": "agent-app-ingestion",
+      "description": ""
+    },
+    {
+      "name": "agent-app-ingestion",
+      "description": ""
+    },
+    {
+      "name": "agent-app-ingestion",
+      "description": ""
+    }
+  ]
+}
