@@ -1,0 +1,51 @@
+{
+  "name": "Inventory-Sorter",
+  "owner": "meza",
+  "repo": "Inventory-Sorter",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Inventory-Sorter",
+      "path": ".agents/skills/stonecraft/SKILL.md",
+      "github_url": "https://github.com/meza/Inventory-Sorter/tree/main/.agents/skills/stonecraft/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/meza/Inventory-Sorter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T22:05:29Z"
+}
