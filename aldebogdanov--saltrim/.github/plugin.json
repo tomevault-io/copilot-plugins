@@ -1,0 +1,9 @@
+{
+  "name": "aldebogdanov--saltrim",
+  "displayName": "saltrim",
+  "description": "A simple-but-powerfull Clojure reactive spreadsheet",
+  "version": "1.0.0",
+  "author": "aldebogdanov",
+  "homepage": "https://github.com/aldebogdanov/saltrim",
+  "skills": []
+}
