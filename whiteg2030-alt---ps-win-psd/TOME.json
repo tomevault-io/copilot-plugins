@@ -1,0 +1,44 @@
+{
+  "name": "-PS-win-psd-",
+  "owner": "whiteg2030-alt",
+  "repo": "-PS-win-psd-",
+  "description": "AIPS\uff1a\u6e90\u81ea Mac Compositor \u7684 Windows \u4e2d\u6587\u5f00\u6e90\u56fe\u50cf\u7f16\u8f91\u5668\uff0c\u652f\u6301 PSD \u5bfc\u5165\u4e0e PS \u5e38\u7528\u5feb\u6377\u952e\u3002 | Open-source Windows image editor derived from Mac Compositor, with Chinese UI, PSD import and Photoshop-style shortcuts.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/whiteg2030-alt/-PS-win-psd-",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T12:19:35Z"
+}
