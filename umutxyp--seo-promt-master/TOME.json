@@ -4,7 +4,7 @@
   "repo": "Seo-Promt-Master",
   "description": "",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/umutxyp/Seo-Promt-Master",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T18:31:41Z"
+  "distributed_at": "2026-10-06T18:33:09Z"
 }
