@@ -1,0 +1,9 @@
+{
+  "name": "jochentcc--earnie",
+  "displayName": "Earnie",
+  "description": "Open-Source HEMS for Loxone & dynamic energy tariffs (aWATTar/Tibber). Vorausschauende 48h-Optimierung f\u00fcr PV, Batterien, Elektro-Auto, W\u00e4rmepumpen ...",
+  "version": "1.0.0",
+  "author": "JochenTCC",
+  "homepage": "https://github.com/JochenTCC/Earnie",
+  "skills": []
+}
