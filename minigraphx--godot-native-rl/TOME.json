@@ -4,7 +4,7 @@
   "repo": "godot-native-rl",
   "description": "Native Integration of RL in Godot using ncnn for small AI Agents even in webapps",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/minigraphx/godot-native-rl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T08:46:42Z"
+  "distributed_at": "2026-10-06T08:47:44Z"
 }
