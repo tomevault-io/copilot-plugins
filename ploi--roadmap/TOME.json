@@ -4,7 +4,7 @@
   "repo": "roadmap",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -61,9 +61,45 @@
       "path": ".claude/skills/tailwindcss-development/SKILL.md",
       "github_url": "https://github.com/ploi/roadmap/tree/main/.claude/skills/tailwindcss-development/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "roadmap",
+      "path": ".claude/skills/infer-conventions/SKILL.md",
+      "github_url": "https://github.com/ploi/roadmap/tree/main/.claude/skills/infer-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roadmap",
+      "path": ".claude/skills/octane-development/SKILL.md",
+      "github_url": "https://github.com/ploi/roadmap/tree/main/.claude/skills/octane-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roadmap",
+      "path": ".claude/skills/mcp-development/SKILL.md",
+      "github_url": "https://github.com/ploi/roadmap/tree/main/.claude/skills/mcp-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roadmap",
+      "path": ".claude/skills/fortify-development/SKILL.md",
+      "github_url": "https://github.com/ploi/roadmap/tree/main/.claude/skills/fortify-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roadmap",
+      "path": ".claude/skills/filament-development/SKILL.md",
+      "github_url": "https://github.com/ploi/roadmap/tree/main/.claude/skills/filament-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roadmap",
+      "path": ".claude/skills/testing-best-practices/SKILL.md",
+      "github_url": "https://github.com/ploi/roadmap/tree/main/.claude/skills/testing-best-practices/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/ploi/roadmap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T09:31:55Z"
+  "distributed_at": "2026-10-06T15:31:53Z"
 }
