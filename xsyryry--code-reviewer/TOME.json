@@ -1,0 +1,57 @@
+{
+  "name": "code-reviewer",
+  "owner": "xsyryry",
+  "repo": "code-reviewer",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-reviewer",
+      "path": "harbor/skills/upload-parity-experiments/SKILL.md",
+      "github_url": "https://github.com/xsyryry/code-reviewer/tree/main/harbor/skills/upload-parity-experiments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "harbor/examples/tasks/hello-skills/environment/skills/generate-greeting/SKILL.md",
+      "github_url": "https://github.com/xsyryry/code-reviewer/tree/main/harbor/examples/tasks/hello-skills/environment/skills/generate-greeting/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xsyryry/code-reviewer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T16:10:57Z"
+}
