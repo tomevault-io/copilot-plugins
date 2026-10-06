@@ -1,0 +1,117 @@
+{
+  "name": "robotframework-browser",
+  "owner": "MarketSquare",
+  "repo": "robotframework-browser",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "robotframework-browser",
+      "path": ".github/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/MarketSquare/robotframework-browser/tree/main/.github/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robotframework-browser",
+      "path": ".github/skills/node-unit-test/SKILL.md",
+      "github_url": "https://github.com/MarketSquare/robotframework-browser/tree/main/.github/skills/node-unit-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robotframework-browser",
+      "path": ".github/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/MarketSquare/robotframework-browser/tree/main/.github/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robotframework-browser",
+      "path": ".github/skills/python-unit-test/SKILL.md",
+      "github_url": "https://github.com/MarketSquare/robotframework-browser/tree/main/.github/skills/python-unit-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robotframework-browser",
+      "path": ".github/skills/parse-rf-results/SKILL.md",
+      "github_url": "https://github.com/MarketSquare/robotframework-browser/tree/main/.github/skills/parse-rf-results/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robotframework-browser",
+      "path": ".github/skills/write-robot-tests/SKILL.md",
+      "github_url": "https://github.com/MarketSquare/robotframework-browser/tree/main/.github/skills/write-robot-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robotframework-browser",
+      "path": ".claude/skills/node-unit-test/SKILL.md",
+      "github_url": "https://github.com/MarketSquare/robotframework-browser/tree/main/.claude/skills/node-unit-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robotframework-browser",
+      "path": ".claude/skills/change-keyword/SKILL.md",
+      "github_url": "https://github.com/MarketSquare/robotframework-browser/tree/main/.claude/skills/change-keyword/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robotframework-browser",
+      "path": ".claude/skills/python-unit-test/SKILL.md",
+      "github_url": "https://github.com/MarketSquare/robotframework-browser/tree/main/.claude/skills/python-unit-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robotframework-browser",
+      "path": ".claude/skills/parse-rf-results/SKILL.md",
+      "github_url": "https://github.com/MarketSquare/robotframework-browser/tree/main/.claude/skills/parse-rf-results/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robotframework-browser",
+      "path": ".claude/skills/write-robot-tests/SKILL.md",
+      "github_url": "https://github.com/MarketSquare/robotframework-browser/tree/main/.claude/skills/write-robot-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robotframework-browser",
+      "path": ".claude/skills/ci-failure-triage/SKILL.md",
+      "github_url": "https://github.com/MarketSquare/robotframework-browser/tree/main/.claude/skills/ci-failure-triage/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MarketSquare/robotframework-browser",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T13:30:30Z"
+}
