@@ -1,0 +1,9 @@
+{
+  "name": "tangxiangong--diffusionx",
+  "displayName": "diffusionx",
+  "description": "Diffusion Simulation in Rust",
+  "version": "1.0.0",
+  "author": "tangxiangong",
+  "homepage": "https://github.com/tangxiangong/diffusionx",
+  "skills": []
+}
