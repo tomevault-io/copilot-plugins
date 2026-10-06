@@ -1,0 +1,14 @@
+{
+  "name": "svoxeldev--minecraft-server-template",
+  "displayName": "minecraft-server-template",
+  "description": "minecraft-server-template",
+  "version": "1.0.0",
+  "author": "sVoxelDev",
+  "homepage": "https://github.com/sVoxelDev/minecraft-server-template",
+  "skills": [
+    {
+      "name": "minecraft-server-template",
+      "description": ""
+    }
+  ]
+}
