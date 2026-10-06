@@ -60,9 +60,11 @@ Configure credentials as needed for ECR pulls or S3 access (instance profile, en
 ## 3. Install the Buildkite Agent
 
 ```bash
-# Ubuntu / Debian
-sudo sh -c 'echo deb https://apt.buildkite.com/buildkite-agent stable main > /etc/apt/sources.list.d/buildkite-agent.list'
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
+# Ubuntu / Debian — `apt-key` is gone on Ubuntu 24.04, so use a signed-by keyring
+curl -fsSL "https://keys.openpgp.org/vks/v1/by-fingerprint/32A37959C2FA5C3C99EFBC32A79206696452D198" \
+  | sudo gpg --dearmor -o /usr/share/keyrings/buildkite-agent-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent stable main" \
+  | sudo tee /etc/apt/sources.list.d/buildkite-agent.list > /dev/null
 sudo apt-get update
 sudo apt-get install -y buildkite-agent
 
@@ -70,6 +72,11 @@ sudo apt-get install -y buildkite-agent
 sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/stable/x86_64/\nenabled=1\ngpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
 sudo yum install -y buildkite-agent
 ```
+
+`stable` currently installs the 4.x agent. Check what the other machines on the
+same queue run (`dpkg -l buildkite-agent`) and match them — pin with
+`apt-get install -y buildkite-agent=<version>` from `apt-cache madison
+buildkite-agent` if they are still on 3.x.
 
 ### Grant buildkite-agent access to Docker and AWS
 
@@ -85,9 +92,16 @@ If you use instance-level AWS credentials (IAM role), the buildkite-agent user i
 
 > **Do not start the agent yet.** Finish all remaining setup steps first (docker/containerd data roots, GPU drivers, etc.) so the agent doesn't pick up jobs on a half-configured machine.
 
-## 4. Move Docker and containerd Data Roots (Optional but Recommended)
+## 4. Move Docker and containerd Data Roots (Required on GPU Machines)
 
 By default Docker stores images/containers under `/var/lib/docker` and containerd under `/var/lib/containerd`. On machines with a small root partition and a large secondary mount (NVMe, tmpfs, etc.), move both to the larger volume.
+
+> **This is effectively required for GPU CI machines.** vLLM CI images are
+> ~34 GB each and a busy machine accumulates several, which fills a typical
+> 200-250 GB root disk. When that happens the agents stay connected and keep
+> accepting jobs, but every job fails at initialization with
+> `no space left on device`. Move the data roots **before** starting the agent,
+> and put the agent's `build-path` on the same large volume.
 
 Use the provided script:
 
@@ -98,10 +112,22 @@ sudo ./scripts/move-docker-containerd.sh /path/to/target
 ```
 
 The script will:
-- Set Docker's `data-root` in `/etc/docker/daemon.json`
-- Set containerd's `root` in `/etc/containerd/config.toml`
+- Set Docker's `data-root` in `/etc/docker/daemon.json` (creating the file if it's missing)
+- Set containerd's `root` in `/etc/containerd/config.toml` (same)
+- Move the Buildkite agent's `build-path` to the same volume, if buildkite-agent is already installed
 - Install systemd drop-ins so the target directories are recreated on boot
 - Restart both services and run a smoke test
+
+It works on a fresh machine — no prerequisites beyond Docker/containerd
+themselves (it uses `jq` if present, otherwise falls back to `python3`).
+Existing images are not migrated; the new roots start empty and images re-pull
+on demand.
+
+> The script rewrites `build-path` in the agent config that exists **at the
+> time it runs**. If you install a config from the templates afterwards (step 7
+> / RUNBOOK step 4), that template's `build-path` replaces it — re-apply the
+> large-volume path before starting the agent, and confirm with
+> `grep build-path /etc/buildkite-agent/buildkite-agent.cfg`.
 
 See [`move-docker-containerd.sh`](move-docker-containerd.sh) for details.
 
@@ -134,9 +160,96 @@ docker run --rm --gpus all nvidia/cuda:12.8.0-base-ubuntu22.04 nvidia-smi
 
 For H200 MIG setup, see [`setup_mig_h200.sh`](setup_mig_h200.sh) and [`teardown_mig_h200.sh`](teardown_mig_h200.sh).
 
-## 6. Configure and Start the Buildkite Agent
+## 6. Point HF_HOME at Large Storage
+
+Model weights downloaded during CI jobs go to Hugging Face's cache. By default that is `~/.cache/huggingface` on the root disk, which fills up fast on GPU machines. Point `HF_HOME` at a big disk instead:
+
+- If the machine has a mounted shared filesystem with **4+ TB** of space (FSx, NFS, a large NVMe array), use that — a shared cache stays warm across jobs.
+- Otherwise use the **largest local filesystem** (e.g. a RAID or NVMe mount).
+
+This snippet picks the target automatically and prints what it chose:
+
+```bash
+# Prefer a mounted share with >= 4TB, else the largest non-root filesystem.
+HF_TARGET=$(
+  df -B1G --output=target,size,avail | tail -n +2 | \
+  awk '
+    $1 != "/" && $1 !~ "^/boot" {
+      if ($2 >= 4096) { big[++n] = $1; sz[n] = $2 }
+      if ($2 > max) { max = $2; largest = $1 }
+    }
+    END {
+      if (n > 0) {
+        # among >= 4TB mounts, pick the largest
+        best = 0
+        for (i = 1; i <= n; i++) if (sz[i] > best) { best = sz[i]; pick = i }
+        print big[pick]
+      } else {
+        print largest
+      }
+    }'
+)
+echo "HF cache target: $HF_TARGET"
+sudo mkdir -p "$HF_TARGET/hf_cache"
+```
+
+Then set `HF_HOME` for the buildkite-agent user via the agent's environment hook so every job inherits it (the pipeline's docker plugin passes `HF_HOME` through into containers):
+
+```bash
+sudo tee -a /etc/buildkite-agent/hooks/environment > /dev/null <<EOF
+export HF_HOME="$HF_TARGET/hf_cache"
+EOF
+sudo chown buildkite-agent:buildkite-agent /etc/buildkite-agent/hooks/environment
+```
+
+Make sure the directory is writable by the agent:
+
+```bash
+sudo chown buildkite-agent:buildkite-agent "$HF_TARGET/hf_cache"
+```
+
+> **Don't `chown -R` a shared cache.** If the target is a shared volume (NFS,
+> FSx, virtiofs) that other machines already use, it is usually group- or
+> world-writable and owned correctly already. Check with
+> `stat -c "%A %U:%G" "$HF_TARGET"` first and leave it alone if the agent can
+> already write — a recursive chown there rewrites other hosts' cached data.
+
+**`HF_HOME` must be a path the queue's docker plugin actually mounts.** The
+plugin passes `HF_HOME` straight into the container, so if the host value names
+a path the plugin does not mount, every job starts with a cold cache inside its
+own container layer. The mount lists live in
+`buildkite/pipeline_generator/plugin/docker_plugin.py` — check the template for
+your queue before choosing — the queues do not all mount the same paths, so a
+value that is right for one queue can be wrong for another on identical
+hardware.
+
+**`HF_HOME` is not the only cache path.** Pipelines sharing a queue can set
+their own cache directory — `/mnt/shared` is used this way on the whole-GPU GPU
+queues — and a Docker bind mount creates a missing host path rather than
+failing, so an unmounted cache path silently fills the root disk. Mount every
+such path onto the large volume before starting the agent, and see
+[`buildkite-agent/RUNBOOK.md`](buildkite-agent/RUNBOOK.md) for the exact steps
+and the failure it prevents.
+
+When the host's real cache lives elsewhere, expose it at the path the plugin
+mounts instead of moving it — a bind mount keeps the change local to the
+machine and needs no pipeline change:
+
+```bash
+sudo mkdir -p /mnt/vllm-ci
+echo "$HF_TARGET /mnt/vllm-ci none bind,nofail 0 0" | sudo tee -a /etc/fstab
+sudo mount /mnt/vllm-ci
+```
+
+## 7. Configure and Start the Buildkite Agent
 
 Now that the machine is fully prepared, configure the agent and bring it online.
+
+> **GPU machines (whole-GPU or MIG):** follow the step-by-step
+> [`buildkite-agent/RUNBOOK.md`](buildkite-agent/RUNBOOK.md) — device setup,
+> Buildkite, and GPU monitoring. The ready-made config + hook templates live in
+> [`buildkite-agent/`](buildkite-agent/README.md) — copy those instead of writing
+> the config from scratch.
 
 ### Determine your token and queue
 
@@ -182,11 +295,12 @@ The agent should appear in your Buildkite dashboard under Agents within a few se
 - [ ] AWS CLI installed and credentials accessible
 - [ ] Buildkite agent package installed
 - [ ] `buildkite-agent` user is in the `docker` group
-- [ ] Docker/containerd data roots moved if needed (step 4)
+- [ ] Docker/containerd data roots moved to large storage (step 4 — required on GPU machines)
 - [ ] NVIDIA driver + container toolkit installed (GPU machines only)
-- [ ] Agent configured with correct token and queue tags (step 6)
+- [ ] `HF_HOME` pointed at large storage (step 6)
+- [ ] Agent configured with correct token and queue tags (step 7)
 - [ ] Agent started and visible in Buildkite dashboard
 
 ---
 > Source: [vllm-project/ci-infra](https://github.com/vllm-project/ci-infra) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
