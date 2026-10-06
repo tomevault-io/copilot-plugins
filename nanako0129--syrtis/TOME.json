@@ -2,7 +2,7 @@
   "name": "syrtis",
   "owner": "Nanako0129",
   "repo": "syrtis",
-  "description": "AI token usage & quota monitor for the macOS menu bar \u2014 native Swift, Liquid Glass, 3D contribution graph. Tracks Claude Code, Codex, Cursor, OpenCode & 25+ agents locally.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Nanako0129/syrtis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T12:29:12Z"
+  "distributed_at": "2026-10-06T22:55:55Z"
 }
