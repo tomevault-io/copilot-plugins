@@ -1,0 +1,57 @@
+{
+  "name": "fluid-db",
+  "owner": "TheMind-AI",
+  "repo": "fluid-db",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fluid-db",
+      "path": "packages/skills/skills/fluiddb-memory/SKILL.md",
+      "github_url": "https://github.com/TheMind-AI/fluid-db/tree/main/packages/skills/skills/fluiddb-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fluid-db",
+      "path": "packages/skills/skills/fluiddb-feedback/SKILL.md",
+      "github_url": "https://github.com/TheMind-AI/fluid-db/tree/main/packages/skills/skills/fluiddb-feedback/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TheMind-AI/fluid-db",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T22:10:43Z"
+}
