@@ -1,7 +1,7 @@
 {
   "name": "nvidia--cucascade",
   "displayName": "cuCascade",
-  "description": "GPU Memory Reservation Library",
+  "description": "cuCascade",
   "version": "1.0.0",
   "author": "NVIDIA",
   "homepage": "https://github.com/NVIDIA/cuCascade",
