@@ -1,0 +1,14 @@
+{
+  "name": "momoi-labs--pgconfig",
+  "displayName": "pgconfig",
+  "description": "pgconfig",
+  "version": "1.0.0",
+  "author": "momoi-labs",
+  "homepage": "https://github.com/momoi-labs/pgconfig",
+  "skills": [
+    {
+      "name": "pgconfig",
+      "description": ""
+    }
+  ]
+}
