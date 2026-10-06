@@ -1,0 +1,135 @@
+{
+  "name": "weapp-tailwindcss",
+  "owner": "weapp-tailwindcss",
+  "repo": "weapp-tailwindcss",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "weapp-tailwindcss",
+      "path": "website/docs/ai/basics/skill.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/website/docs/ai/basics/skill.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": "skills/weapp-tailwindcss/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/skills/weapp-tailwindcss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": ".codex/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/.codex/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": ".agents/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/.agents/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": ".claude/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/.claude/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": "skills/weapp-tailwindcss-lynx/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/skills/weapp-tailwindcss-lynx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": "skills/weapp-tailwindcss-setup/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/skills/weapp-tailwindcss-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": "skills/weapp-tailwindcss-migrate/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/skills/weapp-tailwindcss-migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": "skills/weapp-tailwindcss-runtime/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/skills/weapp-tailwindcss-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": ".codex/skills/content-research-writer/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/.codex/skills/content-research-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": "skills/weapp-tailwindcss-react-native/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/skills/weapp-tailwindcss-react-native/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": "skills/weapp-tailwindcss-troubleshoot/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/skills/weapp-tailwindcss-troubleshoot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": "skills/weapp-tailwindcss-custom-build/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/skills/weapp-tailwindcss-custom-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": ".codex/skills/scientific-critical-thinking/SKILL.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/.codex/skills/scientific-critical-thinking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": "website/i18n/en/docusaurus-plugin-content-docs/current/ai/basics/skill.md",
+      "github_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss/tree/main/website/i18n/en/docusaurus-plugin-content-docs/current/ai/basics/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/weapp-tailwindcss/weapp-tailwindcss",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T15:52:54Z"
+}
