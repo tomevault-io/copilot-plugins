@@ -1,33 +1,27 @@
-## backlog-anonymize-users
+## backtesting-max-workers
 
-> Anonymize personal/customer names in backlog bugfix and archive files before commit
+> Use maximum useful ProcessPool workers for SE / backtesting runs
 
 
-# Backlog — Anonymize User Names Before Commit
+# Backtesting / SE — maximum useful workers
 
-Before staging or committing `backlog/Backlog-Bugfixes.md` or `backlog/Backlog-Erledigt.md`, scrub **personal/customer names** from those two files.
+When starting `scripts/run_backtesting.py` (including SE calc matrix / one-off year runs):
 
-## Scope
+- **Always pass `--workers N`** with the largest *useful* N — never default to `1` unless the user asks for sequential debug.
+- Parallelism is **across top-level jobs** (historical/reference tasks + each scenario), **not** across windows inside one scenario.
+- Compute:
 
-| Scrub | Keep |
-|-------|------|
-| Person/customer names in paths or prose (`users\Alex\…`, `Kunden/Sam/…`, “bei Alex …”) | GitHub orgs/repos (`JochenTCC`), product names, technical IDs, `UserA`-style aliases already in use |
-| Folder segments under `users/`, `Kunden/`, `debug-dumps/users/` | `Backlog.md` (feature backlog — out of scope unless the user asks) |
+```text
+N = min(CPU logical count, number of parallel jobs)
+parallel jobs ≈ len(reference_specs) + len(scenarios)
+```
 
-## Stable aliases (required)
+Typical Live-only year: ~3 jobs → `--workers 3` (or `min(cpu, 3)`).  
+Multi-scenario: match job count (e.g. 4 scenarios + refs → often 5–6), capped by CPU.
 
-1. Read local map `.cursor/user-aliases.local.md` if it exists (gitignored; never commit it).
-2. For each **new** real name not in the map: **ask the user once** for a stable alias (`UserA`, `UserB`, … — user chooses).
-3. Replace **all** occurrences of that name in the two backlog files with the chosen alias.
-4. Append `RealName → Alias` to `.cursor/user-aliases.local.md` (create the file if missing).
-5. Reuse the map on later commits — do **not** invent a second alias for the same person.
-
-## Do / Don’t
-
-- **Do** anonymize as part of session conclusion / any commit that includes those files.
-- **Do not** write real-name ↔ alias pairs into committed files (rules, backlog, docs).
-- **Do not** commit `.cursor/user-aliases.local.md`.
-- If unsure whether a token is a personal name: **ask** before replacing.
+- On Windows, ensure worker children see the intended env (`EARNIE_ENV_PATH`, and do **not** leave stale `EARNIE_HOUSE_PROFILES_PATH` / `EARNIE_BACKTESTING_SCENARIOS_PATH` pointing at `se_calc_test/cells/…` overlays).
+- Prefer `os.cpu_count()` (logical) for the CPU cap.
+- **Windows spawn:** run via a real module (`python -m scripts.…`), not `python -c "…"`, so `ProcessPoolExecutor` workers start reliably.
 
 ---
 > Source: [JochenTCC/Earnie](https://github.com/JochenTCC/Earnie) — distributed by [TomeVault](https://tomevault.io).
