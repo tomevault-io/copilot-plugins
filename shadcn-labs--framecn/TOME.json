@@ -1,0 +1,93 @@
+{
+  "name": "framecn",
+  "owner": "shadcn-labs",
+  "repo": "framecn",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "framecn",
+      "path": ".agents/skills/editor-gui/SKILL.md",
+      "github_url": "https://github.com/shadcn-labs/framecn/tree/main/.agents/skills/editor-gui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "framecn",
+      "path": ".agents/skills/hyperframes/SKILL.md",
+      "github_url": "https://github.com/shadcn-labs/framecn/tree/main/.agents/skills/hyperframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "framecn",
+      "path": ".agents/skills/composition/SKILL.md",
+      "github_url": "https://github.com/shadcn-labs/framecn/tree/main/.agents/skills/composition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "framecn",
+      "path": ".agents/skills/vite-plugin/SKILL.md",
+      "github_url": "https://github.com/shadcn-labs/framecn/tree/main/.agents/skills/vite-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "framecn",
+      "path": ".agents/skills/editframe-api/SKILL.md",
+      "github_url": "https://github.com/shadcn-labs/framecn/tree/main/.agents/skills/editframe-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "framecn",
+      "path": ".agents/skills/editframe-cli/SKILL.md",
+      "github_url": "https://github.com/shadcn-labs/framecn/tree/main/.agents/skills/editframe-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "framecn",
+      "path": ".agents/skills/editframe-create/SKILL.md",
+      "github_url": "https://github.com/shadcn-labs/framecn/tree/main/.agents/skills/editframe-create/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "framecn",
+      "path": ".agents/skills/launch-shadcn-registry/SKILL.md",
+      "github_url": "https://github.com/shadcn-labs/framecn/tree/main/.agents/skills/launch-shadcn-registry/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/shadcn-labs/framecn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T21:33:27Z"
+}
