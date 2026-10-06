@@ -1,0 +1,9 @@
+{
+  "name": "manifoldkit--manifoldkit",
+  "displayName": "ManifoldKit",
+  "description": "Reusable SwiftUI chat framework for local and cloud LLM inference on Apple platforms",
+  "version": "1.0.0",
+  "author": "ManifoldKit",
+  "homepage": "https://github.com/ManifoldKit/ManifoldKit",
+  "skills": []
+}
