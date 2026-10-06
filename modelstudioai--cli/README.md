@@ -1,8 +1,6 @@
 # cli
 
-> Source: [modelstudioai/cli](https://github.com/modelstudioai/cli) — distributed by [TomeVault](https://tomevault.io)
-
-Official Aliyun Model Studio CLI built for AI Agent frameworks, exposing models, search, multimodal, and workflow capabilities as structured tool calls.
+> Source: [modelstudioai/cli](https://github.com/modelstudioai/cli). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [modelstudioai/cli](https://github.com/modelstud
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [modelstudioai/cli](https://github.com/modelstudioai/cli) — a repo with 8+ stars on GitHub.
+From [modelstudioai/cli](https://github.com/modelstudioai/cli) — a repo with 541+ stars on GitHub.
 
 ---
 
