@@ -1,36 +1,38 @@
-## branching-hotfix-playbook
+## cursorignore-access
 
-> Warn before branching/publish steps that violate the hotfix playbook (main+tags, no long-lived alpha/develop)
+> If you need access to something that's blocked by `.cursorignore` (unreadable file/folder, missing index), then **don't just ignore it or guess**.
 
 
-# Branching / Hotfix Playbook Guard
+# .cursorignore — Actively coordinate access
 
-Canonical playbook: `docs/spec/branching-hotfix-playbook.md`.
+If you need access to something that's blocked by `.cursorignore` (unreadable file/folder, missing index), then **don't just ignore it or guess**.
 
-## When this applies
+Instead: actively ask the user and decide together what to do with the `.cursorignore` entry.
 
-Before acting on (or recommending) any of: new long-lived branches, hotfixes for a tagged build, tagging/publishing while feature work is open, PATCH vs alpha bumps for bugfixes, or “fix prod only on main and ship later.”
+## Procedure
 
-## Warn the user (stop and ask) if they are about to
+1. Briefly state **which** file/folder you want to see and **why** (purpose).
 
-| Violation | Prefer instead |
-|-----------|----------------|
-| Create permanent `develop`, `alpha`, or long-lived `release/*` | Stay on `main`; pre-release = version/tag channel only |
-| Urgent patch for a **tagged** build by shipping dirty unfinished `main` | Short-lived `hotfix/…` from that **tag**, then port fix to `main` |
-| Hotfix only on the release tip **without** merging/cherry-picking to `main` | Always port the code fix to `main` |
-| Tag a commit where `version.py` ≠ tag (without `v`) | Bump/align `version.py` first (explicit approval) |
-| Mid-alpha cycle: PATCH the **last official** for a community tester fix | Next `X.Y.Z-alpha.N+1` / `-beta.N+1` (after approval), unless patching prod `:latest` |
-| Rewind `main`’s `version.py` to an official PATCH while alpha continues | Port **code** only; leave `main` on the ongoing alpha/beta/rc |
-| Rewrite / force-push a published tag | New tag with a new approved version string |
+2. State **which** entry in `.cursorignore` is blocking access.
 
-## Default (no warning needed)
+3. Offer options for a decision, e.g.:
 
-- Bugfix on `main` → next session publish **D** (if needed) → **B** or **C**
-- Short-lived `hotfix/…` from tag only when users need a build **now** and `main` must not ship yet
+- Modify/remove the entry (make it permanently readable)
 
-## How to remind
+- Add a specific exception (`!path/...`) instead of deleting the entry
 
-One short warning + point to the playbook path + ask which path they want (default on `main` vs hotfix-from-tag). Do not silently create forbidden branches or skip porting to `main`.
+- Copy/extract the file once to a non-ignored location
+
+- Leave it as is (no access) and proceed differently
+
+4. Only act after confirmation. Never change `.cursorignore` on your own.
+
+## Background
+
+`.cursorignore` is intentionally restrictive (access credentials, production configuration, runtime/dumps).
+
+Some entries may be too broad—therefore, if in doubt, decide together,
+instead of forcing access or foregoing the information altogether.
 
 ---
 > Source: [JochenTCC/Earnie](https://github.com/JochenTCC/Earnie) — distributed by [TomeVault](https://tomevault.io).
