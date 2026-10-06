@@ -1,75 +1,71 @@
-## test-health
+## versioning
 
-> Test effectiveness workflow — JUnit history, health report, mutation testing
+> Version number in version.py — when to bump minor vs. patch
 
 
-# Test Health Workflow
+# Versioning (version.py)
 
-Identify **potentially ineffective tests** (never fail but weak coverage / heavy mocks / legacy symbols). **Never auto-delete** from the report — manual review only.
+Format: **MAJOR.MINOR.PATCH** (Semantic Versioning in `version.py`).
 
-## Automatic (every code commit)
+Optional **pre-release** suffix for community test builds only: `MAJOR.MINOR.PATCH-alpha.N`, `MAJOR.MINOR.PATCH-beta.N`, or `MAJOR.MINOR.PATCH-rc.N` (e.g. `2.2.0-alpha.1`, `2.6.1-beta.1`). No backlog letter suffixes (`.a`, `.b`) in `version.py`.
 
-Pre-commit (`.githooks/pre-commit`) runs `python -m scripts.run_pytest tests -q` (native pytest; defaults to `-n auto` when pytest-xdist is installed). JUnit → `.pytest_cache/test-metrics/junit-last.xml`, then:
+## Principle: user approval (required)
 
-```powershell
-.venv\Scripts\python.exe -m scripts.test_health_report ingest
-```
+- **Never change `version.py` without explicit user confirmation** — not at session end, not for bugfixes, not when a backlog chapter is completed, not for alpha/beta/rc bumps.
+- Instead: **propose** (target version + brief rationale) and **ask**.
+- On rejection or no response: leave `version.py` **unchanged**.
+- Commit messages may reference backlog chapters (`hausconfig: 1.24.f …`) — that does **not** replace an automatic version bump.
 
-History lives in `.pytest_cache/test-metrics/` (gitignored): `stats.json`, `junit-history/`.
+## Distinction `version.py` ↔ backlog
 
-## Review queue (after ≥5 recorded runs)
+| Level | File / location | Notation | Purpose |
+|-------|-----------------|----------|---------|
+| **Release state** | `version.py` | `1.24.0` | Published app/container version (only after user approval) |
+| **Pre-release** | `version.py` | `2.2.0-alpha.1` / `2.6.1-beta.1` | Community test build on `main` (GitHub Pre-release; no `:latest`) |
+| **Development step** | `backlog/Backlog.md` | `1.24.f` | Sub-step in the MINOR cycle (planning/progress) |
 
-```powershell
-.venv\Scripts\python.exe -m scripts.test_health_report report
-```
+- Letter chapters (`.a`, `.b`, … `.g`) and the release chapter (`.0`) exist **only in the backlog**, not in `version.py`.
+- Backlog progress (moving chapters to `backlog/Backlog-Erledigt.md`) is **independent** of `version.py`.
 
-Output: `.pytest_cache/test-metrics/health-report.md`
+## Pre-releases (alpha / beta / rc)
 
-Triage flags: never failed, not **protected**, plus heuristics (mock-heavy, low related coverage, legacy symbols, always skipped).
+- Publish from **`main`**: approve bump → commit → push → annotated tag `vX.Y.Z-alpha.N` / `-beta.N` / `-rc.N` (must match `version.py`).
+- CI (`.github/workflows/release-publish.yml`): the tag builds a **candidate** (GHCR `:<version>`, draft release). After the user tests it and approves job `promote` (environment `release-approval`): GitHub Release with `--prerelease` (not `--latest`), GHCR `:next` (no `:latest`), HA add-on `earnie_prerelease` pin. Details: skill `session-abschluss` Phase 2.
+- A rejected candidate is never re-tagged — fix, approved bump to the next pre-release (`alpha.N+1` / `beta.N+1` / …), tag again.
+- Leave the pre-release string on `main` until the next approved bump (`alpha.N+1`, `beta.N`, `rc.N`, or final `X.Y.Z`). Do **not** bump back to the previous official version after tagging.
+- Backlog letters stay planning-only; do not invent backlog IDs like `2.2.0-alpha.1`.
 
-**Protected** (never auto-flagged): `test_prod_dump_regression.py`, `test_historical_24h_consistency.py`, `test_deviation_scenario_catalog.py`, `test_deviation_eval.py`, `test_loxone_integration.py` (live Miniserver; skipped without credentials).
+## MINOR cycle: no automatic increment
 
-## Weekly / before release
+While working on the **same MINOR cycle** — i.e. backlog chapters `MAJOR.MINOR.letter` still exist (e.g. `1.24.a` … `1.24.g`) and/or the corresponding release chapter `MAJOR.MINOR.0` has not yet been approved for release by the user:
 
-```powershell
-.venv\Scripts\python.exe -m scripts.test_health_report run --coverage
-.venv\Scripts\python.exe -m scripts.test_health_report report
-```
+- **Do not automatically bump `version.py`** — neither MINOR nor PATCH.
+- Completing individual letter chapters does **not** justify a PATCH (+1).
+- Example: while `1.24.c` … `1.24.g` and `1.24.0` are in the backlog → `version.py` stays e.g. `1.24.0`, **not** `1.24.1` … `1.24.3`.
+- Mid-cycle community builds use pre-releases of the **target** release (e.g. `2.2.0-alpha.1` while backlog still has `2.2.a` …), not PATCH bumps of the previous official version.
 
-Coverage scope: `optimizer`, `data`, `house_config`, `simulation`, `settings`, `runtime_store`, `ehal` (see `pyproject.toml`).
+**After the entire MINOR cycle is complete** (all chapters of that MINOR number done): **suggest** a version bump only and ask the user (typical: next chapter is `1.25.0` → `1.25.0`; or PATCH on last state — user decides).
 
-## Dead code / orphaned fixtures (supplement)
+## When to suggest a bump (always only after approval)
 
-Requires `pip install -e ".[dev]"` (`vulture`, `pytest-deadfixtures`). Manual review only — never auto-delete.
+| Occasion | Typical suggestion | Decision |
+|----------|-------------------|----------|
+| Entire MINOR cycle complete, release desired | `MAJOR.MINOR.0` or next MINOR | User |
+| Next MINOR chapter complete (e.g. `1.25.0`) | `1.25.0` | User |
+| Community test build desired | `X.Y.Z-alpha.N`, `X.Y.Z-beta.N`, or `X.Y.Z-rc.N` | User |
+| Bugfix complete | PATCH +1 | User |
+| `### Version N.+1` complete | MINOR +1, PATCH = 0 | User |
+| Cycle start: set target MINOR once | e.g. `1.24.0` | User |
 
-```powershell
-.venv\Scripts\python.exe -m vulture optimizer data house_config simulation settings runtime_store ehal scripts --min-confidence 80
-.venv\Scripts\python.exe -m scripts.run_pytest --dead-fixtures
-```
+No fixed automation like "`.a` → MINOR", "`.b` → PATCH" — that mapping does **not** apply.
 
-`LEGACY_TEST_SYMBOLS` in `scripts/test_health_report.py` targets migration / pre-1.26 leftovers and 2.4-removed dual-key / soft-compat patterns (`legacy_id`, `pv_follow_name`, `BRIDGE_DEFAULTS`, `sunrise_full_horizon_trial`). Fail-fast reject tests that mention those symbols are expected — triage manually. Do not treat `subtract_consumer_ids` as legacy.
+## Session conclusion
 
-## Mutation testing (optional, weekly)
+- Maintain backlog as usual (`backlog.mdc`).
+- **No** silent version bump at session end.
+- If a release or community pre-release seems appropriate: ask once (official vs alpha/beta/rc); otherwise skip.
 
-Requires Linux/WSL or Docker (mutmut has no native Windows support). Pin is mutmut 2.x (`pyproject.toml` `[mutation]`) so [`mutmut.ini`](mutmut.ini) is honored. Runner is `python -m scripts.mutmut_pytest_runner` (maps pytest collection errors to exit 1 so behavioral mutants are not false-survived).
-
-```powershell
-pip install -e ".[mutation]"
-mutmut run
-mutmut results
-mutmut html
-```
-
-Scoped modules: `mutmut.ini` (`data/cons_data_house_profile.py`, `house_config/planning_flex_bridge.py`, `settings/flexible_consumers.py`, `settings/legacy_config_gates.py`).
-
-Windows pytest: `python -m pytest` or `python -m scripts.run_pytest` (native; thin pre-commit wrapper).
-
-## Agent guidance
-
-- **“Never failed” ≠ ineffective** — stable regression tests are expected to stay green.
-- Strengthen or reclassify flagged tests; do not bulk-delete without user review.
-- When adding tests for core logic touched in migration cleanup (Backlog **2.+1**), prefer paths covered by `mutmut.ini` or extend that scope deliberately.
-- Extend `PROTECTED_TEST_FILES` / `LEGACY_TEST_SYMBOLS` in `scripts/test_health_report.py` when new high-value or legacy-audit patterns emerge.
+Commit message may include the version if the user set it: `… (v1.24.0)` or `… (v2.2.0-alpha.1)` / `… (v2.6.1-beta.1)`.
 
 ---
 > Source: [JochenTCC/Earnie](https://github.com/JochenTCC/Earnie) — distributed by [TomeVault](https://tomevault.io).
