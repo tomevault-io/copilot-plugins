@@ -1,17 +1,19 @@
-## otr-nodes
+## otr-operating
 
-> Node INPUT_TYPES and widgets must land in canonical JSON in the same change
+> OTR operator law — CLAUDE.md wins; root-cause fixes; no episode guardrails; story quality is closed
 
 
-# Node + widget lockstep
+# OTR operating law
 
-A change to `INPUT_TYPES`, a socket, or a widget is dead until `workflows/otr_canonical.json` is updated in the same change.
+`CLAUDE.md` at the repo root is the source of truth. Operator directives there win over any handoff, memory, or this rule. Do not duplicate or weaken it.
 
-- APPEND new optional widgets at the END of `widgets_values`. Never insert mid-list.
-- A widget converted to an input keeps its value slot AND gains an `inputs` entry with `"widget": {"name": ...}`.
-- After `INPUT_TYPES` edits, run widget/link regression: `test_widget_value_alignment.py`, `test_canonical_widget_input_parity.py`, `test_workflow_link_target_indexes.py`.
-- Then `python scripts/build_variants.py --all` and `--check`. Do not hand-edit variant JSONs.
-- Do not edit `_otr_model_catalog.py` unless the task is the catalog.
+- Fix at the root cause. No shims. Do not wait for the operator to run commands.
+- Never ask to commit. Always commit and push a green chunk to `main` in the same turn (operator 2026-09-17). Named files only.
+- Generated episode content is unfiltered (no profanity/violence prompt bans). Authoring stays clean: no curse words in code, comments, logs, or commits; never the name `dummy`.
+- Story quality is closed. Do not chase prose, writer models, or word-count gates. Gender/voice/face/ledger faults remain bugs.
+- Never invent a Jeffrey-only path. Portable means that install's `output/otr/obs` via Comfy's live output directory (`folder_paths` / `--output-directory`).
+- Knowledge gate before diagnosis or implementation: relevant `apple/PROD_BUG_LOG.md`, Bug Bible in `comfyui-custom-node-survival-guide`.
+- A helper is wired in the same change that builds it, or the row says why not. Grep `nodes/` for a non-test caller.
 
 ---
 > Source: [jbrick2070/ComfyUI-OldTimeRadio](https://github.com/jbrick2070/ComfyUI-OldTimeRadio) — distributed by [TomeVault](https://tomevault.io).
