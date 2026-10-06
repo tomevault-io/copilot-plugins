@@ -1,0 +1,81 @@
+{
+  "name": "agents-can-communicate",
+  "owner": "automatis-tools",
+  "repo": "agents-can-communicate",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agents-can-communicate",
+      "path": "packages/adapter-kimi/plugin/skills/acc/SKILL.md",
+      "github_url": "https://github.com/automatis-tools/agents-can-communicate/tree/main/packages/adapter-kimi/plugin/skills/acc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agents-can-communicate",
+      "path": "packages/adapter-grok/plugin/skills/acc/SKILL.md",
+      "github_url": "https://github.com/automatis-tools/agents-can-communicate/tree/main/packages/adapter-grok/plugin/skills/acc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agents-can-communicate",
+      "path": "packages/adapter-codex/plugin/skills/acc/SKILL.md",
+      "github_url": "https://github.com/automatis-tools/agents-can-communicate/tree/main/packages/adapter-codex/plugin/skills/acc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agents-can-communicate",
+      "path": "packages/adapter-antigravity/plugin/skills/acc/SKILL.md",
+      "github_url": "https://github.com/automatis-tools/agents-can-communicate/tree/main/packages/adapter-antigravity/plugin/skills/acc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agents-can-communicate",
+      "path": "packages/adapter-claude-code/plugin/skills/acc/SKILL.md",
+      "github_url": "https://github.com/automatis-tools/agents-can-communicate/tree/main/packages/adapter-claude-code/plugin/skills/acc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agents-can-communicate",
+      "path": "packages/adapter-gemini-cli/extension/skills/acc/SKILL.md",
+      "github_url": "https://github.com/automatis-tools/agents-can-communicate/tree/main/packages/adapter-gemini-cli/extension/skills/acc/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/automatis-tools/agents-can-communicate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T18:43:07Z"
+}
