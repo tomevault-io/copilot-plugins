@@ -1,0 +1,44 @@
+{
+  "name": "better-life",
+  "owner": "Fangx-AI",
+  "repo": "better-life",
+  "description": "\u9ad8\u6027\u4ef7\u6bd4\u4eba\u751f\u6307\u5357\uff1a650 \u6761\u5efa\u8bae\uff0c34 \u4e2a\u4e3b\u9898\u3002\u7701\u94b1\u3001\u907f\u5751\u3001\u5c11\u8d70\u5f2f\u8def\u3002\u573a\u666f\u5bfc\u822a\u3001\u7ae0\u8282\u9605\u8bfb\u3001\u5168\u6587\u68c0\u7d22\u3001\u5173\u7cfb\u56fe\u3001\u6536\u85cf\u3001PDF \u4e0e Obsidian \u4e0b\u8f7d\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Fangx-AI/better-life",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T06:39:57Z"
+}
