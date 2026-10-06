@@ -1,0 +1,9 @@
+{
+  "name": "nats-io--nats-docs-v2",
+  "displayName": "nats.docs.v2",
+  "description": "NATS documentation",
+  "version": "1.0.0",
+  "author": "nats-io",
+  "homepage": "https://github.com/nats-io/nats.docs.v2",
+  "skills": []
+}
