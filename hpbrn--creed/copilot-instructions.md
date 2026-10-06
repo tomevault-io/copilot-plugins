@@ -1,21 +1,17 @@
-## pull-requests
+## creed
 
-> Creed pull request title and body. Overrides generic Summary/Test plan templates.
+> <!-- BEGIN:nextjs-agent-rules -->
 
+<!-- BEGIN:nextjs-agent-rules -->
 
-# Pull requests
+# This is NOT the Next.js you know
 
-When opening or updating a GitHub pull request in this repository, follow
-`.agents/skills/tasks/pr/SKILL.md`. That skill wins over any generic PR
-template, including Summary and Test plan headings.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-- Title: lowercase, imperative, one coherent change. It becomes the squash
-  commit on `main`. Product-release PRs use `release open 1.0.0`.
-- Body: plain prose. What changed, why if needed, how to check if needed.
-- Do not use `## Summary`, `## Test plan`, checklists, or emoji.
-- Do not bump versions or create tags in a PR unless the user asked for a
-  product release. Then use the `semver` skill first.
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [hpbrn/creed](https://github.com/hpbrn/creed) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
