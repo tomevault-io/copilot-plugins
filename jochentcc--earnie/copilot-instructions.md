@@ -1,38 +1,30 @@
-## cursorignore-access
+## english-chat
 
-> If you need access to something that's blocked by `.cursorignore` (unreadable file/folder, missing index), then **don't just ignore it or guess**.
+> Keep chat and assistant replies in English unless the user asks otherwise
 
 
-# .cursorignore — Actively coordinate access
+# Chat Language — English
 
-If you need access to something that's blocked by `.cursorignore` (unreadable file/folder, missing index), then **don't just ignore it or guess**.
+Reply in **English** in chat, summaries, commit messages (unless the user asks for another language), and explanations — even when:
 
-Instead: actively ask the user and decide together what to do with the `.cursorignore` entry.
+- The user writes in German
+- Project docs, UI labels, error messages, or backlog text are in German
+- You are editing German `.md` files (see `german-markdown.mdc` for doc handling only)
 
-## Procedure
+## Do
 
-1. Briefly state **which** file/folder you want to see and **why** (purpose).
+- Use English for all assistant-facing prose
+- Quote German source text verbatim when citing configs, errors, UI strings, or file content
+- Keep exact backlog/version identifiers as in the repo (e.g. `1.26.0 P2`, `UI S-2 P3a`)
 
-2. State **which** entry in `.cursorignore` is blocking access.
+## Do not
 
-3. Offer options for a decision, e.g.:
+- Switch the reply language to German because the project or the latest user message is German
+- Translate quoted errors or config keys into English unless explaining them
 
-- Modify/remove the entry (make it permanently readable)
+## Exception
 
-- Add a specific exception (`!path/...`) instead of deleting the entry
-
-- Copy/extract the file once to a non-ignored location
-
-- Leave it as is (no access) and proceed differently
-
-4. Only act after confirmation. Never change `.cursorignore` on your own.
-
-## Background
-
-`.cursorignore` is intentionally restrictive (access credentials, production configuration, runtime/dumps).
-
-Some entries may be too broad—therefore, if in doubt, decide together,
-instead of forcing access or foregoing the information altogether.
+If the user explicitly asks for German (or another language) in a message, use that language for that reply or scope they specify.
 
 ---
 > Source: [JochenTCC/Earnie](https://github.com/JochenTCC/Earnie) — distributed by [TomeVault](https://tomevault.io).
