@@ -1,0 +1,14 @@
+{
+  "name": "palewire--cpi",
+  "displayName": "cpi",
+  "description": "cpi",
+  "version": "1.0.0",
+  "author": "palewire",
+  "homepage": "https://github.com/palewire/cpi",
+  "skills": [
+    {
+      "name": "cpi",
+      "description": ""
+    }
+  ]
+}
