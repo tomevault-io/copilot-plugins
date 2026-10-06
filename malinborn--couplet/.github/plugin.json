@@ -1,0 +1,9 @@
+{
+  "name": "malinborn--couplet",
+  "displayName": "couplet",
+  "description": "Markdown editor for macOS that your AI agent can drive \u2014 live preview, MCP server, comments your agent answers in the file",
+  "version": "1.0.0",
+  "author": "malinborn",
+  "homepage": "https://github.com/malinborn/couplet",
+  "skills": []
+}
