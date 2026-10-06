@@ -1,0 +1,9 @@
+{
+  "name": "next-moe--nextmoe-infra",
+  "displayName": "nextmoe-infra",
+  "description": "NextMoe infrastructures, oauth service, image service, moderation service, artifacts service, etc.",
+  "version": "1.0.0",
+  "author": "next-moe",
+  "homepage": "https://github.com/next-moe/nextmoe-infra",
+  "skills": []
+}
