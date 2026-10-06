@@ -1,0 +1,26 @@
+{
+  "name": "ocoda--event-sourcing",
+  "displayName": "event-sourcing",
+  "description": "event-sourcing",
+  "version": "1.0.0",
+  "author": "ocoda",
+  "homepage": "https://github.com/ocoda/event-sourcing",
+  "skills": [
+    {
+      "name": "event-sourcing",
+      "description": ""
+    },
+    {
+      "name": "event-sourcing",
+      "description": ""
+    },
+    {
+      "name": "event-sourcing",
+      "description": ""
+    },
+    {
+      "name": "event-sourcing",
+      "description": ""
+    }
+  ]
+}
