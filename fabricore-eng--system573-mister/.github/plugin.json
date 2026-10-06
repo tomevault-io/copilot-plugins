@@ -1,0 +1,9 @@
+{
+  "name": "fabricore-eng--system573-mister",
+  "displayName": "System573_MiSTer",
+  "description": "Konami System 573 arcade core for MiSTer (FPGA)",
+  "version": "1.0.0",
+  "author": "fabricore-eng",
+  "homepage": "https://github.com/fabricore-eng/System573_MiSTer",
+  "skills": []
+}
