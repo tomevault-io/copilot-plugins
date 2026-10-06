@@ -1,0 +1,14 @@
+{
+  "name": "chenjin-cmd--xhs-virtual-product",
+  "displayName": "xhs-virtual-product",
+  "description": "xhs-virtual-product",
+  "version": "1.0.0",
+  "author": "chenjin-cmd",
+  "homepage": "https://github.com/chenjin-cmd/xhs-virtual-product",
+  "skills": [
+    {
+      "name": "xhs-virtual-product",
+      "description": ""
+    }
+  ]
+}
