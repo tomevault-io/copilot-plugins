@@ -1,0 +1,9 @@
+{
+  "name": "daohainam--emulator-8086-js",
+  "displayName": "emulator-8086-js",
+  "description": "A browser-based Intel 8086 CPU emulator with an integrated assembler, debugger, and VGA text mode display.",
+  "version": "1.0.0",
+  "author": "daohainam",
+  "homepage": "https://github.com/daohainam/emulator-8086-js",
+  "skills": []
+}
