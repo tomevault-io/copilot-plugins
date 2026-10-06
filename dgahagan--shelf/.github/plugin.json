@@ -1,0 +1,9 @@
+{
+  "name": "dgahagan--shelf",
+  "displayName": "shelf",
+  "description": "Self-hosted home library catalog \u2014 scan barcodes or photograph whole shelves (AI vision), auto-fetch metadata & covers, track lending, series, and reading. Offline bookstore mode (PWA). FastAPI + SQLi",
+  "version": "1.0.0",
+  "author": "dgahagan",
+  "homepage": "https://github.com/dgahagan/shelf",
+  "skills": []
+}
