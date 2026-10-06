@@ -1,0 +1,9 @@
+{
+  "name": "wanoo--web-scumm",
+  "displayName": "web-scumm",
+  "description": "Mobile-first SCUMM-style point-and-click engine with authoring tools and an AI-friendly workflow",
+  "version": "1.0.0",
+  "author": "wanoo",
+  "homepage": "https://github.com/wanoo/web-scumm",
+  "skills": []
+}
