@@ -1,0 +1,87 @@
+{
+  "name": "Iris",
+  "owner": "avabbbb",
+  "repo": "Iris",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Iris",
+      "path": "skills/flovart/SKILL.md",
+      "github_url": "https://github.com/avabbbb/Iris/tree/main/skills/flovart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Iris",
+      "path": ".agents/skills/flovart/SKILL.md",
+      "github_url": "https://github.com/avabbbb/Iris/tree/main/.agents/skills/flovart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Iris",
+      "path": ".claude/skills/flovart/SKILL.md",
+      "github_url": "https://github.com/avabbbb/Iris/tree/main/.claude/skills/flovart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Iris",
+      "path": ".agents/skills/vox-director/SKILL.md",
+      "github_url": "https://github.com/avabbbb/Iris/tree/main/.agents/skills/vox-director/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Iris",
+      "path": ".agents/skills/open-flovart/SKILL.md",
+      "github_url": "https://github.com/avabbbb/Iris/tree/main/.agents/skills/open-flovart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Iris",
+      "path": ".claude/skills/open-flovart/SKILL.md",
+      "github_url": "https://github.com/avabbbb/Iris/tree/main/.claude/skills/open-flovart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Iris",
+      "path": "integrations/workbuddy/flovart/skills/flovart/SKILL.md",
+      "github_url": "https://github.com/avabbbb/Iris/tree/main/integrations/workbuddy/flovart/skills/flovart/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/avabbbb/Iris",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T21:51:53Z"
+}
