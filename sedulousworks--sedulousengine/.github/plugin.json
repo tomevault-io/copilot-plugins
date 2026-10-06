@@ -1,0 +1,14 @@
+{
+  "name": "sedulousworks--sedulousengine",
+  "displayName": "SedulousEngine",
+  "description": "SedulousEngine",
+  "version": "1.0.0",
+  "author": "SedulousWorks",
+  "homepage": "https://github.com/SedulousWorks/SedulousEngine",
+  "skills": [
+    {
+      "name": "SedulousEngine",
+      "description": ""
+    }
+  ]
+}
