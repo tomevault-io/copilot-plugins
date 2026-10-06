@@ -1,0 +1,44 @@
+{
+  "name": "tachyon",
+  "owner": "tachyonmcp",
+  "repo": "tachyon",
+  "description": "MCP Runtime for Java and Kotlin - Model Context Protocol (MCP) server with Streamable HTTP, native Netty transports, tools, tasks, resources, prompts, completions, skills over MCP, resumable sessions, and stateless deployment support.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tachyonmcp/tachyon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T00:34:03Z"
+}
