@@ -1,0 +1,9 @@
+{
+  "name": "highflame-ai--codeoid",
+  "displayName": "codeoid",
+  "description": "Multi-Agent Coding Harness with pluggable AI-SDLC: switch sessions across claude, codex, gemini, export/share coding sessions, save tokens, multi-frontend (TUI \u00b7 web \u00b7 Telegram).",
+  "version": "1.0.0",
+  "author": "highflame-ai",
+  "homepage": "https://github.com/highflame-ai/codeoid",
+  "skills": []
+}
