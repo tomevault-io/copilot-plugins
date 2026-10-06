@@ -2,8 +2,8 @@
   "name": "ChunUI",
   "owner": "liseami",
   "repo": "ChunUI",
-  "description": "Define your palette. Ship the same texture. \u2014 Monochrome-quality SwiftUI design system extracted from Zinner (\u963f\u5947)",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ChunUI",
+      "path": "skills/chunui/SKILL.md",
+      "github_url": "https://github.com/liseami/ChunUI/tree/main/skills/chunui/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/liseami/ChunUI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T09:12:54Z"
+  "distributed_at": "2026-10-06T16:23:43Z"
 }
