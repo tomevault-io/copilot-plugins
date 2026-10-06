@@ -1,21 +1,108 @@
 ## dotfiles
 
-> <!-- maintainer notes
+> - Use ASCII characters only in all written output, code comments, commit messages, and documentation. Forbidden characters include em/en dashes (— –), curly quotes (“ ” ‘ ’), ellipses (…), or other non-ASCII Unicode. Prefer plain ASCII equivalents at all times. The only exceptions to this rule are box-drawing characters (├, └, │, ─) in tree diagrams.
 
-@~/.codex/AGENTS.md
+# AGENTS.md
 
-<!-- maintainer notes
+## Working agreements
 
-This file provides persistent user instructions for Claude Code.
-Claude Code will exclude HTML comments from context.
-It is unclear if the "maintainer notes" text is needed in the comments.
-The [Claude Code docs](https://code.claude.com/docs/en/memory) suggest HTML comments with "maintainer notes", but
-the [Claude Code changelog](https://code.claude.com/docs/en/changelog#2-1-72) says any HTML comments are excluded
-([anthropics/claude-code#32688](https://github.com/anthropics/claude-code/issues/32688)). There don't seem to be
-any tests in the Claude Code GitHub repo to demonstrate this behavior.
+### Output
 
--->
+- Use ASCII characters only in all written output, code comments, commit messages, and documentation. Forbidden characters include em/en dashes (— –), curly quotes (“ ” ‘ ’), ellipses (…), or other non-ASCII Unicode. Prefer plain ASCII equivalents at all times. The only exceptions to this rule are box-drawing characters (├, └, │, ─) in tree diagrams.
+- Minimize use of semicolons.
+- Default to pragmatic, concise communication.
+- Keep edits minimal and well-scoped; explain changes.
+- Prefer local context; use the web only when needed.
+- Make safe assumptions; ask only when necessary.
+
+### Filesystem
+
+- When deleting files or directories, prefer `trash` as a safer default instead of `rm -rf`; use permanent deletion only with explicit user approval.
+- When working with temporary files, do not use `/private`. Use `/tmp` or the directory given by `$TMPDIR` instead.
+
+### Shell commands
+
+- Run commands directly when possible so approval rules can match the executable and its arguments.
+- Do not add explicit shell wrappers such as `/bin/zsh -lc`, `zsh -lc`, or equivalents unless the command specifically requires login-shell initialization.
+- When shell syntax is necessary, use the execution tool's existing shell instead of starting a nested shell.
+
+### Git worktrees
+
+- Codex-managed worktrees must use the default location `~/.codex/worktrees` and must not be created in `.worktrees`.
+- ChatGPT and Codex must use the ChatGPT desktop app Worktree or Handoff controls for task isolation.
+
+### Git commits
+
+- Do not create Git commits on `main`; always work on a feature branch.
+- Do not Git push to `main`; always push to a feature branch.
+- Format Git commit messages in the following style:
+
+  ```text
+  Imperative commit title limited to 50 characters
+
+  Format commit messages as if they were Markdown.
+
+  Begin by describing how the code works now and why a change is needed.
+  The commit message body can be detailed. Full paragraphs are acceptable.
+  Lines in commit message paragraphs should be limited to 72 characters.
+
+  Summarize changes by saying "This commit will" and using the imperative.
+
+  - The end of the commit message should have a list of references.
+  - Add an unordered list item for each URL.
+  - Do not hard wrap URLs. URLs can exceed 72 characters if needed.
+  ```
+
+### GitHub pull requests
+
+- Always open GitHub pull requests in draft mode.
+- Each time a new commit is pushed to a pull request branch, check the pull request title and description and update them if needed to match the current state of the pull request.
+- Format GitHub pull request titles and descriptions in the following style:
+  - Limit the PR title to around 50 characters so it fits into a squash commit title.
+  - Write for a reviewer who has not read the conversation. Describe the final proposal and keep detail proportional to the change. Omit the implementation diary and abandoned approaches unless they explain a relevant tradeoff.
+  - Use plain, direct sentences. Minimize semicolons. Split sentences that join separate ideas or stack qualifications.
+  - Include a concise PR description with these sections:
+    - `## Description`: explain the current behavior, problem, and reason for the change. Default to one short paragraph. Keep the proposed solution, implementation details, and resulting behavior in `## Changes`.
+    - `## Changes`: explain the proposed approach in a short opening paragraph when useful, then summarize changes using imperative bullets prefaced with "This PR will:" (e.g. "Fix incorrect styling"). Group related changes by purpose and explain each change once. Add `Validation:` and `Notes:` within this section only when useful.
+    - `## Related`: unordered list of links to related resources. Do not link the PR to itself.
+  - Summarize validation with the relevant checks, outcomes, and material gaps. Retain meaningful failures, skipped checks, and remaining verification. Summarize adversarial review outcomes without recounting each resolved finding. Include unresolved risks and waiver rationale when they affect the review decision. Place terminal output/log snippets in fenced code blocks inside HTML `<details><summary>...</summary> ... </details>` sections.
+  - State qualifications as concrete facts, limitations, or required actions that affect review or rollout. Preserve material uncertainty and migration requirements. Omit vague disclaimers and lists of things the PR does not do. For example, write "Configure the production domain in Vercel before sharing the demo" when that action is required, rather than "These are supported address formats, not a claim that we have added these domains to our projects."
+  - In the PR description, GitHub autolinked references should be used to refer to issues, PRs, commits, GitHub security advisories, and other supported links. GitHub permanent links to code snippets (permalinks) should be used when referencing code in the same repository as the PR. Permalinks should be on separate lines so they render properly. Non-GitHub URLs should be formatted as Markdown links with descriptive titles (no bare URLs).
+  - When updating a PR description (or issue body), fetch the current body first and merge changes into it rather than replacing the whole thing. Reviewers and integrations edit PR bodies out of band, and a full-replace `gh pr edit --body` silently overwrites those edits. Treat `gh pr edit --body` like an in-place rewrite: read the existing body, apply targeted changes (preserving reference-style links, footer metadata, and any prose you didn't author), then write back.
+  - Use the user's edits to an existing description as a style reference for subsequent updates. Before publishing, check that `## Description` contains only motivation, each change appears once, and every qualification gives the reviewer useful information.
+
+Example of separating motivation from changes (section excerpt):
+
+```markdown
+## Description
+
+Each customer currently requires a separate Node.js project and app in the repo. Maintaining these copies duplicates work.
+
+## Changes
+
+This PR proposes one shared project with configurations for each customer.
+
+This PR will:
+
+- Move the Node.js project to the repository root.
+- Set customer configuration through `CUSTOMER_ID`.
+```
+
+### MCP servers
+
+- Always use the GitHub MCP server for accessing github.com URLs, GitHub repos, GitHub file content, etc. without me having to explicitly ask. Always use the `github_support_docs_search` toolset in the GitHub MCP server to search GitHub documentation. Always use the `git` toolset in the GitHub MCP server for low-level Git operations. Fall back to the GitHub CLI (`gh`) when available. Only use raw fetches if neither MCP nor `gh` can provide the needed content. Always ask before running raw fetches.
+- When falling back to `gh` for pull request review threads, use `gh_pr_threads` for `list`, `reply`, `resolve`, and `request-copilot` operations instead of calling `gh api` directly.
+- Always use the OpenAI developer docs MCP server if you need to work with the OpenAI API, ChatGPT Apps SDK, Codex, etc. without me having to explicitly ask.
+- Always use the Context7 MCP server when you need to work with non-OpenAI or non-GitHub library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
+
+### Python packages
+
+- To install Python packages when there is no project virtual environment, never install them directly with `pip` (e.g. `pip install`, `pip install --user`, `python -m pip install`). Installing packages with `pip` outside of a virtual environment pollutes the system `site-packages` directory. Instead, `uv run --with` is the most ergonomic for throwaway Python scripts. `uvx` is the right choice when the package provides a CLI tool (e.g. `uvx basedpyright`). `pipx run` is a fallback if `uv` is unavailable; it also leaves no persistent state.
+
+### Presentation slides
+
+- When making slides, omit defensive caveats and generic status captions. Every sentence on a slide must explain its subject or support a specific decision. Do not add phrases such as "proposed architecture", "scope remains open", or "needs separate evidence" merely to qualify a diagram. Include an unresolved issue only when you can name the specific choice and explain how it affects the work. Put it in the relevant discussion or decisions slide. Before adding a qualification, identify the specific misunderstanding it prevents. If the slide makes no claim requiring that qualification, omit it.
 
 ---
 > Source: [br3ndonland/dotfiles](https://github.com/br3ndonland/dotfiles) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
