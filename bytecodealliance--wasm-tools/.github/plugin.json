@@ -1,0 +1,9 @@
+{
+  "name": "bytecodealliance--wasm-tools",
+  "displayName": "wasm-tools",
+  "description": "wasm-tools",
+  "version": "1.0.0",
+  "author": "bytecodealliance",
+  "homepage": "https://github.com/bytecodealliance/wasm-tools",
+  "skills": []
+}
