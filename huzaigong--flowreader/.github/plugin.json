@@ -1,0 +1,9 @@
+{
+  "name": "huzaigong--flowreader",
+  "displayName": "flowreader",
+  "description": "FlowReader \u2014\u2014 \u5f00\u6e90\u7684 Android \u79bb\u7ebf\u7535\u5b50\u4e66\u9605\u8bfb\u5668\uff0c\u652f\u6301 EPUB/TXT/MOBI/FB2/\u6f2b\u753b CBZ\uff0c\u65e0\u5e7f\u544a\u3001\u65e0\u9700\u8d26\u53f7\u3001\u9690\u79c1\u4f18\u5148\u3002Open-source offline ebook reader for Android.",
+  "version": "1.0.0",
+  "author": "HuZaiGong",
+  "homepage": "https://github.com/HuZaiGong/flowreader",
+  "skills": []
+}
