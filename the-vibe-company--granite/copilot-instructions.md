@@ -10,8 +10,8 @@ Codex-specific notes:
 
 - No operational differences from the Claude workflow.
 - This repo is TypeScript + Node ESM. Keep CLI wrappers thin and put business logic in `src/core/`.
-- Preserve the product boundary: Granite is deterministic local markdown infrastructure, not an embedded LLM, vector store, scheduler, or autonomous agent.
+- Preserve the product boundary: Granite is deterministic local markdown infrastructure, not an embedded LLM, vector store, scheduler, or autonomous agent. The single permitted model is **Jev** — a classifier, called from `src/mcp/` only, and **required**: Granite refuses to start without `TYPESAFE_API_KEY`. See [CLAUDE.md](CLAUDE.md).
 
 ---
-> Source: [The-Vibe-Company/Granite](https://github.com/The-Vibe-Company/Granite) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+> Source: [The-Vibe-Company/granite](https://github.com/The-Vibe-Company/granite) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
