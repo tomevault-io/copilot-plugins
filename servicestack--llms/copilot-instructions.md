@@ -1,156 +1,206 @@
 ## llms
 
-> The **Agents Extension** allows you to configure specialized AI agent profiles within your environment. Each agent is defined as a profile that can have its own system prompt, default LLM model, UI theme, allowed tools, allowed skills, default avatar, and custom footer action buttons.
+> > **Audience**: AI Models (Claude, GPT, Gemini, Cursor, Copilot, Codex) and human developers working on the `llms.py` (`ServiceStack/llms` / `llmspy` / `AI.Chat`) repository.
 
-# Agent Profiles & Customization
+# AGENTS.md — Codebase Blueprint & Architectural Guide
 
-The **Agents Extension** allows you to configure specialized AI agent profiles within your environment. Each agent is defined as a profile that can have its own system prompt, default LLM model, UI theme, allowed tools, allowed skills, default avatar, and custom footer action buttons.
-
----
-
-## Agent Profile Storage Directories
-
-Agents are parsed from directory profiles. The application searches for agent profiles in the following order:
-
-1. **Built-in Agent Profiles**: 
-   `llms/extensions/agents/profiles/`
-   *Includes default profiles like [chat](file:///home/mythz/src/ServiceStack/llms/llms/extensions/agents/profiles/chat), [coder](file:///home/mythz/src/ServiceStack/llms/llms/extensions/agents/profiles/coder), and [planner](file:///home/mythz/src/ServiceStack/llms/llms/extensions/agents/profiles/planner).*
-
-2. **Global Custom Profiles**:
-   `{user_data_path}/profiles/` (e.g. `~/.llms/profiles/`)
-
-3. **User-Specific Custom Profiles**:
-   `{user_data_path}/user/{username}/profiles/` (e.g. `~/.llms/user/admin/profiles/assistant`)
-
-> [!NOTE]
-> Custom agent profiles override built-in profiles of the same name. This allows you to customize default behaviors by redefining standard profiles in your user-specific directory.
+> **Audience**: AI Models (Claude, GPT, Gemini, Cursor, Copilot, Codex) and human developers working on the `llms.py` (`ServiceStack/llms` / `llmspy` / `AI.Chat`) repository.
+> **Purpose**: Provides an authoritative blueprint of codebase architecture, design patterns, core invariants, current capabilities, and development conventions.
 
 ---
 
-## Profile Folder Structure
+## 1. Project Overview & Philosophy
 
-An agent profile is a subdirectory containing the following configuration and prompt files:
+`llms.py` is a lightweight, privacy-centric CLI, OpenAI-compatible server, and ChatGPT/Open WebUI alternative for interacting with Large Language Models.
 
-```directory
-my-agent/
-├── config.json          # Required: Defines agent preferences, tools, and actions
-├── SYSTEM.md            # Required (or SYSTEM.template): Defines the system prompt
-├── SYSTEM.template      # Optional: Text template for composite system prompts
-├── avatar.png           # Optional: Agent's profile image (supports .png, .webp, .jpg, .jpeg, .svg)
-└── memory/              # Optional: Directory for dynamic prompt context (e.g., date-stamped memory files)
+### Core Principles
+1. **Zero Runtime Bloat**: Uses only Python standard library and `aiohttp`. No heavy AI frameworks (no LangChain, LlamaIndex, PyTorch, Transformers). Keep the runtime fast, portable, and minimal.
+2. **Pure ESM Frontend**: The UI is written in Vue 3 using native browser ES Modules (ESM) and Tailwind CSS. There is **no compilation or bundler build step** (no Vite/Webpack required to run or extend).
+3. **Local Privacy & Offline First**: SQLite database persistence per-user (`~/.llms/user/{username}/`), SHA-256 local file caching (`~/.llms/cache`), and first-class offline model support (Ollama, LMStudio).
+4. **Modularity & Extensibility**: Features are packaged as ComfyUI-style extensions with server lifecycle hooks and frontend component slots.
+5. **Durable Agent Architecture**: Background agent runs execute in bounded stages with database leasing, interrupt recovery, and non-destructive context compaction.
+
+---
+
+## 2. Codebase Directory Blueprint
+
+```
+ServiceStack/llms/
+├── llms/                         # Main Python package
+│   ├── main.py                   # Single-file functional core (~6k lines)
+│   ├── db.py                     # Legacy / core database access helpers
+│   ├── execution_context.py      # workspace_scope ContextVar: a durable run's project directories
+│   ├── providers.json            # 530+ model definitions merged from models.dev
+│   ├── providers-extra.json      # Provider overrides and custom provider definitions
+│   ├── llms.json                 # User & default provider/model configuration
+│   ├── index.html                # Single-page application entry point
+│   ├── extensions/               # Pluggable modular feature extensions
+│   │   ├── app/                  # Durable AgentScheduler, canonical chat_message schema, thread store,
+│   │   │                         # project sidebar APIs, title generation (titles.py), DURABLE_AGENTS.md
+│   │   ├── agents/               # Agent profiles (SYSTEM.md, templates, dynamic memory, footer actions)
+│   │   ├── gemini/               # Gemini File Search Store RAG, bidirectional sync, assistants API
+│   │   ├── core_tools/           # Sandboxed code execution (Python, JS, TS, C#), calc, grep, fetch_url
+│   │   ├── computer/             # Anthropic computer-use tools (bash, edit, filesystem, screen)
+│   │   ├── skills/               # Agent Skills standard (SKILL.md progressive disclosure)
+│   │   ├── tools/                # Tool discovery, registry API, and function execution endpoint
+│   │   ├── voice/                # Audio transcription (Whisper, Voxtral) and TTS support
+│   │   ├── pdf/                  # PDF Studio: live Typst (.typ) template editing and PDF compilation
+│   │   ├── gallery/              # Media gallery for generated images and audio
+│   │   ├── projects/             # Project identity (stable ids), workspaces, sidebar visibility, publish paths
+│   │   ├── publish/              # Public sharing of threads and media to ai.llmspy.org
+│   │   ├── credentials/          # API key & secrets management
+│   │   ├── github_auth/          # GitHub OAuth authentication & multi-user isolation
+│   │   ├── katex/                # KaTeX LaTeX math rendering extension
+│   │   └── analytics/            # Telemetry and query logging
+│   └── ui/                       # Core frontend SPA (Vue 3 ESM)
+│       ├── App.mjs               # Root layout, sidebar navigation, top bar, dynamic slot rendering
+│       ├── ctx.mjs               # AppContext and ExtensionScope reactive state management
+│       ├── ai.mjs                # API client (chat completions, SSE streaming, file uploads)
+│       ├── modules/
+│       │   ├── chat/             # Chat interface (ChatBody.mjs, ChatPrompt composer, draftStore.mjs,
+│       │   │                     # ComposerContextBar.mjs project picker, SettingsDialog)
+│       │   ├── model-selector.mjs# Composer model chip + searchable, filterable picker for 530+ models
+│       │   └── layout.mjs        # Responsive layout and panel states
+│       ├── components/           # Shared components usable by extensions (e.g. CheckBox.mjs)
+│       └── lib/                  # Vendored frontend libraries (Vue 3, marked, highlight.js, chart.js, idb)
+├── tests/                        # Comprehensive test suite (asyncio, scheduler, streaming, tools)
+├── docs/                         # Technical documentation and specs
+│   ├── AGENTS.md                 # Agent Profile directory and configuration specification
+│   ├── CHAT_THREADS.md           # Chat sidebar, projects, drafts, titles & composer: code map and invariants
+│   └── SKILLS.md                 # Agent Skills open standard specification
+│                                 # (durable agents: llms/extensions/app/DURABLE_AGENTS.md;
+│                                 #  RAG proposal: llms/extensions/gemini/RAG_IMPROVEMENTS.md)
+├── pyproject.toml                # Package metadata, ruff linter configuration, entry points
+├── Dockerfile                    # Container definition
+└── README.md                     # Project splash & quickstart
 ```
 
 ---
 
-## Agent Configuration (`config.json`)
+## 3. Core Architectural Concepts & Invariants
 
-The `config.json` file controls the default preferences and restrictions of the agent.
+### 3.1 The Four Conversation Representations
+When working on chat history, agent loops, or compaction, understand this fundamental invariant:
 
-### Example Configuration
+1. **Canonical Conversation (`chat_message` table)**:
+   - Complete, sequence-addressable history.
+   - Append-oriented. Tool calls and results form atomic logical units.
+   - Marked with an `active` flag for non-destructive branching.
+   - **Never mutated or truncated by model context constraints.**
+2. **Compatibility Projection (`thread.messages`)**:
+   - JSON array on the `thread` row used for backwards compatibility with legacy UI/API clients.
+3. **Model Context Projection**:
+   - The latest `context_snapshot` summary plus recent canonical tail messages.
+   - Bounded by the model's token context window.
+4. **Provider Payload**:
+   - A deep-copy formatted strictly for the target model (OpenAI, Anthropic, Gemini, Ollama).
+   - Can normalize tool outputs or convert unsupported media to text placeholders without altering canonical history.
 
-```json
-{
-  "theme": "dark",
-  "model": "Kimi K2.6",
-  "onlyTools": [
-    "get_current_time",
-    "calc",
-    "run_bash",
-    "skill"
-  ],
-  "onlySkills": [],
-  "actions": {
-    "Execute Plan": {
-      "profile": "coder"
-    }
-  }
-}
-```
+### 3.2 Durable Agent Execution (`AgentScheduler`)
+Located in `llms/extensions/app/__init__.py`:
+- Runs asynchronously in the web process; work is not tied to a single open HTTP connection.
+- Uses `agent_run` table for lease-based claiming, step counts, and bounded execution slices.
+- Survives process restarts: interrupted runs are automatically reclaimed on startup.
+- Automatically initiates non-destructive context compaction when token thresholds are exceeded.
+- Communicates real-time progress via Server-Sent Events (SSE) with seamless long-polling fallback.
 
-### Configuration Schema
+### 3.3 Project Chat Threads
+Conversations belong to projects (`thread.projectId`), shown as folders in the sidebar; the composer holds
+per-chat drafts and project · profile · model chips. Read [`docs/CHAT_THREADS.md`](docs/CHAT_THREADS.md)
+before changing the sidebar, composer, drafts, titles or thread metadata. Key rules:
+- A run executes in the workspace captured when it was queued (`agent_run.workspace`, applied via
+  `workspace_scope`), never the browser's or user's global project; moves are rejected during active runs.
+- Title/membership writes never touch message history or sidebar ordering (`lastActivityAt`).
+- Drafts are browser-only (IndexedDB) and async work (uploads, voice, sends) stays with its origin draft.
+- Sidebar updates are signalled in memory (`SidebarSignal`); don't reintroduce polling queries.
 
-| Field | Type | Required | Description |
-|---|---|---|---|
-| `name` | `string` | No | A custom display name for the agent (defaults to the folder name capitalized). |
-| `enabled` | `boolean` | No | Defaults to `true`. Set to `false` to disable loading of the agent. |
-| `theme` | `string` | No | The UI color scheme/theme to load when this agent is active (e.g. `nord`, `dark`, `light_slate`). |
-| `model` | `string` | No | The default LLM model to select when starting conversations with this agent. |
-| `onlyTools` | `array` | No | Restricts the tools the agent is permitted to use to the listed tool names. Set to `[]` to exclude all tools. If omitted (or `null`), all tools are allowed. |
-| `onlySkills` | `array` | No | Restricts the skills the agent is permitted to use to the listed skill names. Set to `[]` to exclude all skills. If omitted (or `null`), all skills are allowed. |
-| `injectPrompt` | `boolean` | No | Defaults to `true`. If set to `false`, the agent's system prompt will not be automatically prepended to the chat request. |
-| `actions` | `object` | No | Maps action names to buttons that appear in the chat footer under the assistant's responses (see [Footer Actions](#footer-actions) below). |
-
----
-
-## Defining System Prompts
-
-Agents support two methods for defining system prompts: simple prompts and composite templates.
-
-### 1. Simple System Prompt (`SYSTEM.md`)
-Create a `SYSTEM.md` file in the agent profile directory. The contents of this file are loaded directly as the system prompt.
-
-### 2. Composite Prompt (`SYSTEM.template`)
-For complex agents that benefit from dividing prompt logic across multiple files, use a `SYSTEM.template` file. 
-
-When a template is used, the system compiles the prompt using Python string formatting:
-* **Markdown Variables**: Any `.md` file placed inside the profile directory is read, and its content is mapped to a variable named after the file (without the `.md` extension). For example, if you place `CODER.md` in the directory, you can reference it as `{CODER}` in `SYSTEM.template`.
-* **Dynamic Memory (`{MEMORY_LATEST}`)**: If a `memory/` subdirectory exists, the system scans for `.md` files, sorts them in reverse order (newest first, e.g. using ISO-date filenames like `2026-06-13.md`), and reads the latest file. Its content is injected as the `{MEMORY_LATEST}` variable. If no memory files exist, `{MEMORY_LATEST}` defaults to an empty string.
-
-#### Example `SYSTEM.template`
-```markdown
-You are a helpful software engineering assistant.
-
-{CODER}
-
-Here is the latest shared context from memory:
-{MEMORY_LATEST}
-```
+### 3.4 Extension Architecture
+Extensions live in `llms/extensions/<name>/` and can define:
+- `__init__.py`:
+  - `__install__(ctx)`: Registers routes (`ctx.add_get`, `ctx.add_post`), tools (`ctx.register_tool`), providers (`ctx.add_provider`), and UI script/CSS assets.
+  - `__parser__(parser)`: Adds custom CLI flags to `llms`.
+  - `__run__(ctx)`: Runs standalone CLI command logic.
+- `ui/index.mjs`:
+  - Exports `{ install(ctx) }`.
+  - Injects Vue components into layout slots: `left` (sidebar), `top` (header), `leftTop` (header, left side), `composerTop` (chip row of the chat prompt, via `ctx.setComposerTop`), or overrides global components (`ctx.components({ MyComponent })`).
 
 ---
 
-## Footer Actions
+## 4. Key Systems & Feature Guide
 
-You can configure context-aware helper buttons to appear at the bottom of the chat view when the last message is from the assistant.
+### 4.1 Model & Provider Management
+- **Catalog**: Sourced from [models.dev](https://models.dev) into `providers.json`.
+- **Dynamic Selection**: Resolves models by ID, short name, or display name (e.g. `gpt-4o`, `claude-3-7-sonnet`, `gemini-2.5-flash`).
+- **Update Command**: `llms --update-providers` fetches the latest models and merges them with `providers-extra.json`.
 
-### 1. Send Message Action
-Prompts the user to send a preset message instantly to the active agent.
+### 4.2 Function Calling & Tools
+- Tools are standard Python functions registered with `ctx.register_tool(fn, group="group_name")`.
+- Parameter types, descriptions, and required fields are **auto-generated** from Python type hints and docstrings (`function_to_tool_definition` in `main.py`).
+- Built-in sandboxed tools in `core_tools`:
+  - `run_python`: Runs Python inside temporary directories with CPU time and virtual memory `ulimit` restrictions.
+  - `run_javascript` / `run_typescript`: Runs scripts via `bun` or `node`.
+  - `run_csharp`: Executes single-file C# via `dotnet run`.
+  - `calc`: Evaluates AST math expressions securely (no `eval`).
+  - `fetch_url`: Downloads HTML and converts it to clean Markdown via zero-dependency `HTMLToMarkdownParser`.
+  - `grep_search`: Fast regex/pattern file search across allowed directories.
 
-```json
-"actions": {
-  "Proceed": {
-    "message": "Proceed with the execution"
-  }
-}
-```
+### 4.3 Agent Skills Standard
+- Follows the [agentskills.io](https://agentskills.io) standard (`docs/SKILLS.md`).
+- Skills are folders containing `SKILL.md` (YAML frontmatter + instructions), with optional `scripts/`, `references/`, and `assets/`.
+- Uses progressive disclosure: loads only name + description into system prompt context until activated by the model.
 
-### 2. Switch Profile and Execute Action
-Transitions the conversation to a different agent. When clicked:
-* The selected agent switches to the designated profile (e.g., `coder`).
-* The system starts a new thread titled `Execute Plan {parent_thread_title}` using the target agent's system prompt.
-* A user message with the action's key (e.g., `Execute Plan`) is automatically posted to trigger the new agent.
+### 4.4 RAG & Knowledge (Gemini File Search)
+- Implemented in `llms/extensions/gemini/`:
+  - Bidirectional reconciliation (`sync`) between local SQLite and remote Gemini file search stores.
+  - SHA-256 deduplication and change detection.
+  - Asynchronous background worker (`UploadWorker`) for batch uploads.
+  - Inline byte-range grounding citations (`groundingSupports` and `groundingChunks`) linked to source URLs.
 
-```json
-"actions": {
-  "Execute Plan": {
-    "profile": "coder"
-  }
-}
-```
+### 4.5 Multimodal Capabilities
+- **Image Generation**: Supported across Google, OpenAI, OpenRouter, Chutes, and Nvidia.
+- **Audio Generation (TTS)**: Native support for Gemini Preview TTS models; files cached locally.
+- **Voice Transcription (STT)**: Handles `.webm`, `.wav`, `.mp3` via Groq, OpenAI Whisper, or Mistral Voxtral endpoints.
+- **PDF Studio**: Interactive live editor using Typst (`.typ`) with JSON data bindings and live preview.
 
 ---
 
-## Agent Avatars
+## 5. Development, Testing & Contribution Rules
 
-To customize your agent's visual avatar, place an image file named `avatar` in the agent's folder. 
-The system automatically checks for the following extensions in order:
-* `avatar.png`
-* `avatar.webp`
-* `avatar.jpg`
-* `avatar.jpeg`
-* `avatar.svg`
+### 5.1 Rules for AI Models Modifying this Codebase
+1. **Never introduce heavy dependencies**: Do not import `pandas`, `langchain`, `transformers`, `torch`, `scikit-learn`, or similar packages into `pyproject.toml`. Stick to the Python standard library and `aiohttp`.
+2. **Never break the ESM frontend**: The UI relies on native browser modules. Do not add JSX, TypeScript compilation, or bundler-specific syntax into `llms/ui/`.
+3. **Preserve Database Invariants**: Never mutate canonical `chat_message` rows to solve token limit issues; always use the compaction projection pattern.
+4. **Cross-Platform Awareness**: Handle Windows path separators (`os.path.normcase`, `os.path.realpath`) and provide non-bash fallbacks where possible (see `core_tools/_code_execution_env`).
+5. **Always add clickable file links**: When explaining changes, use Markdown links formatted with the `file://` scheme.
+6. **Preserve the main chat model selector**: The user explicitly requested restoration of the original selector and instructed us never to change it again. Do not modify `llms/ui/modules/model-selector.mjs`, replace chat's selector with the global `ModelPicker`, or apply shared picker/input restyling to that dialog. Its host is marked `data-chat-model-selector` to isolate it from shared input styles.
 
-If no avatar image is found in the profile directory, the application falls back to the default SVG agent avatar.
+7. **Use a single focus indicator**: Never stack focus rings, outlines or shadows on the same control or on both a wrapper and its inner input. Keep control dimensions and padding stable across focus states.
+
+### 5.2 Common Commands
+
+```bash
+# Run server locally on port 8000
+./llms.sh --serve 8000
+
+# Run in debug/verbose mode
+DEBUG=1 ./llms.sh --serve 8000 --verbose
+
+# Run test suite
+python -m unittest discover tests
+
+# Run specific test
+python -m unittest tests/test_agent_scheduler.py
+
+# Lint and format with Ruff
+ruff check . --fix
+ruff format .
+```
+
+### 5.3 Database Locations
+- Default data root: `~/.llms/`
+- User databases: `~/.llms/user/{username}/app.sqlite` (or `gemini.sqlite`)
+- Shared cache: `~/.llms/cache/{hash_prefix}/{hash}.{ext}`
 
 ---
 > Source: [ServiceStack/llms](https://github.com/ServiceStack/llms) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
