@@ -1,0 +1,9 @@
+{
+  "name": "opencadc--canfar",
+  "displayName": "canfar",
+  "description": "CANFAR Science Platform",
+  "version": "1.0.0",
+  "author": "opencadc",
+  "homepage": "https://github.com/opencadc/canfar",
+  "skills": []
+}
