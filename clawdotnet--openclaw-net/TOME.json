@@ -1,0 +1,141 @@
+{
+  "name": "openclaw.net",
+  "owner": "clawdotnet",
+  "repo": "openclaw.net",
+  "description": "Self-hosted OpenClaw gateway + agent runtime in .NET (NativeAOT-friendly)",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openclaw.net",
+      "path": "src/OpenClaw.Gateway/skills/email-triage/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/src/OpenClaw.Gateway/skills/email-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "src/OpenClaw.Gateway/skills/data-analyst/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/src/OpenClaw.Gateway/skills/data-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "src/OpenClaw.Gateway/skills/mqtt-operator/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/src/OpenClaw.Gateway/skills/mqtt-operator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "src/OpenClaw.Gateway/skills/deep-researcher/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/src/OpenClaw.Gateway/skills/deep-researcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "src/OpenClaw.Gateway/skills/daily-news-digest/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/src/OpenClaw.Gateway/skills/daily-news-digest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "src/OpenClaw.Gateway/skills/software-developer/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/src/OpenClaw.Gateway/skills/software-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "src/OpenClaw.Gateway/skills/homeassistant-operator/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/src/OpenClaw.Gateway/skills/homeassistant-operator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": ".github/skills/docs-governance/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/.github/skills/docs-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "src/OpenClaw.Gateway/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/src/OpenClaw.Gateway/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "src/OpenClaw.Gateway/skills/history-explorer/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/src/OpenClaw.Gateway/skills/history-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "src/OpenClaw.Gateway/skills/meta-skill-creator/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/src/OpenClaw.Gateway/skills/meta-skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "src/OpenClaw.Gateway/skills/community-research-insight/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/src/OpenClaw.Gateway/skills/community-research-insight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "examples/skills/nacos-router-weather/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/examples/skills/nacos-router-weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "examples/skills/nacos-router-weather-retry/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/examples/skills/nacos-router-weather-retry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "examples/skills/nacos-router-weather-explore/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/examples/skills/nacos-router-weather-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw.net",
+      "path": "examples/skills/nacos-router-weather-dynamic/SKILL.md",
+      "github_url": "https://github.com/clawdotnet/openclaw.net/tree/main/examples/skills/nacos-router-weather-dynamic/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/clawdotnet/openclaw.net",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T21:31:49Z"
+}
