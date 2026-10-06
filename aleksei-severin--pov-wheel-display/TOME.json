@@ -1,0 +1,44 @@
+{
+  "name": "POV_Wheel_Display",
+  "owner": "aleksei-severin",
+  "repo": "POV_Wheel_Display",
+  "description": "Persistence of Vision (POV) display based on the ESP32-S3. This project drives a 6-arm LED rotor (SK9822-A LEDs) and features a fully autonomous BLE app for rendering static images and GIF animations, complete with advanced power management and wireless synchronization.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aleksei-severin/POV_Wheel_Display",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T20:15:03Z"
+}
