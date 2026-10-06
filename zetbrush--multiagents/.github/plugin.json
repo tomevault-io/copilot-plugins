@@ -1,0 +1,9 @@
+{
+  "name": "zetbrush--multiagents",
+  "displayName": "multiagents",
+  "description": "Multi-agent orchestration for Claude Code, Codex CLI & Gemini CLI \u2014 spawn AI agent teams that communicate, review code, and coordinate via MCP",
+  "version": "1.0.0",
+  "author": "zetbrush",
+  "homepage": "https://github.com/zetbrush/multiagents",
+  "skills": []
+}
