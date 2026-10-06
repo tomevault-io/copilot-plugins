@@ -4,7 +4,7 @@
   "repo": "merlon",
   "description": "MarkDown Context Protocol is an AI Skill that assists with managing documentation",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Merlon-Docs/merlon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T00:37:45Z"
+  "distributed_at": "2026-10-06T00:47:59Z"
 }
