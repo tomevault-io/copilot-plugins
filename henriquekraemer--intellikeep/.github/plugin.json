@@ -1,0 +1,9 @@
+{
+  "name": "henriquekraemer--intellikeep",
+  "displayName": "intellikeep",
+  "description": "IntelliKeep is a home maintenance task management system built as a custom integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "henriquekraemer",
+  "homepage": "https://github.com/henriquekraemer/intellikeep",
+  "skills": []
+}
