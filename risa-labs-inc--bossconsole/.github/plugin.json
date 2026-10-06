@@ -1,7 +1,7 @@
 {
   "name": "risa-labs-inc--bossconsole",
   "displayName": "BossConsole",
-  "description": "Open-source, multi-platform harness for AI agents \u2014 a native, multi-threaded operator's console (JVM, not Electron) to run Claude Code, Codex, Gemini or OpenCode with a real browser, terminal, editor,",
+  "description": "BossConsole",
   "version": "1.0.0",
   "author": "risa-labs-inc",
   "homepage": "https://github.com/risa-labs-inc/BossConsole",
