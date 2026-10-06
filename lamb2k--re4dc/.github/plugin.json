@@ -1,0 +1,9 @@
+{
+  "name": "lamb2k--re4dc",
+  "displayName": "re4dc",
+  "description": "Work-in-progress Resident Evil 4 port for Sega Dreamcast, with native PowerVR rendering, VMU saves and Flycast-tested play builds.",
+  "version": "1.0.0",
+  "author": "lamb2k",
+  "homepage": "https://github.com/lamb2k/re4dc",
+  "skills": []
+}
