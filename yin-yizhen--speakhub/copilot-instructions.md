@@ -1,0 +1,14 @@
+## speakhub
+
+> - 查找、修改、测试或审查代码前，先读 `docs/code-map.md`，简要说明主模块、相关测试、真实运行链路及索引是否足够。
+
+# SpeakHub 项目协作入口
+
+- 查找、修改、测试或审查代码前，先读 `docs/code-map.md`，简要说明主模块、相关测试、真实运行链路及索引是否足够。
+- 代码与索引不一致时以代码为准，并修正索引。重要模块、调用链、验证入口变化或值得复用的复杂修复应更新索引；窄修复不更新时说明原因。
+- 不凭 UI 截图猜修复点；至少验证相关解析、chunk 或入库边界。最终说明验证结果及工作区已有/未提交的变更。
+- **打包、生成安装包、升版或发布时，先读根目录 `agent.md`，按其中流程执行。** 本次用户明确要求优先；“只打包”不自动授权推送或创建 Release。
+
+---
+> Source: [yin-yizhen/SpeakHub](https://github.com/yin-yizhen/SpeakHub) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
