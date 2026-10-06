@@ -1,0 +1,9 @@
+{
+  "name": "buildlabs-io--payload-cms",
+  "displayName": "payload-cms",
+  "description": "Stop building CMS infrastructure from scratch. This starter gives you a full content platform \u2014 page builder, blog, forms, redirects, media library, live preview, and SEO \u2014 all wired up with Payload 3",
+  "version": "1.0.0",
+  "author": "buildlabs-io",
+  "homepage": "https://github.com/buildlabs-io/payload-cms",
+  "skills": []
+}
