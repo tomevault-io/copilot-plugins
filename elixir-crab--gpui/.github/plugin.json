@@ -1,0 +1,9 @@
+{
+  "name": "elixir-crab--gpui",
+  "displayName": "gpui",
+  "description": "Declarative native desktop UI for Elixir/OTP \u2014 GPUI windows, HEEx-style views, native controls, testing, and remote displays",
+  "version": "1.0.0",
+  "author": "elixir-crab",
+  "homepage": "https://github.com/elixir-crab/gpui",
+  "skills": []
+}
