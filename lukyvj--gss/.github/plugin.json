@@ -1,0 +1,9 @@
+{
+  "name": "lukyvj--gss",
+  "displayName": "GSS",
+  "description": "\u2774 \u25cf \u2775 GSS \u2014 GPU Style Sheets. A CSS-like language for 3D scenes: selectors, the cascade, nesting, keyframes and transitions, compiled into one raymarching shader for WebGPU and WebGL2. No Three.js, no",
+  "version": "1.0.0",
+  "author": "LukyVj",
+  "homepage": "https://github.com/LukyVj/GSS",
+  "skills": []
+}
