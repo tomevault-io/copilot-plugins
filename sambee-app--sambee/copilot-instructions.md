@@ -1,0 +1,65 @@
+## sambee
+
+> - Use defensive programming.
+
+## Principles
+
+- Use defensive programming.
+- Follow the DRY principle.
+- Favor simple, robust, elegant solutions.
+- Don't use hacks. Find the root cause and fix problems properly.
+
+### Error handling and logging
+
+- All potential errors, exceptions, and return values must be handled properly.
+- Log messages should be specific to the situation and contain actionable info for the user.
+
+## AI behavior and language
+
+- Don't use jargon excessively. Use plain, correct, well-known language.
+- When asked to analyze or research, present your findings. Then ask if/how to implement them.
+- Whenever changing code, verify if the related documentation needs to be updated, too.
+
+## Correctness
+
+- Always run relevant tests after making changes and fix any warnings or errors.
+
+## Coding style
+
+- Add docstrings and comments for non-obvious code.
+- Don't use magic strings or magic numbers. Use centrally defined constants, enums, or similar instead.
+- Before changing any form, settings surface, or dialog, read `website/content/docs/<VERSION>/developer-guide/frontend-architecture/settings-form-dialog-pattern/index.md`.
+
+## Git Commits
+
+- Never commit your changes. That will be done manually.
+
+## Documentation
+
+- All end-user, admin, developer, and website docs live in `website/content/docs/`.
+- For all docs changes, follow the `docs-update` skill.
+
+## Dependencies
+
+- Before changing pinned or hashed dependencies or lockfiles, consult `website/content/docs/<VERSION>/developer-guide/release-and-versioning/dependency-update-workflow/index.md`.
+
+## Frontend testing / issue reproduction
+
+- Only ever use the following connection for testing in the VS Code browser: http://localhost:3000/browse/smb/demo
+
+## Command execution
+
+- Run `npm` exclusively in the form: `npm run <command> <arguments>`.
+   - Exceptions: `npm install`, `npm ci`, `npm update`.
+
+## Backend Python
+
+- From the repository root, run backend Python code and tools as `backend/.venv/bin/python -m <module>`.
+- From `backend/`, run them as `.venv/bin/python -m <module>`.
+- Run backend tests with the corresponding `python -m pytest <args>` form for the current directory.
+- Never activate the virtual environment with `source`.
+- Run `scripts/setup-backend-venv` only to create or rebuild that environment.
+
+---
+> Source: [sambee-app/sambee](https://github.com/sambee-app/sambee) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
