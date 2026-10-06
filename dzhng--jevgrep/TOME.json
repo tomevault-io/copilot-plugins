@@ -1,0 +1,225 @@
+{
+  "name": "jevgrep",
+  "owner": "dzhng",
+  "repo": "jevgrep",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jevgrep",
+      "path": "skills/jevgrep/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/skills/jevgrep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/eli5/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/eli5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/codex/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/codex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/claude/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/claude/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/review/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/jevgrep/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/jevgrep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/write-spec/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/write-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/write-docs/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/write-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/close-spec/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/close-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/write-tests/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/write-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/audit-tests/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/audit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/eval-skills/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/eval-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/typesafe-ai/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/typesafe-ai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/write-skills/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/write-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/launch-video/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/launch-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/audit-agents/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/audit-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/handoff-spec/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/handoff-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/audit-choices/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/audit-choices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/auto-research/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/auto-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/preview-shots/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/preview-shots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/implement-spec/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/implement-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/refactor-clean/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/refactor-clean/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/marketing-pages/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/marketing-pages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/explore-unknowns/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/explore-unknowns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/audit-performance/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/audit-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/design-with-images/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/design-with-images/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/compare-screenshots/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/compare-screenshots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/screenshot-critique/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/screenshot-critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jevgrep",
+      "path": ".agents/skills/implement-spec-with-codex/SKILL.md",
+      "github_url": "https://github.com/dzhng/jevgrep/tree/main/.agents/skills/implement-spec-with-codex/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dzhng/jevgrep",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T15:50:42Z"
+}
