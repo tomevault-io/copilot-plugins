@@ -4,7 +4,7 @@
   "repo": "mcp-erpnext",
   "description": "Let AI agents operate your ERPNext \u2014 documents, workflows, and interactive viewers",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/superWorldSavior/mcp-erpnext",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T09:30:27Z"
+  "distributed_at": "2026-10-06T09:32:21Z"
 }
