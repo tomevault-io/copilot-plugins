@@ -2,7 +2,7 @@
   "name": "ai-writing-assist",
   "owner": "FengHuoLinShan",
   "repo": "ai-writing-assist",
-  "description": "\u91cd\u6784ai\u521b\u4f5c\u7cfb\u7edf",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FengHuoLinShan/ai-writing-assist",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-27T15:19:10Z"
+  "distributed_at": "2026-10-06T17:27:40Z"
 }
