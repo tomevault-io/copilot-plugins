@@ -4,7 +4,7 @@
   "repo": "nats.docs.v2",
   "description": "NATS documentation",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nats-io/nats.docs.v2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T10:38:57Z"
+  "distributed_at": "2026-10-06T10:41:46Z"
 }
