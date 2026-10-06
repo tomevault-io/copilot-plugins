@@ -1,0 +1,9 @@
+{
+  "name": "ifrit98--explainer",
+  "displayName": "Explainer",
+  "description": "An explanation compiler for Claude Code: first-principles explanations in controlled prose, diagrams, interactive pages, or 3Blue1Brown-style videos with local voice, checked for what they leave out a",
+  "version": "1.0.0",
+  "author": "ifrit98",
+  "homepage": "https://github.com/ifrit98/Explainer",
+  "skills": []
+}
