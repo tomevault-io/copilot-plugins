@@ -1,0 +1,44 @@
+{
+  "name": "payload-cms",
+  "owner": "buildlabs-io",
+  "repo": "payload-cms",
+  "description": "Stop building CMS infrastructure from scratch. This starter gives you a full content platform \u2014 page builder, blog, forms, redirects, media library, live preview, and SEO \u2014 all wired up with Payload 3 + Next.js 16. Just clone, configure, and ship.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/buildlabs-io/payload-cms",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T22:48:49Z"
+}
