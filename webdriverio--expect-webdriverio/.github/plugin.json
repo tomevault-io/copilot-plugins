@@ -1,0 +1,14 @@
+{
+  "name": "webdriverio--expect-webdriverio",
+  "displayName": "expect-webdriverio",
+  "description": "expect-webdriverio",
+  "version": "1.0.0",
+  "author": "webdriverio",
+  "homepage": "https://github.com/webdriverio/expect-webdriverio",
+  "skills": [
+    {
+      "name": "expect-webdriverio",
+      "description": ""
+    }
+  ]
+}
