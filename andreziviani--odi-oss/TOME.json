@@ -4,7 +4,7 @@
   "repo": "odi-oss",
   "description": "Open firmware for the ODI DFP-34X-2C2 GPON SFP stick: Linux 6.18, own drivers and userland",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AndreZiviani/odi-oss",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T06:38:25Z"
+  "distributed_at": "2026-10-06T06:39:18Z"
 }
