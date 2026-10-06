@@ -4,7 +4,7 @@
   "repo": "design-system-react",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/salesforce/design-system-react",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T16:03:05Z"
+  "distributed_at": "2026-10-06T12:13:53Z"
 }
