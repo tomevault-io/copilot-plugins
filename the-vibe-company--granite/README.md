@@ -1,13 +1,13 @@
-# AI instruction files for Granite
+# AI instruction files for granite
 
-> Sourced from [The-Vibe-Company/Granite](https://github.com/The-Vibe-Company/Granite) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [The-Vibe-Company/granite](https://github.com/The-Vibe-Company/granite), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 Local-first knowledge compiler for humans and agents. Inspired by Karpathy's vision. Plain markdown, CLI + MCP server.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [The-Vibe-Company/Granite](https://github.com/The-Vibe-Company/Granite).
+Original source: `CLAUDE.md` in [The-Vibe-Company/granite](https://github.com/The-Vibe-Company/granite).
 
 ## Also available for
 
@@ -17,10 +17,10 @@ Original source: `CLAUDE.md` in [The-Vibe-Company/Granite](https://github.com/Th
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [The-Vibe-Company/Granite](https://github.com/The-Vibe-Company/Granite) — a repo with 11+ stars on GitHub.
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/The-Vibe-Company/granite](https://github.com/The-Vibe-Company/granite)
 
 ---
 
-Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
-<!-- genome:a-c-s -->
+<!-- genome:a-e-p -->
