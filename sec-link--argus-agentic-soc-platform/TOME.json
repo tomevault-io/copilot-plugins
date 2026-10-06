@@ -1,0 +1,99 @@
+{
+  "name": "Argus-Agentic-SOC-Platform",
+  "owner": "Sec-Link",
+  "repo": "Argus-Agentic-SOC-Platform",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Argus-Agentic-SOC-Platform",
+      "path": "backend/skills/phishing-triage/SKILL.md",
+      "github_url": "https://github.com/Sec-Link/Argus-Agentic-SOC-Platform/tree/main/backend/skills/phishing-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Argus-Agentic-SOC-Platform",
+      "path": "backend/skills/cloud-iam-anomaly/SKILL.md",
+      "github_url": "https://github.com/Sec-Link/Argus-Agentic-SOC-Platform/tree/main/backend/skills/cloud-iam-anomaly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Argus-Agentic-SOC-Platform",
+      "path": "backend/skills/ransomware-response/SKILL.md",
+      "github_url": "https://github.com/Sec-Link/Argus-Agentic-SOC-Platform/tree/main/backend/skills/ransomware-response/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Argus-Agentic-SOC-Platform",
+      "path": "backend/skills/dns-c2-investigation/SKILL.md",
+      "github_url": "https://github.com/Sec-Link/Argus-Agentic-SOC-Platform/tree/main/backend/skills/dns-c2-investigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Argus-Agentic-SOC-Platform",
+      "path": "backend/skills/insider-threat-assessment/SKILL.md",
+      "github_url": "https://github.com/Sec-Link/Argus-Agentic-SOC-Platform/tree/main/backend/skills/insider-threat-assessment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Argus-Agentic-SOC-Platform",
+      "path": "backend/skills/malware-execution-analysis/SKILL.md",
+      "github_url": "https://github.com/Sec-Link/Argus-Agentic-SOC-Platform/tree/main/backend/skills/malware-execution-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Argus-Agentic-SOC-Platform",
+      "path": "backend/skills/vulnerability-prioritization/SKILL.md",
+      "github_url": "https://github.com/Sec-Link/Argus-Agentic-SOC-Platform/tree/main/backend/skills/vulnerability-prioritization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Argus-Agentic-SOC-Platform",
+      "path": "backend/skills/incident-containment-planning/SKILL.md",
+      "github_url": "https://github.com/Sec-Link/Argus-Agentic-SOC-Platform/tree/main/backend/skills/incident-containment-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Argus-Agentic-SOC-Platform",
+      "path": "backend/skills/suspicious-login-investigation/SKILL.md",
+      "github_url": "https://github.com/Sec-Link/Argus-Agentic-SOC-Platform/tree/main/backend/skills/suspicious-login-investigation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Sec-Link/Argus-Agentic-SOC-Platform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T15:38:12Z"
+}
