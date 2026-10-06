@@ -14,8 +14,8 @@
 - **system dependencies**: Some examples link against C libraries like `libpq`, `mysqlclient`, and `sqlite3`.
 
 ## Directory Structure
-- `assets/src/`: Contains all Zig example source files (e.g., `01-01.zig`).
-- `src/`: Contains localized documentation in Super Markdown (`.smd`) format, organized by language (`en-US`, `zh-CN`).
+- `assets/src/`: Contains all Zig example source files organized by section and title.
+- `src/`: Contains localized documentation in Super Markdown (`.smd`) format, organized by language and section (`en-US/{section}/{title}.smd`, `zh-CN/{section}/{title}.smd`).
 - `lib/`: C header files and helper source code for C interop examples.
 - `layouts/`: Templates and UI components for the documentation website.
 - `i18n/`: Internationalization configuration files (`.ziggy`).
@@ -24,13 +24,14 @@
 The project uses the standard Zig build system.
 
 ### Running Examples
-- **Specific Example**: `zig build run-{chapter}-{seq}` (e.g., `zig build run-01-01`).
+- **Specific Example**: `zig build run-{title}` (e.g., `zig build run-rand`).
 - **All Examples**: `zig build run-all`.
 - **Compile Check**: `zig build check`.
 
 ### Local Documentation
 - **Preview Site**: `make serve` (starts `zine` on port 1313).
 - **Zine Preview**: Alternatively, use `zine` directly.
+- **Release Build**: `zine release -f`.
 
 ### Dependencies & Environment
 - **Install System Libraries**: `make install-deps` (supports macOS via brew and Linux via apt).
@@ -45,11 +46,12 @@ The project uses the standard Zig build system.
 
 ## Project-Specific Tips
 - When adding a new recipe:
-  1. Add the Zig code to `assets/src/`.
-  2. Create corresponding `.smd` files in `src/en-US/` and `src/zh-CN/`.
-  3. Update `build.zig` if the example has special library dependencies.
+  1. Add the Zig code to `assets/src/{section}/{title}.zig`.
+  2. Create corresponding `.smd` files at `src/en-US/{section}/{title}.smd` and `src/zh-CN/{section}/{title}.smd`.
+  3. Add both localized pages to the corresponding `toc.smd` files using the `{section}/{title}` link.
+  4. Update `build.zig` if the example has special library dependencies.
 - Use `std.debug.print` for output in examples as they are meant for learning.
 
 ---
 > Source: [zigcc/zig-cookbook](https://github.com/zigcc/zig-cookbook) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
