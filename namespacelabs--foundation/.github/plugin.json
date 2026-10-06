@@ -1,0 +1,14 @@
+{
+  "name": "namespacelabs--foundation",
+  "displayName": "foundation",
+  "description": "foundation",
+  "version": "1.0.0",
+  "author": "namespacelabs",
+  "homepage": "https://github.com/namespacelabs/foundation",
+  "skills": [
+    {
+      "name": "foundation",
+      "description": ""
+    }
+  ]
+}
