@@ -1,0 +1,14 @@
+{
+  "name": "xdit-project--xdit",
+  "displayName": "xDiT",
+  "description": "xDiT",
+  "version": "1.0.0",
+  "author": "xdit-project",
+  "homepage": "https://github.com/xdit-project/xDiT",
+  "skills": [
+    {
+      "name": "xDiT",
+      "description": ""
+    }
+  ]
+}
