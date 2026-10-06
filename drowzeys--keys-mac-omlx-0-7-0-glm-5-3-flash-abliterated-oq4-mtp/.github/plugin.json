@@ -1,0 +1,9 @@
+{
+  "name": "drowzeys--keys-mac-omlx-0-7-0-glm-5-3-flash-abliterated-oq4-mtp",
+  "displayName": "keys-Mac-oMLX-0.7.0-GLM-5.3-Flash-Abliterated-oQ4-MTP",
+  "description": "GLM-5.3-Flash Abliterated oQ4-MTP on oMLX 0.7.0, Mac Studio M5 Ultra: 60.9 tok/s greedy decode (2.6x the M3U pack), ~1.1k tok/s prefill, Lightning MTP fixed depth 2, one-shot setup",
+  "version": "1.0.0",
+  "author": "drowzeys",
+  "homepage": "https://github.com/drowzeys/keys-Mac-oMLX-0.7.0-GLM-5.3-Flash-Abliterated-oQ4-MTP",
+  "skills": []
+}
