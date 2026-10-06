@@ -1,0 +1,21 @@
+## manifoldkit
+
+> This project is ManifoldKit, a Swift package for building chat interfaces
+
+This project is ManifoldKit, a Swift package for building chat interfaces
+backed by local and cloud LLMs on Apple platforms.
+
+Read AGENTS.md at the repo root before generating any code. It is the
+canonical, audited instruction file for ALL AI coding assistants: Part 1
+covers consuming the ManifoldKit API (including common LLM hallucinations to
+avoid); Part 2 covers contributing to this repo. CLAUDE.md is a thin stub
+that imports AGENTS.md.
+
+Do not rely on memorized ManifoldKit API knowledge — the package is pre-1.0
+and minor versions break; AGENTS.md is kept current (`AgentsMdAuditTest`
+fails CI if it drifts from the live API), and this file deliberately
+carries no API facts.
+
+---
+> Source: [ManifoldKit/ManifoldKit](https://github.com/ManifoldKit/ManifoldKit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
