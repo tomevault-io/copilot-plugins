@@ -1,0 +1,57 @@
+{
+  "name": "KIP",
+  "owner": "ldclabs",
+  "repo": "KIP",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "KIP",
+      "path": "skill/kip-cognitive-nexus/SKILL.md",
+      "github_url": "https://github.com/ldclabs/KIP/tree/main/skill/kip-cognitive-nexus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIP",
+      "path": "v1/skill/kip-cognitive-nexus/SKILL.md",
+      "github_url": "https://github.com/ldclabs/KIP/tree/main/v1/skill/kip-cognitive-nexus/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ldclabs/KIP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T21:57:38Z"
+}
