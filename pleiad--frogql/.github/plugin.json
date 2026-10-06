@@ -1,0 +1,9 @@
+{
+  "name": "pleiad--frogql",
+  "displayName": "frogql",
+  "description": "Embedded GQL graph database in Rust. ISO/IEC 39075:2024 path patterns, Leapfrog-Triejoin runtime, single-file .gdb storage. CLI (frogql, SQLite-style), Python (PyPI), Node.js (npm) and WASM bindings.",
+  "version": "1.0.0",
+  "author": "pleiad",
+  "homepage": "https://github.com/pleiad/frogql",
+  "skills": []
+}
