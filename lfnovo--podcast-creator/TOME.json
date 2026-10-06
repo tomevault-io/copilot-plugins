@@ -2,9 +2,9 @@
   "name": "podcast-creator",
   "owner": "lfnovo",
   "repo": "podcast-creator",
-  "description": "A simple to use python library for creating podcasts with support for many LLM and TTS providers",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lfnovo/podcast-creator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T14:39:32Z"
+  "distributed_at": "2026-10-06T17:25:36Z"
 }
