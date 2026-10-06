@@ -1,0 +1,14 @@
+{
+  "name": "sdcb--hymt2sharp",
+  "displayName": "HyMT2Sharp",
+  "description": "HyMT2Sharp",
+  "version": "1.0.0",
+  "author": "sdcb",
+  "homepage": "https://github.com/sdcb/HyMT2Sharp",
+  "skills": [
+    {
+      "name": "HyMT2Sharp",
+      "description": ""
+    }
+  ]
+}
