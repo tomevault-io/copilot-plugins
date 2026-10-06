@@ -7,11 +7,11 @@ Native Integration of RL in Godot using ncnn for small AI Agents even in webapps
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [minigraphx/godot-native-rl](https://github.com/minigraphx/godot-native-rl).
+Original source: `AGENTS.md` in [minigraphx/godot-native-rl](https://github.com/minigraphx/godot-native-rl).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
