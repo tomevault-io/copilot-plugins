@@ -1,0 +1,9 @@
+{
+  "name": "pisberg--async-test-lib",
+  "displayName": "async-test-lib",
+  "description": "@AsyncTest (async-test-lib) is an enterprise-grade test framework that makes concurrency bugs reproducible and detectable. Rather than hoping random thread scheduling will expose bugs, async-test forc",
+  "version": "1.0.0",
+  "author": "PIsberg",
+  "homepage": "https://github.com/PIsberg/async-test-lib",
+  "skills": []
+}
