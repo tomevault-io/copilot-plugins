@@ -1,0 +1,9 @@
+{
+  "name": "hooyao--ramdrive",
+  "displayName": "RamDrive",
+  "description": "High-performance RAM disk for Windows \u2014 WinFsp user-mode file system with native AOT, zero-GC page pool, and TLA+ verified concurrency",
+  "version": "1.0.0",
+  "author": "hooyao",
+  "homepage": "https://github.com/hooyao/RamDrive",
+  "skills": []
+}
