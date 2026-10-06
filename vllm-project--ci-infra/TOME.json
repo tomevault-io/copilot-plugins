@@ -3,8 +3,8 @@
   "owner": "vllm-project",
   "repo": "ci-infra",
   "description": "",
-  "type": "config",
-  "source_format": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ci-infra",
+      "path": "claude-skills/vllm-nightly-perf/SKILL.md",
+      "github_url": "https://github.com/vllm-project/ci-infra/tree/main/claude-skills/vllm-nightly-perf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ci-infra",
+      "path": "claude-skills/vllm-main-ci-triage/SKILL.md",
+      "github_url": "https://github.com/vllm-project/ci-infra/tree/main/claude-skills/vllm-main-ci-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ci-infra",
+      "path": "claude-skills/vllm-fast-ci-failure-alert/SKILL.md",
+      "github_url": "https://github.com/vllm-project/ci-infra/tree/main/claude-skills/vllm-fast-ci-failure-alert/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/vllm-project/ci-infra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T07:15:34Z"
+  "distributed_at": "2026-10-06T18:40:33Z"
 }
