@@ -1,0 +1,14 @@
+{
+  "name": "tagorr--ltsc-clean",
+  "displayName": "ltsc-clean",
+  "description": "ltsc-clean",
+  "version": "1.0.0",
+  "author": "tagorr",
+  "homepage": "https://github.com/tagorr/ltsc-clean",
+  "skills": [
+    {
+      "name": "ltsc-clean",
+      "description": ""
+    }
+  ]
+}
