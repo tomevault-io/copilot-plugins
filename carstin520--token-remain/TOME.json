@@ -4,7 +4,7 @@
   "repo": "token-remain",
   "description": "",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/Carstin520/token-remain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T15:33:47Z"
+  "distributed_at": "2026-10-06T18:47:29Z"
 }
