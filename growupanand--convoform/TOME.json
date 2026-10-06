@@ -307,9 +307,15 @@
       "path": ".agents/skills/resend-design-skills/brand-guidelines/SKILL.md",
       "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/resend-design-skills/brand-guidelines/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/growupanand/ConvoForm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T14:36:54Z"
+  "distributed_at": "2026-10-06T18:34:28Z"
 }
