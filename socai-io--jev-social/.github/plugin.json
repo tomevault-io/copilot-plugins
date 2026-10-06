@@ -1,0 +1,14 @@
+{
+  "name": "socai-io--jev-social",
+  "displayName": "jev-social",
+  "description": "jev-social",
+  "version": "1.0.0",
+  "author": "socai-io",
+  "homepage": "https://github.com/socai-io/jev-social",
+  "skills": [
+    {
+      "name": "jev-social",
+      "description": ""
+    }
+  ]
+}
