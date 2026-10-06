@@ -1,10 +1,10 @@
 {
-  "name": "solana",
+  "name": "solana-attestation-service",
   "owner": "solana-foundation",
   "repo": "solana-attestation-service",
-  "description": "https://www.npmjs.com/package/sas-lib",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,33 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "create-page",
-      "path": "apps/web/openspec/skills/create-page",
-      "github_url": "https://github.com/solana-foundation/solana-attestation-service/tree/main/apps/web/openspec/skills/create-page",
-      "description": ""
-    },
-    {
-      "name": "llms-txt-generator",
-      "path": "skills/llms-txt-generator",
-      "github_url": "https://github.com/solana-foundation/solana-attestation-service/tree/main/skills/llms-txt-generator",
-      "description": ""
-    },
-    {
-      "name": "migrate-page",
-      "path": "apps/web/openspec/skills/migrate-page",
-      "github_url": "https://github.com/solana-foundation/solana-attestation-service/tree/main/apps/web/openspec/skills/migrate-page",
-      "description": ""
-    },
-    {
-      "name": "skill",
-      "path": "skill",
-      "github_url": "https://github.com/solana-foundation/solana-attestation-service/tree/main/skill",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/solana-foundation/solana-attestation-service",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T12:32:54Z"
+  "distributed_at": "2026-10-06T19:38:33Z"
 }
