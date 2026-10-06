@@ -4,7 +4,7 @@
   "repo": "goarrows",
   "description": "A clone of the game \"Arrows \u2013 Puzzle Escape\" \u2013 a minimalist puzzle where your goal is to remove every arrow without causing a collision.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sergev/goarrows",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T19:20:53Z"
+  "distributed_at": "2026-10-06T19:59:13Z"
 }
