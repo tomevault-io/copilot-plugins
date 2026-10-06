@@ -4,7 +4,7 @@
   "repo": "web-scumm",
   "description": "Mobile-first SCUMM-style point-and-click engine with authoring tools and an AI-friendly workflow",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wanoo/web-scumm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T08:38:16Z"
+  "distributed_at": "2026-10-06T08:39:15Z"
 }
