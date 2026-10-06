@@ -1,43 +1,48 @@
-## german-user-docs
+## powershell-shell
 
-> User-facing documentation stays in German — scope, language, sync with code
+> This environment uses **Windows PowerShell 5.x** (not pwsh 7+). `&&` and `||` are **not** valid statement separators in this environment.
 
 
-# User Documentation — German
+# Windows PowerShell — Shell Commands
 
-End-user documentation is **German**. Do not translate it to English unless the user explicitly requests that.
+This environment uses **Windows PowerShell 5.x** (not pwsh 7+). `&&` and `||` are **not** valid statement separators in this environment.
 
-## Scope (user docs)
 
-| Path | Purpose |
-|------|---------|
-| `docs/README.md` | Anwender-Einstieg, Inhaltsverzeichnis |
-| `docs/user-manual/` | Benutzer-Handbuch (narrative operator journey) |
-| `docs/einrichtung/` | Einrichtung, Betrieb, Container, Dev-Stacks |
-| `docs/konfiguration/` | `config.json`, Sidecars, Szenarien |
-| `docs/ui/` | Streamlit-Oberfläche, Charts, Betrieb |
-| `docs/referenz/` | Loxone-Signale, Ports, Tabellen |
+``` ## Forbidden
 
-**Not user docs:** `docs/spec/` (Entwickler-Specs, English OK), `Backlog*.md`. Root `README.md` is the public landing (German prose OK; keep in sync with user docs when facts change).
+```powershell
+# ❌ ParserError: The token "&&" is not a valid statement separator
+cd "c:\...\Energy-Optimizer" && .venv\Scripts\python.exe -m scripts.run_pytest ...
+```
 
-## When editing or adding user docs
+## Instead
 
-- Write and maintain content **in German** (headings, prose, tables).
-- Keep code identifiers, env vars, JSON keys, file paths, and CLI commands **verbatim** (often English).
-- When a feature or config changes, **update the matching user doc** in the same change set when possible.
-- Cross-link related pages; keep `docs/README.md` TOC in sync with new pages under the scope above.
+**Preferred:** Set `working_directory` in the shell tool and execute the command without `cd`:
 
-## Language exceptions
+```powershell
+.venv\Scripts\python.exe -m scripts.run_pytest tests/ -q --tb=short
+```
 
-- Brief English fragments (UI labels, proper nouns, API names) inside German docs are fine.
-- Do **not** silently anglicize whole sections or migrate user docs to English.
-- **`docs/ui/ehal-com.md`** — intentionally **English** (operator deep-dive / field tables). Do not translate to German unless the user asks.
-- **HouseSim** (`docs/spec/house-sim.md`, `house_sim/`) — internal lab/dev only. Do not add to the German Anwender-TOC under Einrichtung; keep under Entwickler-Specs.
+**Alternative:** Use a semicolon instead of `&&` (continues execution even if the first part fails):
 
-## Relation to other rules
+```powershell
+Set-Location "c:\Users\joche\Documents\Smarthome\Python\Energy-Optimizer"; .venv\Scripts\python.exe -m scripts.run_pytest tests/ -q --tb=short
 
-- `german-markdown.mdc`: applies to **reading** German project markdown for implementation — **not** to translating user docs away from German.
-- `english-chat.mdc`: assistant chat stays English; user docs stay German.
+**Conditional Chaining** (only if the first command succeeds) in PowerShell 5.x:
+
+```powershell
+Set-Location "c:\...\Energy-Optimizer"; if ($?) { .venv\Scripts\python.exe -m scripts.run_pytest tests/ -q }
+
+```
+
+## Further Notes
+
+- Python from the project: `.venv\Scripts\python.exe` (not `python` without the path if venv is meant)
+- pytest: `-m pytest` or `-m scripts.run_pytest` (thin wrapper for pre-commit)
+
+- No Bash heredocs (`<<'EOF'`) — in PowerShell, heredocs are created with `@"..."@` or `-m` with a single-line string
+
+- Git commands work in PowerShell; only the chaining syntax needs to be adjusted.
 
 ---
 > Source: [JochenTCC/Earnie](https://github.com/JochenTCC/Earnie) — distributed by [TomeVault](https://tomevault.io).
