@@ -1,0 +1,9 @@
+{
+  "name": "fideocam--archi-llm-plugin",
+  "displayName": "Archi-LLM-plugin",
+  "description": "Plugin to connect Archi Archimate modeling tool to user's chosen LLMs",
+  "version": "1.0.0",
+  "author": "fideocam",
+  "homepage": "https://github.com/fideocam/Archi-LLM-plugin",
+  "skills": []
+}
