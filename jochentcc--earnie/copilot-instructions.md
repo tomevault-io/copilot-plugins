@@ -1,30 +1,37 @@
-## english-chat
+## german-markdown
 
-> Keep chat and assistant replies in English unless the user asks otherwise
+> Ask once before relying on German project markdown — offer translation
 
 
-# Chat Language — English
+# German Markdown in This Project
 
-Reply in **English** in chat, summaries, commit messages (unless the user asks for another language), and explanations — even when:
+Some project `.md` files may still be in German (e.g. `docs/spec/`, older notes). **Backlog files are in English** (`backlog/Backlog.md`, `backlog/Backlog-Bugfixes.md`, `backlog/Backlog-Erledigt.md`).
 
-- The user writes in German
-- Project docs, UI labels, error messages, or backlog text are in German
-- You are editing German `.md` files (see `german-markdown.mdc` for doc handling only)
+**User docs** (`docs/README.md`, `docs/user-manual/`, `docs/einrichtung/`, `docs/konfiguration/`, `docs/ui/`, `docs/referenz/`) are **intentionally German** — see `german-user-docs.mdc`. Do not offer to translate them to English; read as-is.
 
-## Do
+## When This Applies
 
-- Use English for all assistant-facing prose
-- Quote German source text verbatim when citing configs, errors, UI strings, or file content
-- Keep exact backlog/version identifiers as in the repo (e.g. `1.26.0 P2`, `UI S-2 P3a`)
+Before you **read and use** a project `.md` file for decisions, implementation, or summaries — and the file is **predominantly German** and **not** in the user-doc scope above — **ask the user once**:
 
-## Do not
+> This file is still in German: `<path>`. Should I translate it to English first, or read it as-is?
 
-- Switch the reply language to German because the project or the latest user message is German
-- Translate quoted errors or config keys into English unless explaining them
+## Rules
 
-## Exception
+- **Ask once per file per session.** After the user answers for that file, follow their choice; do not ask again for the same file in the same chat.
+- **Do not translate silently.** Only translate when the user explicitly agrees.
+- **If the user declines or does not answer:** read the German content as-is; do not block the task.
+- **If the user agrees:** translate the file (preserve structure, paths, code identifiers, version numbers), then continue with the task.
+- **Scope:** project `.md` files only — not user messages, external links, or non-markdown sources.
+- **Exempt:** files already in English; brief German fragments inside otherwise English docs (UI labels, proper nouns) do not trigger a translation offer by themselves.
 
-If the user explicitly asks for German (or another language) in a message, use that language for that reply or scope they specify.
+## Examples
+
+| Situation | Action |
+|-----------|--------|
+| Task requires `docs/konfiguration/preise.md` (German) | Ask once: translate or read as-is? |
+| User already said “read as-is” for that file this session | Read without asking again |
+| `backlog/Backlog.md` (English) | No ask |
+| German word in a code comment or config label | No ask |
 
 ---
 > Source: [JochenTCC/Earnie](https://github.com/JochenTCC/Earnie) — distributed by [TomeVault](https://tomevault.io).
