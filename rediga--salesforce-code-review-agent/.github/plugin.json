@@ -1,0 +1,14 @@
+{
+  "name": "rediga--salesforce-code-review-agent",
+  "displayName": "Salesforce-Code-Review-Agent",
+  "description": "Salesforce-Code-Review-Agent",
+  "version": "1.0.0",
+  "author": "rediga",
+  "homepage": "https://github.com/rediga/Salesforce-Code-Review-Agent",
+  "skills": [
+    {
+      "name": "Salesforce-Code-Review-Agent",
+      "description": ""
+    }
+  ]
+}
