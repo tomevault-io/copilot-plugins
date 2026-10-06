@@ -1,0 +1,9 @@
+{
+  "name": "sourceblender--musubi",
+  "displayName": "musubi",
+  "description": "Musubi (\u7d50\u3073) \u2014 Ai Agent shared memory and thought layer. The braiding of threads between presences.",
+  "version": "1.0.0",
+  "author": "sourceblender",
+  "homepage": "https://github.com/sourceblender/musubi",
+  "skills": []
+}
