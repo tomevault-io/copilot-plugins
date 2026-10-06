@@ -1,0 +1,9 @@
+{
+  "name": "runnane--elegoo-web",
+  "displayName": "elegoo-web",
+  "description": "A web frontend + backend service for Elegoo Centauri Carbon 2 (CC2) FDM printers. The Node.js service maintains a single MQTT connection to the printer and exposes state to browsers via WebSocket, RES",
+  "version": "1.0.0",
+  "author": "runnane",
+  "homepage": "https://github.com/runnane/elegoo-web",
+  "skills": []
+}
