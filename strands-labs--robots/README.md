@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [strands-labs/robots](https://github.com/strands
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [strands-labs/robots](https://github.com/strands-labs/robots) — a repo with 104+ stars on GitHub.
+From [strands-labs/robots](https://github.com/strands-labs/robots) — a repo with 176+ stars on GitHub.
 
 ---
 
