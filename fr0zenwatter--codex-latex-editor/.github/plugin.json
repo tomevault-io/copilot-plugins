@@ -1,0 +1,9 @@
+{
+  "name": "fr0zenwatter--codex-latex-editor",
+  "displayName": "codex-latex-editor",
+  "description": "Your LaTeX workspace in the ChatGPT app sidebar, powered by Codex. Open a paper, add annotations, and review changes\u2014all beside your chat.",
+  "version": "1.0.0",
+  "author": "Fr0zenWatter",
+  "homepage": "https://github.com/Fr0zenWatter/codex-latex-editor",
+  "skills": []
+}
