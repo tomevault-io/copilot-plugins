@@ -1,0 +1,14 @@
+{
+  "name": "roy-tong--agentmeasure",
+  "displayName": "AgentMeasure",
+  "description": "AgentMeasure",
+  "version": "1.0.0",
+  "author": "roy-tong",
+  "homepage": "https://github.com/roy-tong/AgentMeasure",
+  "skills": [
+    {
+      "name": "AgentMeasure",
+      "description": ""
+    }
+  ]
+}
