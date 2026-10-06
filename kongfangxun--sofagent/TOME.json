@@ -1,0 +1,165 @@
+{
+  "name": "sofagent",
+  "owner": "KongFangXun",
+  "repo": "sofagent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sofagent",
+      "path": "SKILL/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/SKILL/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "SKILL/agents/fde/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/SKILL/agents/fde/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "SKILL/agents/audit/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/SKILL/agents/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "SKILL/agents/reviewer/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/SKILL/agents/reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "SKILL/agents/engineer/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/SKILL/agents/engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "FORGE/SKILL/fresh-eyes-loop/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/FORGE/SKILL/fresh-eyes-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "FORGE/SKILL/release-gate-loop/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/FORGE/SKILL/release-gate-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "FDE/templates/skills/skill-template/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/FDE/templates/skills/skill-template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "engine/dsh-plugins/cordis-plugin-sofagent/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/engine/dsh-plugins/cordis-plugin-sofagent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "engine/dsh-plugins/cordis-plugin-sofagent-fde/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/engine/dsh-plugins/cordis-plugin-sofagent-fde/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "engine/dsh-plugins/cordis-plugin-sofagent-audit/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/engine/dsh-plugins/cordis-plugin-sofagent-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "engine/dsh-plugins/cordis-plugin-sofagent-daemon/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/engine/dsh-plugins/cordis-plugin-sofagent-daemon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "engine/dsh-plugins/cordis-plugin-sofagent-evolve/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/engine/dsh-plugins/cordis-plugin-sofagent-evolve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "engine/dsh-plugins/cordis-plugin-sofagent-inject/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/engine/dsh-plugins/cordis-plugin-sofagent-inject/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "engine/dsh-plugins/cordis-plugin-sofagent-rollback/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/engine/dsh-plugins/cordis-plugin-sofagent-rollback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "playbook/vendor/improve-codebase-architecture/upstream/grilling/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/playbook/vendor/improve-codebase-architecture/upstream/grilling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "playbook/vendor/improve-codebase-architecture/upstream/domain-modeling/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/playbook/vendor/improve-codebase-architecture/upstream/domain-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "playbook/vendor/improve-codebase-architecture/upstream/codebase-design/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/playbook/vendor/improve-codebase-architecture/upstream/codebase-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "playbook/vendor/improve-codebase-architecture/upstream/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/playbook/vendor/improve-codebase-architecture/upstream/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sofagent",
+      "path": "playbook/vendor/improve-codebase-architecture/upstream/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/KongFangXun/sofagent/tree/main/playbook/vendor/improve-codebase-architecture/upstream/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/KongFangXun/sofagent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T21:43:50Z"
+}
