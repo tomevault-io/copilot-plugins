@@ -1,0 +1,147 @@
+{
+  "name": "cs-skills",
+  "owner": "ChenShuo2004",
+  "repo": "cs-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cs-skills",
+      "path": "cs-run/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-writer/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-chatcut/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-auto-videl/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-clean-code/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-clean-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-ending-time/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-ending-time/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-search-skill/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-search-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-ralph-runner/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-ralph-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-recover-skill/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-recover-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-web-promo-film/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-web-promo-film/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-frontend-design/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-xiaohuang-skill/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-checkpoint-version/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-checkpoint-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-code-video/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-code-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-github-push/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-github-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-knowledge-film/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-knowledge-film/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cs-skills",
+      "path": "cs-pixel-explainer/SKILL.md",
+      "github_url": "https://github.com/ChenShuo2004/cs-skills/tree/main/cs-pixel-explainer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ChenShuo2004/cs-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T15:36:20Z"
+}
