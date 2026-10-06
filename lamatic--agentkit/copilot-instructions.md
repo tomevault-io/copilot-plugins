@@ -1,32 +1,17 @@
 ## agentkit
 
-> Maintenance Evidence Copilot is a supervised synthetic-maintenance demonstration. It turns one API maintenance event into a bounded assessment for the drive-end rolling-element bearing on `MTR-101`.
+> <!-- BEGIN:nextjs-agent-rules -->
 
-# Maintenance Evidence Copilot
+<!-- BEGIN:nextjs-agent-rules -->
 
-## Overview
+# This is NOT the Next.js you know
 
-Maintenance Evidence Copilot is a supervised synthetic-maintenance demonstration. It turns one API maintenance event into a bounded assessment for the drive-end rolling-element bearing on `MTR-101`.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-## Flow
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
-`triage-maintenance-event` runs deterministic evidence preparation, structured evidence synthesis, and a final guard/assembly step. The final guard preserves deterministic telemetry and priority, forces `rootCauseConfirmed` to `false`, allowlists source IDs, and blocks unsafe autonomous instructions.
-
-## Application boundary
-
-The included Next.js app calls only the deployed `triage-maintenance-event` flow. It offers three fixed scenarios and formats a local CMMS-style draft only after explicit human approval. It has no authentication, persistence, retrieval, external integrations, or second AI call.
-
-## Required configuration
-
-The app requires `LAMATIC_API_KEY`, `LAMATIC_PROJECT_ID`, `LAMATIC_API_URL`, and `TRIAGE_MAINTENANCE_EVENT_FLOW_ID` in `apps/.env.local`.
-
-## Guardrails
-
-- Possible explanations are visibly unconfirmed.
-- The assessment is read-only before approval.
-- Approval creates a local draft only; it does not send a handoff or work order.
-- Root cause remains unconfirmed and physical work must follow approved isolation procedures.
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [Lamatic/AgentKit](https://github.com/Lamatic/AgentKit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
