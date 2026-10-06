@@ -1,0 +1,14 @@
+{
+  "name": "eddyzzl--imagegen-pptx-pipeline",
+  "displayName": "imagegen-pptx-pipeline",
+  "description": "imagegen-pptx-pipeline",
+  "version": "1.0.0",
+  "author": "eddyzzl",
+  "homepage": "https://github.com/eddyzzl/imagegen-pptx-pipeline",
+  "skills": [
+    {
+      "name": "imagegen-pptx-pipeline",
+      "description": ""
+    }
+  ]
+}
