@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [EVerest/EVerest](https://github.com/EVerest/EVerest).
+Original source: `AGENTS.md` in [EVerest/EVerest](https://github.com/EVerest/EVerest).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [EVerest/EVerest](https://github.com/EVerest/EVerest) — a repo with 268+ stars on GitHub.
+From [EVerest/EVerest](https://github.com/EVerest/EVerest) — a repo with 272+ stars on GitHub.
 
 ---
 
