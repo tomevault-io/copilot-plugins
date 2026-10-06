@@ -1,0 +1,9 @@
+{
+  "name": "glowhop--glowtour-js",
+  "displayName": "GlowTour.js",
+  "description": "Guided product tours and onboarding walkthroughs for React, Vue, Solid, Angular and vanilla JS. Accessible, SSR-verified, zero dependencies.",
+  "version": "1.0.0",
+  "author": "Glowhop",
+  "homepage": "https://github.com/Glowhop/GlowTour.js",
+  "skills": []
+}
