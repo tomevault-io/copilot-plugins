@@ -1,0 +1,9 @@
+{
+  "name": "mwulffn--amigalaga",
+  "displayName": "AmiGalaga",
+  "description": "An arcade shooter port for the stock Amiga 500, written in 68000 assembly. Bring your own ROM.",
+  "version": "1.0.0",
+  "author": "mwulffn",
+  "homepage": "https://github.com/mwulffn/AmiGalaga",
+  "skills": []
+}
