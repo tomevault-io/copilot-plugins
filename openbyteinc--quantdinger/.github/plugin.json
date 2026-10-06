@@ -1,0 +1,14 @@
+{
+  "name": "openbyteinc--quantdinger",
+  "displayName": "QuantDinger",
+  "description": "QuantDinger",
+  "version": "1.0.0",
+  "author": "OpenByteInc",
+  "homepage": "https://github.com/OpenByteInc/QuantDinger",
+  "skills": [
+    {
+      "name": "quantdinger-agent-workflow",
+      "description": ""
+    }
+  ]
+}
