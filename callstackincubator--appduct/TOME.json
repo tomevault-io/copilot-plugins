@@ -1,0 +1,123 @@
+{
+  "name": "appduct",
+  "owner": "callstackincubator",
+  "repo": "appduct",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "appduct",
+      "path": "skills/appduct/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/skills/appduct/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appduct",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appduct",
+      "path": ".claude/skills/e2e-device/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/.claude/skills/e2e-device/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appduct",
+      "path": ".claude/skills/work-issue/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/.claude/skills/work-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appduct",
+      "path": ".claude/skills/file-issue/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/.claude/skills/file-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appduct",
+      "path": ".claude/skills/cut-release/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/.claude/skills/cut-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appduct",
+      "path": ".claude/skills/architecture/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/.claude/skills/architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appduct",
+      "path": ".claude/skills/triage-issue/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/.claude/skills/triage-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appduct",
+      "path": ".claude/skills/review-memory/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/.claude/skills/review-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appduct",
+      "path": ".claude/skills/design-feature/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/.claude/skills/design-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appduct",
+      "path": ".claude/skills/implement-issue/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/.claude/skills/implement-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appduct",
+      "path": ".claude/skills/writing-user-docs/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/.claude/skills/writing-user-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appduct",
+      "path": ".claude/skills/writing-changelog/SKILL.md",
+      "github_url": "https://github.com/callstackincubator/appduct/tree/main/.claude/skills/writing-changelog/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/callstackincubator/appduct",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T19:00:22Z"
+}
