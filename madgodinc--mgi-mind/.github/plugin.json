@@ -1,0 +1,9 @@
+{
+  "name": "madgodinc--mgi-mind",
+  "displayName": "mgi-mind",
+  "description": "Long-term memory for AI assistants, local. Rust + Qdrant + ONNX, served over MCP. Hybrid search with reranking.",
+  "version": "1.0.0",
+  "author": "madgodinc",
+  "homepage": "https://github.com/madgodinc/mgi-mind",
+  "skills": []
+}
