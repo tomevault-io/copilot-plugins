@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [one2piece2hello/faibench_Frontier_InfraBench](https://github.com/one2piece2hello/faibench_Frontier_InfraBench).
+Original source: `CLAUDE.md` in [one2piece2hello/faibench_Frontier_InfraBench](https://github.com/one2piece2hello/faibench_Frontier_InfraBench).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
