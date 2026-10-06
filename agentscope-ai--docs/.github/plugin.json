@@ -1,0 +1,9 @@
+{
+  "name": "agentscope-ai--docs",
+  "displayName": "docs",
+  "description": "The AgentScope documentations",
+  "version": "1.0.0",
+  "author": "agentscope-ai",
+  "homepage": "https://github.com/agentscope-ai/docs",
+  "skills": []
+}
