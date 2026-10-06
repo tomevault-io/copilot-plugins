@@ -1,0 +1,14 @@
+{
+  "name": "entireio--entire-graph",
+  "displayName": "entire-graph",
+  "description": "entire-graph",
+  "version": "1.0.0",
+  "author": "entireio",
+  "homepage": "https://github.com/entireio/entire-graph",
+  "skills": [
+    {
+      "name": "entire-graph",
+      "description": ""
+    }
+  ]
+}
