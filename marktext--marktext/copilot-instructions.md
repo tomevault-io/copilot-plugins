@@ -1,122 +1,306 @@
 ## marktext
 
-> This file provides guidance to Claude Code when working inside `packages/muya`.
+> This file provides guidance to AI agents when working with code in this repository.
 
-# CLAUDE.md (packages/muya)
+# Development Rules
 
-This file provides guidance to Claude Code when working inside `packages/muya`.
+This file provides guidance to AI agents when working with code in this repository.
 
-> **Location.** `packages/muya` is the TypeScript rewrite of muya (upstream: <https://github.com/marktext/muya>), migrated into this marktext monorepo and published as `@muyajs/core`. The desktop renderer now consumes `@muyajs/core` as its editor engine; the legacy JS engine `packages/muyajs` (`@marktext/muyajs`, the `muya/` alias) is being retired and only a handful of call sites still reference it. `packages/muya` keeps its own toolchain (ESLint/antfu, stylelint, madge, vitest), and the marktext-root ESLint ignores `packages/muya/**` — treat it as a self-contained package with its own conventions.
+## Project Overview
 
-## Layout inside `packages/muya`
+MarkText is a WYSIWYG markdown editor built on Electron + Vue 3. It supports CommonMark, GitHub Flavored Markdown, math (KaTeX), Mermaid diagrams, PlantUML, and multiple editing modes (focus, typewriter, source-code).
 
-- `src/` — `@muyajs/core` TypeScript source. Public API entrypoint is `src/index.ts`.
-- `test/spec/` — CommonMark / GFM conformance suites (run via `test:spec`, separate vitest config).
-- `examples/` — `muya-examples`, a Vite vanilla-TS demo that consumes `@muyajs/core` via `workspace:*`. Listed as its own workspace in the repo-root `pnpm-workspace.yaml`.
-- `e2e/` — `muya-e2e`, Playwright real-browser E2E suite. Self-contained host page under `e2e/host/`. See `e2e/README.md` and `e2e/BACKLOG.md`.
-- `eslint.config.mjs`, `.stylelintrc`, `.madgerc` — package-local tooling. The marktext-root ESLint explicitly ignores `packages/muya/**`, so muya self-lints with its own antfu-based config.
+- **Version**: see `package.json`
+- **License**: MIT
+- **Repository**: <https://github.com/marktext/marktext>
 
-Stub packages (`packages/facade`, `packages/findReplace`) from the upstream muya monorepo were not migrated — they had no source.
+## Tech Stack
 
-## Commands
+| Layer              | Technology                                                                           |
+| ------------------ | ------------------------------------------------------------------------------------ |
+| Language           | TypeScript 5.9 (strict mode) — `packages/muyajs/` is legacy JS, no longer referenced |
+| Desktop shell      | Electron 42                                                                          |
+| Build system       | electron-vite 5                                                                      |
+| Packaging          | electron-builder 26                                                                  |
+| Frontend framework | Vue 3                                                                                |
+| State management   | Pinia 3                                                                              |
+| Routing            | Vue Router 4                                                                         |
+| UI library         | Element Plus                                                                         |
+| Unit tests         | Vitest 4                                                                             |
+| E2E tests          | Playwright                                                                           |
+| Package manager    | pnpm >=10 workspace (`packageManager: pnpm@10.33.4`)                                 |
+| Repo layout        | pnpm monorepo — see Directory Structure                                              |
+| Node.js minimum    | >=20.19.0 (PR CI: Node 22.21.1 · release CI: Node 24.14.1)                           |
 
-Run from the marktext repo root.
+## Directory Structure
 
-- `pnpm -C packages/muya/examples dev:demo` — start the examples Vite dev server. (Upstream `pnpm dev` / Turbo `dev:demo` is not wired here — run vite directly.)
-- `pnpm -C packages/muya build` — `tsc && vite build`, emits `lib/{es,umd,cjs}` and `lib/types`.
-- `pnpm -C packages/muya test` / `pnpm -C packages/muya coverage` — Vitest unit tests (co-located under `src/**/__tests__/`). Single file: `pnpm -C packages/muya exec vitest run path/to/file.test.ts`.
-- `pnpm -C packages/muya test:spec` — CommonMark 0.31 + GFM 0.29-gfm fixture suites against `renderToStaticHTML(..., { sanitize: false })`. `test:spec:commonmark` / `test:spec:gfm` scope to one suite. Pass/fail counts are locked by `test/spec/expected-failures.json`: any listed example that starts passing fails the suite (remove it from the list); any unlisted example that starts failing fails the suite. Compliance can only go up. Baseline lives in `test/spec/conformance.md` (CommonMark 87.7% / GFM 86.3% at PR-6a).
-- `pnpm -C packages/muya lint` / `pnpm -C packages/muya lint:fix` — ESLint over `src test` (antfu config; rules below).
-- `pnpm -C packages/muya lint:types` — `tsc --noEmit`.
-- `pnpm -C packages/muya lint:css` — Stylelint over `src/**/*.css`.
-- `pnpm -C packages/muya check-circular` — `madge --circular src/index.ts`. CI enforces this.
-- `pnpm -C packages/muya/e2e e2e` — Playwright E2E (chromium/firefox/webkit). `e2e:install` is a one-time browser install. CI (`muya-e2e.yml`) runs Chromium only; Firefox + WebKit are configured in `playwright.config.ts` and runnable locally, but excluded from the CI matrix until the engine-independent rewrites in BACKLOG Phase 3 land (triple-click selection, search-replace mutation timing).
+This is a pnpm workspace. Three packages live under `packages/`, and the
+root holds only shared tooling and CI-facing scripts.
 
-Engines: Node ≥20.19 (matches marktext root). Build target is `chrome70`.
+```
+<repo-root>/
+  package.json              Workspace orchestrator — every CI-facing script
+                            proxies to packages/desktop via `pnpm --filter
+                            marktext ...`. CI invocations are unchanged.
+  pnpm-workspace.yaml       `packages: ['packages/*']` plus allowBuilds.
+  pnpm-lock.yaml            Single lockfile, shared across all packages.
+  eslint.config.js          Root ESLint v9 flat config (covers desktop +
+                            muyajs; website has its own ESLint v8 config
+                            and is ignored here).
+  scripts/                  Workspace-level scripts. postinstall.ts,
+                            minify-locales.ts, generateThirdPartyLicense.ts,
+                            validateLicenses.ts, thirdPartyChecker.ts all
+                            target packages/desktop internally.
+  docs/                     Long-form developer docs.
+  dist/                     Packaged installers from electron-builder
+                            (git-ignored; electron-builder writes here via
+                            `directories.output: ../../dist` so CI artifact
+                            globs `dist/*` still apply).
+  packages/
+    desktop/                The Electron app (name: "marktext").
+      package.json          Holds all Electron / Vue / build-time deps and
+                            the dev/build/test/typecheck scripts. Depends on
+                            @muyajs/core via workspace:*.
+      electron.vite.config.ts
+      electron-builder.yml  directories.output points at ../../dist.
+      tsconfig.json / tsconfig.base.json
+      vitest.config.ts
+      playwright.config.ts  Must stay here, not in test/e2e/ — Playwright only
+                            auto-loads a config from the directory it runs in.
+      patches/              pnpm patches consumed by patch-package.
+      build/                electron-builder resources (icons, entitlements,
+                            NSIS scripts).
+      static/               Static assets bundled into the app
+                            (icons, themes, locales).
+      out/                  electron-vite output (git-ignored).
+      test/
+        unit/               Vitest specs → pnpm test / pnpm test:unit
+        e2e/                Playwright specs → pnpm test:e2e
+      src/
+        common/             Pure Node.js utilities usable from main, preload,
+                            and renderer.
+        main/               Electron main process (IO, native dialogs, window
+                            management, auto-updater).
+        preload/            Electron preload scripts. The renderer runs
+                            sandboxed (contextIsolation: true,
+                            nodeIntegration: false, sandbox: true since
+                            #4244) — all Node access flows through the typed
+                            contextBridge surface in
+                            packages/desktop/src/preload/index.ts.
+        renderer/           Vue 3 application (editor UI, Pinia stores).
+          src/
+            components/     Vue single-file components.
+            store/          Pinia stores (editor.ts, preferences.ts,
+                            layout.ts, …).
+            pages/          Top-level Vue pages / routes.
+            router/         Vue Router configuration.
+        shared/             Cross-process types (`shared/types/`) and the
+                            IPC contract (`shared/types/ipc.ts`).
+        types/              Ambient .d.ts declarations.
+    muyajs/                 Legacy markdown editor engine
+                            (name: "@marktext/muyajs"). Primarily JS + DOM,
+                            avoids Electron APIs. Exception:
+                            packages/muyajs/lib/parser/render/plantuml.js
+                            imports Node's `zlib`. Nothing imports it any
+                            more — the desktop renderer consumes
+                            @muyajs/core (packages/muya), and the `muya/*`
+                            alias, the `src/types/muya.d.ts` bridge and the
+                            workspace dep are gone (#4257). The package
+                            itself is deleted post-0.20.0.
+      lib/
+        contentState/       Block structure and document transformations.
+        parser/             Markdown parser.
+        renderers/          WYSIWYG renderer.
+        ui/                 Inline toolbar, emoji picker, etc.
+        utils/              Internal utilities.
+      themes/               Editor themes (Prism + fonts).
+    muya/                   TypeScript rewrite of muya
+                            (name: "@muyajs/core"; upstream:
+                            https://github.com/marktext/muya). Built on
+                            ot-json1 + ot-text-unicode + snabbdom + marked@16
+                            + rxjs. Self-contained: own eslint config
+                            (antfu), own stylelint, own madge, own vitest
+                            spec suites (CommonMark + GFM). The editor
+                            engine the desktop renderer consumes. See
+                            packages/muya/AGENTS.md for layout and commands.
+      src/                  TS source. Public entrypoint src/index.ts.
+      test/spec/            CommonMark 0.31 + GFM 0.29-gfm conformance.
+      examples/             muya-examples — vite vanilla-TS dev demo
+                            (listed in pnpm-workspace.yaml).
+      e2e/                  muya-e2e — Playwright suite. CI runs Chromium
+                            only via muya-e2e.yml; Firefox + WebKit are
+                            wired in playwright.config.ts but deferred
+                            until BACKLOG Phase 3 lands engine-independent
+                            specs.
+    website/                marktext-website (Vite + React 18). Standalone
+                            toolchain; depends on @muyajs/core from npm,
+                            not on the local muyajs package. Not part of
+                            desktop CI today.
+      src/ / public/ / build/ / vite.config.ts / tsconfig.json
+```
 
-## Architecture
+The root has no `src/`, `test/`, `static/`, or `build/` of its own anymore — they all live in `packages/desktop/`.
 
-### Entry point and plugin system
+## Development Workflow
 
-`src/muya.ts` exports the `Muya` class. UI plugins are registered globally via the static `Muya.use(Plugin, options)` and instantiated inside `muya.init()`. Plugins are keyed by `Plugin.pluginName` and stored on `muya._uiPlugins`. The plugin set in `examples/src/main.ts` is the canonical reference for wiring up toolbars, selectors, and menus.
+All commands run from the repo root. The root `package.json` proxies every
+desktop-specific script to `packages/desktop` via `pnpm --filter marktext`,
+so the names and behavior are unchanged from the pre-monorepo layout.
 
-`new Muya(element, options)` replaces the passed-in element with a new `contenteditable` div (`getContainer` in `muya.ts`), then constructs `EventCenter`, `Editor`, `Ui`, and `I18n`. Nothing renders until `muya.init()` runs `Editor.init()`, which calls `registerBlocks()` and creates the root `ScrollPage`.
+```bash
+# Install dependencies (runs scripts/postinstall.ts automatically — patches
+# native-keymap, downloads Electron, rebuilds native modules, minifies locales)
+pnpm install
 
-### The `Editor` (`src/editor/index.ts`)
+# Run in development mode
+# Renderer hot-reloads automatically. Pressing Ctrl+R in the dev window reloads
+# the renderer (which re-runs the preload script); changes to the main process
+# require restarting `pnpm run dev`.
+pnpm run dev
 
-Holds the runtime modules: `JSONState`, `InlineRenderer`, `Selection`, `Search`, `Clipboard`, `History`, and the root `ScrollPage`. It owns `activeContentBlock` (the focused leaf) and routes DOM events (`click`, `input`, `keydown`, `keyup`, `compositionstart/end`) merged via RxJS to the active block's handlers (`clickHandler`, `inputHandler`, etc.). Anything that listens to user input on a block ultimately flows through this dispatch.
+# Preview the last electron-vite build (no rebuild).
+pnpm run start
 
-`Editor.updateContents(operations, selection, source)` applies `ot-json1` operations to the live block tree. The `pick`/`drop` walk is hand-rolled from `ot-json1.apply` so it can call `block.replaceWith`, `container.insertBefore`, `ScrollPage.loadBlock(name).create(...)`, and `otText.type.apply` on the matching subdocument — the block tree and the JSON state stay in lockstep.
+# Build without packaging — fast path for verifying the renderer/main compile
+pnpm run build:unpack
 
-### Block tree
+# Auto-format the repo with Prettier (separate from `lint`, which only checks)
+pnpm run format
 
-All blocks extend `TreeNode → Parent → (Content | Format)` in `src/block/base/`. `Parent` owns a `LinkedList` of `children` plus an `attachments` list for non-state nodes (icons, checkboxes). `Content` is the leaf that owns the actual text; `Format` extends `Content` with inline-format handling.
+# Minify locale files (required for production builds, skip during dev)
+pnpm run minify-locales
 
-Concrete blocks live under `src/block/{commonMark,gfm,extra,content}` and **must be registered** in `src/block/index.ts::registerBlocks()`, which `Editor.init()` calls before constructing the root `ScrollPage`. `ScrollPage` (in `src/block/scrollPage/index.ts`) keeps a static `registeredBlocks` map; lookups go through `ScrollPage.loadBlock(blockName).create(muya, state)`. **Add a new block type → register it here, otherwise `loadBlock` will warn and return undefined.**
+# Performance debugging — exposes a Node inspector on :5858 against the previewed build
+pnpm run perf:inspect       # attach when ready
+pnpm run perf:inspect-brk   # break on first line
 
-`block/mixins/{containerQueryBlock,leafQueryBlock}.ts` are constructor mixins applied to block classes for `queryBlock`/path resolution (the ROADMAP notes this was a deliberate switch away from property mixins).
+# Website (not yet wired into CI)
+pnpm --filter marktext-website dev      # Vite dev server
+pnpm --filter marktext-website build    # static build → packages/website/build/
+```
 
-### State and markdown round-trip (`src/state/`)
+If you need to invoke a script directly inside a package, use
+`pnpm --filter <name> <script>` or `pnpm -C packages/<name> <script>`.
 
-- `JSONState` (`state/index.ts`) is the source-of-truth document. It exposes `ot-json1` `invert`/`compose`/`transform` statics — the architecture is set up for OT-based collaborative editing even if no transport is wired in.
-- `markdownToState.ts` parses Markdown (via `marked`) into the state tree; `stateToMarkdown.ts` serializes back; `markdownToHtml.ts` and `htmlToMarkdown.ts` (using `turndown` + `joplin-turndown-plugin-gfm`) bridge HTML. `MarkdownToHtml` is re-exported from the public API.
-- Inline text edits are encoded as `ot-text-unicode` ops nested inside the json1 ops (see the `d.es` branch in `Editor.updateContents`).
-- **Reference link/image definitions** (`[ref]: url "title"`) are NOT a first-class block type in state. `markdownToState`'s `case 'def'` re-emits the raw definition line back into a `paragraph` state node so it round-trips losslessly through the markdown serializer. `InlineRenderer.collectReferenceDefinitions()` runs over the live block tree on every render pass to populate a labels Map that the lexer consults when expanding `[text][ref]` and `![alt][ref]`. `ILinkReferenceDefinitionState` exists as a deprecated stub for compatibility — do not introduce new code paths that produce it.
-- **TOC** is derived on-demand via `getTOC(muya)` (`state/getTOC.ts`); the public method is `muya.getTOC()` (`src/muya.ts`). Slugs follow the marktext-compatible regex carried over in commit `9cb2cbe8`.
+## Build Commands
 
-### Inline rendering and DOM
+```bash
+pnpm run build:win    # Windows x64 — NSIS installer + zip
+pnpm run build:mac    # macOS x64 + arm64 — DMG + zip
+pnpm run build:linux  # Linux — AppImage, snap, deb, rpm, tar.gz
+```
 
-`src/inlineRenderer/` tokenizes inline content with a custom `lexer`/`rules` pipeline and renders to a virtual DOM via `snabbdom` (and `snabbdom-to-html` for serialization). KaTeX, Prism, Mermaid, Vega/Vega-Lite, and PlantUML are integrated for math, code highlighting, and diagrams.
+All platform build scripts automatically run `minify-locales` and `electron-rebuild` before packaging.
 
-### UI layer (`src/ui/`)
+## Testing
 
-Each subfolder is a floating tool/menu (inline format toolbar, image tools, paragraph front button, table tools, emoji selector, etc.) extending `baseFloat` or `baseScrollFloat` and positioned with `@floating-ui/dom`. They're imported and re-exported from `src/index.ts` and registered by consumers via `Muya.use(...)`. `Ui` (`src/ui/ui.ts`) is the registry the editor talks to.
+```bash
+pnpm run test          # All unit tests (Vitest)
+pnpm run test:unit     # Unit tests only
+pnpm run test:e2e      # End-to-end tests (Playwright)
+pnpm run lint          # ESLint (run before committing; CI enforces)
+pnpm run typecheck     # vue-tsc --noEmit (CI enforces)
 
-### Public API surface
+# Run a single spec — paths are relative to packages/desktop. Use `-C` so
+# pnpm resolves the spec path inside the desktop package's vitest config.
+pnpm -C packages/desktop exec vitest run test/unit/specs/markdown-basic.spec.ts
+pnpm -C packages/desktop exec vitest run -t 'partial test name'
 
-`src/index.ts` is the published entrypoint. The `exports` map in `package.json` points `.` at `./src/index.ts` during development and `./lib/es/index.js` after publish — keep this file the single export hub.
+# Single Playwright spec (playwright.config.ts sits at packages/desktop/, so it
+# is picked up automatically — run these from that package, not the repo root)
+pnpm -C packages/desktop exec playwright test test/e2e/launch.spec.ts
+pnpm -C packages/desktop exec playwright test -g 'partial test name'
+```
 
-### Appearance contract (typography)
+## Code Style
 
-muya renders its own content's typography from two equivalent inputs — pass
-options, or override the CSS custom properties directly (pure-CSS theming).
-The variables are set on the editor root (`.mu-editor`) and consumed by the
-bundled stylesheets; each has a default baked into the CSS, so passing nothing
-renders the standalone defaults.
+Enforced by ESLint + Prettier. Run `pnpm run lint` and `pnpm run typecheck` before committing.
 
-| Option (`IMuyaOptions`) | CSS variable | Default | Applies to |
-|---|---|---|---|
-| `fontSize` (number, px) | `--mu-font-size` | `16px` | `.mu-editor` base text |
-| `lineHeight` (number) | `--mu-line-height` | `1.6` | `.mu-editor` base text |
-| `editorFontFamily` (string) | `--mu-font-family` | Open Sans stack | `.mu-editor` base text |
-| `codeFontSize` (number, px) | `--mu-code-font-size` | `90%` | `.mu-code-block` only |
-| `codeFontFamily` (string) | `--mu-code-font-family` | DejaVu Sans Mono stack | `.mu-code-block` only |
-| `wrapCodeBlocks` (boolean) | — (`.mu-code-wrap` root class) | off (`pre`) | code-block line wrapping |
+- 2-space indentation
+- No semicolons
+- Single quotes
+- TypeScript with `strict: true`; see `packages/website/content/docs/dev/TYPESCRIPT.md`
+- Cross-process types live in `packages/desktop/src/shared/types/`; ambient declarations in `packages/desktop/src/types/`
+- IPC channels are typed via the contract in `packages/desktop/src/shared/types/ipc.ts`
+- The renderer is fully sandboxed — every IPC and Node access goes through `window.electron.*` / `window.fileUtils.*` etc. (typed in `packages/desktop/src/types/global.d.ts`)
 
-Inline code (`code.mu-inline-rule`) is deliberately NOT driven by these — it
-keeps its relative `0.8em` / mono sizing. Editor column width
-(`--editor-area-width`) and the colour palette (`--editor-color-*`) are
-separate, pre-existing contracts owned by the host. All runtime changes go
-through `muya.setOptions({...})`.
+### Comments
 
-## Conventions enforced by tooling
+Follow `.github/COMMENTING-GUIDELINES.md` for every comment you write. The core rule: a comment must describe what isn't obvious from the code — rationale, units, invariants, ownership, the abstraction a caller needs — never restate the code or echo the words already in the name. Before finishing any change, review the comments you added or touched against that document, and delete any that only repeat the code. Prefer self-explanatory names over comments; when a comment is genuinely needed, keep it short and complete and place it next to the code it describes.
 
-- **ESLint** (`eslint.config.mjs`, antfu base) adds:
-    - `complexity` ≤ 20 and `max-lines-per-function` ≤ 200 (warnings) for non-test TS.
-    - Interface names **must** start with `I[A-Z0-9]` (e.g. `IMuyaOptions`, `IPlugin`). The naming-convention rule will flag interfaces that don't.
-    - Private class members **must** be prefixed with `_` (e.g. `_uiPlugins`, `_activeContentBlock`).
-    - Style: 4-space indent, semicolons required, React rules disabled, Markdown linting disabled.
-    - Bans `value as unknown as X` double-casts outside audited boundary helpers — use type guards or named helpers instead.
-- **Madge** circular-dep check (`pnpm -C packages/muya check-circular`) runs in CI — adding a circular import will fail the build.
-- Test files (`*.test.ts`, `*.spec.ts`) and `vite.config.ts` are excluded from the strict TS lint rules above.
+## Architecture: Three-Process Electron Model
 
-Upstream muya had Conventional Commits + husky + lint-staged + release-it wired up. Those are **not** migrated into marktext — marktext does not use husky/commitlint, and `@muyajs/core` is not published from this repo. Commit style follows marktext's root contributing guide.
+All Electron processes live in `packages/desktop/`. Muya is a separate
+workspace package that the renderer (and tests) consume as `@muyajs/core`.
 
-## Build pipeline notes
+```
+main process  (packages/desktop/src/main/)
+  ├── Full Node.js + Electron API access
+  ├── IO, file system, native dialogs, auto-updater, spell checker
+  ├── One instance per application launch
+  └── Controls editor windows via IPC
 
-- **`vite-plugin-dts@5`** (transitive via `unplugin-dts`) uses `outDirs` (plural), not `outDir`. `vite.config.ts` relies on this to emit declarations into `lib/types/`, which is the path `package.json`'s `publishConfig.exports[*].types` points to. If you ever see `lib/index.d.ts` appearing directly under `lib/`, the option name has regressed.
-- `@laynezh/vite-plugin-lib-assets` routes `*.png` to `lib/assets/icons/` and font files to `lib/assets/fonts/`.
+preload  (packages/desktop/src/preload/)
+  ├── Bridge between main and renderer
+  ├── Note: editor and preferences windows use contextIsolation: false +
+  │   nodeIntegration: true (see packages/desktop/src/main/config.js)
+  └── Compiled to CommonJS
+
+renderer  (packages/desktop/src/renderer/)
+  ├── One process per editor window (spawned by main)
+  ├── Vue 3 + Pinia — all UI state and editor interaction
+  ├── Hosts both Muya (WYSIWYG) and CodeMirror (source-code mode)
+  └── Compiled to ES Modules only
+
+Muya  (packages/muya/)              ← workspace package @muyajs/core
+  ├── Self-contained editor backend, TypeScript
+  ├── No Electron APIs
+  ├── Handles markdown parsing, block data structure, document export, rendering
+  └── packages/muyajs/ (the legacy JS engine) is unreferenced and is
+      deleted post-0.20.0.
+```
+
+## IPC Conventions
+
+Most IPC channels between main and renderer use the `mt::` prefix (e.g. `mt::open-new-tab`, `mt::file-saved`). Some internal channels do not follow this convention (e.g. `language-changed`).
+
+See `packages/website/content/docs/dev/IPC.md` for conventions and examples.
+
+## Further Reading
+
+`packages/website/content/docs/dev/` contains the deeper developer documentation referenced by this guide. Same files are published as the developer docs section on <https://marktext.me/docs/dev/overview>:
+
+- `ARCHITECTURE.md` — process/module layering beyond the summary above
+- `BUILD.md` — full platform build prerequisites (including the Arch Linux deps added recently)
+- `DEBUGGING.md` — attaching debuggers to main/renderer processes
+- `INTERFACE.md` — Muya and renderer public interfaces
+- `IPC.md` — full IPC channel catalog and `mt::` conventions
+- `LINUX_DEV.md` — Linux-specific dev environment setup
+- `PERFORMANCE.md` — perf measurement workflow (pairs with `pnpm run perf:inspect`)
+- `RELEASE.md` / `RELEASE_HOTFIX.md` — release process
+
+## Important Build Notes
+
+- **CommonJS vs ESM**: `main` and `preload` compile to CommonJS; `renderer` is ESM-only. Do not use `require()` in renderer code.
+- **Minify locales**: `pnpm run minify-locales` must run before production builds. It is included in `build:win/mac/linux` but not in `dev`.
+- **Native modules**: After changing Electron version, run `pnpm run rebuild-native` (`electron-rebuild -f`).
+- **Hot reload**: The renderer hot-reloads via Vite HMR. `Ctrl+R` in the dev window reloads the renderer and re-runs the preload script. Changes to `main/` source are NOT picked up by a window reload — restart `pnpm run dev` to pick them up.
+- **electron-builder output**: `directories.output` in `packages/desktop/electron-builder.yml` is set to `../../dist` so installers land in the repo-root `dist/` (where CI artifact globs look for them). `out/` from electron-vite stays inside `packages/desktop/`.
+- **Path aliases** (defined in `packages/desktop/electron.vite.config.ts`, mirrored in `vitest.config.ts` and `tsconfig.base.json`):
+  - `@` → `packages/desktop/src/renderer/src`
+  - `common` → `packages/desktop/src/common`
+  - `@shared` → `packages/desktop/src/shared`
+- **`@muyajs/core` resolution**: not a path alias — electron-vite and Vitest resolve it through the package's `exports` map, which points at `packages/muya/src/index.ts`. TypeScript would then pull the whole muya tree into the desktop's program, so `tsconfig.base.json` redirects the types to `../muya/lib/types/index.d.ts`; `pnpm typecheck` and `postinstall` both run `pnpm --filter @muyajs/core build:types` to emit that (git-ignored) directory.
+- **Patches**: `patch-package` patches live at `packages/desktop/patches/`. The root `postinstall` calls patch-package with `cwd=packages/desktop` so the path resolves correctly.
+
+## Contribution
+
+- Submit PRs to the **`develop`** branch (not `main`).
+- Reference the related issue in the PR description.
+- Run `pnpm run lint` before submitting.
+- All PRs must pass CI before merge.
+- See `.github/CONTRIBUTING.md` for the full contributing guide.
 
 ---
 > Source: [marktext/marktext](https://github.com/marktext/marktext) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
