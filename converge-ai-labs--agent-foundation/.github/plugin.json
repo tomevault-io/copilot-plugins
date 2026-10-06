@@ -1,0 +1,26 @@
+{
+  "name": "converge-ai-labs--agent-foundation",
+  "displayName": "agent-foundation",
+  "description": "agent-foundation",
+  "version": "1.0.0",
+  "author": "converge-ai-labs",
+  "homepage": "https://github.com/converge-ai-labs/agent-foundation",
+  "skills": [
+    {
+      "name": "agent-foundation",
+      "description": ""
+    },
+    {
+      "name": "agent-foundation",
+      "description": ""
+    },
+    {
+      "name": "agent-foundation",
+      "description": ""
+    },
+    {
+      "name": "agent-foundation",
+      "description": ""
+    }
+  ]
+}
