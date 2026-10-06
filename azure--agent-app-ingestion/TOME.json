@@ -1,0 +1,81 @@
+{
+  "name": "agent-app-ingestion",
+  "owner": "Azure",
+  "repo": "agent-app-ingestion",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-app-ingestion",
+      "path": ".github/skills/release/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-app-ingestion/tree/main/.github/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-app-ingestion",
+      "path": ".github/skills/service-release/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-app-ingestion/tree/main/.github/skills/service-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-app-ingestion",
+      "path": ".github/skills/ingestion-validation/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-app-ingestion/tree/main/.github/skills/ingestion-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-app-ingestion",
+      "path": ".github/skills/architecture-decision/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-app-ingestion/tree/main/.github/skills/architecture-decision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-app-ingestion",
+      "path": ".github/skills/engineering-principles/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-app-ingestion/tree/main/.github/skills/engineering-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-app-ingestion",
+      "path": ".github/skills/documentation-consistency/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-app-ingestion/tree/main/.github/skills/documentation-consistency/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Azure/agent-app-ingestion",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T21:45:39Z"
+}
