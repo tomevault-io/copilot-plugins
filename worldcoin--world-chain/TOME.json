@@ -1,0 +1,75 @@
+{
+  "name": "world-chain",
+  "owner": "worldcoin",
+  "repo": "world-chain",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "world-chain",
+      "path": ".agents/skills/invalid-parent/SKILL.md",
+      "github_url": "https://github.com/worldcoin/world-chain/tree/main/.agents/skills/invalid-parent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-chain",
+      "path": ".agents/skills/investigate-game/SKILL.md",
+      "github_url": "https://github.com/worldcoin/world-chain/tree/main/.agents/skills/investigate-game/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-chain",
+      "path": ".agents/skills/scan-invalid-games/SKILL.md",
+      "github_url": "https://github.com/worldcoin/world-chain/tree/main/.agents/skills/scan-invalid-games/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-chain",
+      "path": ".agents/skills/check-wip1006-config/SKILL.md",
+      "github_url": "https://github.com/worldcoin/world-chain/tree/main/.agents/skills/check-wip1006-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-chain",
+      "path": ".agents/skills/debug-node-tracing/SKILL.md",
+      "github_url": "https://github.com/worldcoin/world-chain/tree/main/.agents/skills/debug-node-tracing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/worldcoin/world-chain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T21:36:26Z"
+}
