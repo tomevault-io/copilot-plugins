@@ -1,0 +1,9 @@
+{
+  "name": "sergev--goarrows",
+  "displayName": "goarrows",
+  "description": "A clone of the game \"Arrows \u2013 Puzzle Escape\" \u2013 a minimalist puzzle where your goal is to remove every arrow without causing a collision.",
+  "version": "1.0.0",
+  "author": "sergev",
+  "homepage": "https://github.com/sergev/goarrows",
+  "skills": []
+}
