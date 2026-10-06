@@ -1,122 +1,54 @@
 ## webforai
 
-> "description": "A library that converts HTML to Markdown with various loaders and extractors for AI consumption",
+> When writing complex features or significant refactors, use an ExecPlan (as described in
 
-{
-	"project": {
-		"name": "WebForAI",
-		"description": "A library that converts HTML to Markdown with various loaders and extractors for AI consumption",
-		"repository": "https://github.com/inaridiy/webforai",
-		"homepage": "https://webforai.dev/"
-	},
-	"structure": {
-		"monorepo": true,
-		"packageManager": "pnpm",
-		"mainPackage": "packages/webforai",
-		"directories": {
-			"packages": {
-				"description": "Contains the main WebForAI package",
-				"patterns": ["packages/**"]
-			},
-			"examples": {
-				"description": "Example projects demonstrating WebForAI usage",
-				"patterns": ["examples/**"]
-			},
-			"site": {
-				"description": "Documentation website",
-				"patterns": ["site/**"]
-			},
-			"apps": {
-				"description": "Application implementations",
-				"patterns": ["apps/**"]
-			}
-		}
-	},
-	"capabilities": {
-		"core": [
-			"HTML to Markdown conversion",
-			"HTML to MDAST conversion",
-			"MDAST to Markdown conversion",
-			"Web content loading via various methods"
-		],
-		"loaders": ["Playwright", "Puppeteer", "Cloudflare Puppeteer", "Fetch API"],
-		"extractors": ["Content extraction presets", "Custom extraction pipelines"]
-	},
-	"algorithms": {
-		"htmlToMarkdown": {
-			"description": "Main conversion pipeline that transforms HTML to Markdown",
-			"flow": "HTML → HAST → MDAST → Markdown",
-			"steps": [
-				"Parse HTML into HAST (HTML Abstract Syntax Tree)",
-				"Apply content extractors to clean and focus on main content",
-				"Transform HAST to MDAST (Markdown Abstract Syntax Tree)",
-				"Convert MDAST to Markdown text with formatting options"
-			]
-		},
-		"contentExtraction": {
-			"description": "Intelligent algorithms to extract the main content from web pages",
-			"implementations": [
-				{
-					"name": "takumiExtractor",
-					"description": "Advanced content extractor inspired by Mozilla Readability",
-					"techniques": [
-						"Metadata filtering to remove scripts, styles, and other non-content elements",
-						"Universal element filtering to remove navigation, asides, and hidden content",
-						"Content selection using common article selectors",
-						"Link density analysis to identify content-rich areas",
-						"Language-specific content length thresholds"
-					]
-				}
-			]
-		},
-		"mdastHandlers": {
-			"description": "Custom handlers for transforming specific HTML elements to Markdown",
-			"handlers": [
-				"customAHandler: Enhanced link handling with text-only option",
-				"customCodeHandler: Code block handling with language detection",
-				"customDivHandler: Special div element processing",
-				"customImgHandler: Image handling with hide option",
-				"customTableHandler: Table processing with text-only option",
-				"mathHandler: Mathematical notation conversion"
-			]
-		},
-		"linkProcessing": {
-			"description": "Utilities for handling and transforming links",
-			"features": ["Relative to absolute URL conversion", "Base URL integration", "Link text extraction"]
-		}
-	},
-	"development": {
-		"nodeVersion": ">=18.0.0",
-		"commands": {
-			"build": "pnpm run --r --filter \"./packages/**\" build",
-			"test": "vitest",
-			"format": "biome format .",
-			"lint": "biome check ."
-		},
-		"tools": ["TypeScript", "Biome", "Vitest", "Changesets"]
-	},
-	"customModes": [
-		{
-			"slug": "webforai-dev",
-			"name": "WebForAI Developer",
-			"roleDefinition": "You are Roo, a specialized developer for the WebForAI library. You understand HTML parsing, Markdown generation, and web content extraction techniques. You're familiar with the project's architecture including loaders, extractors, and MDAST/HAST transformations.",
-			"groups": ["read", "edit", "browser", "command", "mcp"]
-		},
-		{
-			"slug": "webforai-docs",
-			"name": "WebForAI Documentation",
-			"roleDefinition": "You are Roo, a documentation specialist for the WebForAI library. You excel at creating clear, concise documentation with practical examples. You understand the library's capabilities and can explain complex concepts in an accessible way.",
-			"groups": [
-				"read",
-				["edit", { "fileRegex": "\\.(md|mdx)$", "description": "Markdown and MDX files only" }],
-				"browser",
-				"command",
-				"mcp"
-			]
-		}
-	]
-}
+# AGENTS
+
+When writing complex features or significant refactors, use an ExecPlan (as described in
+.agents/PLANS.md) from design to implementation.
+
+## Toolchain
+
+- `pnpm install` — workspace install (pnpm 9, `preinstall` enforces pnpm).
+- `pnpm format:fix` / `pnpm lint:fix` — biome; run before committing.
+- `pnpm typecheck` — tsc across packages.
+- `pnpm test` — vitest at repo root; use `pnpm run test --run` for a one-shot run
+  (includes library, corpus, and platform unit tests). Platform tests:
+  `pnpm --filter platform test`.
+- `pnpm build` — builds `packages/**`. Platform: `pnpm --filter platform build`.
+- Platform local dev: `pnpm --filter platform dev` (wrangler/vite; containers need Docker).
+
+When touching `apps/platform`, run its typecheck + tests + build before calling work done.
+When a diff changes any command, env var, binding, port, or user flow mentioned in a
+README.md, update that README in the same commit.
+
+## Where things live
+
+- `packages/webforai` — the published library (html→markdown). Do not couple it to the
+  platform; the platform consumes it via `workspace:*`. The block classifier's weights
+  (`src/extractors/lib/block-model.generated.ts`) are generated elsewhere — never edit by hand;
+  measure changes with `evals` (`gold:eval` on WCEB, the corpus, `stress`).
+- `apps/platform` — the Cloudflare SaaS platform. Design ledger: `docs/specs/platform/`.
+- Enduring decisions go to `docs/specs/**` with a dated `Revision note (YYYY-MM-DD): ...`;
+  workflow rules live here; task history lives in `.agents/execplans/`.
+- Platform assumptions: production is Cloudflare Workers — no cross-request in-process state,
+  no Node-only APIs outside `*.container.ts` files, secrets only via wrangler secrets/typed env.
+
+## Task delegation
+
+- Commit at every completed ExecPlan Progress step; conventional commits; never `git add -A`
+  in a mixed worktree — stage explicit paths.
+- Delegate parallelizable or long-gather/short-output work (research, broad reviews, test
+  runs) to subagents; keep work that builds needed context inline.
+
+## Review
+
+- Before merging significant platform changes: biome + typecheck + tests + build, plus a pass
+  over `docs/specs/platform` for drift (update with revision notes, don't rewrite history).
+- Aim for the intended design: when a Cloudflare primitive or library has a clear intended
+  model (Workflows steps, Better Auth plugins, drizzle migrations), investigate failures
+  within that model before hand-rolling a replacement.
 
 ---
 > Source: [inaridiy/webforai](https://github.com/inaridiy/webforai) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
