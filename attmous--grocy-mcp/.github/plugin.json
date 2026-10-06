@@ -1,0 +1,9 @@
+{
+  "name": "attmous--grocy-mcp",
+  "displayName": "grocy-mcp",
+  "description": "MCP server and CLI for Grocy - control stock, shopping lists, recipes and chores via AI agents",
+  "version": "1.0.0",
+  "author": "attmous",
+  "homepage": "https://github.com/attmous/grocy-mcp",
+  "skills": []
+}
