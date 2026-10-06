@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [Awesome-Embedded-Learning-Studio/Tutorial_Aweso
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Awesome-Embedded-Learning-Studio/Tutorial_AwesomeModernCPP](https://github.com/Awesome-Embedded-Learning-Studio/Tutorial_AwesomeModernCPP) — a repo with 191+ stars on GitHub.
+From [Awesome-Embedded-Learning-Studio/Tutorial_AwesomeModernCPP](https://github.com/Awesome-Embedded-Learning-Studio/Tutorial_AwesomeModernCPP) — a repo with 311+ stars on GitHub.
 
 ---
 
