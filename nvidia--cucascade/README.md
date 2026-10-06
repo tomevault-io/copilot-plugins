@@ -1,17 +1,15 @@
 # cuCascade
 
-> Source: [NVIDIA/cuCascade](https://github.com/NVIDIA/cuCascade) — distributed by [TomeVault](https://tomevault.io)
-
-GPU Memory Reservation Library
+> Source: [NVIDIA/cuCascade](https://github.com/NVIDIA/cuCascade). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [NVIDIA/cuCascade](https://github.com/NVIDIA/cuCascade).
+Original source: `AGENTS.md` in [NVIDIA/cuCascade](https://github.com/NVIDIA/cuCascade).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
