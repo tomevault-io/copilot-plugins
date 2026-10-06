@@ -15,6 +15,10 @@ Original source: `AGENTS.md` in [takuphilchan/offgrid-llm](https://github.com/ta
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
+## Bundled Skills (1)
+
+- [offgrid-llm](https://github.com/takuphilchan/offgrid-llm/tree/main/.agents/skills/organize-git-commits/SKILL.md)
+
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/takuphilchan/offgrid-llm](https://github.com/takuphilchan/offgrid-llm)
 
 ---
