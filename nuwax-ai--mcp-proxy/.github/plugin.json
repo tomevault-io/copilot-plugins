@@ -1,0 +1,9 @@
+{
+  "name": "nuwax-ai--mcp-proxy",
+  "displayName": "mcp-proxy",
+  "description": "A comprehensive Rust workspace implementing MCP (Model Context Protocol) proxy system with multiple services including document parsing, voice transcription, and protocol conversion.",
+  "version": "1.0.0",
+  "author": "nuwax-ai",
+  "homepage": "https://github.com/nuwax-ai/mcp-proxy",
+  "skills": []
+}
