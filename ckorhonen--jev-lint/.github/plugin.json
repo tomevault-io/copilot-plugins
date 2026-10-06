@@ -1,0 +1,9 @@
+{
+  "name": "ckorhonen--jev-lint",
+  "displayName": "jev-lint",
+  "description": "A fuzzy linter for coding agents. It checks the code your agent writes against your team's best practices while the agent is still working, not at code review.",
+  "version": "1.0.0",
+  "author": "ckorhonen",
+  "homepage": "https://github.com/ckorhonen/jev-lint",
+  "skills": []
+}
