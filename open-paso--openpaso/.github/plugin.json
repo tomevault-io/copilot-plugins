@@ -1,0 +1,9 @@
+{
+  "name": "open-paso--openpaso",
+  "displayName": "openPASO",
+  "description": "openPASO (formerly OASiS): an MCP server that lets an AI model run nine finite-element and multiphysics codes, with curated knowledge, verified execution and cross-code coupling. Under active developm",
+  "version": "1.0.0",
+  "author": "open-PASO",
+  "homepage": "https://github.com/open-PASO/openPASO",
+  "skills": []
+}
