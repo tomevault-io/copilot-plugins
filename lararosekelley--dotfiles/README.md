@@ -15,9 +15,18 @@ Original source: `AGENTS.md` in [lararosekelley/dotfiles](https://github.com/lar
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
+## Bundled Skills (10)
 
 - [dotfiles](https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/recoll-search/SKILL.md)
+- [dotfiles](https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/how/SKILL.md)
+- [dotfiles](https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/why/SKILL.md)
+- [dotfiles](https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/audit/SKILL.md)
+- [dotfiles](https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/teach/SKILL.md)
+- [dotfiles](https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/verify/SKILL.md)
+- [dotfiles](https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/discuss/SKILL.md)
+- [dotfiles](https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/reflect/SKILL.md)
+- [dotfiles](https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/handoff/SKILL.md)
+- [dotfiles](https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/finalize/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/lararosekelley/dotfiles](https://github.com/lararosekelley/dotfiles)
 
