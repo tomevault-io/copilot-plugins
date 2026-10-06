@@ -1,0 +1,14 @@
+{
+  "name": "adunext--adu-motion-video",
+  "displayName": "adu-motion-video",
+  "description": "adu-motion-video",
+  "version": "1.0.0",
+  "author": "adunext",
+  "homepage": "https://github.com/adunext/adu-motion-video",
+  "skills": [
+    {
+      "name": "adu-motion-video",
+      "description": ""
+    }
+  ]
+}
