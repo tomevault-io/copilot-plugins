@@ -1,0 +1,9 @@
+{
+  "name": "mjcumming--topomation",
+  "displayName": "topomation",
+  "description": "Home Assistant occupancy automation integration with topology-aware workflows and test harness",
+  "version": "1.0.0",
+  "author": "mjcumming",
+  "homepage": "https://github.com/mjcumming/topomation",
+  "skills": []
+}
