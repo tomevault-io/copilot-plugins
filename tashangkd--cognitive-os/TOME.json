@@ -1,0 +1,44 @@
+{
+  "name": "cognitive-os",
+  "owner": "TashanGKD",
+  "repo": "cognitive-os",
+  "description": "cognitive-os \u00b7 \u8ba4\u77e5\u64cd\u4f5c\u7cfb\u7edf \u2014 13 Skills + 4 Rules + 4 SubAgents\uff0c\u628a\u4eba\u8111\u5206\u5c42\u8bb0\u5fc6\u7ed3\u6784\u5916\u5316\u4e3a AI \u53ef\u64cd\u4f5c\u7684\u77e5\u8bc6\u4f53\u7cfb\uff0c\u4ee550\u5e74\u8ba4\u77e5\u79d1\u5b66\u7814\u7a76\u4e3a\u57fa\u7840",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TashanGKD/cognitive-os",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T19:19:59Z"
+}
