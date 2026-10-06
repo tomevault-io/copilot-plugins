@@ -1,0 +1,63 @@
+{
+  "name": "seitu",
+  "owner": "letstri",
+  "repo": "seitu",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "seitu",
+      "path": "seitu/skills/seitu/SKILL.md",
+      "github_url": "https://github.com/letstri/seitu/tree/main/seitu/skills/seitu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "seitu",
+      "path": "seitu/skills/seitu-setup/SKILL.md",
+      "github_url": "https://github.com/letstri/seitu/tree/main/seitu/skills/seitu-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "seitu",
+      "path": "seitu/skills/seitu-overview/SKILL.md",
+      "github_url": "https://github.com/letstri/seitu/tree/main/seitu/skills/seitu-overview/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/letstri/seitu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T11:33:22Z"
+}
