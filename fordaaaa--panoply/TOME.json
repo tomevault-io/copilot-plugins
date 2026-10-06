@@ -1,0 +1,105 @@
+{
+  "name": "panoply",
+  "owner": "fordaaaa",
+  "repo": "panoply",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "panoply",
+      "path": "skills/caveman/SKILL.md",
+      "github_url": "https://github.com/fordaaaa/panoply/tree/main/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "panoply",
+      "path": "skills/polyglot/SKILL.md",
+      "github_url": "https://github.com/fordaaaa/panoply/tree/main/skills/polyglot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "panoply",
+      "path": "skills/brig-builder/SKILL.md",
+      "github_url": "https://github.com/fordaaaa/panoply/tree/main/skills/brig-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "panoply",
+      "path": "skills/brig-reviewer/SKILL.md",
+      "github_url": "https://github.com/fordaaaa/panoply/tree/main/skills/brig-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "panoply",
+      "path": ".claude/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/fordaaaa/panoply/tree/main/.claude/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "panoply",
+      "path": ".claude/skills/polyglot/SKILL.md",
+      "github_url": "https://github.com/fordaaaa/panoply/tree/main/.claude/skills/polyglot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "panoply",
+      "path": "skills/brig-investigator/SKILL.md",
+      "github_url": "https://github.com/fordaaaa/panoply/tree/main/skills/brig-investigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "panoply",
+      "path": ".claude/skills/brig-builder/SKILL.md",
+      "github_url": "https://github.com/fordaaaa/panoply/tree/main/.claude/skills/brig-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "panoply",
+      "path": ".claude/skills/brig-reviewer/SKILL.md",
+      "github_url": "https://github.com/fordaaaa/panoply/tree/main/.claude/skills/brig-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "panoply",
+      "path": ".claude/skills/brig-investigator/SKILL.md",
+      "github_url": "https://github.com/fordaaaa/panoply/tree/main/.claude/skills/brig-investigator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fordaaaa/panoply",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T13:35:04Z"
+}
