@@ -2,7 +2,7 @@
   "name": "iCode",
   "owner": "openJiuwen-ai",
   "repo": "iCode",
-  "description": "A lightweight, extensible, fully offline development platform and agent/workflow toolkit for the AI era, with an intuitive TUI, easy deployment, and complete control over your data, agents, and workflows.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openJiuwen-ai/iCode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-29T11:30:29Z"
+  "distributed_at": "2026-10-06T23:16:36Z"
 }
