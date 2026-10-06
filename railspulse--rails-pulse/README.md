@@ -1,17 +1,15 @@
 # rails_pulse
 
-> Tome by [railspulse](https://github.com/railspulse/rails_pulse) — distributed by [TomeVault](https://tomevault.io)
-
-Rails Pulse is a comprehensive performance monitoring and debugging gem that provides insights into your Rails application's health.
+> Tome by [railspulse](https://github.com/railspulse/rails_pulse), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [railspulse/rails_pulse](https://github.com/railspulse/rails_pulse).
+Original source: `AGENTS.md` in [railspulse/rails_pulse](https://github.com/railspulse/rails_pulse).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
