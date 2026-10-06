@@ -1,0 +1,14 @@
+{
+  "name": "opencollective--opencollective-frontend",
+  "displayName": "opencollective-frontend",
+  "description": "opencollective-frontend",
+  "version": "1.0.0",
+  "author": "opencollective",
+  "homepage": "https://github.com/opencollective/opencollective-frontend",
+  "skills": [
+    {
+      "name": "opencollective-frontend",
+      "description": ""
+    }
+  ]
+}
