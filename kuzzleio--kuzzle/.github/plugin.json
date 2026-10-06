@@ -1,0 +1,26 @@
+{
+  "name": "kuzzleio--kuzzle",
+  "displayName": "kuzzle",
+  "description": "kuzzle",
+  "version": "1.0.0",
+  "author": "kuzzleio",
+  "homepage": "https://github.com/kuzzleio/kuzzle",
+  "skills": [
+    {
+      "name": "kuzzle",
+      "description": ""
+    },
+    {
+      "name": "kuzzle",
+      "description": ""
+    },
+    {
+      "name": "kuzzle",
+      "description": ""
+    },
+    {
+      "name": "kuzzle",
+      "description": ""
+    }
+  ]
+}
