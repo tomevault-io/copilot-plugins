@@ -1,0 +1,22 @@
+{
+  "name": "react-native-nitro-google-sign-in--google-signin",
+  "displayName": "google-signin",
+  "description": "google-signin",
+  "version": "1.0.0",
+  "author": "react-native-nitro-google-sign-in",
+  "homepage": "https://github.com/react-native-nitro-google-sign-in/google-signin",
+  "skills": [
+    {
+      "name": "customization-migrator",
+      "description": ""
+    },
+    {
+      "name": "google-signin",
+      "description": ""
+    },
+    {
+      "name": "google-signin",
+      "description": ""
+    }
+  ]
+}
