@@ -4,7 +4,7 @@
   "repo": "OEIS_01",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/manman4/OEIS_01",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T19:42:35Z"
+  "distributed_at": "2026-10-06T17:06:19Z"
 }
