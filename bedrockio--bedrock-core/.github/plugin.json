@@ -1,0 +1,22 @@
+{
+  "name": "bedrockio--bedrock-core",
+  "displayName": "bedrock-core",
+  "description": "bedrock-core",
+  "version": "1.0.0",
+  "author": "bedrockio",
+  "homepage": "https://github.com/bedrockio/bedrock-core",
+  "skills": [
+    {
+      "name": "bedrock-core",
+      "description": ""
+    },
+    {
+      "name": "bedrock-core",
+      "description": ""
+    },
+    {
+      "name": "bedrock-core",
+      "description": ""
+    }
+  ]
+}
