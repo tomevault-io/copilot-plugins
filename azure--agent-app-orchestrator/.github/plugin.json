@@ -1,0 +1,30 @@
+{
+  "name": "azure--agent-app-orchestrator",
+  "displayName": "agent-app-orchestrator",
+  "description": "agent-app-orchestrator",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/agent-app-orchestrator",
+  "skills": [
+    {
+      "name": "agent-app-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "agent-app-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "agent-app-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "agent-app-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "agent-app-orchestrator",
+      "description": ""
+    }
+  ]
+}
