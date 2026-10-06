@@ -1,23 +1,39 @@
-## session-abschluss
+## streamlit-ui-state
 
-> End session — backlog sync, commit all changes, push, optional Docker
+> Prevent Streamlit stale UI after add/remove/edit — session_state, select, dual keys
 
 
-# Session Conclusion
+# Streamlit UI State (stale after edits)
 
-When the user wants to **end session**, **backlog sync**, **commit and push**, or a comparable session wrap-up:
+Before implementing or finishing any Streamlit editor/select/form change, run this checklist. Prefer existing helpers over new ad-hoc session logic.
 
-1. Follow skill `.cursor/skills/session-abschluss/SKILL.md` in full
-2. **Phase 1:** Maintain `backlog/Backlog.md` / `backlog/Backlog-Bugfixes.md` / `backlog/Backlog-Erledigt.md` → commit all approved open changes → push
-3. **`version.py`:** change only after explicit user approval (see `versioning.mdc`) — no automatic bump at session end
-4. On approved **D** bump to a pre-release (or before **B**): sync `docker/compose/*-alpha.yml` `image:` tags to `version.py` (skill section **Alpha compose sync**)
-5. For local or possibly temporary files **ask first** (e.g. personal VS Code settings, local paths)
-6. **Always ask** whether private earnie-env / `Earnie-env-home` changes should be committed, pushed, and tagged (skill §2a)
-7. After Phase 1: present the skill’s **Publish decision guide** (**A** skip / **B** pre-release / **C** official / **D** bump then publish) with live `version.py` and one recommended choice
-8. **Phase 2** (tag / Docker) **only** after the user picks B, C, or D→B/C — never automatically
-9. A tag builds a **candidate** only; the user tests it on the target platform and approves job `promote` (environment `release-approval`) themselves — never approve/reject on their behalf; `streamlitcloud` reset only after approval
+## Pre-change checklist
 
-Commit and push approval is implied by the end-session request; still do not commit secrets or gitignored files.
+1. **Add entity** — After create, select jumps to the new id (pending select + `st.rerun()`), not the previous one.
+2. **Remove entity** — After delete, select moves to a valid option (`— neu —` or another id); form fields must not keep deleted payload.
+3. **Rename (Bezeichnung)** — Closed selectbox shows the new label. Use `ui/label_select.py` (options = Bezeichnung). Do **not** use stable IDs + `format_func`.
+4. **Disk ↔ widgets** — On scope/file/page change, reseed via `_sync_*_session` + `*_widget_state_missing`. Do not leave empty/default widgets when disk still has data.
+5. **Dual keys** — Path/value store key ≠ widget `key` → use pending sync (`queue_csv_path_update` / `apply_csv_path_pending` pattern). Never write a widget key after that widget already ran in the same script run; set pending + `st.rerun()`.
+6. **Sibling editors** — If changing PV add/remove/select sync, check the same pattern for battery, Verbraucher, scenarios.
+
+## Project patterns (reuse)
+
+| Concern | Prefer |
+|--------|--------|
+| Entity select + labels | `label_select_choices`, `align_label_select_session`, `resolve_label_select` |
+| Scope / file / nav reseed | `_SESSION_SYNC_KEY`, `_SESSION_FILE_STAMP_KEY`, `*_widget_state_missing` |
+| Post-save / post-delete select | `_SESSION_SELECT_PENDING_KEY` then `_apply_pending_*` before the selectbox |
+| Auto-save refresh | `auto_persist` then `st.rerun()` when UI must reflect disk |
+| CSV path widgets | `ui/house_config_io.py` pending helpers |
+
+## Fragments & dialogs
+
+- Widgets that mutate session state belong **inside** the fragment that owns them (`StreamlitFragmentWidgetsNotAllowedOutsideError`).
+- Inside `@st.dialog`: avoid relying on `st.download_button` + dismiss in one click; save → `st.rerun()` → download on main page if needed.
+
+## Done when
+
+Mentally (or in tests) cover: **add → stays on new**, **remove → no ghost fields**, **rename → select label updates**, **navigate away/back → fields reseed from disk**.
 
 ---
 > Source: [JochenTCC/Earnie](https://github.com/JochenTCC/Earnie) — distributed by [TomeVault](https://tomevault.io).
