@@ -1,20 +1,17 @@
-## otr-loop
+## otr-nodes
 
-> OTR Windows loop — pull first, venv tests, obs publish, git on main
+> Node INPUT_TYPES and widgets must land in canonical JSON in the same change
 
 
-# OTR loop (Windows)
+# Node + widget lockstep
 
-Start every session: `git fetch origin main` then `git log --oneline HEAD..origin/main` then `git pull --rebase origin main`. Say what came down. Do not edit `workflows/otr_canonical.json` on a stale checkout.
+A change to `INPUT_TYPES`, a socket, or a widget is dead until `workflows/otr_canonical.json` is updated in the same change.
 
-- Edit real Windows files. Test with `C:\Users\jeffr\Documents\ComfyUI\.venv\Scripts\python.exe`, `$env:PYTHONUTF8=1`, `pytest -q -p no:cacheprovider`.
-- PowerShell: chain with `;` not `&&`. Nested `python -c` quotes fail — write a temp `.py`, run it, delete it.
-- Two boxes: 4060 owns portability/profiles; 5080 owns `nodes/`, canonical JSON, registry. Do not silently change the other machine. `apple/PROD_BUG_LOG.md` is append-only.
-- Publish success is a file in `otr/obs/` (`obs_publish OK`). Never move or hide harness runs out of that folder.
-- Git: one branch `main`. Never ask to commit. Always commit and push green chunks in the same turn (operator 2026-09-17). Named files only -- never `git add .`. Never push `v2.0-alpha`. Do not edit `pyproject.toml` just to tidy (it publishes).
-- After push: HEAD == origin, no 0-byte files, no BOM, AST-parse touched `.py`.
-- Reset before a headless run: selective CIM kill of the Comfy server (never a blanket `python` kill). Port 8000 empty, VRAM at desktop baseline.
-- Models live at `C:\ComfyUI-Models` via `_otr_models_root._models_root()`, not under Documents.
+- APPEND new optional widgets at the END of `widgets_values`. Never insert mid-list.
+- A widget converted to an input keeps its value slot AND gains an `inputs` entry with `"widget": {"name": ...}`.
+- After `INPUT_TYPES` edits, run widget/link regression: `test_widget_value_alignment.py`, `test_canonical_widget_input_parity.py`, `test_workflow_link_target_indexes.py`.
+- Then `python scripts/build_variants.py --all` and `--check`. Do not hand-edit variant JSONs.
+- Do not edit `_otr_model_catalog.py` unless the task is the catalog.
 
 ---
 > Source: [jbrick2070/ComfyUI-OldTimeRadio](https://github.com/jbrick2070/ComfyUI-OldTimeRadio) — distributed by [TomeVault](https://tomevault.io).
