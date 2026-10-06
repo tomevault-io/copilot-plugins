@@ -1,78 +1,17 @@
-## pull-requests
+## ycode
 
-> Pull request conventions for all repositories
+> <!-- BEGIN:nextjs-agent-rules -->
 
+<!-- BEGIN:nextjs-agent-rules -->
 
-# Pull Request Conventions
+# This is NOT the Next.js you know
 
-## Title
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-Use the same format as commit messages:
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
-```
-<type>: <concise summary in imperative mood>
-```
-
-Examples: `feat: add custom domain management`, `fix: prevent primary domain deletion`
-
-## Body Format
-
-```markdown
-## Summary
-
-<1-3 sentences explaining WHAT changed and WHY>
-
-## Changes
-
-- Bullet list of specific changes grouped logically
-- Focus on behavior changes, not file-by-file diffs
-- Use imperative mood: "Add X" not "Added X"
-
-## Test plan
-
-- [ ] Actionable checklist of how to verify the changes
-- [ ] Include edge cases worth testing
-```
-
-## Rules
-
-- **Base branch**: always create PRs against the `develop` branch
-- **Assignee**: always assign the PR to the current GitHub user (`gh api user --jq '.login'`)
-- **Labels**: apply a label based on PR type — `Bug` for `fix:` PRs, `Feature request` for `feat:` PRs, `Improvement` for `refactor:` or `perf:` PRs, `Documentation` for `docs:` PRs. Skip labels for other types (chore, style, test)
-- **No AI attribution**: never mention Cursor, AI, copilot, or assistant
-- **Summary over detail**: reviewers read the diff — the PR describes intent
-- **Imperative mood** throughout: "Add", "Fix", "Remove", not past tense
-- **No filler**: avoid "various improvements", "some fixes" — be specific
-- **Link issues** when applicable: "Closes #123" in the summary
-- **Keep it scannable**: bullets over paragraphs, short lines
-- **Test plan is mandatory**: always include at least one verification step
-- **No trailer parameters**: do not use `--trailer` flags in git commit commands
-
-## Example
-
-```markdown
-## Summary
-
-Add domain management UI and API for cloud tenants, allowing users to
-connect custom domains, verify DNS, and set a primary canonical URL.
-
-## Changes
-
-- Add settings page at `/settings/domains` with add/remove/verify flows
-- Add API routes for domain CRUD, status checking, and primary selection
-- Integrate Vercel SDK for domain registration and DNS verification
-- Add middleware redirect from non-primary domains to primary
-- Enforce 10-domain limit per tenant
-
-## Test plan
-
-- [ ] Add a custom domain and verify it appears in the list
-- [ ] Check DNS status shows correct records to configure
-- [ ] Set a domain as primary and confirm redirect works
-- [ ] Attempt to remove primary domain — should be blocked
-- [ ] Attempt to add 11th domain — should be rejected
-```
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [ycode/ycode](https://github.com/ycode/ycode) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
