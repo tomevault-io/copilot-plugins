@@ -1,0 +1,9 @@
+{
+  "name": "suryast--indonesia-civic-stack",
+  "displayName": "indonesia-civic-stack",
+  "description": "\ud83c\uddee\ud83c\udde9 Production-ready Python SDK + MCP server for 14 Indonesian government data sources \u2014 halal certs, company registry, procurement, budget, legal docs & more. 46 AI-agent tools.",
+  "version": "1.0.0",
+  "author": "suryast",
+  "homepage": "https://github.com/suryast/indonesia-civic-stack",
+  "skills": []
+}
