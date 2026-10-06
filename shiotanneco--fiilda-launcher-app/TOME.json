@@ -1,0 +1,44 @@
+{
+  "name": "fiilda-launcher-app",
+  "owner": "ShiotanNeco",
+  "repo": "fiilda-launcher-app",
+  "description": "\u6298\u308a\u305f\u305f\u307f\u7aef\u672b\u5411\u3051\u306eAndroid\u30db\u30fc\u30e0\u30a2\u30d7\u30ea FiiLDA Launcher \u306e\u914d\u5e03\u30da\u30fc\u30b8",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ShiotanNeco/fiilda-launcher-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T10:36:09Z"
+}
