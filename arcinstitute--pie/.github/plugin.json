@@ -1,0 +1,9 @@
+{
+  "name": "arcinstitute--pie",
+  "displayName": "pie",
+  "description": "PIE is a perturbation effect prediction model that generalizes to unseen biological conditions",
+  "version": "1.0.0",
+  "author": "ArcInstitute",
+  "homepage": "https://github.com/ArcInstitute/pie",
+  "skills": []
+}
