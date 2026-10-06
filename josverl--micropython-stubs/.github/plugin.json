@@ -1,0 +1,14 @@
+{
+  "name": "josverl--micropython-stubs",
+  "displayName": "micropython-stubs",
+  "description": "micropython-stubs",
+  "version": "1.0.0",
+  "author": "Josverl",
+  "homepage": "https://github.com/Josverl/micropython-stubs",
+  "skills": [
+    {
+      "name": "micropython-stubs",
+      "description": ""
+    }
+  ]
+}
