@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "GoogleCloudPlatform",
   "homepage": "https://github.com/GoogleCloudPlatform/horizon-sdv",
-  "skills": []
+  "skills": [
+    {
+      "name": "horizon-sdv",
+      "description": ""
+    },
+    {
+      "name": "horizon-sdv",
+      "description": ""
+    }
+  ]
 }
