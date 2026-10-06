@@ -7,11 +7,11 @@ Mobile-first SCUMM-style point-and-click engine with authoring tools and an AI-f
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wanoo/web-scumm](https://github.com/wanoo/web-scumm).
+Original source: `AGENTS.md` in [wanoo/web-scumm](https://github.com/wanoo/web-scumm).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
