@@ -1,0 +1,9 @@
+{
+  "name": "nousresearch--hermes-plugin-claude-subscription-directsdk",
+  "displayName": "hermes-plugin-claude-subscription-directsdk",
+  "description": "hermes-plugin-claude-subscription-directsdk",
+  "version": "1.0.0",
+  "author": "NousResearch",
+  "homepage": "https://github.com/NousResearch/hermes-plugin-claude-subscription-directsdk",
+  "skills": []
+}
