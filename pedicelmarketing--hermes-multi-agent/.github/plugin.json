@@ -1,0 +1,9 @@
+{
+  "name": "pedicelmarketing--hermes-multi-agent",
+  "displayName": "hermes-multi-agent",
+  "description": "Paperclip + Hermes + MemOS multi-agent system with autoresearch self-improving loops \u2014 research skills, architecture docs, session state",
+  "version": "1.0.0",
+  "author": "pedicelmarketing",
+  "homepage": "https://github.com/pedicelmarketing/hermes-multi-agent",
+  "skills": []
+}
