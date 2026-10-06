@@ -2,7 +2,7 @@
   "name": "open-pencil",
   "owner": "open-pencil",
   "repo": "open-pencil",
-  "description": "AI-native design editor. Open-source Figma alternative.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/open-pencil/open-pencil",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T08:42:35Z"
+  "distributed_at": "2026-10-06T13:59:32Z"
 }
