@@ -1,0 +1,96 @@
+## mudcore
+
+> mudcore 是独立的通用 LPMUD 开发框架，基于 UTF-8 FluffOS，提供与具体玩法解耦的核心功能。既支持从零开发新 MUD，也支持老 MUD 按需集成；模块应可选择、组合和替换，不要求整体采用。minimud 是新项目模板，MyMud 是基于框架开发的新 MUD；老 MUD 仅使用部分能力也是正常用法。
+
+# Repository Guidelines
+
+## 框架定位与设计边界
+
+mudcore 是独立的通用 LPMUD 开发框架，基于 UTF-8 FluffOS，提供与具体玩法解耦的核心功能。既支持从零开发新 MUD，也支持老 MUD 按需集成；模块应可选择、组合和替换，不要求整体采用。minimud 是新项目模板，MyMud 是基于框架开发的新 MUD；老 MUD 仅使用部分能力也是正常用法。
+
+新增功能应保持通用性，具体剧情、门派、数值规则和运营配置放在使用方项目。可选功能须明确依赖，不得因未启用无关模块而阻断基础功能。
+
+Socket、HTTP、TLS、数据库、外部命令和 Intermud 协议属于合理的通用能力，不能以“去依赖”为由删除或禁用。框架不得内置具体服务地址、凭据或默认主动调用；MUDLIB 提供配置并按需启用，第三方业务适配放在使用方项目。示例中的地址不等于运行依赖。
+
+## 驱动支持基线
+
+Git 提交（commit）`fb1549ba83ac3219e91efdbf662dc4c9c2bf78ae` 之后的 mudcore 版本最低要求 UTF-8 FluffOS `v2026.0712.3`，不再支持更早的驱动。该提交及之前的框架版本仍保留原有的旧驱动兼容策略。
+
+老 MUD 仍可按需集成：升级驱动后使用后续框架版本，或保留旧驱动并将框架固定到上述提交或更早的提交。后续开发不为旧驱动新增兼容代码，也不因旧驱动限制 LPC 语法、efun 与源码扩展名的使用。基线依据及接入要求见 [源文件与驱动能力](docs/integration.md#源文件与驱动能力)。
+
+采用基线之后引入的特性时，记录实际最低版本及驱动包要求；若成为核心必需能力，同步提高框架最低驱动版本，可选组件则明确自己的额外要求。不能把最新版能力当作基线已支持，也不能把支持范围当作每个版本都已实测。宿主 API、历史别名及存档兼容约定不因停止支持旧驱动而取消。
+
+## 目录与扩展约定
+
+`include/` 定义公共宏和接口；`inherit/` 提供可组合组件；`system/kernel/` 提供 master 和 simul efun；`system/daemons/` 提供服务；`system/object/` 提供基础对象。传统指令放在 `cmds/`，parser 谓词放在 `verbs/`，示例世界放在 `world/`，接口说明放在 `docs/`。
+
+维护 `include/mudcore.h` 的扩展约定：`CORE_*` 指向框架实现，已有 `_MODULE`、daemon 和对象别名允许使用方预先覆盖；`<mudcore.h>` 应在使用方 `globals.h` 最后包含。游戏定制优先通过继承、覆盖或配置完成；通用修复在本仓库实现，并保持公共签名、存档结构和默认行为兼容。
+
+FluffOS STD 中的通用 sefun 应由框架提供，新增接入优先沿用官方实现和公开接口，并带入对应测试、保留来源与授权。已有功能正确的轻量实现无需为逐行一致而重写；`std/` 下的可继承组件另按模块接入。
+
+## 组件契约与选择性接入
+
+虚拟对象新开发统一实现 `create_virtual_object(string key)`，使用 `/处理程序/标识` 路径。daemon 不解释新接口的业务参数；未知键返回 0，异常不转旧式重试，命名/UID/virtual_start 仍由驱动负责。框架保留已公开旧入口及宿主覆盖，具体约定见 `docs/daemons/virtual_d.md`。
+
+以 `docs/architecture.md` 与 `docs/module-contracts.md` 为架构和公共组件规范。新增/修改组件时同步依赖矩阵，明确必需组件、daemon/simul efun、宿主方法、可选协作、驱动包、输入/返回/错误及初始化和清理责任。仍有组合依赖的实现不得宣称完全独立。
+
+机制与宿主策略分离：命令定制使用受控阶段及 protected 钩子，名称/性别策略不改认证状态所有权，初始属性使用 `CHAR_D`。保留默认完整 `_USER`；最小组合由宿主显式选择 `_USER_BASE` 并配套命令/parser/属性策略，不自动迁移玩家存档或热切换组合。权限来源诊断不是安全认证，也不自动修改 master 权限。
+
+可选依赖必须分别验证缺席、正常存在、存在但抛错；未选组件不得被加载，已选组件故障不得通过吞异常伪装成功。组合测试应实际省略未选文件，以真实连接、移动、存档往返及重连验证，并覆盖默认实现和宿主别名/钩子覆盖。编译选项关闭不等于已验证真实裁剪驱动。
+
+## 开发与验证
+
+本仓库不自带 FluffOS 驱动。独立检出运行 `node tests/run.mjs <driver路径>`；作为子模块，从宿主根目录运行 `node mudcore/tests/run.mjs fluffos/build/bin/driver.exe`。需要 Node.js 18+ 和 UTF-8 FluffOS `v2026.0712.3` 或更新版本，并启用测试所需驱动包；测试在临时 mudlib 中检查默认实现、宿主覆盖和本机 Socket 收发，不读取实际玩家数据或访问外部服务，详见 `tests/README.md`。
+
+总入口包含 default/overrides 与 minimal/custom 四组；组合套件也可单独运行 `node tests/contracts.mjs <driver路径>`。以各驱动退出码、LPC 检查和 Node 通信断言共同判定，不能仅根据 PASS 文本宣称成功。临时测试宿主不代表当前老 MUD/minimud/MyMud 已验收。
+
+游戏集成使用 minimud 等测试宿主或当前 MUDLIB。参考 `config.mini.ini`、`config.example.ini` 配置实际 mudlib、include、master 和 simul efun 路径，不能假定模板可直接启动任意检出。
+
+在已配置的测试宿主根目录执行 `driver config.ini -d` 启动调试。编译或加载受影响对象，查看配置指定的调试与错误日志，复测相关登录、命令、移动或存取流程。公共接口变更需覆盖默认实现和使用方覆盖两种情况；保存可复现步骤，说明未验证的场景。目前没有统一覆盖率门槛。
+
+## LPC 风格与命名
+
+使用 UTF-8、LF、四空格缩进、K&R 大括号和末尾换行，不用制表符；目标行宽 100。变量在函数开头声明；常量使用 `UPPER_SNAKE_CASE`，局部变量允许描述性的 camelCase。
+
+所有新 LPC 函数统一使用 `snake_case`，包括 sefun、lfun、public/protected/private 方法和回调；不通过大小写区分函数来源。驱动规定的 apply/efun 名称保持原样；避免新接口与 efun 或已有不同语义接口重名。存档字段、协议键及变量不随函数改名。历史驼峰名称仅作为已登记的兼容入口，新代码和文档使用下划线名；修改时同步原型、继承调用、闭包、字符串回调和动态查询，并测试旧宿主覆盖与 `::` 父实现调用。详见 [函数命名与迁移](docs/function-naming.md)，执行 `node tests/function-names.mjs` 检查命名清单。
+
+命名先看语义，再确定单词边界，禁止仅按大写字母机械拆分。例如 `todo` 作为完整概念；集合、计数、描述应通过复数或后缀区分；`is_*`/`has_*` 表示判断，`get_*` 表示查询，有状态变更或输出的函数用动作动词。以实际实现而非历史名称/旧注释判断含义；改名不偷偷改变参数、返回值、布尔极性或副作用。
+
+新建 LPC 源文件优先使用小写 `.lpc`，适用于框架生产代码、示例和测试；头文件继续使用 `.h`。已有 `.c` 文件仍可维护，不因规范调整批量改名；后续迁移扩展名时同步更新实际文件引用、包含关系和测试。不新增同路径同名的双扩展文件（扩展名优先级测试夹具除外）。对象引用优先省略扩展名，`#include` 使用实际文件名。新增或迁移 `.lpc` 时检查命令索引、谓词、预加载和虚拟对象扫描，继续识别现存 `.c` 与 `.lpc`，同名时优先 `.lpc` 并去重；双扩展名扫描不代表支持旧驱动。
+
+## efun 兼容原则
+
+框架 sefun 覆盖驱动 efun 时，只能在保持原有功能的基础上增强；不得改变驱动已有的参数形式、默认值、查找范围与顺序、返回值、错误行为或副作用。扩展能力应限定在明确的框架对象或新增用法中，原生用法继续兼容。修改时补充与 `efun::` 原生调用对照的回归，覆盖省略参数、显式参数及边界输入，不能仅验证新增功能。
+
+核对 efun 时先读宿主 `fluffos/docs/efun/` 中对应文档；文档不清楚或与实测存在差异时，直接查 `fluffos/src/` 的实现及驱动测试，不凭函数名或印象推断。宿主 MUDLIB 未提供 `fluffos/` 时，先读取官方 AI 文档索引 https://www.fluffos.info/llms.txt ，按索引访问 efun、apply、LPC 等对应文档；仍有歧义时查官方仓库 https://github.com/fluffos/fluffos 的 `src/` 实现和测试。efun 声明以 `src/packages/*/*.spec` 为准。记录实际核对和测试的语义，不把在线最新文档当作宿主驱动已支持的证明。
+
+## 格式化与语法依据
+
+修改 `.c`、`.lpc`、`.h` 后，交付前必须格式化并运行检查，仅处理本次变更。使用 FluffOS LPC 格式化器，固定 `indentSize: 4`、`printWidth: 100`，验证 token、字面量和注释内容不变及格式化幂等性；保留字符串、heredoc 和预处理指令的语义。
+
+宿主提供 `tools/format_lpc.mjs` 时，从宿主根目录执行，替换为实际变更文件：
+
+```sh
+node tools/format_lpc.mjs mudcore/inherit/dbase.c
+node tools/format_lpc.mjs --check mudcore/inherit/dbase.c
+```
+
+该入口需要 Node.js 18+ 和宿主 `fluffos/tools/lpc-syntax/`。独立检出不自带该工具，须先准备等效入口；工具缺失或失败应解决并如实报告，不得声称检查通过。
+
+宿主有 `docs/LPC_Language_FluffOS.md` 时，以其最新内容为项目语法标准；独立开发以所用 FluffOS 版本的源码、efun 定义和测试为依据，记录版本及可选包要求。驱动升级后同步核对相关文档。
+
+## 版本管理
+
+框架版本以 `include/mudcore.h` 的 `MUDCORE_VERSION` 及主、次、修订号宏为准，宿主不能覆盖。主版本表示需要宿主迁移的不兼容变化，次版本表示兼容的新功能，修订号表示兼容修复；安全修复也按实际兼容影响分类。日常提交记入未发布条目，不为每次修改单独递增版本。
+
+准备发布时同步头文件、README、CHANGELOG 和版本文档；开发版本保留 `-dev`，正式版本使用对应的 `vX.Y.Z` Git 标签。未获发布授权时不得创建或推送标签，不能仅凭版本字符串宣称已发布。具体步骤见 `docs/maintenance.md`。
+
+## 提交与协作
+
+沿用 `fix:`、`feat:`、`refactor:`、`style:`、`docs:` 等简短提交主题。PR 写明行为变化、兼容影响、验证环境和步骤，关联相关问题；接口变更同步更新 `README.md`、`docs/`，破坏性变更补充 `CHANGELOG.md` 和迁移说明。
+
+作为子模块提交时，先提交框架变更，再在宿主提交新的 gitlink；提交和推送按用户授权执行。不要提交凭据、玩家存档、日志或本地索引。仓库存在 `.codegraph/` 时，定位代码先用 `codegraph explore`；不存在时不自动建立索引。
+
+---
+> Source: [oiuv/mudcore](https://github.com/oiuv/mudcore) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
