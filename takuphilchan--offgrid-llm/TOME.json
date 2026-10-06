@@ -3,7 +3,7 @@
   "owner": "takuphilchan",
   "repo": "offgrid-llm",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "offgrid-llm",
+      "path": ".agents/skills/organize-git-commits/SKILL.md",
+      "github_url": "https://github.com/takuphilchan/offgrid-llm/tree/main/.agents/skills/organize-git-commits/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/takuphilchan/offgrid-llm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T06:44:22Z"
+  "distributed_at": "2026-10-06T18:39:16Z"
 }
