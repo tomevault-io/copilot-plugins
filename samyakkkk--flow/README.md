@@ -26,7 +26,7 @@ Original source: `AGENTS.md` in [samyakkkk/flow](https://github.com/samyakkkk/fl
 - [flow](https://github.com/samyakkkk/flow/tree/main/.repos/effect-smol/.agents/skills/grill-me/SKILL.md)
 - [flow](https://github.com/samyakkkk/flow/tree/main/.repos/effect-smol/.agents/skills/scratchpad/SKILL.md)
 
-From [samyakkkk/flow](https://github.com/samyakkkk/flow) — a repo with 63+ stars on GitHub.
+From [samyakkkk/flow](https://github.com/samyakkkk/flow) — a repo with 0+ stars on GitHub.
 
 ---
 
