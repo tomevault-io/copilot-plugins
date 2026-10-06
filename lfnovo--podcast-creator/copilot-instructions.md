@@ -1,10 +1,12 @@
 ## podcast-creator
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI coding agents when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents when working with code in this repository.
+
+Maintainer profile lives in `.maintainer/`; do not run release, triage or discussions workflows without it.
 
 ## Build and Development Commands
 
@@ -114,10 +116,11 @@ Each node in the workflow:
 - **ai-prompter**: Template management
 - **content-core**: Content extraction from files/URLs
 - **tenacity**: Retry with exponential backoff
-- **pydub/moviepy**: Audio processing
+- **pydub**: Audio metadata in the Streamlit UI
+- **ffmpeg** (bundled via `imageio-ffmpeg`): Audio combining (single-process concat filter)
 
 This architecture enables flexible, scalable podcast generation while maintaining clean separation of concerns through configuration-driven design.
 
 ---
 > Source: [lfnovo/podcast-creator](https://github.com/lfnovo/podcast-creator) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
