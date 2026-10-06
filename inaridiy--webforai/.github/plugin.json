@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "inaridiy",
   "homepage": "https://github.com/inaridiy/webforai",
-  "skills": []
+  "skills": [
+    {
+      "name": "webforai",
+      "description": ""
+    }
+  ]
 }
