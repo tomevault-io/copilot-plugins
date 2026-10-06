@@ -1,0 +1,9 @@
+{
+  "name": "voip-rs--freeswitch-esl-tokio",
+  "displayName": "freeswitch-esl-tokio",
+  "description": "Rust implementation of FreeSWITCH's ESL",
+  "version": "1.0.0",
+  "author": "voip-rs",
+  "homepage": "https://github.com/voip-rs/freeswitch-esl-tokio",
+  "skills": []
+}
