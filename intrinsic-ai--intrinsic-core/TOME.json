@@ -1,0 +1,99 @@
+{
+  "name": "intrinsic-core",
+  "owner": "intrinsic-ai",
+  "repo": "intrinsic-core",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "intrinsic-core",
+      "path": ".agents/skills/intrinsic-core-bazel/SKILL.md",
+      "github_url": "https://github.com/intrinsic-ai/intrinsic-core/tree/main/.agents/skills/intrinsic-core-bazel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intrinsic-core",
+      "path": ".agents/skills/intrinsic-core-concepts/SKILL.md",
+      "github_url": "https://github.com/intrinsic-ai/intrinsic-core/tree/main/.agents/skills/intrinsic-core-concepts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intrinsic-core",
+      "path": ".agents/skills/intrinsic-core-solutions/SKILL.md",
+      "github_url": "https://github.com/intrinsic-ai/intrinsic-core/tree/main/.agents/skills/intrinsic-core-solutions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intrinsic-core",
+      "path": ".agents/skills/intrinsic-core-debugging/SKILL.md",
+      "github_url": "https://github.com/intrinsic-ai/intrinsic-core/tree/main/.agents/skills/intrinsic-core-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intrinsic-core",
+      "path": ".agents/skills/intrinsic-core-robot-motion/SKILL.md",
+      "github_url": "https://github.com/intrinsic-ai/intrinsic-core/tree/main/.agents/skills/intrinsic-core-robot-motion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intrinsic-core",
+      "path": ".agents/skills/intrinsic-core-api-overview/SKILL.md",
+      "github_url": "https://github.com/intrinsic-ai/intrinsic-core/tree/main/.agents/skills/intrinsic-core-api-overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intrinsic-core",
+      "path": ".agents/skills/intrinsic-core-skill-authoring/SKILL.md",
+      "github_url": "https://github.com/intrinsic-ai/intrinsic-core/tree/main/.agents/skills/intrinsic-core-skill-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intrinsic-core",
+      "path": ".agents/skills/intrinsic-core-solution-building/SKILL.md",
+      "github_url": "https://github.com/intrinsic-ai/intrinsic-core/tree/main/.agents/skills/intrinsic-core-solution-building/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intrinsic-core",
+      "path": ".agents/skills/intrinsic-core-service-authoring/SKILL.md",
+      "github_url": "https://github.com/intrinsic-ai/intrinsic-core/tree/main/.agents/skills/intrinsic-core-service-authoring/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/intrinsic-ai/intrinsic-core",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T15:42:43Z"
+}
