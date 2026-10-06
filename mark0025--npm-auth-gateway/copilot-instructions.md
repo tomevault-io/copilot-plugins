@@ -1,443 +1,638 @@
-## nextjs16feature-architecture
+## shadcn-ui-component-strategy
 
-> Below is a **production-grade Cursor rule** for **feature-based architecture in Next.js 16**.
+> Defines how to use shadcn/ui components - never modify originals, always wrap and extend. Clear boundaries between Tailwind utilities and shadcn/ui components.
 
-Below is a **production-grade Cursor rule** for **feature-based architecture in Next.js 16**.
-This rule teaches Cursor to generate **large-scale maintainable applications** instead of flat folder chaos.
 
-This architecture is used in **large SaaS and enterprise Next.js apps** because it scales to **millions of users and large teams**.
+# shadcn/ui Component Strategy
 
-Place it at:
+This rule teaches **when to use shadcn/ui** vs **when to use Tailwind utilities**, and **how to extend components** without breaking updates.
 
-```
-.cursor/rules/nextjs16-feature-architecture.mdc
-```
+**Core Principle**: shadcn/ui components are **source code you own**, not a package. Treat them as a **starting point**, not a final destination.
 
 ---
 
-# `.cursor/rules/nextjs16-feature-architecture.mdc`
+## 🎯 The Golden Rule
 
-```mdc
----
-description: "Defines feature-based architecture for scalable Next.js 16 applications using domain modules and vertical slicing."
-alwaysApply: false
----
-
-# Next.js 16 Feature Architecture Rules
-
-This rule defines how to organize **large Next.js 16 applications** using **feature-based architecture** (also called domain architecture or vertical slicing).
-
-The goal is to:
-
-- prevent flat folder chaos
-- scale to large applications
-- isolate domains
-- keep routing separate from business logic
-
-This architecture should be used whenever the application contains **multiple domains or complex business logic**.
-
----
-
-# 1. Architecture Philosophy
-
-Next.js routing lives in `/app`, but business logic should be organized by **feature domains**.
-
-Bad architecture:
-
-```
-
-components/
-utils/
-hooks/
-services/
-
-```
-
-This becomes impossible to maintain at scale.
-
-Instead use **domain modules**.
-
----
-
-# 2. Domain Feature Structure
-
-Each feature represents a **business domain**.
-
-Example domains:
-
-- auth
-- users
-- billing
-- dashboard
-- products
-- analytics
-
-Each feature must contain its own:
-
-- components
-- server logic
-- actions
-- types
-
-Example structure:
-
-```
-
-features/
-auth/
-components/
-actions/
-services/
-hooks/
-types.ts
-users/
-components/
-actions/
-services/
-types.ts
-
-```
-
----
-
-# 3. Relationship With App Router
-
-The `/app` directory **only defines routing**.
-
-Business logic should live inside **features**.
-
-Example:
-
-```
-
-app/dashboard/page.tsx
-features/dashboard/components/Dashboard.tsx
-
-```
-
-Page files should remain thin.
-
-Bad:
-
-```
-
-app/dashboard/page.tsx
-400 lines of UI + logic
-
-```
-
-Good:
-
-```
-
-app/dashboard/page.tsx
-
-````
+### ✅ ALWAYS: Import → Wrap → Extend
 
 ```tsx
-import { DashboardPage } from "@/features/dashboard/components/dashboard-page"
-````
+// ✅ CORRECT: Import and wrap
+import { Button } from "@/components/ui/button"
+
+export function AwesomeButton({ children, ...props }: AwesomeButtonProps) {
+  return (
+    <Button
+      className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+      {...props}
+    >
+      {children}
+    </Button>
+  )
+}
+
+// Use your wrapped version
+<AwesomeButton>Click me</AwesomeButton>
+```
+
+### ❌ NEVER: Modify shadcn/ui Source Files
+
+```tsx
+// ❌ WRONG: Modifying ui/button.tsx directly
+// File: components/ui/button.tsx
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        // ❌ DON'T ADD YOUR CUSTOM VARIANTS HERE
+        awesome: "bg-gradient-to-r from-purple-500 to-pink-500", // ❌ WRONG
+      },
+    },
+  }
+)
+```
+
+**Why this is wrong**:
+- Breaks when you update shadcn/ui components
+- Makes it hard to track custom vs. library code
+- Difficult to share across projects
+- Can't easily revert to defaults
 
 ---
 
-# 4. Feature Folder Layout
+## 🚦 When to Use What
 
-Each feature must follow this structure:
+### Use shadcn/ui Components When You Need:
 
-```
-features/
-  feature-name/
-    components/
-    actions/
-    services/
-    hooks/
-    lib/
-    types.ts
-```
+✅ **Complex Interactive Components**
+- Forms (Input, Select, Checkbox, Radio, Switch)
+- Overlays (Dialog, Popover, Tooltip, Sheet)
+- Navigation (Tabs, Accordion, Dropdown Menu)
+- Data Display (Table, Card with multiple parts)
+- Feedback (Alert, Toast, Progress)
 
-Responsibilities:
+✅ **Accessibility Out of the Box**
+- Keyboard navigation
+- Screen reader support
+- ARIA attributes
+- Focus management
 
-components → UI
-actions → server actions
-services → business logic
-hooks → client hooks
-lib → utilities internal to the feature
+✅ **Compound Components**
+- Components with multiple sub-components
+- Complex state management
+- Coordinated behavior
 
-Never place unrelated logic inside a feature.
+### Use Tailwind Utilities When You Need:
 
----
+✅ **Layout and Spacing**
+- Grid, Flexbox, positioning
+- Margins, padding, gaps
+- Responsive layouts
 
-# 5. Server Actions Inside Features
+✅ **Simple Styling**
+- Colors, backgrounds
+- Borders, shadows
+- Typography (size, weight, color)
 
-Server actions should live inside the feature.
-
-Example:
-
-```
-features/users/actions/update-user.ts
-```
-
-Bad:
-
-```
-actions/update-user.ts
-```
-
-unless the action is globally shared.
+✅ **One-Off Components**
+- Simple divs, sections
+- Static content containers
+- Basic wrappers
 
 ---
 
-# 6. Feature Components
+## 📦 Component Extension Patterns
 
-Feature UI should live inside:
+### Pattern 1: Simple Wrapper (Most Common)
 
-```
-features/<feature>/components
-```
+Use when you want to add default styles or behaviors.
 
-Example:
+```tsx
+// components/awesome-button.tsx
+import { Button, ButtonProps } from "@/components/ui/button"
 
-```
-features/dashboard/components/dashboard-page.tsx
-features/dashboard/components/revenue-chart.tsx
-```
-
-Never place domain-specific UI in global `components/`.
-
----
-
-# 7. Shared UI Components
-
-Only **truly reusable UI** should live in the global components folder.
-
-Examples:
-
-```
-components/button.tsx
-components/modal.tsx
-components/input.tsx
-components/card.tsx
+export function AwesomeButton({ className, ...props }: ButtonProps) {
+  return (
+    <Button
+      className={cn(
+        "bg-gradient-to-r from-purple-500 to-pink-500",
+        "hover:from-purple-600 hover:to-pink-600",
+        "shadow-lg shadow-purple-500/50",
+        className // Allow overrides
+      )}
+      {...props}
+    />
+  )
+}
 ```
 
-Rule:
+### Pattern 2: Extended Props
 
-If a component is used by only **one feature**, it belongs inside that feature.
+Use when you need custom behavior or props.
 
----
+```tsx
+// components/icon-button.tsx
+import { Button, ButtonProps } from "@/components/ui/button"
+import { type LucideIcon } from "lucide-react"
 
-# 8. Feature Services
+interface IconButtonProps extends ButtonProps {
+  icon: LucideIcon
+  iconPosition?: "left" | "right"
+}
 
-Business logic must live in services.
-
-Example:
-
-```
-features/users/services/user-service.ts
-```
-
-Responsibilities:
-
-* database access
-* external APIs
-* domain logic
-
-Never place business logic directly inside:
-
-```
-page.tsx
-layout.tsx
-components
-```
-
----
-
-# 9. Feature Types
-
-Types must live inside the feature.
-
-Example:
-
-```
-features/billing/types.ts
+export function IconButton({
+  icon: Icon,
+  iconPosition = "left",
+  children,
+  className,
+  ...props
+}: IconButtonProps) {
+  return (
+    <Button className={cn("gap-2", className)} {...props}>
+      {iconPosition === "left" && <Icon className="size-4" />}
+      {children}
+      {iconPosition === "right" && <Icon className="size-4" />}
+    </Button>
+  )
+}
 ```
 
-Global types should only be used when shared across domains.
+### Pattern 3: Variant-Specific Wrapper
 
-Example:
+Use when you always want a specific variant with custom styles.
 
-```
-types/global.ts
-```
+```tsx
+// components/danger-button.tsx
+import { Button, ButtonProps } from "@/components/ui/button"
 
----
-
-# 10. Feature Hooks
-
-Client hooks belong to the feature.
-
-Example:
-
-```
-features/analytics/hooks/use-metrics.ts
-```
-
-Bad:
-
-```
-hooks/useMetrics.ts
+export function DangerButton({ className, ...props }: ButtonProps) {
+  return (
+    <Button
+      variant="destructive"
+      className={cn(
+        "hover:scale-105 transition-transform",
+        "shadow-md shadow-red-500/30",
+        className
+      )}
+      {...props}
+    />
+  )
+}
 ```
 
-unless globally reusable.
+### Pattern 4: Compound Component Wrapper
 
----
+Use when wrapping complex components like Dialog or Card.
 
-# 11. Route to Feature Pattern
+```tsx
+// components/confirmation-dialog.tsx
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
 
-The correct pattern is:
+interface ConfirmationDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  title: string
+  description: string
+  onConfirm: () => void
+  onCancel: () => void
+  confirmText?: string
+  cancelText?: string
+}
 
-```
-app route → feature component → services/actions
-```
-
-Example flow:
-
-```
-app/dashboard/page.tsx
-   ↓
-features/dashboard/components/dashboard-page.tsx
-   ↓
-features/dashboard/services/dashboard-service.ts
-```
-
-This keeps routing separate from domain logic.
-
----
-
-# 12. Feature Imports
-
-Use absolute imports.
-
-Example:
-
-```
-import { getUser } from "@/features/users/services/user-service"
-```
-
-Never use deep relative imports like:
-
-```
-../../../services/user-service
+export function ConfirmationDialog({
+  open,
+  onOpenChange,
+  title,
+  description,
+  onConfirm,
+  onCancel,
+  confirmText = "Confirm",
+  cancelText = "Cancel",
+}: ConfirmationDialogProps) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <Button variant="outline" onClick={onCancel}>
+            {cancelText}
+          </Button>
+          <Button onClick={onConfirm}>{confirmText}</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
 ```
 
 ---
 
-# 13. Large Feature Modules
+## 📝 Forms: ALWAYS Use shadcn/ui + React Hook Form
 
-Large features may contain nested domains.
+### ✅ CORRECT: Use shadcn/ui Form Components
 
-Example:
+**Never build forms from scratch**. Use shadcn/ui's form components with React Hook Form.
 
+```tsx
+'use client'
+
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm, Controller } from "react-hook-form"
+import * as z from "zod"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@/components/ui/field"
+
+const formSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+})
+
+export function LoginForm() {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  })
+
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    console.log(data)
+  }
+
+  return (
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <Controller
+        name="email"
+        control={form.control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+            <Input
+              {...field}
+              id={field.name}
+              type="email"
+              aria-invalid={fieldState.invalid}
+            />
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        )}
+      />
+
+      <Controller
+        name="password"
+        control={form.control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+            <Input
+              {...field}
+              id={field.name}
+              type="password"
+              aria-invalid={fieldState.invalid}
+            />
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        )}
+      />
+
+      <Button type="submit" className="w-full">
+        Sign In
+      </Button>
+    </form>
+  )
+}
 ```
-features/billing/
-  subscriptions/
-  invoices/
-  payments/
+
+### ❌ NEVER: Build Forms from Scratch
+
+```tsx
+// ❌ WRONG: Custom form with Tailwind only
+export function LoginForm() {
+  const [email, setEmail] = useState("")
+  const [errors, setErrors] = useState<Record<string, string>>({})
+
+  return (
+    <form>
+      <div>
+        <label className="text-sm font-medium">Email</label>
+        <input
+          type="email"
+          className="w-full rounded-md border px-3 py-2"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+      </div>
+    </form>
+  )
+}
 ```
 
-Each subdomain may contain its own:
+**Why this is wrong**:
+- No proper validation
+- Missing accessibility features
+- No proper error handling
+- Reinventing the wheel
+- More code to maintain
 
+---
+
+## 🎨 Theming with CSS Variables
+
+shadcn/ui uses CSS variables for theming. **Never hardcode colors** - always use the theme variables.
+
+### ✅ CORRECT: Use Theme Variables
+
+```tsx
+<div className="bg-background text-foreground">
+  <h1 className="text-primary">Heading</h1>
+  <p className="text-muted-foreground">Description</p>
+  <Button variant="destructive">Delete</Button>
+</div>
 ```
-components
-services
-actions
+
+**Available theme variables**:
+- `background` / `foreground`
+- `card` / `card-foreground`
+- `popover` / `popover-foreground`
+- `primary` / `primary-foreground`
+- `secondary` / `secondary-foreground`
+- `muted` / `muted-foreground`
+- `accent` / `accent-foreground`
+- `destructive` / `destructive-foreground`
+- `border`, `input`, `ring`
+
+### Adding Custom Theme Colors
+
+When you need a new semantic color:
+
+```css
+/* app/ui/global.css */
+:root {
+  --warning: oklch(0.84 0.16 84);
+  --warning-foreground: oklch(0.28 0.07 46);
+}
+
+.dark {
+  --warning: oklch(0.41 0.11 46);
+  --warning-foreground: oklch(0.99 0.02 95);
+}
+
+@theme inline {
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+}
+```
+
+```tsx
+// Now use it
+<div className="bg-warning text-warning-foreground">
+  Warning message
+</div>
+```
+
+### ❌ NEVER: Hardcode Colors
+
+```tsx
+// ❌ WRONG: Hardcoded colors
+<div className="bg-white text-gray-900 dark:bg-gray-800 dark:text-white">
+  {/* This breaks theming */}
+</div>
+
+// ✅ CORRECT: Use theme variables
+<div className="bg-background text-foreground">
+  {/* Works with any theme */}
+</div>
 ```
 
 ---
 
-# 14. When NOT to Use Feature Architecture
+## 🎯 Decision Tree: shadcn/ui vs Tailwind
 
-Small projects can remain simple.
-
-Feature architecture is recommended when:
-
-* application exceeds 10–15 routes
-* multiple teams work on the project
-* application contains multiple domains
-* significant server logic exists
+```
+Need a component?
+│
+├─ Is it interactive (forms, dialogs, dropdowns)?
+│  └─ YES → Use shadcn/ui component
+│
+├─ Does it need accessibility (keyboard nav, ARIA)?
+│  └─ YES → Use shadcn/ui component
+│
+├─ Is it a compound component (Card with Header/Content/Footer)?
+│  └─ YES → Use shadcn/ui component
+│
+├─ Is it just layout/spacing/styling?
+│  └─ YES → Use Tailwind utilities
+│
+└─ Is it a simple static element (div, section)?
+   └─ YES → Use Tailwind utilities
+```
 
 ---
 
-# 15. Absolute Rules
+## 📚 Common Component Patterns
 
-Never generate:
+### Button Variants
 
+```tsx
+// DON'T modify ui/button.tsx
+// DO create wrapper components
+
+// components/primary-button.tsx
+import { Button, ButtonProps } from "@/components/ui/button"
+
+export function PrimaryButton(props: ButtonProps) {
+  return <Button variant="default" {...props} />
+}
+
+// components/ghost-button.tsx
+export function GhostButton(props: ButtonProps) {
+  return <Button variant="ghost" {...props} />
+}
+
+// components/link-button.tsx
+export function LinkButton(props: ButtonProps) {
+  return <Button variant="link" {...props} />
+}
 ```
-utils/
-helpers/
-misc/
-stuff/
+
+### Card Compositions
+
+```tsx
+// components/stat-card.tsx
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+
+interface StatCardProps {
+  title: string
+  value: string | number
+  description?: string
+  icon?: React.ReactNode
+}
+
+export function StatCard({ title, value, description, icon }: StatCardProps) {
+  return (
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        {icon}
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold">{value}</div>
+        {description && (
+          <p className="text-xs text-muted-foreground">{description}</p>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
 ```
 
-These folders lead to architectural decay.
+### Form Field Wrapper
 
-All logic must belong to either:
+```tsx
+// components/form-field.tsx
+import { Controller, Control, FieldPath, FieldValues } from "react-hook-form"
+import { Input } from "@/components/ui/input"
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@/components/ui/field"
 
-* a feature domain
-* shared infrastructure
-* the routing layer
+interface FormFieldProps<T extends FieldValues> {
+  control: Control<T>
+  name: FieldPath<T>
+  label: string
+  description?: string
+  type?: string
+  placeholder?: string
+}
+
+export function FormField<T extends FieldValues>({
+  control,
+  name,
+  label,
+  description,
+  type = "text",
+  placeholder,
+}: FormFieldProps<T>) {
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, fieldState }) => (
+        <Field data-invalid={fieldState.invalid}>
+          <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+          <Input
+            {...field}
+            id={field.name}
+            type={type}
+            placeholder={placeholder}
+            aria-invalid={fieldState.invalid}
+          />
+          {description && <FieldDescription>{description}</FieldDescription>}
+          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+        </Field>
+      )}
+    />
+  )
+}
+```
 
 ---
 
-# 16. Final Architecture Example
+## 🚨 Absolute Rules
 
-A production-grade Next.js 16 structure:
+### DO
+
+✅ Import shadcn/ui components
+✅ Wrap them in your own components
+✅ Extend with additional props
+✅ Use `cn()` utility for className merging
+✅ Use theme variables (bg-primary, text-foreground)
+✅ Use React Hook Form for all forms
+✅ Use Zod for schema validation
+✅ Keep shadcn/ui components unmodified
+
+### DON'T
+
+❌ Modify files in `components/ui/`
+❌ Add custom variants to shadcn/ui component files
+❌ Build forms from scratch
+❌ Hardcode colors (use theme variables)
+❌ Create accessibility features manually (use shadcn/ui)
+❌ Copy/paste shadcn/ui code instead of importing
+❌ Mix custom form components with shadcn/ui forms
+
+---
+
+## 📁 File Organization
 
 ```
-app/
 components/
-features/
-  auth/
-  dashboard/
-  users/
-  billing/
-lib/
-types/
-public/
+├── ui/                          # shadcn/ui components (DON'T MODIFY)
+│   ├── button.tsx
+│   ├── input.tsx
+│   ├── card.tsx
+│   └── ...
+│
+├── awesome-button.tsx          # Your wrapped versions
+├── icon-button.tsx
+├── danger-button.tsx
+├── stat-card.tsx
+├── confirmation-dialog.tsx
+├── login-form.tsx
+└── ...
 ```
 
-Routing lives in `app`.
-
-Business domains live in `features`.
-
-Shared infrastructure lives in `lib`.
-
-This architecture scales cleanly as the application grows.
-
-```
+**Pattern**:
+- `components/ui/` = shadcn/ui originals (never touch)
+- `components/` = your wrapped/extended versions
 
 ---
 
-## Result
+## 🎓 Learning Path
 
-With these **three rules together**:
+1. **Install shadcn/ui component** → `npx shadcn@latest add button`
+2. **Use it as-is** → Import and test basic usage
+3. **Need customization?** → Create wrapper component
+4. **Need form?** → Use shadcn/ui + React Hook Form + Zod
+5. **Need theming?** → Use CSS variables, never hardcode
 
-```
+---
 
-nextjs16-core-architecture.mdc
-nextjs16-project-structure.mdc
-nextjs16-feature-architecture.mdc
+## 🔗 Quick Reference
 
-```
+**Install component**: `npx shadcn@latest add [component-name]`
+**Form setup**: React Hook Form + Zod + shadcn/ui Field components
+**Theming**: CSS variables in `app/ui/global.css`
+**Wrapper pattern**: Import → Extend → Export
+**Never modify**: Files in `components/ui/`
 
-Cursor will now automatically generate **clean enterprise-grade Next.js architecture** instead of things like:
+---
 
-```
-
-utils/
-helpers/
-hooks/
-components/
-services/
+**Remember**: shadcn/ui components are **your code**. You own them. But treat the originals as a **foundation** that you build on top of, not files you modify directly. This keeps updates clean and your customizations organized.
 
 ---
 > Source: [Mark0025/npm-auth-gateway](https://github.com/Mark0025/npm-auth-gateway) — distributed by [TomeVault](https://tomevault.io).
