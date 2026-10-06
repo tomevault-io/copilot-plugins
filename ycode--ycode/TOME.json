@@ -2,9 +2,9 @@
   "name": "ycode",
   "owner": "ycode",
   "repo": "ycode",
-  "description": "Ycode is an open source visual website builder and CMS.",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ycode/ycode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T21:59:14Z"
+  "distributed_at": "2026-10-06T12:45:59Z"
 }
