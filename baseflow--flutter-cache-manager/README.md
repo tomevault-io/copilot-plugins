@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Baseflow/flutter_cache_manager](https://github.com/Baseflow/flutter_cache_manager).
+Original source: `AGENTS.md` in [Baseflow/flutter_cache_manager](https://github.com/Baseflow/flutter_cache_manager).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Baseflow/flutter_cache_manager](https://github.com/Baseflow/flutter_cache_manager) — a repo with 812+ stars on GitHub.
+From [Baseflow/flutter_cache_manager](https://github.com/Baseflow/flutter_cache_manager) — a repo with 814+ stars on GitHub.
 
 ---
 
