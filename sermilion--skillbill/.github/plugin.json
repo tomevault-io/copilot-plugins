@@ -1,0 +1,9 @@
+{
+  "name": "sermilion--skillbill",
+  "displayName": "SkillBill",
+  "description": "SkillBill packages your engineering judgment into governed skills, then uses a durable Kotlin runtime to ensure agents actually execute that process consistently, resumably, and with bounded context.",
+  "version": "1.0.0",
+  "author": "Sermilion",
+  "homepage": "https://github.com/Sermilion/SkillBill",
+  "skills": []
+}
