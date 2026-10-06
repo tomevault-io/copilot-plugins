@@ -1,0 +1,9 @@
+{
+  "name": "nf-core--mhcquant",
+  "displayName": "mhcquant",
+  "description": "mhcquant",
+  "version": "1.0.0",
+  "author": "nf-core",
+  "homepage": "https://github.com/nf-core/mhcquant",
+  "skills": []
+}
