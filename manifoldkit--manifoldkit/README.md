@@ -7,13 +7,13 @@ Reusable SwiftUI chat framework for local and cloud LLM inference on Apple platf
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [ManifoldKit/ManifoldKit](https://github.com/ManifoldKit/ManifoldKit).
+Original source: `CLAUDE.md` in [ManifoldKit/ManifoldKit](https://github.com/ManifoldKit/ManifoldKit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
