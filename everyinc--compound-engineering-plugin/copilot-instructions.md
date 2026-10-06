@@ -1,13 +1,9 @@
 ## compound-engineering-plugin
 
-> Build with `npm run build`. Prefer small commits.
+> Commit conventions: use an imperative subject of at most 50 characters, without a type prefix. Include a bullet-point body describing the change.
 
-# Agent Instructions
-
-Build with `npm run build`. Prefer small commits.
-
-- All files must begin with a copyright header.
+Commit conventions: use an imperative subject of at most 50 characters, without a type prefix. Include a bullet-point body describing the change.
 
 ---
 > Source: [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
