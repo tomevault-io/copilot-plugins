@@ -1,0 +1,231 @@
+{
+  "name": "agent-landing-zone",
+  "owner": "Azure",
+  "repo": "agent-landing-zone",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/speckit-converge/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/speckit-converge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/multi-repo-release/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/multi-repo-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/iac-validation/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/iac-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/speckit-taskstoissues/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/speckit-taskstoissues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/architecture-decision/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/architecture-decision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/speckit-converge/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/speckit-converge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/engineering-principles/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/engineering-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/release-management/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/release-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": ".github/skills/documentation-consistency/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/.github/skills/documentation-consistency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/speckit-taskstoissues/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/speckit-taskstoissues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/architecture-decision/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/architecture-decision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/deployment-operations/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/deployment-operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/engineering-principles/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/engineering-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/terraform-parity-proposal/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/terraform-parity-proposal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-landing-zone",
+      "path": "infra/.github/skills/documentation-consistency/SKILL.md",
+      "github_url": "https://github.com/Azure/agent-landing-zone/tree/main/infra/.github/skills/documentation-consistency/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Azure/agent-landing-zone",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T18:53:33Z"
+}
