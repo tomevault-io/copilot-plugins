@@ -1,0 +1,14 @@
+{
+  "name": "guigui-gui--guigui",
+  "displayName": "guigui",
+  "description": "guigui",
+  "version": "1.0.0",
+  "author": "guigui-gui",
+  "homepage": "https://github.com/guigui-gui/guigui",
+  "skills": [
+    {
+      "name": "guigui",
+      "description": ""
+    }
+  ]
+}
