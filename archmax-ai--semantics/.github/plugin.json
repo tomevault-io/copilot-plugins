@@ -1,0 +1,9 @@
+{
+  "name": "archmax-ai--semantics",
+  "displayName": "semantics",
+  "description": "A semantic layer for your data: archmax describes it, you sharpen it, agents query it.",
+  "version": "1.0.0",
+  "author": "archmax-ai",
+  "homepage": "https://github.com/archmax-ai/semantics",
+  "skills": []
+}
