@@ -1,0 +1,9 @@
+{
+  "name": "henryfud--werm",
+  "displayName": "werm",
+  "description": "A 302 neuron network on the real C. elegans wiring diagram, with a steering layer for local language models.",
+  "version": "1.0.0",
+  "author": "Henryfud",
+  "homepage": "https://github.com/Henryfud/werm",
+  "skills": []
+}
