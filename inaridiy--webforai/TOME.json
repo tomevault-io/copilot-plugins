@@ -3,8 +3,8 @@
   "owner": "inaridiy",
   "repo": "webforai",
   "description": "",
-  "type": "config",
-  "source_format": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "webforai",
+      "path": "skills/webforai/SKILL.md",
+      "github_url": "https://github.com/inaridiy/webforai/tree/main/skills/webforai/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/inaridiy/webforai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T04:43:41Z"
+  "distributed_at": "2026-10-06T15:49:25Z"
 }
