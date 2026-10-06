@@ -1,116 +1,97 @@
 ## rails-pulse
 
-> Rails Pulse has a two-path migration architecture. Always keep both paths in mind when making schema changes.
+> Rails Pulse gives AI coding agents read access to a Rails application's performance data: requests, SQL queries, background jobs, exceptions and deployments, all from the application's own database. Two interfaces, one token.
 
-# Rails Pulse — Claude Context
+# Rails Pulse — Agent Integration
 
-## Database Migrations
+Rails Pulse gives AI coding agents read access to a Rails application's performance data: requests, SQL queries, background jobs, exceptions and deployments, all from the application's own database. Two interfaces, one token.
 
-Rails Pulse has a two-path migration architecture. Always keep both paths in mind when making schema changes.
+## MCP server
 
-### How it works
-
-- **`db/rails_pulse_schema.rb`** is the single source of truth for the complete schema. It is used only for fresh installations — it checks `table_exists?` before creating each table and will never modify existing tables.
-- **`db/rails_pulse_migrate/`** contains incremental migrations for new features. These are copied into users' apps by the upgrade generator (`rails generate rails_pulse:upgrade`).
-- The install generator (`rails generate rails_pulse:install`) creates a single migration that loads and executes the schema file.
-
-### When adding a new column or table
-
-You must update **both**:
-
-1. **`db/rails_pulse_schema.rb`** — add the column/table for fresh installs
-2. **`db/rails_pulse_migrate/TIMESTAMP_description.rb`** — add an incremental migration with `column_exists?`/`table_exists?` guards for existing installs
-
-Example incremental migration pattern:
-```ruby
-class AddPriorityToJobs < ActiveRecord::Migration[7.0]
-  def change
-    unless column_exists?(:rails_pulse_jobs, :priority)
-      add_column :rails_pulse_jobs, :priority, :integer, default: 0
-    end
-  end
-end
+```
+rails-pulse mcp
 ```
 
-### Test/dummy app
+The server needs the `mcp` gem, which Rails Pulse does not depend on: add `gem "mcp", "~> 1.0"` to the application's Gemfile (a development group is enough), or `gem install mcp` when running `rails-pulse` outside Bundler.
 
-The test dummy app needs its schema kept in sync:
-- `test/dummy/db/rails_pulse_schema.rb` must mirror `db/rails_pulse_schema.rb`
-- Run `rake sync_test_schema` to sync them (also runs automatically before test setup)
-
-### What NOT to do
-
-- Do not modify existing table structure in `db/rails_pulse_schema.rb` — it only creates tables, never alters them
-- Do not add columns directly to the schema file without also adding an incremental migration in `db/rails_pulse_migrate/`
-
-Full architecture details: `docs/database_setup.md`
-
-## Running Tests
-
-```bash
-DB=sqlite3 rails test          # Default (SQLite3 + Rails 8.0)
-DB=postgresql rails test       # PostgreSQL
-rake test_matrix               # All DBs × Rails versions (pre-release validation)
-BROWSER=true rake test_matrix  # Include system tests
+**Claude Code** (`~/.claude.json`):
+```json
+{
+  "mcpServers": {
+    "rails-pulse": {
+      "command": "rails-pulse",
+      "args": ["mcp"],
+      "env": {
+        "RAILS_PULSE_URL": "https://myapp.com",
+        "RAILS_PULSE_TOKEN": "your-token"
+      }
+    }
+  }
+}
 ```
 
-Tests are parallelized by default. System tests (`BROWSER=true`) disable parallelization automatically.
+**Cursor** (`.cursor/mcp.json`):
+```json
+{
+  "mcpServers": {
+    "rails-pulse": { "command": "rails-pulse", "args": ["mcp"] }
+  }
+}
+```
 
-## Testing Conventions
+### Tools
 
-Follow the principles in `docs/testing.md`. Key rules:
+All tools are read-only. Each returns a `summary` and `next_steps`.
 
-- Use **fixtures** as the default for test data (declared at class top with `fixtures :table_names`)
-- Test only **public methods** — private methods are tested indirectly
-- Never use bare `rescue` in tests; use `assert_raises` instead
-- Use `travel_to`/`travel_back` for time-based tests; always clean up in teardown
-- Use specific assertions: `assert_operator`, `assert_includes`, `assert_in_delta`, `assert_difference`
-- Organize tests with comment headers: `# Structure Tests`, `# Calculation Tests`, `# Edge Cases`
-- Always test edge cases: nil, empty, zero, boundary values, 100% scenarios
+| Tool | Purpose |
+|------|---------|
+| `rails_pulse_routes` | Discover endpoints with request volume, latency and errors |
+| `rails_pulse_slow_requests` | Slowest endpoints for a period |
+| `rails_pulse_coverage` | What has been recorded, how recently, and any collection gaps |
+| `rails_pulse_errors` | Recent errors grouped by endpoint |
+| `rails_pulse_exceptions` | Exception groups with status, count, location and latest message |
+| `rails_pulse_exception` | One group's recent occurrences with backtraces, request and params |
+| `rails_pulse_endpoint` | Deep performance profile of one endpoint |
+| `rails_pulse_queries` | Most expensive SQL queries with N+1 detection |
+| `rails_pulse_jobs` | Background job health and recent failures |
+| `rails_pulse_deployments` | Recent deployments with timing, metadata and a before/after comparison |
+| `rails_pulse_insights` | What needs attention over one hour, day, week or month, and threshold suggestions |
 
-## Code Style
+Every tool that takes a `period` also takes `since` and `until` as ISO 8601 timestamps, read as UTC when no zone is given, and echoes the bounds it measured back as `window`. `period` itself is only `last_hour`, `last_24_hours` or `last_7_days` (plus `all` on `rails_pulse_exceptions`); any other window is `since`/`until`. `rails_pulse_insights` instead reads one whole summary period (`period`: `hour`, `day`, `week` or `month`, and `at` for a time inside it), so its P95s are exact. Use them to compare two fixed windows — the 24 hours before a release against the 24 hours after — rather than a relative period that moves between calls.
 
-RuboCop with `rubocop-rails-omakase` enforces style. Run `bundle exec rubocop` before committing.
+## CLI
 
-Naming conventions:
-- Classes: `RailsPulse::FeatureName` (always namespaced)
-- Models: singular (`Route`, `Request`, `Job`)
-- Tables: `rails_pulse_<plural>` (e.g., `rails_pulse_jobs`)
-- All models inherit from `RailsPulse::ApplicationRecord`
+The `rails-pulse` CLI works without MCP. Append `--json` for structured output.
 
-## Architecture Gotchas
+| Command | Description |
+|---------|-------------|
+| `rails-pulse routes list` | Tracked routes (`--since` adds request stats) |
+| `rails-pulse requests list` | Recorded requests with status and time filters |
+| `rails-pulse queries list` | SQL queries (`--since` adds timing stats) |
+| `rails-pulse jobs list` | Background jobs: lifetime stats, or one window's with `--since` / `--until` |
+| `rails-pulse job_runs list` | Individual job runs with errors |
+| `rails-pulse exceptions list` | Exception groups with status and occurrence counts |
+| `rails-pulse exceptions show ID` | One group with backtraces and recent occurrences |
+| `rails-pulse deployments list` | Recorded deployments, most recent first, with each one's comparison |
+| `rails-pulse coverage show` | What has been recorded, how recently, and any collection gaps |
+| `rails-pulse insights show` | What needs attention over one period, and threshold suggestions |
 
-**Services are NOT autoloaded by Zeitwerk.** The engine explicitly tells Zeitwerk to ignore `app/services/` and manually autoloads them. If you add a new service, register it in `lib/rails_pulse/engine.rb`.
+Common flags on every list command: `--limit N` (1 to 500, default 25), `--offset N`, `--json`, `--since TIME` / `--until TIME` (ISO 8601; no zone means UTC).
 
-**RequestStore is thread-local.** Operations are deep-copied before async tracking to prevent race conditions. The `skip_recording_rails_pulse_activity` flag prevents recursive tracking on Rails Pulse's own requests.
+## Authentication
 
-**Engine initializer ordering matters.** The initializers in `lib/rails_pulse/engine.rb` use `before:`/`after:` constraints — don't add new initializers without checking order dependencies.
+Set `RAILS_PULSE_URL` and `RAILS_PULSE_TOKEN` (the application's `config.api_token`), or run `rails-pulse configure` to write `~/.rails-pulse`. That token is read-only; recording a deployment needs `config.deployment_token`, which these tools do not carry.
 
-**Ransack requires explicit opt-in.** Every model must define `ransackable_attributes` and `ransackable_associations`. Use `Arel.sql()` for computed fields to ensure cross-database compatibility.
+## Investigation pattern
 
-**Configuration validation is strict.** All thresholds, patterns, and database settings are validated at startup — invalid config fails fast.
-
-**Requests index shows individual records, not aggregates.** Routes and Queries controllers use `Tables::Index` classes to query aggregated summary data, but RequestsController queries individual `RailsPulse::Request` records directly. This is intentional — the requests page displays per-request details (occurred_at, status, tags, route links) that would be lost in aggregation.
-
-## Adding a New Feature
-
-1. Add config option to `RailsPulse::Configuration` (`lib/rails_pulse/configuration.rb`)
-2. Add model + migration (both paths — see Database Migrations above)
-3. Add `ransackable_attributes` to any new model
-4. Add fixtures to `test/fixtures/rails_pulse_*.yml`
-5. Write tests following conventions in `docs/testing.md`
-6. If adding a service, register it manually in the engine
-
-## Frontend / Assets
-
-CSS is plain CSS (not Sass). JS uses Stimulus controllers. Pre-built assets live in `/public/rails-pulse-assets/` and are served by custom middleware (`RailsPulse::Middleware::AssetServer`), not the Rails asset pipeline.
-
-To rebuild assets: `npm run build` (or `npm run build:dev` for source maps).
-
-## Releases
-
-Run `rake test_release` before any release — it validates git status, RuboCop, Brakeman, asset build, gem build, generator tests, and the full test matrix. See `docs/releasing.md` for the full process.
+1. Pin the time window to a deployment (`rails_pulse_deployments`); its `comparison` says whether response time or error rate got worse in the hour after it
+2. Identify slow or failing endpoints (`rails_pulse_insights` for the last day or week, `rails_pulse_slow_requests` for any window); resolve names with `rails_pulse_routes`
+3. Profile the suspect endpoint (`rails_pulse_endpoint`)
+4. Check errors (`rails_pulse_errors`)
+5. Inspect SQL and jobs (`rails_pulse_queries`, `rails_pulse_jobs`)
+6. Correlate with source code: pass the endpoint's `route_id` to `rails_pulse_queries` for the SQL inside it and the file and line each query came from
+7. Fix, deploy, and re-check the same endpoint
 
 ---
 > Source: [railspulse/rails_pulse](https://github.com/railspulse/rails_pulse) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
