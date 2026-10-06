@@ -1,0 +1,9 @@
+{
+  "name": "tachyonmcp--tachyon",
+  "displayName": "tachyon",
+  "description": "MCP Runtime for Java and Kotlin - Model Context Protocol (MCP) server with Streamable HTTP, native Netty transports, tools, tasks, resources, prompts, completions, skills over MCP, resumable sessions,",
+  "version": "1.0.0",
+  "author": "tachyonmcp",
+  "homepage": "https://github.com/tachyonmcp/tachyon",
+  "skills": []
+}
