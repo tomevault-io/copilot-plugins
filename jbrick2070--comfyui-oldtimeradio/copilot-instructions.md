@@ -1,19 +1,28 @@
-## otr-operating
+## otr-review
 
-> OTR operator law — CLAUDE.md wins; root-cause fixes; no episode guardrails; story quality is closed
+> OTR review routing — match depth to design, one CLI/contrarian, two-strikes panel
 
 
-# OTR operating law
+# Review routing
 
-`CLAUDE.md` at the repo root is the source of truth. Operator directives there win over any handoff, memory, or this rule. Do not duplicate or weaken it.
+Is there a design choice with more than one defensible answer?
 
-- Fix at the root cause. No shims. Do not wait for the operator to run commands.
-- Never ask to commit. Always commit and push a green chunk to `main` in the same turn (operator 2026-09-17). Named files only.
-- Generated episode content is unfiltered (no profanity/violence prompt bans). Authoring stays clean: no curse words in code, comments, logs, or commits; never the name `dummy`.
-- Story quality is closed. Do not chase prose, writer models, or word-count gates. Gender/voice/face/ledger faults remain bugs.
-- Never invent a Jeffrey-only path. Portable means that install's `output/otr/obs` via Comfy's live output directory (`folder_paths` / `--output-directory`).
-- Knowledge gate before diagnosis or implementation: relevant `apple/PROD_BUG_LOG.md`, Bug Bible in `comfyui-custom-node-survival-guide`.
-- A helper is wired in the same change that builds it, or the row says why not. Grep `nodes/` for a non-test caller.
+- **YES** (new capability, schema/ledger, canonical workflow, reasonable disagreement) -> full four-round kibitz (`kibitz-plugin:kibitz`) BEFORE code. Unsure = YES.
+- **NO** (grep-and-fix, rename, wiring conformance, one right answer) -> no arc. Skip the four-round kibitz, not Composer. The All-coding block below is the floor.
+- **Floor on every coding change:** push the green chunk, THEN Composer QA on the pushed diff, then Sonnet. A self-review does not count. (Operator 2026-09-19: "never hold back commit or push"; QA reviews what is already on `main`.)
+- **This window is Cursor.** Do not run `cursor-agent -p` as that reviewer -- same family. If a CLI lane is needed, send it to **agy** (`agy -p='...' --dangerously-skip-permissions`) or `codex exec`. Ground every result against the real files. Operator 2026-09-17; also in `CLAUDE.md`.
+- **Big design (YES above):** get an independent opinion from a **frontier** model before code. Unsure = YES. That is the design seat; do not skip it and go straight to Composer.
+- **All coding (operator 2026-09-17 -- hard. "thats my law any code change always get a composer qa"):**
+  1. Write the diff.
+  2. Spawn **Composer QA** (Task, Composer, briefed to REFUTE) until **HOLDS / MUST-FIX: none**. Fix every must-fix and re-spawn Composer. Do not stop at PARTIAL.
+  3. **Push first. QA never gates the push (operator 2026-09-19, reversing the 09-17 clause).** A finding becomes the next commit. A self-review still does not count.
+  4. Then spawn **Sonnet** (Task, `claude-sonnet-5-thinking-max`, briefed to REFUTE) until **HOLDS / MUST-FIX: none**. Fix every must-fix and re-spawn Sonnet. Do not stop at PARTIAL.
+  5. A missing live proof is ONE NEXT RISK, not a reason to stay PARTIAL.
+- Every round ends with a contrarian briefed to REFUTE. Default REFUTED when ungrounded.
+- Two strikes: if the same bug survives two of your fixes, panel before a third attempt.
+- File-grounded reviewers from a **different** family than the driver. Do not spend Fable on mechanical diffs.
+- A missing reviewer never blocks the work — substitute and say who actually ran.
+- After adding a function, grep `nodes/` for a production caller. No caller = wire it now or write the waiting row.
 
 ---
 > Source: [jbrick2070/ComfyUI-OldTimeRadio](https://github.com/jbrick2070/ComfyUI-OldTimeRadio) — distributed by [TomeVault](https://tomevault.io).
