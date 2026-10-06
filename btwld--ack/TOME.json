@@ -1,0 +1,93 @@
+{
+  "name": "ack",
+  "owner": "btwld",
+  "repo": "ack",
+  "description": "A modern Dart schema library for structured data, with a focus on LLM tools in mind.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ack",
+      "path": ".agents/skills/dart-doc-validation/SKILL.md",
+      "github_url": "https://github.com/btwld/ack/tree/main/.agents/skills/dart-doc-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ack",
+      "path": ".agents/skills/dart-modern-features/SKILL.md",
+      "github_url": "https://github.com/btwld/ack/tree/main/.agents/skills/dart-modern-features/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ack",
+      "path": ".agents/skills/dart-test-fundamentals/SKILL.md",
+      "github_url": "https://github.com/btwld/ack/tree/main/.agents/skills/dart-test-fundamentals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ack",
+      "path": ".agents/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/btwld/ack/tree/main/.agents/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ack",
+      "path": ".agents/skills/dart-package-maintenance/SKILL.md",
+      "github_url": "https://github.com/btwld/ack/tree/main/.agents/skills/dart-package-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ack",
+      "path": ".agents/skills/dart-matcher-best-practices/SKILL.md",
+      "github_url": "https://github.com/btwld/ack/tree/main/.agents/skills/dart-matcher-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ack",
+      "path": ".agents/skills/dart-cli-app-best-practices/SKILL.md",
+      "github_url": "https://github.com/btwld/ack/tree/main/.agents/skills/dart-cli-app-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ack",
+      "path": ".agents/skills/add-dart-lint-validation-rule/SKILL.md",
+      "github_url": "https://github.com/btwld/ack/tree/main/.agents/skills/add-dart-lint-validation-rule/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/btwld/ack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T18:30:34Z"
+}
