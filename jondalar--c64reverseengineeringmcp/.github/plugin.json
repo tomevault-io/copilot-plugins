@@ -1,0 +1,9 @@
+{
+  "name": "jondalar--c64reverseengineeringmcp",
+  "displayName": "C64ReverseEngineeringMCP",
+  "description": "MCP server and workbench for LLM-driven C64 reverse engineering: persistent typed 6502 analysis graph with impact queries, semantic disassembly annotation, byte-exact rebuild verification. Uses the TR",
+  "version": "1.0.0",
+  "author": "Jondalar",
+  "homepage": "https://github.com/Jondalar/C64ReverseEngineeringMCP",
+  "skills": []
+}
