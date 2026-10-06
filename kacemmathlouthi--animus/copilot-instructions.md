@@ -1,0 +1,565 @@
+## animus
+
+> Guidance for working in this repository. Keep this file current — it is the
+
+# CLAUDE.md
+
+Guidance for working in this repository. Keep this file current — it is the
+single source of truth for what animus is and how we build it.
+
+---
+
+## What animus is
+
+An **interactive coding agent for Manim videos** — Claude Code, but in the cloud
+and specialized for narrated, research-grounded explainer animations. The user
+chats with the agent; the agent writes and edits Manim code in a persistent
+cloud sandbox, renders it, reads the errors / inspects frames, and repairs until
+the scene is clean. The user can interrupt and steer at any turn (chat-only
+steering — the agent owns the code). Narration uses `manim-voiceover` with
+ElevenLabs, synthesized in-scene during render so the animation auto-syncs to the
+speech; background music is mixed under it after rendering.
+
+The mental model is a relocated Claude Code:
+
+| Claude Code (local)        | animus (cloud)                                        |
+| -------------------------- | ----------------------------------------------------- |
+| Loop runs in your terminal | Loop runs in `apps/api`                               |
+| Tools act on local files   | Tools act on a remote Daytona sandbox                 |
+| Streams to the terminal    | Streams to the browser (SSE → `useChat` + Streamdown) |
+| Ctrl-C to interrupt        | Abort the stream from the UI                          |
+| General coding             | Manim tools + prompting, render-and-watch             |
+
+The core insight: the **turn is ephemeral** (if it crashes or is interrupted,
+the user just sends another message), and the **sandbox is the persistent
+state** (the Manim project files live across turns).
+
+---
+
+## Monorepo layout
+
+```
+apps/
+  web/    # React 19 + Vite SPA — landing, auth, studio (chat + conversation sidebar), settings, legal, /v/:token share page. plugins/ holds the dev link-preview meta-injection plugin (see the meta-injection seam decision).
+  api/    # Hono/Bun — auth, settings, conversations, the streaming agent loop (/api/chat), and the public share endpoints (share-card og.png, video.mp4, embed). Long-running.
+packages/
+  core/   # shared contracts: zod schemas, types, constants + the deterministic share-card SVG builder + link-preview meta builders (pure root) + server env (/env subpath) + tool I/O contracts shared by the agent and the web (/tools subpath)
+  auth/   # Better Auth (magic link via Resend, GitHub + Google OAuth, sessions)
+  db/     # Drizzle + Postgres (schema, client, migrations)
+  agent/  # the AI SDK agent loop, prompts, and the full tool set: HITL (askUserQuestion, finalizeVideoPlan), Exa web research (webSearch/webFetch), and the Manim sandbox tools (writeFile/editFile/runCommand/readFile/listFiles/renderScene). Ships the manim-video skill (skills/manim-video) and the prebaked snapshot Dockerfile.
+```
+
+Packages are **source-first**: no per-package build step. `apps/api` and the
+packages run `.ts` directly via Bun; `apps/web` is the only thing Vite builds.
+Cross-package "does it compile" = `bun run typecheck`.
+
+---
+
+## Architecture (locked decisions)
+
+- **Interactive agent loop, not a batch pipeline.** Each user turn is an AI SDK
+  tool-calling loop (`streamText` + Manim tools + `stopWhen`), streamed over SSE
+  and interruptible. Durable execution (Vercel Workflow SDK) is **parked** for a
+  future non-interactive "autonomous render" mode — it fights interactive streams.
+- **Sandbox: Daytona**, one per conversation, suspended between turns and resumed.
+  Sandboxes boot from a **prebaked snapshot** with Manim + ffmpeg + LaTeX already
+  installed (no per-turn bootstrap). The snapshot is built from
+  `packages/agent/snapshot/Dockerfile` via `bun run snapshot:build` (registers it
+  as `animus-manim:<tag>`; the tag currently in use is `SNAPSHOT_NAME` in
+  `packages/agent/src/sandbox/index.ts` — `animus-manim:0.9.1`). The lifecycle lives
+  in `packages/agent/src/sandbox` as plain functions
+  (`ensureSandbox`/`destroySandbox`) returning the Daytona handle directly — the
+  tools call the SDK natively (no wrapper adapter).
+- **Models: Claude via Amazon Bedrock (default), with BYOK.** By default the
+  agent resolves its model through `@ai-sdk/amazon-bedrock` — a Bedrock
+  inference-profile id (`BEDROCK_MODEL`, e.g. `us.anthropic.claude-opus-4-6-v1`).
+  The **code default** is Opus 4.6; **prod is expected to set `BEDROCK_MODEL`
+  explicitly** as an SSM parameter under `/animus/prod/`. Recommended prod value once
+  Sonnet 5 model access is enabled in the Bedrock console:
+  `us.anthropic.claude-sonnet-5` (~60% cheaper than Opus; the `@animus/core`
+  pricing table already prices `claude-sonnet-5`, and `priceForModel`
+  substring-matches the profile id, so metering stays correct). Leaving the env
+  unset means prod silently runs the Opus default at Opus rates.
+  Credentials are passed to the provider **explicitly** from the validated
+  server env (`BEDROCK_ACCESS_KEY_ID`/`BEDROCK_SECRET_ACCESS_KEY`/
+  `BEDROCK_REGION`, falling back to `AWS_*` so local `.env` files keep
+  working): **never rely on the SDK's implicit `AWS_*` env chain in prod**. The
+  `BEDROCK_*` names exist because Vercel owned the `AWS_*` namespace at runtime
+  and shadowed user-supplied values, which silently broke every chat turn once;
+  they are kept on ECS for a second reason — with no task role, an unset
+  credential must fail loudly rather than resolve to the account's own IAM
+  identity. The agent runs with `maxRetries: 6` —
+  fresh-account Bedrock quotas 429 mid-turn and the default 2 retries abandons
+  the loop (an AWS Service Quotas increase is the durable fix). Still
+  provider-agnostic at the AI SDK layer.
+  **BYOK is now wired into model selection** (`resolveModel` in
+  `packages/agent/src/config`): a user may store an AES-256-GCM-encrypted LLM key
+  (Anthropic / OpenAI / Google, with a curated tool-capable model) and/or an
+  ElevenLabs narration key (`provider_key` rows discriminated by `kind`, never
+  returned to the client — only a masked `provider + last4` preview). A brought
+  key runs that component on the user's own account and is **not metered**.
+- **Cost control: free credits → BYOK (see `docs/cost-control.md`, gitignored).**
+  Each account starts with a $5 free grant (the `user_credits.balance_micros`
+  default, mirrored by `FREE_GRANT_MICROS` in `@animus/core`). Turns are metered
+  **per component** in integer micro-USD against a hardcoded price table
+  (`@animus/core` pricing): the LLM unless the user brought their own key, and
+  ElevenLabs TTS (narration chars, counted from the rendered scene) unless they
+  brought one. The chat route refuses a metered turn at a non-positive balance
+  (`402 OUT_OF_CREDITS`, surfaced by the web as a BYOK depletion dialog) and
+  settles the real cost on finish — idempotent on the completed assistant message
+  id (`usage_event`). Enforcement is **balance-only** (no mid-turn kill; a balance
+  may end slightly negative). Optional `CREDITS_GLOBAL_CAP_USD` withholds new
+  grants once total free spend is exceeded. The header shows the balance as a
+  gauge ring around the avatar. Provider keys are verified with a cheap test call
+  before they're stored. Quota tiers / paid billing remain future work.
+- **Runtime:** `apps/api` (Hono/Bun) hosts the loop as a **long-running
+  container** (streaming + live sandbox handles need a persistent process — not
+  serverless). No separate worker/queue in v1. Two properties the container
+  host depends on: the chat response is wrapped by `withSseHeartbeat`
+  (`lib/sse-heartbeat.ts`) so a silent 600s `renderScene` isn't read as a dead
+  connection by a load balancer or CDN, and SIGTERM/SIGINT drain in-flight
+  requests and close the Postgres pool (`lib/shutdown.ts`) within a bounded
+  20s — every deploy stops the process this way.
+- **Hosting (deployed): AWS for the API, Vercel for the web.** The API runs as
+  an **OCI container image** on **ECS Fargate** (cluster `animus`, service
+  `animus-api`, one task, public subnet, no NAT) behind an **ALB** with an ACM
+  certificate. `Dockerfile` at the repo root runs `bun apps/api/src/server.ts`
+  on `oven/bun`, so the source-first workspace resolves exactly as in local dev.
+  The image is ~470MB compressed in ECR (2.8GB uncompressed). **One task only**:
+  `inFlightTurns` in `routes/chat.ts` is an in-memory Map, so the per-user turn
+  cap is per container. The ALB idle timeout is **4000s** and the task drains in
+  20s (`lib/shutdown.ts`), so `deregistration_delay` is 30s. **No ECS task
+  role** — the app calls no AWS APIs directly, and an empty task role means a
+  missing `BEDROCK_ACCESS_KEY_ID` cannot silently fall through to the account's
+  own IAM identity; for the same reason `AWS_*` names are never set on ECS, only
+  `BEDROCK_*`. Every env var lives in **SSM Parameter Store** under
+  `/animus/prod/` (SecureString, free; Secrets Manager would be ~$8/mo), and a
+  new parameter is **not** injected until the task definition lists it in
+  `secrets`. Postgres is **Neon**. The web (`animus-web`, Vite static + SPA
+  fallback) stays on Vercel; `VITE_API_URL` is **build-time**, so changing it
+  needs a redeploy. Ignore-file gotcha kept from the Vercel era:
+  `.dockerignore` anchors bare names to the context root, and a bare `assets`
+  once stripped `apps/api/assets` and took prod down — anchor root-only excludes
+  with a leading `/`. Entry split: `src/app.ts` (pure Hono app) + `src/server.ts`
+  (Bun bootstrap; disables the idle timeout on `/api/chat`).
+- **Deploys are automated (live).** `.github/workflows/deploy-api.yml` runs on
+  `workflow_run` after **CI passes on main**, so broken code cannot reach prod.
+  It authenticates with **GitHub OIDC** (no AWS keys stored anywhere; the role
+  trusts exactly `repo:KacemMathlouthi/animus:environment:Production`), builds
+  and pushes to ECR tagged by **full commit SHA** (never `latest`, so a task
+  restart cannot pull different code), then uses the official
+  `amazon-ecs-render-task-definition` + `amazon-ecs-deploy-task-definition`
+  actions with `wait-for-service-stability`. The task definition is **fetched
+  live, never committed** — this repo is public and the file carries the account
+  id, ECR URI and role ARN. The job declares `environment: Production`, which is
+  what puts runs in the repo's Deployments tab; that name is also the OIDC
+  subject, so it must match the IAM trust policy exactly (`Production`, not
+  `production`).
+- **Domain (live): `tryanimus.app`**, web and API on **sibling hosts of the
+  same site**. The web serves at `https://tryanimus.app` (Vercel); the API at
+  `https://api.tryanimus.app` (Vercel DNS CNAME → ALB). Cookies work across the
+  two because they share a registrable domain, so a cookie scoped to
+  `.tryanimus.app` (`COOKIE_DOMAIN` → Better Auth `crossSubDomainCookies`) is
+  sent to both and `SameSite=Lax` still applies. The earlier `state_mismatch`
+  failure was **not** about splitting origins in general: `vercel.app` is on the
+  Public Suffix List, so `animus-web.vercel.app` and `animus-api.vercel.app` are
+  different *sites* and can never share cookies. The rule is **never split
+  across a PSL boundary**. `WEB_ORIGIN` is `https://tryanimus.app`;
+  `VITE_API_URL` and `BETTER_AUTH_URL` are `https://api.tryanimus.app`. OAuth
+  callbacks point at `https://api.tryanimus.app/api/auth/callback/{github,google}`
+  — GitHub allows one callback URL, so local dev OAuth needs a separate app.
+  `apps/web/vercel.json` keeps one rewrite, `/v/:token` → the API's share page;
+  the old `/api/:path*` proxy is gone, so the browser calls the API directly and
+  no proxy imposes a request duration cap. **CloudFront was refused** by AWS
+  account review, which is why there is no CDN and no S3 static hosting; the
+  subdomain makes both unnecessary. **ACM renewal depends on two DNS records**
+  that must never be deleted: the validation CNAME, and `0 issue "amazon.com"`
+  in the apex CAA set — Vercel publishes its own CAA records there, and without
+  Amazon in the list ACM cannot issue at all.
+- **Email (live): Resend on `mail.tryanimus.app`** — verified via the
+  Resend↔Vercel integration (DKIM + SPF + return-path MX on `send.mail.…`,
+  auto-written into Vercel DNS, plus a monitor-mode DMARC record);
+  `RESEND_FROM=animus <login@mail.tryanimus.app>`, so magic links deliver to
+  any address. Inbound mail on the **root** domain is forwarded by **ImprovMX**
+  (MX + its own SPF on the apex). The two SPF records sit on different
+  hostnames and are evaluated independently — never merge them, and never put
+  two SPF TXT records on one host. The sign-in email is a white content card
+  matted inside a thick band of the brand art. That art is a **static file on
+  the web app** (`apps/web/public/email/auth-bg.jpg`, addressed off
+  `WEB_ORIGIN`), not an attachment: no mail client will use a `cid:` attachment
+  as a CSS background. So the API's email depends on a **web** deploy — ship the
+  asset before the template that points at it, and bump the `?v=` when the art
+  changes, because Gmail's image proxy caches by URL forever. Outlook desktop
+  drops background images entirely, so the frame carries a solid `bgcolor` and
+  no text ever sits on the art. `bun run email:preview` (in `packages/auth`)
+  writes a self-contained HTML file with the art and logo inlined as data URIs;
+  `--send=<address>` posts the real one through Resend.
+- **Magic-link auth vs inbox scanners.** The verify endpoint consumes its
+  single-use token on GET, and mail security scanners open every link in an
+  arriving email — some executing JavaScript (proven in prod: an auto-redirect
+  interstitial was defeated; paired verify hits ms apart in the logs). The
+  email therefore links to `/auth/verify`, a page where only an **explicit
+  button click** spends the token. If a scanner class that presses buttons
+  ever appears, the endgame is Better Auth's `emailOTP` plugin (typed 6-digit
+  codes — nothing clickable), which is also the more familiar UX. The verify
+  page must send an **absolute** `callbackURL`: Better Auth resolves a relative
+  one against its own `baseURL`, which is now a different host from the web app,
+  so a relative path lands the user on the API's 404.
+- **Better Auth is held below 1.7 (`~1.6.22`).** 1.7 requires an
+  `account.issuer` column plus a unique index on `(issuer, accountId)` that the
+  Drizzle schema does not have, and every OAuth callback 500s without it. The
+  range is a tilde, not a caret, because `^1.6.19` re-resolves straight to 1.7.x.
+  `~1.6.22` is still past the pre-account-hijacking advisory
+  (GHSA-qq9h-g4jm-xgf3), which is not exploitable here anyway — it needs an
+  email/password provider, and there is none. Moving to 1.7 is a real migration:
+  a required column backfilled on live rows, and a new unique index.
+  `accountLinking` runs **without `trustedProviders`**, so a provider reporting
+  an unverified email cannot force a link. `advanced.ipAddress.ipAddressHeaders`
+  comes from `CLIENT_IP_HEADERS`; unset, Better Auth resolves no client IP behind
+  a proxy and silently falls back to **one rate-limit bucket shared by every
+  user**. Behind the ALB the true client IP is the *rightmost* `x-forwarded-for`
+  entry, which Better Auth only returns when `trustedProxies` is also set — the
+  header alone does not fix it. Both are now wired: `trustedProxies` comes from
+  `TRUSTED_PROXIES` (comma-separated IPs/CIDRs), which **prod must set to the VPC
+  CIDR `172.31.0.0/16`** as a plain `environment` entry, not an SSM `secrets` one
+  — it is not a secret and every `secrets` entry costs a KMS decrypt per boot.
+  Unset, the shared-bucket fallback returns, and Better Auth logs it: grep for
+  "could not determine a client IP" to tell whether it is live.
+- **Health checks must never touch a scale-to-zero database.** `/health` is
+  liveness only (process + bundled share-card assets); `/ready` carries the
+  Postgres check and **nothing restarts on its verdict**. The ALB polls `/health`
+  from three nodes every 30s — one hit per ~10s — so a `select 1` there made
+  Neon's 5-minute autosuspend unreachable and pinned compute awake 24/7. Neon
+  Free is **100 CU-hours/month at 0.25 CU = 400 hours**, i.e. the probe alone
+  exhausts the month around **day 17 with zero users**; it did, on 2026-09-18.
+  Then it compounded: quota exhausted → `/health` 503 → ECS replaced the task
+  every ~4 min → 27 SSM SecureStrings decrypted per boot → ~700 KMS calls/day,
+  which blew the KMS free tier and was the only alert that fired. Two rules
+  follow: a readiness probe must not gate liveness for a dependency a restart
+  cannot fix, and any always-on container defeats scale-to-zero billing.
+- **Narration requires a paid ElevenLabs tier.** The free tier is 10k
+  chars/month (≈2–3 videos) and restricts synthesis from datacenter IPs (the
+  Daytona sandbox). TTS metering charges users for narration on the platform
+  key, so a paid tier is a product prerequisite, not an optimization. In
+  scenes, voices are selected by `voice_id` only — `manim-voiceover` matches
+  `voice_name` exactly against the account's full display names and breaks
+  otherwise (encoded in the prompt + skill).
+- **Persistence:** Drizzle + managed Postgres. Conversations and their message
+  snapshots are persisted — the DB is authoritative: the client sends only the
+  newest message and the completed turn is saved on finish, with titles
+  generated asynchronously (Haiku). Generation settings are global per-user.
+- **Storage:** Cloudflare R2 (S3-compatible) for rendered videos. Multi-cloud
+  posture (managed Postgres + container host, no single-cloud lock-in).
+- **Narration:** `manim-voiceover` + ElevenLabs. The agent writes a `VoiceoverScene`
+  that synthesizes speech in-scene during render, so animation timing auto-syncs to
+  the narration (`tracker.duration`, bookmarks). The ElevenLabs key is injected into
+  the render sandbox via `envVars`. Background music is mixed under the narration in
+  the post-render ffmpeg step. Everything the sandbox echoes back (`runCommand`
+  output, `renderScene` logs, `readFile` content) passes through
+  `createRedactor` (`packages/agent/src/utils/redact.ts`), which matches runs of
+  8+ characters of a known secret so splitting the key across `echo` calls does
+  not defeat it. **This is a speed bump, not a boundary** — the user writes the
+  prompt and can still `curl` the key out. The fix is the sandbox never holding
+  it (a credential-injecting egress proxy).
+- **Link previews & the SPA meta-injection seam (resolved).** A static SPA
+  serves one `index.html` for every route, so per-share Open Graph / Twitter meta
+  must be written **server-side at the real `/v/:token` URL** — crawlers don't run
+  JS. The durable, deployment-agnostic parts live in `@animus/core`
+  (`buildShareCardSvg`, `buildShareMetaTags`, `injectShareMeta`) and in the public
+  API endpoints (`GET /api/share/:token/og.png` PNG card, `…/video.mp4` presigned
+  redirect for `og:video`, `…/embed` iframe for `twitter:player`) — these never
+  change with hosting. The **only** hosting-coupled piece is the *injection layer*,
+  and both halves now exist: in dev a **Vite dev plugin**
+  (`apps/web/plugins/share-meta.ts`) + an `/api` proxy in `vite.config.ts`; in
+  prod the API's **`GET /api/share/:token/page`** route, which fetches the SPA
+  shell from `WEB_ORIGIN` (cached ~5 min), splices in the meta block, and is
+  wired to the real URL by a `/v/:token` rewrite in `apps/web/vercel.json`
+  (placed before the SPA fallback). Both layers reuse the same pure core
+  builders and the shared `SHARE_META_DESCRIPTION`. Humans still boot the SPA
+  as normal; unknown tokens get the plain shell. **Every URL a crawler is
+  handed must be built from `apiOrigin`** (derived from `BETTER_AUTH_URL`),
+  never from `WEB_ORIGIN` — only `og:url` is a web URL, because only the page
+  is. The web dropped its `/api` proxy in the AWS move, so a web-origin asset
+  URL now falls through to the SPA catch-all and answers **200 text/html**:
+  crawlers asked for a PNG, got HTML, and nothing errored. That shipped, and a
+  route test had asserted the broken URL. Dev hides it — `vite.config.ts`
+  still proxies `/api`, so previews look right on localhost.
+  The card PNG is rendered with resvg's **async** API and memoized (LRU, keyed
+  on title+seed, with in-flight de-duplication so a crawler burst on one link
+  rasterizes once). The sync API blocked the event loop ~55ms per card, and
+  `GET /api/share/:token/og.png` is public, unauthenticated and has no CDN in
+  front of it — on a single ECS task that stalls every live SSE turn and
+  eventually the ALB health check.
+
+**Roadmap:** shell ✓ (settings backend; conversation persistence with generated
+titles; sidebar list/search/rename/delete) → streaming chat ✓ (`/api/chat` →
+`useChat` + Streamdown, real agent loop with HITL + Exa web-research tools) →
+first Manim scene end-to-end via Daytona ✓ → R2 video storage ✓ (rendered mp4s
+live in R2; the agent's renderScene returns an object key, the web streams via
+short-lived presigned URLs minted by `/api/media/sign`, and a conversation's
+objects are deleted with it) → background music ✓ (renderScene fetches a track
+from R2 at render time and mixes it under the video via ffmpeg, with a fallback;
+fixed key for now, user-configurable later) → narration ✓ (manim-voiceover +
+ElevenLabs; the agent writes a VoiceoverScene that auto-syncs to the speech, key
+injected into the sandbox, music ducked under it) → share & export ✓ (Publish
+menu downloads the mp4 via an attachment-disposition presign and mints a
+permanent unlisted public share — `video_share` token → `/v/:token` branded page
+served by the public `GET /api/share/:token`, with share-to-socials) →
+link-preview card ✓ (a deterministic, brand-only "share card" — an auth-style
+50/50 split: title + "Made with animus" on the left, a curated painting picked by
+hash on the right, derived at runtime from the title, nothing stored,
+agent-independent — built once by `buildShareCardSvg` in
+`@animus/core` and used on three surfaces: the studio player poster, the
+share-page poster, and the Open Graph link-preview image rasterized via resvg +
+bundled Geist at the public `GET /api/share/:token/og.png`. Real link previews are
+served at the **natural `/v/:token` URL**: because a static SPA can't emit per-URL
+meta, per-share OG/Twitter tags (`buildShareMetaTags`/`injectShareMeta` in
+`@animus/core`) are injected into index.html server-side — a Vite dev plugin +
+`/api` proxy in dev, and in prod the API's `GET /api/share/:token/page` route
+behind a `/v/:token` rewrite (see the meta-injection decision above).
+Previews include `og:video` + a `twitter:player` iframe embed
+(`GET /api/share/:token/embed`) backed by a stable mp4 URL
+(`GET /api/share/:token/video.mp4` → presigned redirect), so they play inline
+where platforms allow — Discord/Telegram/Slack — and fall back to the card image +
+click-through elsewhere) → observability ✓ (Braintrust LLM tracing over OpenTelemetry, gated on
+`BRAINTRUST_API_KEY`) → prompt & craft alignment ✓ (the system prompt restructured
+into a persona/operating prompt + always-on `manim-craft` rules, kept in lockstep
+with the `manim-video` skill; snapshot bumped to 0.6) → landing/UX polish ✓
+(dark-mode default, painted feature/hero backgrounds, use-cases section, 404 page,
+per-route document titles via `useDocumentTitle`) → cost control ✓ (free-credit
+metering + BYOK for LLM and ElevenLabs, per-component; balance-only enforcement
+with a `402 OUT_OF_CREDITS` gate + depletion dialog; header balance gauge; see the
+Cost-control decision above) → deployed to prod ✓ (tryanimus.app — container
+image API + static web, Neon Postgres, Resend
+email, GitHub/Google OAuth + magic-link live; see the Hosting/Domain/Email
+decisions above) → migrated the API to AWS ✓ (ECS Fargate behind an ALB at
+`api.tryanimus.app`, CloudFront refused so the subdomain replaces the
+single-origin design; all three sign-in paths verified in prod) → CI/CD ✓
+(deploys run from GitHub Actions on green CI via OIDC; see the Deploys
+decision above) → **now:** first end-to-end prod video validation (blockers
+found and fixed so far: Vercel shadowing `AWS_*`, Bedrock throttling →
+retries, wrong voice guidance, better-auth 1.7's `account.issuer` schema
+change; still required: a paid ElevenLabs tier, an AWS Bedrock quota
+increase) → playback polish → generalize the render/repair loop
+→ later: paid quota tiers / billing, autonomous mode.
+(Parked, deliberately: surfacing
+stream errors in the studio UI (a stream that dies after the 200 is committed
+is invisible to status monitoring and silent in the UI); email OTP codes as
+the magic-link endgame; the settings `music_track`/`voice_id`
+nullable-vs-required mismatch; an atomic title-generation claim.)
+
+---
+
+## Stack
+
+- **Runtime / package manager / test runner:** Bun (never npm/npx/node)
+- **Monorepo:** Turborepo
+- **Web:** React 19 + Vite, React Router v7, Tailwind v4, shadcn/ai-elements
+- **API:** Hono
+- **LLM:** Vercel AI SDK (`ai`), Claude served via Amazon Bedrock
+  (`@ai-sdk/amazon-bedrock`)
+- **Streaming markdown:** Streamdown
+- **Validation:** Zod (all external input is schema-validated)
+- **DB:** Drizzle ORM + Postgres
+- **Auth:** Better Auth
+- **Sandbox:** Daytona
+- **Object storage:** Cloudflare R2
+- **Link-preview image:** `@resvg/resvg-js` rasterizes the `@animus/core`
+  share-card SVG to PNG for Open Graph (bundled Geist fonts + curated paintings in
+  `apps/api/assets`)
+- **Logging:** Pino (structured)
+- **Web analytics:** `@vercel/analytics` + `@vercel/speed-insights`, mounted on
+  every route (`App.tsx` / `main.tsx`). Both are third-party client-side
+  trackers, so the privacy policy has to name them.
+- **LLM observability:** Braintrust via OpenTelemetry (AI SDK
+  `experimental_telemetry` → OTLP). Gated on `BRAINTRUST_API_KEY`; no-op when
+  unset. Init in `apps/api/src/observability/telemetry.ts`; per-turn settings
+  built by `aiTelemetry()` and passed into the agent + title generation.
+- **Retries:** the AI SDK's own `maxRetries` on the model call. External calls
+  (Daytona, R2, Exa) are deliberately unretried — a retry library was specified
+  once but never adopted, so don't document one that isn't here.
+- **Lint / format:** Ultracite + Biome
+- **Dead-code / deps:** Knip
+
+---
+
+## Commands
+
+```bash
+bun install            # install workspace deps
+bun run dev            # turbo dev (all apps)
+bun run build          # turbo build (web app)
+bun run typecheck      # tsc across every workspace — the cross-package compile check
+bunx ultracite check   # lint (no writes); `bunx ultracite fix` to auto-fix
+bun run knip           # unused files / deps / exports
+bun run test           # run tests (NOT `bun test`; see note below)
+```
+
+Database (`packages/db`):
+
+```bash
+bun run db:generate    # create a migration from schema changes
+bun run db:migrate     # apply migrations
+bun run db:studio      # Drizzle Studio
+```
+
+Sandbox snapshot (`packages/agent`):
+
+```bash
+bun run snapshot:build # build/refresh the prebaked Manim+LaTeX Daytona snapshot
+```
+
+Turbo runs with `"ui": "stream"` (set in `turbo.json`), **not** the
+interactive `"tui"`. The TUI gives each task its own pane, so a failing
+task's output hides behind whichever pane is focused — you cannot see the
+error you are looking for — and it enables terminal mouse tracking that it
+fails to restore on Ctrl-C, after which the shell echoes every mouse move as
+an escape sequence (reproduced on WSL2, turbo 2.10.2). Streaming interleaves
+every task behind a `package:task` prefix and leaves the terminal alone.
+Note `turbo.json` is strict JSON to the editor's language service, so that
+reasoning lives here rather than as a comment in the file.
+
+**Before committing, the change must pass:** `bun run typecheck`,
+`bunx ultracite check`, `bun run knip`, and `bun run test`.
+
+---
+
+## Coding rules for contributors
+
+- **No `any`** — use `unknown` + narrowing.
+- **Public functions require explicit return types.**
+- Async/await style preferred.
+- **All external inputs must be schema-validated** (Zod). Keep services stateless
+  per request.
+- Never blindly retry abort/timeout. If you add retries to an external call,
+  add the dependency in the same change rather than assuming one exists.
+- Use structured logs: `logger.info({ ...ctx }, "message")`.
+- **No dead code**, no commented-out blocks, no unreferenced wiring. If a feature
+  is added, wire it fully and test it in the same change.
+- **Comments are terse.** Inline comments are **1-2 lines max**; doc comments are
+  **3 lines max**. Write one only when the code cannot say it itself: a
+  non-obvious *why*, a constraint, a gotcha, a workaround with its reason. Never
+  restate what the line does, never narrate a function step by step, never leave
+  a header banner or a section divider. Delete a comment that has gone stale
+  rather than updating it around the edges. If an explanation genuinely needs
+  more room, it belongs in `CLAUDE.md` or `docs/`, not in the source.
+- **Every change (feature, fix, refactor) includes corresponding test additions
+  or updates** — untested code is incomplete code.
+- Use `bun` commands only.
+
+---
+
+## Testing standards
+
+The test suite uses **vitest** and every new module ships with its tests in the
+same change. Current coverage spans `@animus/core` schemas, the API routes
+(conversations, settings, media, share, and the `/api/chat` sync contract) and
+their services + middleware, the crypto egress gate (encrypt/decrypt round-trip),
+the agent runner + tools + title generation, and `@animus/auth` email delivery.
+On the **web** side it spans every `src/lib` module (api, chat transport,
+conversations, share, credit events, pending prompt, user), the hooks
+(conversation list + detail, studio chat, start conversation, signed media URL,
+document title, mobile breakpoint), and the components/pages that carry logic:
+the studio page + stage + prompt, the share page, the 404, and the error
+boundary. Declarative/trivial modules (schema DDL, barrels, config constants,
+Better Auth wiring) and presentational-only components are intentionally not
+unit-tested.
+
+### Test runner
+- Use `vitest` (not `bun test`). Run: `bun run test` (turbo, per workspace).
+  A bare `bunx vitest run` at the repo ROOT silently fails: there is no root
+  `vitest.config.ts` by design, so the 24 `apps/web` files run without jsdom or
+  the `@` alias. It is only correct inside a single workspace.
+- Keep tests close to source in `__tests__/` folders.
+- Shared helpers in `src/__tests__/helpers/` (mock-logger, mock-fetch, fixtures).
+- **`apps/web`** runs under React Testing Library + jsdom via its own
+  `apps/web/vitest.config.ts` (the `@` alias and the browser-API stubs in
+  `src/__tests__/helpers/setup.ts` both live there). The monorepo coverage run
+  uses `vitest.coverage.config.ts` at the root, which enters each workspace as a
+  project — that file is deliberately **not** named `vitest.config.ts`, because a
+  root config by that name is inherited by every package that lacks one and its
+  `projects` globs then resolve to nothing.
+- For deterministic LLM behavior in agent tests, use the mock providers from
+  `ai/test` (`MockLanguageModelV3`, `mockId`) together with
+  `simulateReadableStream` from `ai` (it now lives in the main entry — the
+  `ai/test` re-export is deprecated).
+
+### Mandatory test policy
+- **Every bug fix must include a test** that reproduces the bug and verifies the fix.
+- **Every new feature must include tests** covering its public API, error paths,
+  and edge cases.
+- **Every refactor that changes behavior must update affected tests.**
+- **No PR is complete without passing tests** — run `bun run test` before committing.
+- When modifying an existing module, review its `__tests__/` folder and update
+  affected tests.
+
+---
+
+## Principles
+
+### Completeness — boil the lake
+
+AI-assisted coding makes the marginal cost of completeness near-zero. When
+presenting options, if Option A is the complete implementation (full parity, all
+edge cases, 100% coverage) and Option B is a shortcut that saves modest effort,
+**recommend A** — the delta between 80 and 150 lines is meaningless here.
+
+A **lake** is boilable: 100% coverage for a module, full feature implementation,
+all edge cases, complete error paths. An **ocean** is not: rewriting a system
+from scratch, features in dependencies we don't control, multi-quarter
+migrations. **Boil lakes; flag oceans as out of scope.** Don't skip the last 10%
+to "save time" — with AI it costs seconds. Don't defer tests to a follow-up PR;
+tests are the cheapest lake to boil.
+
+### See something, say something
+
+Whenever you notice something that looks wrong during any step — not just test
+failures — flag it briefly (one sentence: what you noticed and its impact), then
+ask "Want me to fix it?" Never let a noticed issue silently pass.
+
+### Keep CLAUDE.md up to date
+
+Update this file and relevant docs after every phase or coding session. It must
+reflect the current reality of the codebase at all times.
+
+### Ask questions on ambiguity
+
+Whenever there is ambiguity in requirements, approach, or scope, ask. Don't
+assume — confirm.
+
+---
+
+## Project conventions
+
+- **Formatting is enforced by Biome/Ultracite** — but **only outside
+  `apps/web` today**. `apps/web/biome.jsonc` sets `root: false` and extends only
+  `ultracite/biome/react`, which carries no formatter and no core rules, and a
+  nested Biome 2 config does not inherit the root config without an explicit
+  `"//"`. So the web app's **tabs** are a Biome default, not a decision, and its
+  lint bar is weaker than the rest of the repo while `ultracite check` still
+  passes green. Fixing that extends config is a tracked item and lands a
+  repo-wide reformat to **2-space** (what `apps/api` and `packages/*` use today).
+  Run `bunx ultracite check`
+  before committing.
+- **No TS `enum`** (`erasableSyntaxOnly`) — use `as const` arrays + union types.
+- **`verbatimModuleSyntax`** — type-only imports must use `import type` / inline
+  `type`.
+- **Shared contracts live in `@animus/core`.** Its root entry is **pure**
+  (no `process.env`, no `node:*`, no side effects) so the web can import it.
+  Server env is behind `@animus/core/env` — **never import it from the web**
+  (enforced by a Biome `noRestrictedImports` rule in `apps/web`).
+- **Env:** loaded by the runtime (Bun `--env-file`, Vite for web), validated by
+  Zod in `@animus/core/env`. A `superRefine` gated on `NODE_ENV=production`
+  hard-fails the boot when a production-critical variable is missing — most
+  importantly the Bedrock credentials, whose absence otherwise falls through to
+  the AWS SDK's own chain and (on a container host) authenticates as the
+  *instance's* IAM role instead of failing. Never read `process.env` directly in **runtime
+  app/server code** — import from `@animus/core/env`. Build-time tooling configs
+  (e.g. `drizzle.config.ts`) are the exception: they run via `--env-file`, need
+  only `DATABASE_URL`, and must not pull in the full server-env schema.
+- **Commits:** Conventional Commits (`feat:`, `fix:`, `refactor:`, `docs:`,
+  `chore:`). No AI attribution / `Co-Authored-By` lines.
+
+---
+> Source: [KacemMathlouthi/animus](https://github.com/KacemMathlouthi/animus) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-05 -->
