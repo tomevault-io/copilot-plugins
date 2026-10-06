@@ -1,0 +1,22 @@
+{
+  "name": "nvidia--isaaccapture",
+  "displayName": "IsaacCapture",
+  "description": "IsaacCapture",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/IsaacCapture",
+  "skills": [
+    {
+      "name": "IsaacCapture",
+      "description": ""
+    },
+    {
+      "name": "IsaacCapture",
+      "description": ""
+    },
+    {
+      "name": "IsaacCapture",
+      "description": ""
+    }
+  ]
+}
