@@ -7,11 +7,11 @@ Open firmware for the ODI DFP-34X-2C2 GPON SFP stick: Linux 6.18, own drivers an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AndreZiviani/odi-oss](https://github.com/AndreZiviani/odi-oss).
+Original source: `CLAUDE.md` in [AndreZiviani/odi-oss](https://github.com/AndreZiviani/odi-oss).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
