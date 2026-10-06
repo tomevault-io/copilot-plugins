@@ -39,127 +39,247 @@
   ],
   "skills": [
     {
-      "name": "senpi",
-      "path": ".factory/skills/tmux-manual-qa/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/.factory/skills/tmux-manual-qa/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/lsp/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/lsp/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": ".factory/skills/coding-agent-extension-worker/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/.factory/skills/coding-agent-extension-worker/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/rules/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/rules/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/examples/extensions/dynamic-resources/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/examples/extensions/dynamic-resources/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/refactor/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/refactor/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": ".github/agent/skills/merge-upstream/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/.github/agent/skills/merge-upstream/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/ulw-plan/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ulw-plan/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/long-name/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/long-name/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/ulw-loop/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ulw-loop/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/valid-skill/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/valid-skill/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/init-deep/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/init-deep/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/invalid-yaml/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/invalid-yaml/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/visual-qa/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/visual-qa/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/name-mismatch/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/name-mismatch/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/lsp-setup/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/lsp-setup/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/unknown-field/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/unknown-field/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/debugging/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/debugging/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/no-frontmatter/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/no-frontmatter/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/start-work/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/start-work/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/nested/child-skill/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/nested/child-skill/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/git-master/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/git-master/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/invalid-name-chars/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/invalid-name-chars/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/lcx-doctor/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/lcx-doctor/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/missing-description/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/missing-description/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/programming/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/programming/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/consecutive-hyphens/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/consecutive-hyphens/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/review-work/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/review-work/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/multiline-description/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/multiline-description/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/lcx-report-bug/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/lcx-report-bug/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills-collision/first/calendar/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills-collision/first/calendar/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/remove-ai-slops/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/remove-ai-slops/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/disable-model-invocation/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/disable-model-invocation/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/comment-checker/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/comment-checker/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills-collision/second/calendar/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills-collision/second/calendar/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/components/lsp/skills/lsp/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/lsp/skills/lsp/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": "packages/coding-agent/test/fixtures/skills/root-skill-preferred/nested-child/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/root-skill-preferred/nested-child/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/lcx-contribute-bug-fix/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/lcx-contribute-bug-fix/SKILL.md",
       "description": ""
     },
     {
-      "name": "senpi",
-      "path": ".agents/skills/senpi-qa/SKILL.md",
-      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/.agents/skills/senpi-qa/SKILL.md",
+      "name": "lazycodex",
+      "path": "plugins/omo/components/rules/skills/rules/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/rules/skills/rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/components/ulw-loop/skills/ulw-loop/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/ulw-loop/skills/ulw-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/components/ultrawork/skills/ulw-plan/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/ultrawork/skills/ulw-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/components/comment-checker/skills/comment-checker/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/comment-checker/skills/comment-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/ast-grep/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ast-grep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/frontend/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/teammode/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/teammode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/ultimate-browsing/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ultimate-browsing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/components/teammode/skills/teammode/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/teammode/skills/teammode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/ulw-research/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ulw-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/coding-agent-sessions/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/coding-agent-sessions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/ultrawork/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ultrawork/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/components/ultrawork/skills/ultrawork/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/ultrawork/skills/ultrawork/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/components/lcx/skills/lcx-doctor/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/lcx/skills/lcx-doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/components/lcx/skills/lcx-report-bug/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/lcx/skills/lcx-report-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/components/lcx/skills/lcx-contribute-bug-fix/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/lcx/skills/lcx-contribute-bug-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/data-scientist/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/data-scientist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "frontend",
+      "path": "plugins/omo/skills/frontend",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/frontend",
+      "description": ""
+    },
+    {
+      "name": "ultimate-browsing",
+      "path": "plugins/omo/skills/ultimate-browsing",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ultimate-browsing",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/ulw-execute/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ulw-execute/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/browser/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/browser/SKILL.md",
       "description": ""
     }
   ],
   "source_url": "https://github.com/code-yeongyu/lazycodex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T14:20:06Z"
+  "distributed_at": "2026-10-06T12:30:28Z"
 }
