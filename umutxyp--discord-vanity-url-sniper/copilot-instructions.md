@@ -1,30 +1,56 @@
 ## discord-vanity-url-sniper
 
-> This repository is a prompt-driven SEO audit-and-fix workflow with a runnable
+> SEO Prompt Master — audit and fix technical SEO and AI-search readiness against Google's official guidance, with a runnable live audit tool.
+
 
 # SEO Prompt Master
 
-This repository is a prompt-driven SEO audit-and-fix workflow with a runnable
-live audit tool.
+Invoke this when the task involves search visibility: an SEO audit, indexing or
+crawling problems, canonicals, hreflang, sitemaps, `robots.txt`, structured
+data, a traffic drop, a site migration, or being cited by AI answer engines.
+Also invoke it before shipping changes to routing, metadata, `robots.txt` or
+sitemap generation.
 
-The full instructions live in the skill at
-`.claude/skills/seo-audit/SKILL.md`, which Claude Code loads automatically when
-a task involves search visibility — an SEO audit, indexing or crawl problems,
-canonicals, hreflang, sitemaps, `robots.txt`, structured data, a traffic drop, a
-migration, or AI answer-engine visibility.
+## Source of truth
 
-If the skill is not available in your environment, read `START.md` and follow
-its phases directly. Either path leads to the same workflow.
+`docs/01`–`docs/17` in this repository, distilled from Google Search Central and
+web.dev. Every recommendation must cite one (`docs/13 §soft 404`). If a claim is
+not in there, say so rather than recalling it — most SEO advice online is years
+out of date, and this knowledge base is explicit about what changed (FID → INP,
+FAQ rich results removed, `rel=next/prev` unused since 2019).
 
-Two things worth knowing before you start:
+`verticals/01`–`24` add industry-specific overlays. They supplement the core
+audit; they never replace it.
 
-- **`docs/01`–`docs/17` is the only source of truth.** Never assert a Google rule
-  that is not in there. Much of the SEO advice in training data predates INP
-  replacing FID, FAQ rich results being removed, and `rel=next/prev` falling out
-  of use — the knowledge base is explicit about all three.
-- **Run `tools/seo-audit.mjs`, don't only read the code.** Reading the repository
-  tells you what the project intends; the tool tells you what the server returns.
+## Run the tool, don't only read the code
+
+```bash
+node tools/seo-audit.mjs --url https://the-site.example --max 40 --md seo-report.md
+```
+
+Reading the repository tells you what the project intends. This tells you what
+the server returns — soft 404s per template, one-way hreflang sets, canonicals
+pointing at redirects, metadata streamed past `</head>`. Zero dependencies,
+Node 18+, exits `1` on any P1 so it can gate a deploy. Works against
+`http://localhost:3000` when there is no live site.
+
+## Workflow
+
+`START.md` holds the phases. In short: detect the stack → inventory every route
+as `public-index` / `public-noindex` / `private` → audit each indexable page →
+prioritise into P1 (crawl/index blockers), P2 (misrepresentation), P3 (hygiene)
+→ fix shared infrastructure first, then per-page → verify by re-fetching.
+
+Persist to `ROUTES-INVENTORY.md` and `SEO-AUDIT-PROGRESS.md` so a long run
+survives a context reset, and resume from them if they already exist.
+
+## Non-negotiable
+
+- Typecheck, lint and build after every change; never leave the build broken.
+- A fix is not done until you have re-fetched the page and seen it.
+- Finish with the SEO/GEO scores from `docs/11`, with the category breakdown and
+  the off-page caveat — never a bare number.
 
 ---
 > Source: [umutxyp/Discord-Vanity-URL-Sniper](https://github.com/umutxyp/Discord-Vanity-URL-Sniper) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
