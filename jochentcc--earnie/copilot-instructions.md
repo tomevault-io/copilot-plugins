@@ -1,27 +1,36 @@
-## backtesting-max-workers
+## branching-hotfix-playbook
 
-> Use maximum useful ProcessPool workers for SE / backtesting runs
+> Warn before branching/publish steps that violate the hotfix playbook (main+tags, no long-lived alpha/develop)
 
 
-# Backtesting / SE — maximum useful workers
+# Branching / Hotfix Playbook Guard
 
-When starting `scripts/run_backtesting.py` (including SE calc matrix / one-off year runs):
+Canonical playbook: `docs/spec/branching-hotfix-playbook.md`.
 
-- **Always pass `--workers N`** with the largest *useful* N — never default to `1` unless the user asks for sequential debug.
-- Parallelism is **across top-level jobs** (historical/reference tasks + each scenario), **not** across windows inside one scenario.
-- Compute:
+## When this applies
 
-```text
-N = min(CPU logical count, number of parallel jobs)
-parallel jobs ≈ len(reference_specs) + len(scenarios)
-```
+Before acting on (or recommending) any of: new long-lived branches, hotfixes for a tagged build, tagging/publishing while feature work is open, PATCH vs alpha bumps for bugfixes, or “fix prod only on main and ship later.”
 
-Typical Live-only year: ~3 jobs → `--workers 3` (or `min(cpu, 3)`).  
-Multi-scenario: match job count (e.g. 4 scenarios + refs → often 5–6), capped by CPU.
+## Warn the user (stop and ask) if they are about to
 
-- On Windows, ensure worker children see the intended env (`EARNIE_ENV_PATH`, and do **not** leave stale `EARNIE_HOUSE_PROFILES_PATH` / `EARNIE_BACKTESTING_SCENARIOS_PATH` pointing at `se_calc_test/cells/…` overlays).
-- Prefer `os.cpu_count()` (logical) for the CPU cap.
-- **Windows spawn:** run via a real module (`python -m scripts.…`), not `python -c "…"`, so `ProcessPoolExecutor` workers start reliably.
+| Violation | Prefer instead |
+|-----------|----------------|
+| Create permanent `develop`, `alpha`, or long-lived `release/*` | Stay on `main`; pre-release = version/tag channel only |
+| Urgent patch for a **tagged** build by shipping dirty unfinished `main` | Short-lived `hotfix/…` from that **tag**, then port fix to `main` |
+| Hotfix only on the release tip **without** merging/cherry-picking to `main` | Always port the code fix to `main` |
+| Tag a commit where `version.py` ≠ tag (without `v`) | Bump/align `version.py` first (explicit approval) |
+| Mid-alpha cycle: PATCH the **last official** for a community tester fix | Next `X.Y.Z-alpha.N+1` / `-beta.N+1` (after approval), unless patching prod `:latest` |
+| Rewind `main`’s `version.py` to an official PATCH while alpha continues | Port **code** only; leave `main` on the ongoing alpha/beta/rc |
+| Rewrite / force-push a published tag | New tag with a new approved version string |
+
+## Default (no warning needed)
+
+- Bugfix on `main` → next session publish **D** (if needed) → **B** or **C**
+- Short-lived `hotfix/…` from tag only when users need a build **now** and `main` must not ship yet
+
+## How to remind
+
+One short warning + point to the playbook path + ask which path they want (default on `main` vs hotfix-from-tag). Do not silently create forbidden branches or skip porting to `main`.
 
 ---
 > Source: [JochenTCC/Earnie](https://github.com/JochenTCC/Earnie) — distributed by [TomeVault](https://tomevault.io).
