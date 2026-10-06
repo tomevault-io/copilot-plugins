@@ -1,0 +1,14 @@
+{
+  "name": "saphid--frame-control",
+  "displayName": "frame-control",
+  "description": "frame-control",
+  "version": "1.0.0",
+  "author": "saphid",
+  "homepage": "https://github.com/saphid/frame-control",
+  "skills": [
+    {
+      "name": "frame-control",
+      "description": ""
+    }
+  ]
+}
