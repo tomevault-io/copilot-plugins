@@ -1,169 +1,112 @@
 ## charmcraft
 
-> Guidelines for GitHub Copilot to write comments to achieve self-explanatory code with fewer comments. Examples are in Python but it should work on any language that has comments.
+> `canonical/charmcraft` is a CLI tool written in Python for initializing, packaging, and
 
+# Agents
 
-# Self-explanatory Code Commenting Instructions
+## Overview
 
-## Core Principle
-**Write code that speaks for itself. Comment only when necessary to explain WHY, not WHAT.**
-We do not need comments most of the time.
+`canonical/charmcraft` is a CLI tool written in Python for initializing, packaging, and
+publishing charms, the software operators used by Juju.
 
-## Commenting Guidelines
+## Craft apps and libraries
 
-### ❌ AVOID These Comment Types
+Charmcraft is built on the following craft libraries:
 
-**Obvious Comments**
-```python
-# Bad: States the obvious
-counter = 0  # Initialize counter to zero
-counter += 1  # Increment counter by one
+| Package             | Role                                                                                          |
+| ------------------- | --------------------------------------------------------------------------------------------- |
+| `craft-application` | Application framework: CLI lifecycle, configuration, service management, remote build support |
+| `craft-archives`    | Repository and package archive management (apt sources, keyrings)                             |
+| `craft-cli`         | Terminal output, progress reporting, error formatting                                         |
+| `craft-grammar`     | Architecture and platform-conditional YAML in project files                                   |
+| `craft-parts`       | Part lifecycle (pull, build, overlay, stage, prime) steps, plugins                            |
+| `craft-platforms`   | Platform and architecture abstractions                                                        |
+| `craft-providers`   | Build environment manager for LXD and Multipass                                               |
+| `craft-store`       | Store API client: upload, release, track management                                           |
+
+The source code for these libraries is at https://github.com/canonical/<library>.
+
+These libraries are used by other craft apps, including but not limited to Debcraft,
+Imagecraft, Rockcraft, and Snapcraft. The source code for these apps is at
+https://github.com/canonical/<app-name-in-lowercase>.
+
+Fixes or features that are generic or would benefit other craft apps must be made in the
+correct craft library. Overriding an upstream function to fix a bug in the library isn't
+acceptable.
+
+## Development
+
+Charmcraft uses [uv](https://docs.astral.sh/uv/) for dependency management.
+
+```bash
+make setup          # Install all deps
 ```
 
-**Redundant Comments**
-```python
-# Bad: Comment repeats the code
-def get_user_name():
-    return user.name  # Return the user's name
+### Running tests
+
+```bash
+make test           # Full test suite
+make test-fast      # Fast tests only
+uv run pytest tests/unit/path/to/test_file.py::test_name  # run a specific test
 ```
 
-**Outdated Comments**
-```python
-# Bad: Comment doesn't match the code
-# Calculate tax at 5% rate
-tax = price * 0.08  # Actually 8%
+End-to-end tests (`tests/spread/`) use [spread](https://github.com/canonical/spread/)
+and require additional setup to run locally. Spread tests should be run for
+comprehensive changes or changes that can't be completely verified with unit and
+integration tests. Spread tests are expensive to run, so extend existing tests when
+appropriate.
+
+### Formatting and linting
+
+```bash
+make format
+make lint
 ```
 
-### ✅ WRITE These Comment Types
+### Documentation
 
-**Complex Business Logic**
-```python
-# Good: Explains WHY this specific calculation
-# Apply progressive tax brackets: 10% up to 10k, 20% above
-tax = calculate_progressive_tax(income, [0.10, 0.20], [10_000])
+Documentation uses the [Diátaxis](https://diataxis.fr) framework
+and the [Sphinx Stack](https://github.com/canonical/sphinx-stack).
+All documentation must follow the [Starcraft style
+guide](https://documentation.ubuntu.com/starflow/latest/how-to/starcraft-style-guide/)
+and the overall [Canonical style guide](https://documentation.ubuntu.com/style-guide/).
+
+```bash
+make setup-docs
+make docs
+make lint-docs
 ```
 
-**Non-obvious Algorithms**
-```python
-# Good: Explains the algorithm choice
-# Using Floyd–Warshall for all-pairs shortest paths
-# because we need distances between all nodes
-for k in range(vertices):
-    for i in range(vertices):
-        for j in range(vertices):
-            # ... implementation
-            pass
-```
+## Practices
 
-**Regex Patterns**
-```python
-# Good: Explains what the regex matches
-# Match email format: username@domain.extension
-import re
-email_pattern = re.compile(r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
-```
+- Backward compatibility is a **hard requirement**. Existing projects must continue to
+  build successfully without requiring user modifications. Changes that alter behavior,
+  configuration, APIs, defaults, or validation rules must be opt-in or gated behind a
+  newer base. When modifying business logic, verify that existing behavior is preserved
+  and explain how you verified it.
+    - Experimental features and development bases (`build-base: devel`) are not subject
+      to this requirement.
+- Make the smallest safe change necessary to resolve the issue. Avoid unrelated bug
+  fixes, opportunistic cleanup, and refactoring unless required. The right amount of
+  complexity is the minimum needed for the current task.
+- Never speculate about code you haven't inspected.
+- Follow the project's existing conventions regarding style, docstrings, logging,
+  comments, and testing.
+- Comments should explain complex business logic, non-obvious algorithms, regex, and
+  other "gotchas". Comments should be brief, explain "why" not "how", and be helpful for
+  future maintainers.
+- Update relevant documentation and release notes to reflect code changes.
 
-**API Constraints or Gotchas**
-```python
-# Good: Explains external constraint
-# GitHub API rate limit: 5000 requests/hour for authenticated users
-await rate_limiter.wait()
-response = await http_client.get(github_api_url)
-```
+## Processes
 
-## Decision Framework
-
-Before writing a comment, ask:
-1. **Is the code self-explanatory?** → No comment needed  
-2. **Would a better variable/function name eliminate the need?** → Refactor instead  
-3. **Does this explain WHY, not WHAT?** → Good comment  
-4. **Will this help future maintainers?** → Good comment
-
-## Special Cases for Comments
-
-### Public APIs
-```python
-def calculate_compound_interest(principal: float, rate: float, time: float, compound_frequency: int = 1) -> float:
-    """
-    Calculate compound interest using the standard formula.
-
-    Args:
-        principal (float): Initial amount invested.
-        rate (float): Annual interest rate (as decimal, e.g., 0.05 for 5%).
-        time (float): Time period in years.
-        compound_frequency (int, optional): How many times per year interest compounds (default: 1).
-
-    Returns:
-        float: Final amount after compound interest.
-    """
-    # ... implementation
-    pass
-```
-
-### Configuration and Constants
-```python
-# Good: Explains the source or reasoning
-MAX_RETRIES = 3  # Based on network reliability studies
-API_TIMEOUT = 5.0  # AWS Lambda timeout is 15s, leaving buffer (seconds)
-```
-
-### Annotations
-```python
-# TODO: Replace with proper user authentication after security review
-# FIXME: Memory leak in production - investigate connection pooling
-# HACK: Workaround for bug in library v2.1.0 - remove after upgrade
-# NOTE: This implementation assumes UTC timezone for all calculations
-# WARNING: This function mutates the input list instead of returning a copy
-# PERF: Consider caching this result if called frequently in a hot path
-# SECURITY: Validate input to prevent SQL injection before using in query
-# BUG: Edge case failure when list is empty - needs investigation
-# REFACTOR: Extract this logic into separate utility function for reusability
-# DEPRECATED: Use new_api_function() instead - this will be removed in v3.0
-```
-
-## Anti-Patterns to Avoid
-
-### Dead Code Comments
-```python
-# Bad: Don't comment out code
-# def old_function():
-#     ...
-def new_function():
-    ...
-```
-
-### Changelog Comments
-```python
-# Bad: Don't maintain history in comments
-# Modified by John on 2023-01-15
-# Fixed bug reported by Sarah on 2023-02-03
-def process_data():
-    # ... implementation
-    pass
-```
-
-### Divider Comments
-```python
-# Bad: Don't use decorative comments
-# =====================================
-# UTILITY FUNCTIONS
-# =====================================
-```
-
-## Quality Checklist
-
-Before committing, ensure your comments:
-- [ ] Explain WHY, not WHAT
-- [ ] Are grammatically correct and clear
-- [ ] Will remain accurate as code evolves
-- [ ] Add genuine value to code understanding
-- [ ] Are placed appropriately (above the code they describe)
-- [ ] Use proper spelling and professional language
-
-## Summary
-
-Remember: **The best comment is the one you don't need to write because the code is self-documenting.**
+- If you're contributing to a specific release, target the upstream
+  `hotfix/<major.minor>` branch, if it exists. Otherwise, target the `main` branch.
+- Commit headers are no more than 80 characters, follow [Conventional
+  Commits](https://www.conventionalcommits.org/en/v1.0.0/), and use the following types:
+    - ci, build, feat, fix, perf, refactor, style, test, docs, chore
+- Always run `make format`, `make lint`, and `make test-fast` before completing your
+  work.
 
 ---
 > Source: [canonical/charmcraft](https://github.com/canonical/charmcraft) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
