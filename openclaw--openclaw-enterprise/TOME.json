@@ -1,0 +1,105 @@
+{
+  "name": "openclaw-enterprise",
+  "owner": "openclaw",
+  "repo": "openclaw-enterprise",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openclaw-enterprise",
+      "path": ".agents/skills/spec/SKILL.md",
+      "github_url": "https://github.com/openclaw/openclaw-enterprise/tree/main/.agents/skills/spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw-enterprise",
+      "path": ".agents/skills/deslop/SKILL.md",
+      "github_url": "https://github.com/openclaw/openclaw-enterprise/tree/main/.agents/skills/deslop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw-enterprise",
+      "path": ".agents/skills/oceinteg/SKILL.md",
+      "github_url": "https://github.com/openclaw/openclaw-enterprise/tree/main/.agents/skills/oceinteg/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw-enterprise",
+      "path": ".agents/skills/local-dev/SKILL.md",
+      "github_url": "https://github.com/openclaw/openclaw-enterprise/tree/main/.agents/skills/local-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw-enterprise",
+      "path": ".agents/skills/autoreview/SKILL.md",
+      "github_url": "https://github.com/openclaw/openclaw-enterprise/tree/main/.agents/skills/autoreview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw-enterprise",
+      "path": ".agents/skills/test-audit/SKILL.md",
+      "github_url": "https://github.com/openclaw/openclaw-enterprise/tree/main/.agents/skills/test-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw-enterprise",
+      "path": ".agents/skills/design-review/SKILL.md",
+      "github_url": "https://github.com/openclaw/openclaw-enterprise/tree/main/.agents/skills/design-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw-enterprise",
+      "path": ".agents/skills/mermaid-diagrams/SKILL.md",
+      "github_url": "https://github.com/openclaw/openclaw-enterprise/tree/main/.agents/skills/mermaid-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw-enterprise",
+      "path": ".agents/skills/technical-writing/SKILL.md",
+      "github_url": "https://github.com/openclaw/openclaw-enterprise/tree/main/.agents/skills/technical-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclaw-enterprise",
+      "path": ".agents/skills/enterprise-testing/SKILL.md",
+      "github_url": "https://github.com/openclaw/openclaw-enterprise/tree/main/.agents/skills/enterprise-testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openclaw/openclaw-enterprise",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T18:48:45Z"
+}
