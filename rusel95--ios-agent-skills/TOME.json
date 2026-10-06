@@ -1,0 +1,51 @@
+{
+  "name": "ios-agent-skills",
+  "owner": "rusel95",
+  "repo": "ios-agent-skills",
+  "description": "Production-tested iOS Agent Skills for Claude Code, Codex, and 40+ AI coding tools. 8 enterprise-grade skills covering SwiftUI MVVM, UIKit MVVM, VIPER, TCA, Swift Concurrency, GCD, Testing, and Security Audit.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ios-testing",
+      "path": "skills/ios-testing",
+      "github_url": "https://github.com/rusel95/ios-agent-skills/tree/main/skills/ios-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rusel95/ios-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T19:07:32Z"
+}
