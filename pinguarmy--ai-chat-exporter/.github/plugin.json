@@ -1,0 +1,9 @@
+{
+  "name": "pinguarmy--ai-chat-exporter",
+  "displayName": "ai-chat-exporter",
+  "description": "Export ChatGPT, Gemini, Claude, DeepSeek & Grok conversations to beautifully formatted Markdown and PDF. One-click, bulk download, custom filenames. Open source.",
+  "version": "1.0.0",
+  "author": "pinguarmy",
+  "homepage": "https://github.com/pinguarmy/ai-chat-exporter",
+  "skills": []
+}
