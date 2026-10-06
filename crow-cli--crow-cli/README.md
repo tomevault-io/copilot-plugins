@@ -1,8 +1,6 @@
 # AI instruction files for crow-cli
 
-> Sourced from [crow-cli/crow-cli](https://github.com/crow-cli/crow-cli) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Minimal MCP based ACP agent
+> Sourced from [crow-cli/crow-cli](https://github.com/crow-cli/crow-cli), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [crow-cli/crow-cli](https://github.com/crow-cli/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [crow-cli/crow-cli](https://github.com/crow-cli/crow-cli) — a repo with 20+ stars on GitHub.
+From [crow-cli/crow-cli](https://github.com/crow-cli/crow-cli) — a repo with 61+ stars on GitHub.
 
 ---
 
