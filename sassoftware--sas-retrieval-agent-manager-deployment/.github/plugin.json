@@ -1,0 +1,9 @@
+{
+  "name": "sassoftware--sas-retrieval-agent-manager-deployment",
+  "displayName": "sas-retrieval-agent-manager-deployment",
+  "description": "Deployment scripts, documentation and examples for SAS Retrieval Agent Manager",
+  "version": "1.0.0",
+  "author": "sassoftware",
+  "homepage": "https://github.com/sassoftware/sas-retrieval-agent-manager-deployment",
+  "skills": []
+}
