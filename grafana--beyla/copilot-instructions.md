@@ -1,61 +1,81 @@
 ## beyla
 
-> When working on or reviewing changes related to OBI (OpenTelemetry eBPF Instrumentation) integration in Beyla, follow these rules strictly.
+> This file provides guidelines for AI agents contributing to go-toml. All agents must follow these rules derived from [CONTRIBUTING.md](./CONTRIBUTING.md).
 
+# Agent Guidelines for go-toml
 
-# OBI Integration Instructions
+This file provides guidelines for AI agents contributing to go-toml. All agents must follow these rules derived from [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-When working on or reviewing changes related to OBI (OpenTelemetry eBPF Instrumentation) integration in Beyla, follow these rules strictly.
+## Project Overview
 
-## Forbidden directories
+go-toml is a TOML library for Go. The goal is to provide an easy-to-use and efficient TOML implementation that gets the job done without getting in the way.
 
-Never modify files in these directories directly:
-- `vendor/` — vendored OBI code, managed by `go mod vendor`. If OBI CI passes, this code is correct by definition.
-- `.obi-src/` — the OBI submodule. Changes go upstream.
-- `internal/testgenerated/` — generated test output. Change `scripts/generate-obi-tests.sh` or Go source instead.
+## Code Change Rules
 
-## Config struct parity
+### Backward Compatibility
 
-Beyla mirrors OBI config structs and uses `pkg/helpers/config/convert.go` (`Convert()`) to copy between them. This converter panics if the destination struct has an exported field the source does not have (and vice versa).
+- **No backward-incompatible changes** unless explicitly discussed and approved
+- Avoid breaking people's programs unless absolutely necessary
 
-When OBI adds new config fields, Beyla mirrors must be updated with matching fields, including `BEYLA_`-prefixed env tags and matching defaults.
+### Testing Requirements
 
-Known mirror pairs:
-- `vendor/.../obi/pkg/kube/kubecache/config.go` (OBI) <-> `cmd/k8s-cache/cfg/config.go` (Beyla)
-- `vendor/.../obi/pkg/obi/config.go` (OBI) <-> `pkg/beyla/config.go` (Beyla), bridged via `pkg/beyla/config_obi.go`
+- **All bug fixes must include regression tests**
+- **All new code must be tested**
+- Run tests before submitting: `go test -race ./...`
+- Test coverage must not decrease. Check with:
+  ```bash
+  go test -covermode=atomic -coverprofile=coverage.out
+  go tool cover -func=coverage.out
+  ```
+- All lines of code touched by changes should be covered by tests
 
-A config mismatch causes a startup panic. In k8s-cache this manifests as test timeouts — the cache process is dead and Beyla never receives K8s metadata, so tests hang rather than showing a panic.
+### Performance Requirements
 
-## Test sync before patch
+- go-toml aims to stay efficient; avoid performance regressions
+- Run benchmarks to verify: `go test ./... -bench=. -count=10`
+- Compare results using [benchstat](https://pkg.go.dev/golang.org/x/perf/cmd/benchstat)
 
-When a Beyla test fails on an assertion, do not simply adjust the assertion to make it pass. First locate the corresponding test in OBI (`.obi-src/`) and compare:
-- If the test block or sub-case has been **removed** in OBI, remove the same block from Beyla's copy (applying the OBI-to-Beyla translation rules from `scripts/generate-obi-tests.sh`). Do not patch the assertion.
-- If the test block still exists in OBI but the assertion changed, then adjust the assertion to match the new OBI behaviour.
+### Documentation
 
-Beyla's generated tests shadow OBI's tests. When OBI changes a test, Beyla's version should be updated to match — not worked around with a minimal assertion fix that hides the upstream intent.
+- New features or feature extensions must include documentation
+- Documentation lives in [README.md](./README.md) and throughout source code
 
-## Port over inject
+### Code Style
 
-Prefer porting proper fixes from OBI into Beyla code over adding code injections in `scripts/generate-obi-tests.sh`. Code injections are a last resort.
+- Follow existing code format and structure
+- Code must pass `go fmt`
+- Code must pass linting with the same golangci-lint version as CI (see version in `.github/workflows/lint.yml`):
+  ```bash
+  # Install specific version (check lint.yml for current version)
+  curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s -- -b $(go env GOPATH)/bin <version>
+  # Run linter
+  golangci-lint run ./...
+  ```
 
-## No test skipping
+### Commit Messages
 
-Do not skip, disable, or `t.Skip()` tests. Fix failures at the source.
+- Commit messages must explain **why** the change is needed
+- Keep messages clear and informative even if details are in the PR description
 
-## Scope of OBI integration changes
+### Capabilities
 
-Changes should be limited to:
-- Beyla's own Go code (not in `vendor/`, not in `.obi-src/`)
-- Test synchronisation rules in `scripts/generate-obi-tests.sh` (`BEHAVIORAL_TRANSFORMS`, `CODE_INJECTIONS`)
-- Beyla-specific test extensions in `internal/test/beyla_extensions/`
+go-toml tracks system-level capabilities using [capslock](https://github.com/google/capslock). The baseline is in `capability_baseline.txt` and CI enforces that it does not grow.
 
-When reviewing OBI integration changes, flag:
-- Modifications to forbidden directories
-- Test skips
-- Assertion-only fixes that change expected values without also porting the corresponding OBI test inputs (config YAML fields, setup data, table entries) — this is the most common shortcut and defeats the purpose of the test
-- Assertion patches that do not match upstream OBI test values
-- Config struct mismatches
+- **Do not introduce new capabilities.** PRs that increase the capability set (e.g., adding network access, subprocess execution, syscalls) are unlikely to be accepted.
+- If a change causes the capabilities check to fail, do not update the baseline to make it pass. Instead, rethink the approach to avoid requiring new capabilities.
+- To check locally: `./caps.sh check` (requires `capslock` installed via `go install github.com/google/capslock/cmd/capslock@latest`)
+
+## Pull Request Checklist
+
+Before submitting:
+
+1. Tests pass (`go test -race ./...`)
+2. No backward-incompatible changes (unless discussed)
+3. Relevant documentation added/updated
+4. No performance regression (verify with benchmarks)
+5. Capabilities are not increasing (`./caps.sh check`)
+6. Title is clear and understandable for changelog
 
 ---
 > Source: [grafana/beyla](https://github.com/grafana/beyla) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
