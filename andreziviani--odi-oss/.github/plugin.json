@@ -1,0 +1,9 @@
+{
+  "name": "andreziviani--odi-oss",
+  "displayName": "odi-oss",
+  "description": "Open firmware for the ODI DFP-34X-2C2 GPON SFP stick: Linux 6.18, own drivers and userland",
+  "version": "1.0.0",
+  "author": "AndreZiviani",
+  "homepage": "https://github.com/AndreZiviani/odi-oss",
+  "skills": []
+}
