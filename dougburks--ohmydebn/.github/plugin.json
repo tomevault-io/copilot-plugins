@@ -1,0 +1,18 @@
+{
+  "name": "dougburks--ohmydebn",
+  "displayName": "ohmydebn",
+  "description": "ohmydebn",
+  "version": "1.0.0",
+  "author": "dougburks",
+  "homepage": "https://github.com/dougburks/ohmydebn",
+  "skills": [
+    {
+      "name": "ohmydebn-skill",
+      "description": ""
+    },
+    {
+      "name": "ohmydebn",
+      "description": ""
+    }
+  ]
+}
