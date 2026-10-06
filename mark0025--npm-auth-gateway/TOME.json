@@ -1,0 +1,44 @@
+{
+  "name": "npm-auth-gateway",
+  "owner": "Mark0025",
+  "repo": "npm-auth-gateway",
+  "description": "User-level access control for Nginx Proxy Manager \u2014 auto IP whitelisting via auth providers",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mark0025/npm-auth-gateway",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T20:16:14Z"
+}
