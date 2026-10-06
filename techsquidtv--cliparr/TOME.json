@@ -1,0 +1,69 @@
+{
+  "name": "Cliparr",
+  "owner": "TechSquidTV",
+  "repo": "Cliparr",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Cliparr",
+      "path": ".agents/skills/cliparr-logtape/SKILL.md",
+      "github_url": "https://github.com/TechSquidTV/Cliparr/tree/main/.agents/skills/cliparr-logtape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Cliparr",
+      "path": ".agents/skills/cliparr-www-assets/SKILL.md",
+      "github_url": "https://github.com/TechSquidTV/Cliparr/tree/main/.agents/skills/cliparr-www-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Cliparr",
+      "path": ".agents/skills/cliparr-git-workflow/SKILL.md",
+      "github_url": "https://github.com/TechSquidTV/Cliparr/tree/main/.agents/skills/cliparr-git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Cliparr",
+      "path": ".agents/skills/cliparr-media-export-workflow/SKILL.md",
+      "github_url": "https://github.com/TechSquidTV/Cliparr/tree/main/.agents/skills/cliparr-media-export-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TechSquidTV/Cliparr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T18:33:10Z"
+}
