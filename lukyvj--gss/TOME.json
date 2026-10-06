@@ -1,0 +1,44 @@
+{
+  "name": "GSS",
+  "owner": "LukyVj",
+  "repo": "GSS",
+  "description": "\u2774 \u25cf \u2775 GSS \u2014 GPU Style Sheets. A CSS-like language for 3D scenes: selectors, the cascade, nesting, keyframes and transitions, compiled into one raymarching shader for WebGPU and WebGL2. No Three.js, no meshes. Playground, VS Code extension, and a <gss-scene> tag for any page.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LukyVj/GSS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T11:40:54Z"
+}
