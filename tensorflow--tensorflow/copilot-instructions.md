@@ -1,14 +1,19 @@
 ## tensorflow
 
-> This file serves as an entry point for AI assistants in the OSS XLA directory.
+> Welcome to the OpenXLA (`openxla/xla`) repository.
 
-<!--
-  This file serves as an entry point for AI assistants in the OSS XLA directory.
-  It links to the comprehensive guidelines in AGENTS.md.
--->
-See [AGENTS.md](AGENTS.md) for AI coding guidelines and best practices in this
-codebase.
+# AI Assistant Guidelines for OpenXLA
+
+Welcome to the OpenXLA (`openxla/xla`) repository.
+
+*   **Core XLA compiler guidelines**: When generating, reviewing, or modifying
+    code under [`xla/`](xla/), follow the detailed C++, MLIR, testing, and
+    Bazel guidelines in [`xla/AGENTS.md`](xla/AGENTS.md).
+*   [`build_tools/`](build_tools/) contains CI and developer tooling,
+    [`docs/`](docs/) the user-facing documentation, and
+    [`third_party/`](third_party/) vendored dependencies and Bazel repository
+    rules.
 
 ---
 > Source: [tensorflow/tensorflow](https://github.com/tensorflow/tensorflow) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
