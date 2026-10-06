@@ -1,0 +1,9 @@
+{
+  "name": "owebeeone--gwz-cli",
+  "displayName": "gwz-cli",
+  "description": "Coordinate multiple Git repositories as one reproducible workspace",
+  "version": "1.0.0",
+  "author": "owebeeone",
+  "homepage": "https://github.com/owebeeone/gwz-cli",
+  "skills": []
+}
