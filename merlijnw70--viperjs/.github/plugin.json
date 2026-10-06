@@ -1,0 +1,9 @@
+{
+  "name": "merlijnw70--viperjs",
+  "displayName": "viperjs",
+  "description": "An embeddable JavaScript engine in safe Rust, with zero runtime dependencies.",
+  "version": "1.0.0",
+  "author": "MerlijnW70",
+  "homepage": "https://github.com/MerlijnW70/viperjs",
+  "skills": []
+}
