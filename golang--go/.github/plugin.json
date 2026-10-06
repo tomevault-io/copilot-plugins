@@ -1,0 +1,9 @@
+{
+  "name": "golang--go",
+  "displayName": "go",
+  "description": "go",
+  "version": "1.0.0",
+  "author": "golang",
+  "homepage": "https://github.com/golang/go",
+  "skills": []
+}
