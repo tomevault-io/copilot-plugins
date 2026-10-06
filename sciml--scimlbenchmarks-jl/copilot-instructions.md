@@ -1,27 +1,18 @@
 ## scimlbenchmarks-jl
 
-> For changes confined to benchmark sources or their environments under `benchmarks/`, the authoritative test is that every affected benchmark Weaves without error. Run the same entrypoint used by CI:
+> Use identical equations, parameter arrays, output requirements, and explicit
 
-# Agent instructions
+# GPU ensemble comparisons
 
-## Validating benchmark changes
+Use identical equations, parameter arrays, output requirements, and explicit
+precision across libraries. Compare controllers at measured achieved error;
+equal tolerances do not establish equal accuracy. Keep the PI-controlled
+`GPUTsit5` alongside opt-in controller alternatives.
 
-For changes confined to benchmark sources or their environments under `benchmarks/`, the authoritative test is that every affected benchmark Weaves without error. Run the same entrypoint used by CI:
-
-```sh
-julia --threads=auto --project=. benchmark.jl benchmarks/<folder>/<benchmark>.jmd
-```
-
-Run the folder instead when a dependency or environment change can affect multiple pages:
-
-```sh
-julia --threads=auto --project=. benchmark.jl benchmarks/<folder>
-```
-
-If the benchmark directory has a `setup.sh`, reproduce the complete CI sequence with `.github/scripts/build_benchmark.sh <target>`.
-
-Do not add tests under `test/` that merely inspect benchmark source text or assert dependency strings in a benchmark `Project.toml` or `Manifest.toml`. Those checks do not establish that the benchmark executes successfully. Add unit tests when changing the shared benchmark harness or another independently testable code path; otherwise, report the exact Weave command and result in the pull request.
+State whether timings include transfers, setup, and result materialization.
+Use documented public solver APIs and fail if a requested GPU engine falls back
+to another implementation. Do not label host-to-host measurements kernel timings.
 
 ---
 > Source: [SciML/SciMLBenchmarks.jl](https://github.com/SciML/SciMLBenchmarks.jl) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
