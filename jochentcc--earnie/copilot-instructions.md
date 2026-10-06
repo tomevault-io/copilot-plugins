@@ -1,37 +1,43 @@
-## german-markdown
+## german-user-docs
 
-> Ask once before relying on German project markdown — offer translation
+> User-facing documentation stays in German — scope, language, sync with code
 
 
-# German Markdown in This Project
+# User Documentation — German
 
-Some project `.md` files may still be in German (e.g. `docs/spec/`, older notes). **Backlog files are in English** (`backlog/Backlog.md`, `backlog/Backlog-Bugfixes.md`, `backlog/Backlog-Erledigt.md`).
+End-user documentation is **German**. Do not translate it to English unless the user explicitly requests that.
 
-**User docs** (`docs/README.md`, `docs/user-manual/`, `docs/einrichtung/`, `docs/konfiguration/`, `docs/ui/`, `docs/referenz/`) are **intentionally German** — see `german-user-docs.mdc`. Do not offer to translate them to English; read as-is.
+## Scope (user docs)
 
-## When This Applies
+| Path | Purpose |
+|------|---------|
+| `docs/README.md` | Anwender-Einstieg, Inhaltsverzeichnis |
+| `docs/user-manual/` | Benutzer-Handbuch (narrative operator journey) |
+| `docs/einrichtung/` | Einrichtung, Betrieb, Container, Dev-Stacks |
+| `docs/konfiguration/` | `config.json`, Sidecars, Szenarien |
+| `docs/ui/` | Streamlit-Oberfläche, Charts, Betrieb |
+| `docs/referenz/` | Loxone-Signale, Ports, Tabellen |
 
-Before you **read and use** a project `.md` file for decisions, implementation, or summaries — and the file is **predominantly German** and **not** in the user-doc scope above — **ask the user once**:
+**Not user docs:** `docs/spec/` (Entwickler-Specs, English OK), `Backlog*.md`. Root `README.md` is the public landing (German prose OK; keep in sync with user docs when facts change).
 
-> This file is still in German: `<path>`. Should I translate it to English first, or read it as-is?
+## When editing or adding user docs
 
-## Rules
+- Write and maintain content **in German** (headings, prose, tables).
+- Keep code identifiers, env vars, JSON keys, file paths, and CLI commands **verbatim** (often English).
+- When a feature or config changes, **update the matching user doc** in the same change set when possible.
+- Cross-link related pages; keep `docs/README.md` TOC in sync with new pages under the scope above.
 
-- **Ask once per file per session.** After the user answers for that file, follow their choice; do not ask again for the same file in the same chat.
-- **Do not translate silently.** Only translate when the user explicitly agrees.
-- **If the user declines or does not answer:** read the German content as-is; do not block the task.
-- **If the user agrees:** translate the file (preserve structure, paths, code identifiers, version numbers), then continue with the task.
-- **Scope:** project `.md` files only — not user messages, external links, or non-markdown sources.
-- **Exempt:** files already in English; brief German fragments inside otherwise English docs (UI labels, proper nouns) do not trigger a translation offer by themselves.
+## Language exceptions
 
-## Examples
+- Brief English fragments (UI labels, proper nouns, API names) inside German docs are fine.
+- Do **not** silently anglicize whole sections or migrate user docs to English.
+- **`docs/ui/ehal-com.md`** — intentionally **English** (operator deep-dive / field tables). Do not translate to German unless the user asks.
+- **HouseSim** (`docs/spec/house-sim.md`, `house_sim/`) — internal lab/dev only. Do not add to the German Anwender-TOC under Einrichtung; keep under Entwickler-Specs.
 
-| Situation | Action |
-|-----------|--------|
-| Task requires `docs/konfiguration/preise.md` (German) | Ask once: translate or read as-is? |
-| User already said “read as-is” for that file this session | Read without asking again |
-| `backlog/Backlog.md` (English) | No ask |
-| German word in a code comment or config label | No ask |
+## Relation to other rules
+
+- `german-markdown.mdc`: applies to **reading** German project markdown for implementation — **not** to translating user docs away from German.
+- `english-chat.mdc`: assistant chat stays English; user docs stay German.
 
 ---
 > Source: [JochenTCC/Earnie](https://github.com/JochenTCC/Earnie) — distributed by [TomeVault](https://tomevault.io).
