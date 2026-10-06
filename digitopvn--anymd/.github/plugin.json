@@ -1,0 +1,9 @@
+{
+  "name": "digitopvn--anymd",
+  "displayName": "anymd",
+  "description": "Convert anything on the internet to clean Markdown, with a searchable library, API, CLI, MCP and WebMCP.",
+  "version": "1.0.0",
+  "author": "digitopvn",
+  "homepage": "https://github.com/digitopvn/anymd",
+  "skills": []
+}
