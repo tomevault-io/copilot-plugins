@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--xet-core",
+  "displayName": "xet-core",
+  "description": "xet-core",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/xet-core",
+  "skills": []
+}
