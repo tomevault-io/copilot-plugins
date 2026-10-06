@@ -1,0 +1,141 @@
+## shadcn-m3e
+
+> shadcn M3E: Material 3 Expressive (M3E) on the shadcn/ui template. React 19, TanStack Router, Vite (via `vite-plus`), Tailwind CSS v4, Base UI, bun. It is both a component library (distributed as a shadcn registry) and the documentation site for it.
+
+# AGENTS.md
+
+shadcn M3E: Material 3 Expressive (M3E) on the shadcn/ui template. React 19, TanStack Router, Vite (via `vite-plus`), Tailwind CSS v4, Base UI, bun. It is both a component library (distributed as a shadcn registry) and the documentation site for it.
+
+- Site and registry: https://shadcn-m3e.crystaworld.dev (registry at `/r/{name}.json`, namespace `@m3e`)
+- Repository: Crysta1221/shadcn-m3e
+
+## Commands
+
+Run everything from the repository root; the root scripts delegate to the workspaces.
+
+```bash
+bun run dev             # docs site on http://localhost:5173 (rebuilds the registry first)
+bun run typecheck       # tsc -b --noEmit (apps/docs and packages/m3e)
+bun run lint            # oxlint, type-aware
+bun run format          # oxfmt (format:check to verify only)
+bun run registry:build  # apps/docs/public/r + apps/docs/src/docs/registry-meta.generated.ts
+bun run gen:icons       # bundle the icons the code uses; check:icons verifies (CI)
+bun run gen:tokens      # regenerate packages/m3e/src/styles/m3e.generated.css
+bun run build           # tsc -b && vp build
+bun run dev:canvas      # the Playground (apps/canvas) on http://localhost:3000
+```
+
+Before you finish a change: `typecheck`, `lint`, `format`, and `registry:build` when a file in `packages/m3e/src` changed. There is no test runner; UI is verified in the browser (see "Verifying").
+
+## Deployment (Cloudflare)
+
+Each app deploys as its own Worker via Workers Builds (repo connected once per Worker; see the dashboard settings below — root directory, commands and watch paths live in the dashboard, not in the repo).
+
+- `apps/docs` → Worker `shadcn-m3e-docs`. Configured for `cf` (the new CLI, beta): `apps/docs/cloudflare.config.ts` (Worker name, SPA `notFoundHandling`, observability) plus `apps/docs/wrangler.config.ts` (`assetsDirectory: "dist"` — cf has no `assets.directory` field; static sites keep that in the Wrangler build config). `cf`/`wrangler` are devDependencies of `apps/docs`. Deploys `bun run --cwd apps/docs deploy` (`cf deploy`), previews `deploy:preview` (`cf previews deploy`).
+- `apps/canvas` → Worker `m3e-canvas`. A Vite+ SPA (`vp build` → `dist/`) deployed with the Wrangler CLI: `apps/canvas/wrangler.jsonc` + `bun run deploy:canvas` (root script). No entrypoint — assets only, SPA fallback.
+- `cf` runs under Node.js (loading `cloudflare.config.ts` on Bun fails) and requires Node 22.18+. On Windows, `cf deploy` currently fails at `spawn EFTYPE` — a cf beta bug: it spawns `wrangler/bin/cf-wrangler.js` directly instead of through `node`. Works on Linux, so Workers Builds is unaffected; locally `node node_modules/wrangler/bin/cf-wrangler.js build` produces `.cloudflare/output/v0` the same way.
+- `devEngines` pins bun, which makes `npm`/`npx` fail inside the repo — CI commands must go through `bun run` scripts, never `npx`.
+
+Workers Builds dashboard settings:
+
+| Worker          | Root directory | Build command                             | Deploy / preview command                                                    | Build watch paths (includes)                                                 |
+| --------------- | -------------- | ----------------------------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| shadcn-m3e-docs | `/`            | `bun run registry:build && bun run build` | `bun run --cwd apps/docs deploy` / `bun run --cwd apps/docs deploy:preview` | `apps/docs/*`, `packages/m3e/*`, `package.json`, `bun.lock`, `tsconfig.json` |
+| m3e-canvas      | `/`            | `bun run build:canvas`                    | `bun run deploy:canvas`                                                     | `apps/canvas/*`, `package.json`, `bun.lock`, `tsconfig.json`                 |
+
+The root directory stays at `/` because `bun install` runs at the workspace root. Watch paths use dashboard wildcards (`*` crosses `/`, so nested paths are covered); `packages/m3e` is included for docs because the site builds against it.
+
+## Repository layout
+
+A bun workspace. `apps/*` are applications, `packages/*` is the code that ships.
+
+```
+apps/docs/       the documentation site; it also serves the registry at /r/{name}.json
+apps/canvas/     the Playground: TanStack Router + Vite+, forked from lnkiai/m3e-canvas
+packages/m3e/    the M3E components, library code and tokens (the registry source)
+videos/          a separate Remotion project, not part of the workspace
+```
+
+The code in `packages/m3e` imports its own files as `@/components/m3e/x`, `@/lib/m3e/x`, `@/hooks/x` and `@/styles/x`: those are the specifiers a consumer's project has after `shadcn add`, and `scripts/build-registry.mjs` reads them. `apps/docs/tsconfig.paths.json` and `apps/docs/vite.config.ts` map them (and `@/` itself, to `apps/docs/src`) to the right directory. Keep the two in sync. The registry still publishes the consumer-side paths (`src/components/m3e/…`), see `SOURCES` in the script.
+
+## Directories
+
+| Path                                             | Rule                                                                                                                                                                                                                                                                                                                          |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/m3e/src/components/`                   | Every M3E component, flat: one `kebab-case.tsx` per component (hooks `use-*.ts`). M3E-ized shadcn components and M3E-only ones live side by side.                                                                                                                                                                             |
+| `packages/m3e/reference/ui/`                     | The shadcn originals (`shadcn add` output), kept for reference. **Never edit, import or lint.** Excluded from `tsc` and the linter.                                                                                                                                                                                           |
+| `packages/m3e/src/lib/`                          | Library code that ships with the registry: `cn`, color schemes, shapes, Vibrant. `apps/docs/src/lib/utils.ts` is shadcn's and stays untouched.                                                                                                                                                                                |
+| `packages/m3e/src/hooks/`                        | Shared hooks that ship with items (`use-mobile`). Import as `@/hooks/<name>`.                                                                                                                                                                                                                                                 |
+| `packages/m3e/src/styles/m3e.css`                | Hand-written tokens and utilities (`state-layer`, `focus-ring`, `motion-*`, shape/type/elevation scales).                                                                                                                                                                                                                     |
+| `packages/m3e/src/styles/m3e.generated.css`      | Generated by `gen:tokens`. Do not edit.                                                                                                                                                                                                                                                                                       |
+| `packages/m3e/scripts/`                          | `build-registry.mjs`, `icons.mjs`, `gen-tokens.ts`.                                                                                                                                                                                                                                                                           |
+| `apps/docs/src/docs/`                            | The documentation site's own code. Nothing in `packages/m3e` may import from it.                                                                                                                                                                                                                                              |
+| `apps/docs/src/docs/content/*.md`                | Guide pages; list each one in `apps/docs/src/docs/outline.ts`.                                                                                                                                                                                                                                                                |
+| `apps/docs/src/docs/data/*.ts`                   | One entry per component page (description, imports, notes, props table), by category.                                                                                                                                                                                                                                         |
+| `apps/docs/src/docs/page-meta.ts`                | Title and description of every page, derived from `outline.ts` and `data/*.ts`. The `seo` plugin in `vite.config.ts` writes them (with the Open Graph / Twitter tags) into one prerendered HTML file per route, and `usePageMeta` keeps them in step after client-side navigation. Add a static page to `STATIC_PAGES` there. |
+| `apps/docs/src/docs/not-found.tsx`               | The 404 page. Workers Assets serves `dist/404.html` (the same shell, `noindex`) with a 404 status for any path without a file, so a new static route must be added to `STATIC_PAGES` in `page-meta.ts`; the build fails with the missing routes listed if it is not.                                                          |
+| `apps/docs/og/og.html`                           | Source of `apps/docs/public/og.png`, the 1200x630 preview card (default `og:image`). `bun run --cwd apps/docs gen:og` renders it with Chrome (set `CHROME` if not found) and commits the PNG.                                                                                                                                 |
+| `apps/docs/og/card.ts`                           | Draws the per-page preview images (`dist/og/<route>.png`: section, title, description and the page icon) with satori and resvg during `vp build`. The text comes from `pageCard()` in `page-meta.ts`; no Chrome needed, so it runs on Workers Builds.                                                                         |
+| `apps/docs/src/docs/examples/<slug>/NN-name.tsx` | Live demos. The file is run and also shown as its own source, so it must be a copy-pasteable example (`default` export plus `meta`).                                                                                                                                                                                          |
+| `apps/docs/src/docs/showcases/*.tsx`             | Page-scale demos for the Examples page (app shells and other `position: fixed` layouts), same format as an example; `meta.frame` is the preview height. A component can point to one with `showcase` in its data entry.                                                                                                       |
+| `apps/docs/src/routes/`                          | TanStack Router file routes. `routeTree.gen.ts` is generated.                                                                                                                                                                                                                                                                 |
+| `apps/docs/public/r/`                            | Registry output. Generated, git-ignored.                                                                                                                                                                                                                                                                                      |
+| `apps/canvas/`                                   | The Playground, forked from lnkiai/m3e-canvas (MIT) and migrated off Next.js to TanStack Router + Vite+ — it is no longer a subtree, so no `git subtree pull`. Still excluded from lint, format and the root `tsc` for now; it has its own `typecheck`/`test` (vitest) scripts.                                               |
+| `videos/`                                        | A separate Remotion project (own `package.json`, see its README). Excluded from lint and format.                                                                                                                                                                                                                              |
+
+Generated files (`*.generated.*`, `routeTree.gen.ts`, `icon-data*.ts`, `apps/docs/public/r`) are never edited by hand.
+
+## Code rules
+
+- **Imports.** Use `@/components/m3e/*`, never `@/components/ui/*`. `cn` comes from `@/lib/m3e/cn` (it knows the M3E type scale; a bare `"cn"` import is aliased to it). Between items import by alias (`@/components/m3e/x`, `@/lib/m3e/x`, `@/hooks/x`): the registry builder follows those. Relative `./` imports are only for files inside one multi-file group (icons, theme). Never import from `apps/docs`.
+- **Registry.** Each `packages/m3e/src/components/<x>.tsx` becomes the item `@m3e/<x>`; its dependencies (npm packages, other items, icons) are derived from its imports by `scripts/build-registry.mjs`. Keep every component file self-contained and its imports honest. Files that only work together are grouped in that script.
+- **TypeScript.** `strict`, `noUnusedLocals`, `noUnusedParameters`, `verbatimModuleSyntax` (use `import type`), `erasableSyntaxOnly` (no enums, namespaces or parameter properties).
+- **Style.** oxfmt: no semicolons, double quotes, ES5 trailing commas, 80 columns, Tailwind classes sorted (`cn`, `cva`). Run `bun run format` rather than formatting by hand. Prefer Tailwind v4 canonical class names (the linter warns).
+- **Components.** Named exports, `data-slot="<name>"` on the root, props spread last, `className` merged with `cn`. Wrap Base UI primitives; keep shadcn prop names and add M3E props beside them.
+- **Lint suppressions** need a reason on the same line or the line above. Fix the cause first.
+- **Config imports** from `vite` or `vitest` are not allowed; use `vite-plus`.
+- **Icons.** Material Symbols Rounded, bundled (no runtime Iconify calls). Use `<Icon name="…" />` or `icon="…"`; internal glyphs go through `symbols.tsx`. After adding or renaming an icon run `bun run gen:icons`, and `check:icons` must pass. Names built at runtime need a `// @icons a b c` line.
+
+## Comments
+
+- Write comments in English.
+- Comment the **why** and the **source of a value**: an M3 or Compose token, a spec dimension, a behavior ported from Material Web or matraic/m3e, a browser quirk. Put spec summaries in one block comment at the top of a component (sizes in dp, colors by role, which Compose tokens they came from).
+- Do not restate the code, a prop name or a type. No commented-out code, no TODOs, no section banners that only repeat a function name.
+- Public props get a one-line JSDoc only when the name alone is not enough.
+- Credit code ported from another project with its license (see `NOTICE`).
+
+## M3E rules
+
+M3E is not M3. Never build a component from memory of the old M3; read the primary sources first, in this order: Compose Material3 tokens (`androidx/androidx` → `compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/*.kt`), matraic/m3e (web implementation), Material Web (ripple), m3.material.io (JS-rendered: read it in a real browser). Where lnkiai/m3e-canvas disagrees with the official tokens, the tokens win. `raw.githubusercontent.com` can be flaky: retry and pass `--ssl-no-revoke` on Windows.
+
+- **Units.** 1dp = 1px. Write dimensions as the spec does, in comments as `56dp`.
+- **Colors** only through role utilities (`bg-primary-container`, `text-on-surface-variant`, `bg-inverse-surface`…). No hex or raw `rgb()` in components. The shadcn aliases (`bg-background`, `bg-muted`) map onto roles and still work.
+- **Shape.** The corner scale is `rounded-xs … rounded-4xl` (M3 names). Buttons use per-size CSS variables (`--btn-r`, `--btn-r-pressed`, `--btn-r-selected`); never a one-sided `rounded-full` on a pill that must morph, use `--btn-h2` (half the height).
+- **Type** with `text-<role>-<size>` (`text-body-medium`, `text-label-large`, `-emphasized` variants). **Elevation** with `shadow-elevation-0…5`.
+- **Motion** is spring based. Position, size and shape use the spatial springs (`motion-spatial-fast|default|slow`); color and opacity use the effects springs (`motion-effects-*`). Use the generated `--md-sys-motion-spring-*` tokens, not hand-picked cubic-béziers or durations. Honor `prefers-reduced-motion`.
+- **Press state** is the `data-press` attribute, held for at least 225ms, set by `<Ripple />`; do not style `:active`. Put `<Ripple />` inside every interactive control and give it `state-layer` (and `focus-ring` for focus).
+- **Selection.** Toggles swap shape (round ↔ square) when selected; icons of selected items fill (`<Icon fill="auto" />`).
+- **Base UI quirks.** Selected states are `data-pressed` / `data-selected`; the shadcn Tailwind variant `data-selected:` only matches `="true"`, so select/combobox items use `data-[selected]:`.
+- **Known deviations that are intentional:** the text field keeps the older (M3) spec; the snackbar (`sonner.tsx`) is a custom queue implementation with a sonner-style `toast()` API, not a sonner wrapper.
+- **Theme API names.** Light/dark is the color mode (`ColorModeProvider`, `useColorMode`); the palette is the theme (`M3ThemeProvider`, `useM3Theme`, `M3ThemeScope`); `M3eProvider` is both. The old `ThemeProvider` / `useTheme` names no longer exist.
+
+## Adding or changing a component
+
+1. Read the sources above and write the component in `packages/m3e/src/components/<name>.tsx` with the spec summary comment.
+2. Add its entry to `apps/docs/src/docs/data/<category>.ts` (`origin: "shadcn"` for a restyled shadcn component, `"m3e"` for one shadcn does not have) and demos in `apps/docs/src/docs/examples/<slug>/`.
+3. `bun run gen:icons`, `registry:build`, `typecheck`, `lint`, `format`.
+4. Check it in the browser.
+
+## Verifying
+
+- Run the site (`bun run dev`) and look: the pressed shape morph, ripple, spring timing, dark mode (`.dark` on `<html>`), a narrow window (the docs show a bottom navigation bar under `md`).
+- Measure rather than eyeball: read computed styles and bounding boxes with JavaScript, check that a fast click (30ms) still plays the whole press animation, and sample transitions over time. Screenshots alone mislead (phase, load timing).
+- Run docs pages for every component you touch (`/components/<slug>`) and watch the console.
+
+## Docs and copy
+
+Docs, UI text, comments, commit messages and PR descriptions are in English. Reply to the maintainer in the language they write in.
+
+---
+> Source: [Crysta1221/shadcn-m3e](https://github.com/Crysta1221/shadcn-m3e) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-05 -->
