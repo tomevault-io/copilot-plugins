@@ -1,0 +1,9 @@
+{
+  "name": "jfut--ssh-keyselect",
+  "displayName": "ssh-keyselect",
+  "description": "SSH KeySelect is an interactive SSH agent proxy that lets you choose which keys an SSH client can offer from your existing agent.",
+  "version": "1.0.0",
+  "author": "jfut",
+  "homepage": "https://github.com/jfut/ssh-keyselect",
+  "skills": []
+}
