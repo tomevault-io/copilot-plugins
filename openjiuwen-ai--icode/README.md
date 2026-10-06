@@ -2,8 +2,6 @@
 
 > Sourced from [openJiuwen-ai/iCode](https://github.com/openJiuwen-ai/iCode), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
-A lightweight, extensible, fully offline development platform and agent/workflow toolkit for the AI era, with an intuitive TUI, easy deployment, and complete control over your data, agents, and workflows.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
