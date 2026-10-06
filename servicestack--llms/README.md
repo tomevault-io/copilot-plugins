@@ -1,6 +1,6 @@
 # llms
 
-> Source: [ServiceStack/llms](https://github.com/ServiceStack/llms). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [ServiceStack/llms](https://github.com/ServiceStack/llms). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
