@@ -55,13 +55,22 @@ flow/
 │   │   ├── bootstrap.go             # UUID gen, session file scanning
 │   │   ├── resolve.go               # task/project slug resolution
 │   │   ├── slug.go                  # name-to-slug conversion
-│   │   ├── skill/SKILL.md           # embedded skill (//go:embed)
+│   │   ├── skill/SKILL.md           # embedded lean skill core (//go:embed skill)
+│   │   ├── skill/references/*.md     # on-demand workflow references (embedded)
 │   │   └── *_test.go
 │   ├── flowdb/                      # SQLite data layer
 │   │   ├── db.go                    # schema, models, CRUD queries
 │   │   └── db_test.go
-│   └── iterm/                       # iTerm2 tab spawning
-│       └── iterm.go
+│   ├── iterm/                       # iTerm2 tab spawning
+│   │   └── iterm.go
+│   ├── terminal/                    # macOS Terminal.app tab spawning
+│   │   └── terminal.go
+│   ├── warp/                        # Warp tab spawning (warp:// URI + osascript keystroke)
+│   │   └── warp.go
+│   ├── zellij/                      # zellij tab spawning
+│   │   └── zellij.go
+│   └── spawner/                     # backend selection + dispatch
+│       └── spawner.go
 ├── Makefile
 ├── README.md
 ├── CLAUDE.md
@@ -72,9 +81,13 @@ flow/
 
 ## Package responsibilities
 
-- **`internal/app`** — all CLI command handlers, dispatch, shared helpers. One file per subcommand. Imports `flowdb` and `iterm`.
+- **`internal/app`** — all CLI command handlers, dispatch, shared helpers. One file per subcommand. Imports `flowdb` and `spawner`.
 - **`internal/flowdb`** — schema DDL, model structs (`Project`, `Task`, `Workdir`), scan helpers, CRUD queries, migrations. All DB access via `database/sql` + `modernc.org/sqlite`.
-- **`internal/iterm`** — osascript-based iTerm2 tab spawning. Exposes `iterm.Runner` var for test mocking.
+- **`internal/spawner`** — picks a terminal backend at runtime (`$ZELLIJ` > `$FLOW_TERM` > `$TERM_PROGRAM` > historical iTerm default) and forwards `SpawnTab` to it. Exposes `Override` for test pinning.
+- **`internal/iterm`** — osascript-based iTerm2 tab spawning. Exposes `iterm.Runner` for test mocking.
+- **`internal/terminal`** — osascript-based macOS Terminal.app tab spawning. Requires Accessibility for the cmd-T keystroke via System Events.
+- **`internal/warp`** — Warp tab spawning via `warp://action/new_tab` URI + osascript keystroke of a self-deleting per-spawn shell script. Exposes `warp.Runner`, `warp.OpenURL`, `warp.WriteScript` for test mocking. Requires Accessibility (same gate as Terminal.app).
+- **`internal/zellij`** — zellij CLI–based tab spawning. Active when `$ZELLIJ` is set in the environment.
 
 ## Conventions
 
@@ -85,7 +98,8 @@ flow/
 - **Tests:** Table-driven where possible. Command tests live alongside source in `internal/app/`. `e2e_test.go` exercises the full command surface in sequence.
 - **No mocks for DB.** Tests use real SQLite in a temp directory. Only osascript is mocked (via `iterm.Runner` function var).
 - **Skill file is the source of truth** for how Claude sessions interact with flow. If the skill says something, the code must support it.
-- **Skill embed path:** `internal/app/skill/SKILL.md` is embedded at compile time via `//go:embed` in `internal/app/skill.go`. After editing, rebuild for `flow skill update` to pick up changes.
+- **Skill embed path:** the entire `internal/app/skill/` directory — the lean resident `SKILL.md` plus `references/*.md` — is embedded at compile time via `//go:embed skill` (an `embed.FS`) in `internal/app/skill.go`. `Harness.InstallSkill(fs.FS)` walks the tree and writes it under `~/.claude/skills/flow/`, so `SKILL.md` lands next to `references/`. After editing any of them, rebuild for `flow skill update` to pick up changes.
+- **Progressive disclosure / lean core:** `SKILL.md` is loaded resident by the Skill tool and re-billed as cache on every turn, so it's the dominant token cost — keep it lean. Rarely-needed workflows live in `references/*.md` (loaded on demand via Read), each reachable from a one-line trigger in `SKILL.md`. `TestSkillCoreIsLean` caps `SKILL.md` size; `TestSkillReferencesAreReachable` forbids orphan references; content assertions run against the full corpus (`skillCorpus`) so relocating a section never loses it. Move new low-frequency workflows into `references/`, not the core.
 
 ## Data directory layout
 
@@ -101,10 +115,10 @@ flow/
 
 ## Things to watch out for
 
-- `hookCommand` in `internal/app/skill.go` is the exact string matched in `~/.claude/settings.json`. Changing it orphans existing installations.
+- `hookCommand` (SessionStart) and `userPromptSubmitHookCommand` (UserPromptSubmit) in `internal/app/skill.go` are the exact strings matched in `~/.claude/settings.json`. Changing either orphans existing installations.
 - `do.go` uses `openConcurrentDB` with `busy_timeout(30000)` and `_txlock=immediate` for safe concurrent access.
 - Tests override `$HOME` — any code that calls `os.UserHomeDir()` will see the test's temp dir, not the real home.
 
 ---
 > Source: [Facets-cloud/flow](https://github.com/Facets-cloud/flow) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
