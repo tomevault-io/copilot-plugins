@@ -1,0 +1,9 @@
+{
+  "name": "jinrunsen--claude-my-privacy",
+  "displayName": "claude-my-privacy",
+  "description": "MyPrivacy: local name and company pseudonymization for Claude Code, with restoration for tools and assistant reply display.",
+  "version": "1.0.0",
+  "author": "jinrunsen",
+  "homepage": "https://github.com/jinrunsen/claude-my-privacy",
+  "skills": []
+}
