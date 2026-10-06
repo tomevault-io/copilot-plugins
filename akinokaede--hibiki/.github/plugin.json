@@ -1,0 +1,9 @@
+{
+  "name": "akinokaede--hibiki",
+  "displayName": "hibiki",
+  "description": "E2EE Remote Scdaemon (OpenPGP Card) and Pinentry Forwarding",
+  "version": "1.0.0",
+  "author": "AkinoKaede",
+  "homepage": "https://github.com/AkinoKaede/hibiki",
+  "skills": []
+}
