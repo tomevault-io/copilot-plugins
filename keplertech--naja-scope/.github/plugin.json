@@ -1,0 +1,9 @@
+{
+  "name": "keplertech--naja-scope",
+  "displayName": "naja-scope",
+  "description": "MCP server for AI agents to explore SystemVerilog/Verilog netlists: trace connectivity, walk hierarchy, jump to source - without pasting RTL into context. Built on najaeda.",
+  "version": "1.0.0",
+  "author": "keplertech",
+  "homepage": "https://github.com/keplertech/naja-scope",
+  "skills": []
+}
