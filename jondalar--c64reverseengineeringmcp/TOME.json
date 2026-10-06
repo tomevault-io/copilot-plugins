@@ -1,0 +1,44 @@
+{
+  "name": "C64ReverseEngineeringMCP",
+  "owner": "Jondalar",
+  "repo": "C64ReverseEngineeringMCP",
+  "description": "MCP server and workbench for LLM-driven C64 reverse engineering: persistent typed 6502 analysis graph with impact queries, semantic disassembly annotation, byte-exact rebuild verification. Uses the TRX64 daemon as runtime.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jondalar/C64ReverseEngineeringMCP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T23:04:14Z"
+}
