@@ -1,0 +1,9 @@
+{
+  "name": "wode44398--muse-bridge",
+  "displayName": "muse-bridge",
+  "description": "One-message Claude Code deployment on your Muse agent VM, plus dimensio, a multi-model agent workspace. \u5728 Muse \u4e0a\u4e00\u952e\u90e8\u7f72 Claude Code \u548c\u591a\u6a21\u578b agent \u5de5\u4f5c\u53f0\u3002",
+  "version": "1.0.0",
+  "author": "Wode44398",
+  "homepage": "https://github.com/Wode44398/muse-bridge",
+  "skills": []
+}
