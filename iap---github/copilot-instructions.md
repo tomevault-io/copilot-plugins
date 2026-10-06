@@ -1,0 +1,35 @@
+## github
+
+> Instructions for AI coding agents working in this repository.
+
+# AGENTS.md
+
+Instructions for AI coding agents working in this repository.
+
+## Project Overview
+
+This is a general-purpose GitHub repository template. It contains community health files and a baseline CI workflow. New repositories created from this template should customize these files for their own stack. `README.md` carries the file inventory.
+
+## Guidelines
+
+- Keep changes minimal and aligned with the repo's existing style.
+- Do not commit secrets or environment files (`.env`); use `.env.example` instead.
+- Run available linters/formatters/tests before declaring work complete; if none exist, say so.
+- Avoid self-claiming and embedding unverified detail. Never claim you verified something you did not, and do not over-specify routine conventions in comments (e.g. tagging a commit as "GPG-signed" when the repo requires signing by default). State only what you did and observed.
+- Prefer small, focused commits; write subjects as `type(scope): summary` (see `CONTRIBUTING.md`).
+- Use branch naming prefixes: `feat/`, `fix/`, `docs/`, `chore/`, `refactor/`, `test/` (see `CONTRIBUTING.md`).
+- Open PRs early and keep them small — a series of small, merged PRs is easier to review than one large one.
+- Report honestly: state what was tested, what failed, and what was skipped.
+
+## Customization Checklist
+
+When using this template for a new project:
+
+1. Replace this file with project-specific agent instructions (commands, conventions, architecture notes).
+2. Update `README.md` and the reporting contact in `SECURITY.md`.
+3. Adjust `.github/workflows/ci.yml` for the project's language and test runner.
+4. Trim `.gitignore` to the project's stack if desired.
+
+---
+> Source: [iap/.github](https://github.com/iap/.github) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
