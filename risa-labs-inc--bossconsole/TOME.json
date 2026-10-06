@@ -2,9 +2,9 @@
   "name": "BossConsole",
   "owner": "risa-labs-inc",
   "repo": "BossConsole",
-  "description": "Open-source, multi-platform harness for AI agents \u2014 a native, multi-threaded operator's console (JVM, not Electron) to run Claude Code, Codex, Gemini or OpenCode with a real browser, terminal, editor, secrets & 100+ MCP tools. Built for enterprises, science & research.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/risa-labs-inc/BossConsole",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T13:17:02Z"
+  "distributed_at": "2026-10-06T14:23:11Z"
 }
