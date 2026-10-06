@@ -1,0 +1,9 @@
+{
+  "name": "mark0025--npm-auth-gateway",
+  "displayName": "npm-auth-gateway",
+  "description": "User-level access control for Nginx Proxy Manager \u2014 auto IP whitelisting via auth providers",
+  "version": "1.0.0",
+  "author": "Mark0025",
+  "homepage": "https://github.com/Mark0025/npm-auth-gateway",
+  "skills": []
+}
