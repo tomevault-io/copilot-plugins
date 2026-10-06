@@ -1,0 +1,9 @@
+{
+  "name": "linyu-im--linyu-client",
+  "displayName": "linyu-client",
+  "description": "\u6797\u8bed\uff08Linyu\uff09\u684c\u9762\u5ba2\u6237\u7aef\uff1a\u7b80\u5355\u53ef\u90e8\u7f72\u3001\u53ef\u81ea\u6258\u7ba1\u7684\u5f00\u6e90\u5373\u65f6\u901a\u8baf\uff0c\u57fa\u4e8e Tauri 2 + Vue 3 + TypeScript\u3002",
+  "version": "1.0.0",
+  "author": "linyu-im",
+  "homepage": "https://github.com/linyu-im/linyu-client",
+  "skills": []
+}
