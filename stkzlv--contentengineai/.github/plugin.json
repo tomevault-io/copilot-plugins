@@ -1,0 +1,9 @@
+{
+  "name": "stkzlv--contentengineai",
+  "displayName": "ContentEngineAI",
+  "description": "AI-powered video production pipeline that scrapes e-commerce products, generates short-form review videos with voiceover and subtitles, and publishes them to YouTube, TikTok, and Instagram on a schedu",
+  "version": "1.0.0",
+  "author": "stkzlv",
+  "homepage": "https://github.com/stkzlv/ContentEngineAI",
+  "skills": []
+}
