@@ -1,0 +1,18 @@
+{
+  "name": "mogons--noraz-agent",
+  "displayName": "noraz-agent",
+  "description": "noraz-agent",
+  "version": "1.0.0",
+  "author": "mogons",
+  "homepage": "https://github.com/mogons/noraz-agent",
+  "skills": [
+    {
+      "name": "noraz-agent",
+      "description": ""
+    },
+    {
+      "name": "noraz-agent",
+      "description": ""
+    }
+  ]
+}
