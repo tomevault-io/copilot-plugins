@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [openxla/xla](https://github.com/openxla/xla).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [openxla/xla](https://github.com/openxla/xla) — a repo with 4407+ stars on GitHub.
+From [openxla/xla](https://github.com/openxla/xla) — a repo with 4577+ stars on GitHub.
 
 ---
 
