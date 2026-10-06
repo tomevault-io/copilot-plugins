@@ -43,9 +43,63 @@
       "path": "content/.claude/skills/recoll-search/SKILL.md",
       "github_url": "https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/recoll-search/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "content/.claude/skills/how/SKILL.md",
+      "github_url": "https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/how/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "content/.claude/skills/why/SKILL.md",
+      "github_url": "https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/why/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "content/.claude/skills/audit/SKILL.md",
+      "github_url": "https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "content/.claude/skills/teach/SKILL.md",
+      "github_url": "https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/teach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "content/.claude/skills/verify/SKILL.md",
+      "github_url": "https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "content/.claude/skills/discuss/SKILL.md",
+      "github_url": "https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/discuss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "content/.claude/skills/reflect/SKILL.md",
+      "github_url": "https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/reflect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "content/.claude/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "content/.claude/skills/finalize/SKILL.md",
+      "github_url": "https://github.com/lararosekelley/dotfiles/tree/main/content/.claude/skills/finalize/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/lararosekelley/dotfiles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T23:51:11Z"
+  "distributed_at": "2026-10-06T18:45:58Z"
 }
