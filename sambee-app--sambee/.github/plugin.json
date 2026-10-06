@@ -1,0 +1,22 @@
+{
+  "name": "sambee-app--sambee",
+  "displayName": "sambee",
+  "description": "sambee",
+  "version": "1.0.0",
+  "author": "sambee-app",
+  "homepage": "https://github.com/sambee-app/sambee",
+  "skills": [
+    {
+      "name": "sambee",
+      "description": ""
+    },
+    {
+      "name": "sambee",
+      "description": ""
+    },
+    {
+      "name": "sambee",
+      "description": ""
+    }
+  ]
+}
