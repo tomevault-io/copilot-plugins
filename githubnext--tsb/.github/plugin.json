@@ -1,0 +1,9 @@
+{
+  "name": "githubnext--tsb",
+  "displayName": "tsb",
+  "description": "TypeScript port of Pandas",
+  "version": "1.0.0",
+  "author": "githubnext",
+  "homepage": "https://github.com/githubnext/tsb",
+  "skills": []
+}
