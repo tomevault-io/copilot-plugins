@@ -1,0 +1,9 @@
+{
+  "name": "facturascripts--fs-claude-plugin",
+  "displayName": "fs-claude-plugin",
+  "description": "fs-claude-plugin",
+  "version": "1.0.0",
+  "author": "FacturaScripts",
+  "homepage": "https://github.com/FacturaScripts/fs-claude-plugin",
+  "skills": []
+}
