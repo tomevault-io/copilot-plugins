@@ -1,0 +1,9 @@
+{
+  "name": "mopidy--mopidy-spotify",
+  "displayName": "mopidy-spotify",
+  "description": "mopidy-spotify",
+  "version": "1.0.0",
+  "author": "mopidy",
+  "homepage": "https://github.com/mopidy/mopidy-spotify",
+  "skills": []
+}
