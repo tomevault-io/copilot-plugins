@@ -1,0 +1,9 @@
+{
+  "name": "nmor--the-council",
+  "displayName": "the-council",
+  "description": "The Council: shared engineering and domain guidance for Claude Code and Codex. On-demand skills, specialist reviews, runtime-specific hooks, verification and context controls. MIT.",
+  "version": "1.0.0",
+  "author": "Nmor",
+  "homepage": "https://github.com/Nmor/the-council",
+  "skills": []
+}
