@@ -1,0 +1,9 @@
+{
+  "name": "openpactprotocol--openpactprotocol",
+  "displayName": "openpactprotocol",
+  "description": "PACT is an open protocol for personal agents to interact with businesses\u2019 agents under explicit, verifiable user permissions.",
+  "version": "1.0.0",
+  "author": "openpactprotocol",
+  "homepage": "https://github.com/openpactprotocol/openpactprotocol",
+  "skills": []
+}
