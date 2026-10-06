@@ -1,0 +1,183 @@
+{
+  "name": "holo-desktop-cli",
+  "owner": "hcompai",
+  "repo": "holo-desktop-cli",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/slack/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/slack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/notion/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/notion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/chrome/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/chrome/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/safari/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/safari/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/finder/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/finder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/windows/slack/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/windows/slack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/discord/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/discord/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/spotify/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/spotify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/windows/notion/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/windows/notion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/windows/chrome/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/windows/chrome/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/windows/discord/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/windows/discord/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/windows/spotify/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/windows/spotify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/apple-mail/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/apple-mail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/apple-notes/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/apple-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/host_skills/holo-desktop/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/host_skills/holo-desktop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "examples/software_qa/.claude/skills/holo-qa/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/examples/software_qa/.claude/skills/holo-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/apple-calendar/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/apple-calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/apple-contacts/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/apple-contacts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/apple-messages/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/apple-messages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/apple-reminders/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/apple-reminders/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/windows/windows-settings/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/windows/windows-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "src/holo_desktop/skills/macos/apple-system-settings/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/src/holo_desktop/skills/macos/apple-system-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holo-desktop-cli",
+      "path": "examples/expense_report/src/expense_report_demo/skills/expense-report/SKILL.md",
+      "github_url": "https://github.com/hcompai/holo-desktop-cli/tree/main/examples/expense_report/src/expense_report_demo/skills/expense-report/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hcompai/holo-desktop-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T15:45:53Z"
+}
