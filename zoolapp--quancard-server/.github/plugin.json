@@ -1,0 +1,9 @@
+{
+  "name": "zoolapp--quancard-server",
+  "displayName": "quancard-server",
+  "description": "Self-hosted, zero-knowledge sync server and web vault for QuanCard. HTTPS by default, AES-256-GCM + Argon2id, one-command Docker deploy.",
+  "version": "1.0.0",
+  "author": "zoolapp",
+  "homepage": "https://github.com/zoolapp/quancard-server",
+  "skills": []
+}
