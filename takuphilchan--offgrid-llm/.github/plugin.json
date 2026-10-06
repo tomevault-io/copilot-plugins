@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "takuphilchan",
   "homepage": "https://github.com/takuphilchan/offgrid-llm",
-  "skills": []
+  "skills": [
+    {
+      "name": "offgrid-llm",
+      "description": ""
+    }
+  ]
 }
