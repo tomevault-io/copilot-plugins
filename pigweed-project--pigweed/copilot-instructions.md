@@ -5,7 +5,7 @@
 # Pigweed IDE (`pw_ide`) Engineering Guidelines
 
 This document provides foundational principles and technical requirements for AI
-agents contributing to `pw_ide`. This document extends the top-level GEMINI.md
+agents contributing to `pw_ide`. This document extends the top-level AGENTS.md
 guidance with additional instructions more specific to the files contained under
 this subdirectory.
 
@@ -71,4 +71,4 @@ this subdirectory.
 
 ---
 > Source: [pigweed-project/pigweed](https://github.com/pigweed-project/pigweed) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
