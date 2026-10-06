@@ -1,0 +1,14 @@
+{
+  "name": "n2ns--antigravity-panel",
+  "displayName": "antigravity-panel",
+  "description": "antigravity-panel",
+  "version": "1.0.0",
+  "author": "n2ns",
+  "homepage": "https://github.com/n2ns/antigravity-panel",
+  "skills": [
+    {
+      "name": "antigravity-panel",
+      "description": ""
+    }
+  ]
+}
