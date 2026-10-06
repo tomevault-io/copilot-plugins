@@ -1,0 +1,9 @@
+{
+  "name": "sbergeron42--ssbu-decomp",
+  "displayName": "ssbu-decomp",
+  "description": "Matching decompilation of Super Smash Bros. Ultimate (Switch, AArch64)",
+  "version": "1.0.0",
+  "author": "sbergeron42",
+  "homepage": "https://github.com/sbergeron42/ssbu-decomp",
+  "skills": []
+}
