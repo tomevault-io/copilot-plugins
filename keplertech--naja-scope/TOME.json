@@ -4,7 +4,7 @@
   "repo": "naja-scope",
   "description": "MCP server for AI agents to explore SystemVerilog/Verilog netlists: trace connectivity, walk hierarchy, jump to source - without pasting RTL into context. Built on najaeda.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/keplertech/naja-scope",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T00:35:43Z"
+  "distributed_at": "2026-10-06T00:45:58Z"
 }
