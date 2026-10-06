@@ -1,0 +1,9 @@
+{
+  "name": "firelex--jeff-code",
+  "displayName": "jeff-code",
+  "description": "Coding agent where a 0.8B decision model works alongside Qwen 3.8-27B: Jeff takes the routine steps itself and decides when Qwen should think. 47% faster (32% less time) per task at the same pass rate",
+  "version": "1.0.0",
+  "author": "firelex",
+  "homepage": "https://github.com/firelex/jeff-code",
+  "skills": []
+}
