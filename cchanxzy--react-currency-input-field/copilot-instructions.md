@@ -1,60 +1,38 @@
 ## react-currency-input-field
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Guidance for AI coding tools (Claude Code, Codex, Cursor, Copilot and others) working in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for AI coding tools (Claude Code, Codex, Cursor, Copilot and others) working in this repository.
 
-## Project Overview
+This file points to the docs that hold the details, so it doesn't go out of date. When something changes, update the doc that owns it, not this file.
 
-React Currency Input Field — a zero-dependency React `<input>` component for formatting currency and number values. Supports abbreviations (k/m/b), prefix/suffix, group/decimal separators, Intl locale config, and arrow key stepping. Published as both ESM and CJS via esbuild.
+React Currency Input Field is a zero-dependency React `<input>` component for formatting currency and number values.
 
-## Commands
+## Read first
 
-- **Install:** `pnpm install`
-- **Build:** `pnpm build` (cleans dist, bundles ESM+CJS via esbuild, emits types via tsc)
-- **Test (unit):** `pnpm test` (Jest with jsdom, runs with `LANG=en_GB`)
-- **Run single test:** `LANG=en_GB npx jest --testPathPattern="<pattern>"` (e.g. `"CurrencyInput-decimals"`)
-- **Typecheck:** `pnpm typecheck` (runs tsc against both `tsconfig.json` and `tsconfig.test.json`)
-- **Lint:** `pnpm lint` (ESLint with zero warnings allowed)
-- **E2E tests:** `pnpm exec playwright test` (Playwright, requires dev server on localhost:1234 via `pnpm start`)
-- **Dev server:** `pnpm start` (Parcel, serves `src/examples/index.html` on port 1234)
+- [README.md](README.md): what the component does, its props and usage.
+- [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md): setup, commands, branch names, commit messages and pull requests.
+- [docs/CODING_STANDARDS.md](docs/CODING_STANDARDS.md): code conventions, and how each one is checked.
+- [docs/CURRENCY_BEHAVIOR.md](docs/CURRENCY_BEHAVIOR.md): which currency formats are supported, and the standards each rule comes from.
+- [docs/BUILD.md](docs/BUILD.md): how `pnpm build` lays out `dist/` and the `exports` field, and why. Read it before changing the build.
 
-## Architecture
+## Where things are
 
-The library exports a single default component (`CurrencyInput`) plus named exports `formatValue` and `cleanValue`.
+- `src/index.ts`: the public API. Anything exported here is published.
+- `src/components/`: the component and its props types.
+- `src/components/utils/`: pure formatting and parsing functions.
+- `__tests__/` folders next to the code: unit tests. `tests/`: Playwright end-to-end tests.
+- `src/examples/`: the demo page.
 
-### Source Layout (`src/`)
+## Before finishing
 
-- **`components/CurrencyInput.tsx`** — Main component. Handles onChange/onBlur/onKeyDown, manages cursor positioning, and delegates formatting to utilities.
-- **`components/CurrencyInputProps.ts`** — Props type definitions (`CurrencyInputProps`, `IntlConfig`, `CurrencyInputOnChangeValues`).
-- **`components/utils/`** — Pure formatting/parsing functions:
-  - `formatValue` — Formats a raw string value with separators, prefix/suffix, or Intl config (also exported publicly).
-  - `cleanValue` — Strips formatting to extract the raw numeric string (also exported publicly).
-  - `getLocaleConfig` — Derives prefix, suffix, group separator, and decimal separator from `Intl.NumberFormat`.
-  - `parseAbbrValue` — Expands abbreviations (k/m/b) to full numbers.
-  - `addSeparators` / `removeSeparators` — Insert/strip group separators.
-  - `padTrimValue` — Handles `decimalScale` padding/trimming on blur.
-  - `fixedDecimalValue` — Enforces `fixedDecimalLength`.
-  - `repositionCursor` — Calculates correct cursor position after formatting changes.
-- **`index.ts`** — Public entry point; re-exports component, types, `formatValue`, and `cleanValue`.
-
-### Test Layout
-
-- **Unit tests:** Co-located at `src/components/__tests__/` (component tests) and `src/components/utils/__tests__/` (utility tests). Jest + React Testing Library.
-- **E2E tests:** `tests/general.spec.ts` — Playwright tests against the example app.
-
-### Build
-
-esbuild produces dual ESM (`dist/esm/`) and CJS (`dist/cjs/`) bundles. TypeScript compiler emits only declaration files to `dist/`. React is externalized.
-
-## Conventions
-
-- Commits follow [Conventional Commits](https://www.conventionalcommits.org/) (enforced by commitlint + husky).
-- Tests must pass with `LANG=en_GB` to ensure consistent locale behavior.
-- Package manager is pnpm.
+- Run `pnpm check`. It must pass.
+- If you change a convention or a command, update the doc that owns it.
+- Say what you tested and what you didn't. A person manually reviews and tests all AI-generated code before it's merged.
+- Don't add `Co-authored-by` trailers or "Generated with" lines to commits. The commit-msg hook rejects them.
 
 ---
 > Source: [cchanxzy/react-currency-input-field](https://github.com/cchanxzy/react-currency-input-field) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
