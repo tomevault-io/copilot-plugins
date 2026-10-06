@@ -1,0 +1,9 @@
+{
+  "name": "eternahybridexchange--eterna-mcp",
+  "displayName": "eterna-mcp",
+  "description": "No-KYC managed MCP trading exchange for AI agents: sandboxed TypeScript SDK, isolated sub-accounts, perpetual futures.",
+  "version": "1.0.0",
+  "author": "EternaHybridExchange",
+  "homepage": "https://github.com/EternaHybridExchange/eterna-mcp",
+  "skills": []
+}
