@@ -1,0 +1,9 @@
+{
+  "name": "jesseprojects-llc--session-deck",
+  "displayName": "session-deck",
+  "description": "Web-based tmux workspace manager with live terminal panes",
+  "version": "1.0.0",
+  "author": "JesseProjects-LLC",
+  "homepage": "https://github.com/JesseProjects-LLC/session-deck",
+  "skills": []
+}
