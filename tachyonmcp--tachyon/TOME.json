@@ -4,7 +4,7 @@
   "repo": "tachyon",
   "description": "MCP Runtime for Java and Kotlin - Model Context Protocol (MCP) server with Streamable HTTP, native Netty transports, tools, tasks, resources, prompts, completions, skills over MCP, resumable sessions, and stateless deployment support.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tachyonmcp/tachyon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T00:34:03Z"
+  "distributed_at": "2026-10-06T00:43:53Z"
 }
