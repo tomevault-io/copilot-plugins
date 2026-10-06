@@ -1,0 +1,105 @@
+{
+  "name": "KiCAD-Prism",
+  "owner": "krishna-swaroop",
+  "repo": "KiCAD-Prism",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "prism-api-endpoint",
+      "path": ".agents/skills/prism-api-endpoint/SKILL.md",
+      "github_url": "https://github.com/krishna-swaroop/KiCAD-Prism/tree/main/.agents/skills/prism-api-endpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prism-api-endpoint",
+      "path": ".claude/skills/prism-api-endpoint/SKILL.md",
+      "github_url": "https://github.com/krishna-swaroop/KiCAD-Prism/tree/main/.claude/skills/prism-api-endpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiCAD-Prism",
+      "path": ".agents/skills/prism-quality-gate/SKILL.md",
+      "github_url": "https://github.com/krishna-swaroop/KiCAD-Prism/tree/main/.agents/skills/prism-quality-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiCAD-Prism",
+      "path": ".claude/skills/prism-quality-gate/SKILL.md",
+      "github_url": "https://github.com/krishna-swaroop/KiCAD-Prism/tree/main/.claude/skills/prism-quality-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiCAD-Prism",
+      "path": ".agents/skills/prism-viewer-rebuild/SKILL.md",
+      "github_url": "https://github.com/krishna-swaroop/KiCAD-Prism/tree/main/.agents/skills/prism-viewer-rebuild/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiCAD-Prism",
+      "path": ".agents/skills/prism-catalog-change/SKILL.md",
+      "github_url": "https://github.com/krishna-swaroop/KiCAD-Prism/tree/main/.agents/skills/prism-catalog-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiCAD-Prism",
+      "path": ".claude/skills/prism-catalog-change/SKILL.md",
+      "github_url": "https://github.com/krishna-swaroop/KiCAD-Prism/tree/main/.claude/skills/prism-catalog-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiCAD-Prism",
+      "path": ".claude/skills/prism-viewer-rebuild/SKILL.md",
+      "github_url": "https://github.com/krishna-swaroop/KiCAD-Prism/tree/main/.claude/skills/prism-viewer-rebuild/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiCAD-Prism",
+      "path": ".agents/skills/prism-comparison-change-kind/SKILL.md",
+      "github_url": "https://github.com/krishna-swaroop/KiCAD-Prism/tree/main/.agents/skills/prism-comparison-change-kind/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiCAD-Prism",
+      "path": ".claude/skills/prism-comparison-change-kind/SKILL.md",
+      "github_url": "https://github.com/krishna-swaroop/KiCAD-Prism/tree/main/.claude/skills/prism-comparison-change-kind/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/krishna-swaroop/KiCAD-Prism",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T13:36:41Z"
+}
