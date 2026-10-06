@@ -1,0 +1,14 @@
+{
+  "name": "heyman333--agent-notion-template-docs",
+  "displayName": "agent-notion-template-docs",
+  "description": "agent-notion-template-docs",
+  "version": "1.0.0",
+  "author": "heyman333",
+  "homepage": "https://github.com/heyman333/agent-notion-template-docs",
+  "skills": [
+    {
+      "name": "agent-notion-template-docs",
+      "description": ""
+    }
+  ]
+}
