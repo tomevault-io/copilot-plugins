@@ -1,0 +1,9 @@
+{
+  "name": "kagura-ai--memory-cloud",
+  "displayName": "memory-cloud",
+  "description": "Adaptive memory for AI agents & teams \u2014 beyond RAG. Self-hosted MCP server that gets smarter every time you search: hybrid search + a neural memory graph that learns. Works with Claude, ChatGPT & any ",
+  "version": "1.0.0",
+  "author": "kagura-ai",
+  "homepage": "https://github.com/kagura-ai/memory-cloud",
+  "skills": []
+}
