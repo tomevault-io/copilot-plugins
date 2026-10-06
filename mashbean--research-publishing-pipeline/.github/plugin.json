@@ -1,0 +1,9 @@
+{
+  "name": "mashbean--research-publishing-pipeline",
+  "displayName": "research-publishing-pipeline",
+  "description": "\u7814\u7a76\u6587\u7ae0\u81ea\u52d5\u751f\u7522\u7dda \u2014 \u642d\u914d Claude Code \u7684\u534a\u81ea\u52d5\u7814\u7a76\u5beb\u4f5c pipeline",
+  "version": "1.0.0",
+  "author": "mashbean",
+  "homepage": "https://github.com/mashbean/research-publishing-pipeline",
+  "skills": []
+}
