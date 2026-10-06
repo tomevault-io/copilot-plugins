@@ -1,0 +1,9 @@
+{
+  "name": "pkgforge-dev--ghostty-appimage",
+  "displayName": "ghostty-appimage",
+  "description": "ghostty-appimage",
+  "version": "1.0.0",
+  "author": "pkgforge-dev",
+  "homepage": "https://github.com/pkgforge-dev/ghostty-appimage",
+  "skills": []
+}
