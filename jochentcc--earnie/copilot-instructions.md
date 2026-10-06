@@ -1,63 +1,23 @@
-## roadmap-nomenclature
+## session-abschluss
 
-> * **Cycle Logic:** Development steps proceed alphabetically up to Release `.0` (e.g., `1.24.a` → `1.24.b` → Release `1.24.0` → Next Minor `1.25.0`).
-
-
-# Roadmap & Versioning Nomenclature
-
-## 1. Backlog Versioning (`backlog/Backlog.md`)
-
-* **Cycle Logic:** Development steps proceed alphabetically up to Release `.0` (e.g., `1.24.a` → `1.24.b` → Release `1.24.0` → Next Minor `1.25.0`).
-
-* **Placeholders:** Future minors that are not yet numbered are designated as `N.+1` (e.g., `2.+1`).
-
-* **`version.py` vs. Backlog:** `version.py` holds SemVer (`X.Y.Z` or pre-release `X.Y.Z-alpha.N` / `-rc.N`) — not backlog letters (`.a`, `.b`). Changes to `version.py` **always** require explicit user approval (no automatic increment).
-
-* **Granularity:** Backlog letter (`1.24.a`) = Entire chapter/feature block. Incremental steps within this process utilize the Step level (`P3a`).
-
-## 2. The 3 Hierarchy Levels
-
-1. **Epic:** Short name or full text (e.g., `UI S-2`).
-
-2. **Phase:** `<Epic> P<Number>` (e.g., `S-2 P3`, `Adaptation P1`).
-
-3. **Step:** `<Epic> P<Number><Letter>` (e.g., `S-2 P3a`) $\rightarrow$ Only permitted within open phases.
-
-## 3. Strict Communication Rules
-
-* **Precision:** Always use exact identifiers in dialogue/chat (e.g., *"Continue with 1.24.b"* or *"S-2 P3a"*).
-
-* **Forbidden:** No isolated phase specifications (*"Phase 3"* without an epic), no fabricated clusters (*"Package A"*), and no vague placeholders (*"1.+1"*).
-
-**Backlog Logic:** Subsequent tasks (follow-ups) are separate items, not new phases.
+> End session — backlog sync, commit all changes, push, optional Docker
 
 
-**Forbidden:** No isolated phase specifications (*"Phase 3"* without an epic), no fabricated clusters (*"Package A"*), and no vague placeholders (*"1.+1"*).
+# Session Conclusion
 
-**Backlog Logic:** Subsequent tasks (follow-ups) are separate items, not new phases.
+When the user wants to **end session**, **backlog sync**, **commit and push**, or a comparable session wrap-up:
 
-** ## 4. Validated Epics & Phases
+1. Follow skill `.cursor/skills/session-abschluss/SKILL.md` in full
+2. **Phase 1:** Maintain `backlog/Backlog.md` / `backlog/Backlog-Bugfixes.md` / `backlog/Backlog-Erledigt.md` → commit all approved open changes → push
+3. **`version.py`:** change only after explicit user approval (see `versioning.mdc`) — no automatic bump at session end
+4. On approved **D** bump to a pre-release (or before **B**): sync `docker/compose/*-alpha.yml` `image:` tags to `version.py` (skill section **Alpha compose sync**)
+5. For local or possibly temporary files **ask first** (e.g. personal VS Code settings, local paths)
+6. **Always ask** whether private earnie-env / `Earnie-env-home` changes should be committed, pushed, and tagged (skill §2a)
+7. After Phase 1: present the skill’s **Publish decision guide** (**A** skip / **B** pre-release / **C** official / **D** bump then publish) with live `version.py` and one recommended choice
+8. **Phase 2** (tag / Docker) **only** after the user picks B, C, or D→B/C — never automatically
+9. A tag builds a **candidate** only; the user tests it on the target platform and approves job `promote` (environment `release-approval`) themselves — never approve/reject on their behalf; `streamlitcloud` reset only after approval
 
-* **UI Sunset-2-Sunset (`UI S-2`):** P1 (Navi/Mode), P2 (Data/Table), P3 (Charts/Markers/Steps 3a–3d), P4 (Docs/Tests)
-* **Parameter Adaptation (`Adaptation`):** P1 (Skeleton), P2 (PV New), P3 (PV Pilot), P4 (UI Viz)
-* **Generic Thermal Models (`Thermals`):** P1 (Single-Node), P2 (Coupled), P3 (Adaptation)
-* **MILP Sunset Horizon (`MILP Horizon`):** Phases P1-P5
-* **Release Regression Suite (`Regression`):** P1 (MVP: runner, cases, golden), P2 (customer data / private repo), P3 (CI gate + scrubber)
-* **Session Conclusion:** Phases P1-P2
-* **Migration (`MIGRATION.md`):** Phases P1-P7
-
-## 5. Commit & Chat Syntax
-
-Format: `<Scope>: <Version> <Phase/Step> <Description>` or directly via Epic-Scope:
-
-```text
-houseconfig: 1.24.a P5 UI House Configurator and Scenario Editor
-refactor: 1.24.b Epic 1 milp.py LOC Split
-houseconfig: 1.24.0 P2 UI New/Remove Electric Car Profile
-runtime: 1.25.0 P1 Data Model Live Entities
-ui(s2): P3a Chart 2 Actual/Forecast Separated
-
-```
+Commit and push approval is implied by the end-session request; still do not commit secrets or gitignored files.
 
 ---
 > Source: [JochenTCC/Earnie](https://github.com/JochenTCC/Earnie) — distributed by [TomeVault](https://tomevault.io).
