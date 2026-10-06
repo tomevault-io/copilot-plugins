@@ -1,0 +1,9 @@
+{
+  "name": "black-lights--prisma-review-tool",
+  "displayName": "prisma-review-tool",
+  "description": "Automated PRISMA 2020 systematic literature review with AI-assisted screening via MCP. Works with Claude, Codex, Copilot, Cursor, and any MCP-compatible agent.",
+  "version": "1.0.0",
+  "author": "Black-Lights",
+  "homepage": "https://github.com/Black-Lights/prisma-review-tool",
+  "skills": []
+}
