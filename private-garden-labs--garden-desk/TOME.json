@@ -1,0 +1,237 @@
+{
+  "name": "garden-desk",
+  "owner": "Private-Garden-Labs",
+  "repo": "garden-desk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/review-report/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/review-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/pdf-documents/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/pdf-documents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/word-documents/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/word-documents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/xlsx-workbooks/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/xlsx-workbooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/document-review/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/document-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/terminal-commands/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/terminal-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".agents/skills/garden-desk-design/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.agents/skills/garden-desk-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".claude/skills/garden-desk-design/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.claude/skills/garden-desk-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".agents/skills/garden-desk-handoff/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.agents/skills/garden-desk-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".agents/skills/garden-desk-fix-bug/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.agents/skills/garden-desk-fix-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".claude/skills/garden-desk-handoff/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.claude/skills/garden-desk-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".claude/skills/garden-desk-fix-bug/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.claude/skills/garden-desk-fix-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/medical-record-review/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/medical-record-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/legal-document-review/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/legal-document-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/budget-variance-review/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/budget-variance-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/invoice-expense-review/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/invoice-expense-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".agents/skills/garden-desk-plan-change/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.agents/skills/garden-desk-plan-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".claude/skills/garden-desk-plan-change/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.claude/skills/garden-desk-plan-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/legal-matter-chronology/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/legal-matter-chronology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/finance-document-review/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/finance-document-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/medical-record-timeline/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/medical-record-timeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".agents/skills/garden-desk-review-change/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.agents/skills/garden-desk-review-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".agents/skills/garden-desk-verify-change/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.agents/skills/garden-desk-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".claude/skills/garden-desk-verify-change/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.claude/skills/garden-desk-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".claude/skills/garden-desk-review-change/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.claude/skills/garden-desk-review-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/legal-document-comparison/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/legal-document-comparison/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/legal-due-diligence-review/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/legal-due-diligence-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".agents/skills/garden-desk-review-dependency/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.agents/skills/garden-desk-review-dependency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": ".claude/skills/garden-desk-review-dependency/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/.claude/skills/garden-desk-review-dependency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/medical-billing-document-review/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/medical-billing-document-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/financial-records-reconciliation/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/financial-records-reconciliation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "garden-desk",
+      "path": "prompts/skills/prior-authorization-document-review/SKILL.md",
+      "github_url": "https://github.com/Private-Garden-Labs/garden-desk/tree/main/prompts/skills/prior-authorization-document-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Private-Garden-Labs/garden-desk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T21:49:41Z"
+}
