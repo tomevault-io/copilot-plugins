@@ -1,23 +1,21 @@
 # jmap-mcp
 
-> Tome by [wyattjoh](https://github.com/wyattjoh/jmap-mcp) — distributed by [TomeVault](https://tomevault.io)
-
-A Model Context Protocol (MCP) server that provides tools for interacting with JMAP (JSON Meta Application Protocol) email servers. Built with Deno and using the jmap-jam client library.
+> Tome by [wyattjoh](https://github.com/wyattjoh/jmap-mcp), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wyattjoh/jmap-mcp](https://github.com/wyattjoh/jmap-mcp).
+Original source: `AGENTS.md` in [wyattjoh/jmap-mcp](https://github.com/wyattjoh/jmap-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/wyattjoh/jmap-mcp](https://github.com/wyattjoh/jmap-mcp)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/wyattjoh/jmap-mcp](https://github.com/wyattjoh/jmap-mcp)
 
 ---
 
