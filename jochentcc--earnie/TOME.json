@@ -1,0 +1,44 @@
+{
+  "name": "Earnie",
+  "owner": "JochenTCC",
+  "repo": "Earnie",
+  "description": "Open-Source HEMS for Loxone & dynamic energy tariffs (aWATTar/Tibber). Vorausschauende 48h-Optimierung f\u00fcr PV, Batterien, Elektro-Auto, W\u00e4rmepumpen ...",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JochenTCC/Earnie",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T00:33:17Z"
+}
