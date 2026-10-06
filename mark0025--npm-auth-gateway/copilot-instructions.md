@@ -1,498 +1,423 @@
-## nextjs16-project-structure
+## nextjs16-server-client-boundaries
 
-> Below is a **production-grade Cursor Project Rule** for **Next.js 16 project structure** based on the official documentation you provided, but rewritten as **strict architectural rules** (including anti-patterns).
+> Perfect — this is exactly the right way to design **Cursor rules for a Next.js 16 codebase**: encode the **architecture discipline around Server vs Client Components** so the AI never generates incorrect patterns.
 
-Below is a **production-grade Cursor Project Rule** for **Next.js 16 project structure** based on the official documentation you provided, but rewritten as **strict architectural rules** (including anti-patterns).
+Perfect — this is exactly the right way to design **Cursor rules for a Next.js 16 codebase**: encode the **architecture discipline around Server vs Client Components** so the AI never generates incorrect patterns.
+B
+Below is a **Next.js-16-correct rule** that avoids deprecated patterns and enforces the **App Router + React Server Components model**.
 
-This rule is designed to **standardize large Next.js codebases** and prevent Cursor from generating messy folder structures.
-
-Place it at:
+This rule should live at:
 
 ```
-.cursor/rules/nextjs16-project-structure.mdc
+.cursor/rules/nextjs16-server-client-boundaries.mdc
 ```
 
 ---
 
-# `.cursor/rules/nextjs16-project-structure.mdc`
+# `.cursor/rules/nextjs16-server-client-boundaries.mdc`
 
 ```mdc
 ---
-description: "Defines the required project structure, routing conventions, and file organization for Next.js 16 applications using the App Router."
-alwaysApply: true
+description: "Enforces correct usage of React Server Components and Client Components in Next.js 16 applications."
+alwaysApply: false
 ---
 
-# Next.js 16 Project Structure Rules
+# Next.js 16 Server and Client Component Architecture
 
-This rule enforces **consistent project structure and file conventions** for all Next.js 16 applications.
+This rule defines how Server Components and Client Components must be used in a Next.js 16 application.
 
-The goal is to ensure:
+Next.js 16 uses **React Server Components (RSC)** by default. All pages, layouts, and components should remain **Server Components unless client behavior is required**.
 
-- scalable architecture
-- predictable routing
-- maintainable codebases
-- compatibility with Next.js 16 features
+The primary goal is to:
 
-All generated code must follow these structural rules.
-
----
-
-# 1. Required Root Structure
-
-Every project must follow this structure.
-
-```
-
-/
-app/
-components/
-lib/
-services/
-actions/
-types/
-public/
-next.config.ts
-package.json
-tsconfig.json
-
-```
-
-Optional:
-
-```
-
-src/
-
-```
-
-If `src` is used:
-
-```
-
-src/app
-src/components
-src/lib
-
-```
-
-ever mix both patterns.
+- minimize client JavaScript
+- protect secrets
+- fetch data on the server
+- maintain fast streaming rendering
 
 ---
 
-# 2. The `app` Directory
+# 1. Default: Server Components
 
-The `app` directory defines the **routing system**.
+All components must be **Server Components by default**.
 
-Rules:
-
-- Every folder represents a **route segment**
-- A route becomes public only when it contains:
+This includes:
 
 ```
 
-page.tsx
-
-```
-
-or
-
-```
-
-route.ts
-
-```
-
-Allowed files in route segments:
-
-```
-
-layout.tsx
-page.tsx
-loading.tsx
-error.tsx
-not-found.tsx
-template.tsx
-route.ts
-default.tsx
-
-```
-
-Never place random files at the route root.
-
----
-
-# 3. Root Layout Requirement
-
-The root layout must exist:
-
-```
-
+app/page.tsx
 app/layout.tsx
+app/**/page.tsx
+app/**/layout.tsx
 
-```
+````
 
-This layout must define:
+Server Components allow:
 
-```
-
-<html>
-<body>
-```
-
-Example structure:
-
-```
-app/
-  layout.tsx
-  page.tsx
-```
-
-Without a root layout the application is invalid.
-
----
-
-# 4. Route File Hierarchy
-
-The rendering hierarchy must follow this order:
-
-1. layout.tsx
-2. template.tsx
-3. error.tsx
-4. loading.tsx
-5. not-found.tsx
-6. page.tsx
-
-Never attempt to bypass this hierarchy.
-
----
-
-# 5. Dynamic Routes
-
-Dynamic segments must use brackets.
-
-Examples:
-
-```
-app/blog/[slug]/page.tsx
-app/shop/[...slug]/page.tsx
-app/docs/[[...slug]]/page.tsx
-```
-
-Rules:
-
-`[slug]` → single parameter
-`[...slug]` → catch-all
-`[[...slug]]` → optional catch-all
-
-Parameters must be accessed asynchronously:
-
-```
-const { slug } = await params
-```
-
-Never access params synchronously.
-
----
-
-# 6. Route Groups
-
-Route groups organize routes **without affecting the URL**.
-
-Syntax:
-
-```
-(folderName)
-```
+- server-side data fetching
+- access to environment variables
+- access to API keys
+- reduced client bundle size
+- streaming UI rendering
 
 Example:
 
-```
-app/(marketing)/page.tsx
-app/(shop)/cart/page.tsx
-```
+```tsx
+export default async function Page() {
+  const data = await fetchData()
+  return <div>{data.title}</div>
+}
+````
 
-Use route groups for:
-
-* separating product areas
-* separate layouts
-* large app organization
-
-Never use route groups as a replacement for normal folders.
+Never mark pages or layouts with `"use client"` unless absolutely required.
 
 ---
 
-# 7. Private Folders
+# 2. When to Use Client Components
 
-Private folders start with `_`.
+Client Components must only be used when browser interactivity is required.
+
+Use Client Components for:
+
+* React state (`useState`)
+* React effects (`useEffect`)
+* event handlers (`onClick`, `onChange`)
+* browser APIs (`window`, `localStorage`, `navigator`)
+* client hooks
 
 Example:
 
+```tsx
+'use client'
+
+import { useState } from 'react'
+
+export default function Counter() {
+  const [count, setCount] = useState(0)
+
+  return <button onClick={() => setCount(count + 1)}>{count}</button>
+}
 ```
-app/blog/_components
-app/blog/_lib
-```
-
-Purpose:
-
-* colocated utilities
-* internal UI
-* helpers
-
-Private folders are **never routable**.
-
-Rules:
-
-Never place `page.tsx` inside private folders.
 
 ---
 
-# 8. Colocation Rules
+# 3. Client Boundary Rules
 
-Next.js allows colocating files inside route segments.
+The `"use client"` directive creates a **client boundary**.
 
-Example:
+Once a file is marked with `"use client"`:
 
-```
-app/blog/
-  page.tsx
-  _components/
-    PostCard.tsx
-  _lib/
-    getPosts.ts
-```
+* all imports become part of the client bundle
+* all child components become client-rendered
 
-Only the output of:
+Rule:
 
-```
-page.tsx
-route.ts
-```
-
-is exposed publicly.
-
-Everything else remains internal.
-
----
-
-# 9. API Routes
-
-APIs must use the `route.ts` convention.
-
-Example:
-
-```
-app/api/users/route.ts
-```
+Never place `"use client"` higher in the tree than necessary.
 
 Bad:
 
 ```
-app/api/users.ts
-pages/api/*
+app/layout.tsx
+'use client'
 ```
 
-Handlers must export HTTP methods:
+Good:
 
 ```
-export async function GET() {}
-export async function POST() {}
+app/ui/search.tsx
+'use client'
 ```
+
+Only the interactive component should be client-side.
 
 ---
 
-# 10. Parallel Routes
+# 4. Server → Client Data Flow
 
-Parallel routes use the `@slot` pattern.
+Data must flow **from Server Components to Client Components via props**.
+
+Example:
+
+Server Component:
+
+```tsx
+import LikeButton from './like-button'
+
+export default async function Page() {
+  const post = await getPost()
+
+  return <LikeButton likes={post.likes} />
+}
+```
+
+Client Component:
+
+```tsx
+'use client'
+
+export default function LikeButton({ likes }: { likes: number }) {
+  return <button>{likes}</button>
+}
+```
+
+Rules:
+
+* Props must be **serializable**
+* Do not pass database objects directly
+* Do not pass functions
+
+---
+
+# 5. Interleaving Server and Client Components
+
+Server Components may render Client Components.
 
 Example:
 
 ```
-app/dashboard/
-  @analytics/page.tsx
-  @team/page.tsx
+Server Page
+   ↓
+Client Modal
+   ↓
+Server Content
 ```
 
-Every slot **must include a default.tsx fallback**.
+Pattern example:
+
+Server Component:
+
+```tsx
+import Modal from './modal'
+import Cart from './cart'
+
+export default function Page() {
+  return (
+    <Modal>
+      <Cart />
+    </Modal>
+  )
+}
+```
+
+Client Component:
+
+```tsx
+'use client'
+
+export default function Modal({ children }: { children: React.ReactNode }) {
+  return <div>{children}</div>
+}
+```
+
+This pattern allows server-rendered UI to be nested inside interactive components.
+
+---
+
+# 6. Context Providers
+
+React context **cannot run in Server Components**.
+
+Context providers must be Client Components.
 
 Example:
 
 ```
-@analytics/default.tsx
+app/theme-provider.tsx
 ```
 
-If not needed:
+```tsx
+'use client'
+
+import { createContext } from 'react'
+
+export const ThemeContext = createContext({})
+```
+
+Then imported into the root layout:
 
 ```
-return null
+app/layout.tsx
+```
+
+```tsx
+import ThemeProvider from './theme-provider'
+```
+
+Providers should be placed **as deep as possible** in the tree.
+
+Bad:
+
+```
+<html>
+  <ThemeProvider>
+```
+
+Better:
+
+```
+<body>
+  <ThemeProvider>{children}</ThemeProvider>
 ```
 
 ---
 
-# 11. Intercepting Routes
+# 7. Data Sharing With React.cache
 
-Intercepting routes allow rendering routes inside other layouts.
-
-Patterns:
-
-```
-(.)folder
-(..)folder
-(..)(..)folder
-(...)folder
-```
-
-Typical usage:
-
-* modal navigation
-* previews
-* overlays
-
-These should only be used for UI routing patterns.
-
----
-
-# 12. Metadata Files
-
-Metadata files must follow official naming conventions.
-
-Allowed examples:
-
-```
-favicon.ico
-icon.png
-apple-icon.png
-opengraph-image.png
-twitter-image.png
-robots.txt
-sitemap.xml
-```
-
-Dynamic metadata can be generated using:
-
-```
-opengraph-image.ts
-twitter-image.ts
-sitemap.ts
-robots.ts
-```
-
-Never invent custom metadata filenames.
-
----
-
-# 13. Public Assets
-
-Static assets must live in:
-
-```
-public/
-```
+Shared server data should use `React.cache`.
 
 Example:
 
 ```
-public/images/logo.png
-public/fonts/inter.woff2
+lib/user.ts
 ```
 
-Access via:
+```ts
+import { cache } from 'react'
 
-```
-/images/logo.png
+export const getUser = cache(async () => {
+  const res = await fetch('https://api.example.com/user')
+  return res.json()
+})
 ```
 
-Never import assets from outside `public`.
+Rules:
+
+* Cache expensive fetches
+* Reuse cached functions across components
+* Avoid duplicate requests during a single render
+
+`React.cache` is scoped per request.
 
 ---
 
-# 14. Configuration Files
+# 8. Streaming and Suspense
 
-Required configuration files:
+Server Components should use **Suspense boundaries** for streaming UI.
 
-```
-next.config.ts
-package.json
-tsconfig.json
-eslint.config.mjs
-```
+Example:
 
-Optional but recommended:
+```tsx
+import { Suspense } from 'react'
 
-```
-instrumentation.ts
-proxy.ts
-.env.local
+<Suspense fallback={<Loading />}>
+  <Profile />
+</Suspense>
 ```
 
-Never commit:
+This allows progressive rendering.
+
+---
+
+# 9. Prevent Environment Poisoning
+
+Server-only code must never be imported into Client Components.
+
+Example:
 
 ```
-.env
-.env.local
-.env.production
+lib/data.ts
+```
+
+```ts
+import 'server-only'
+```
+
+Use `server-only` when:
+
+* accessing database
+* accessing private APIs
+* using environment secrets
+
+Client-only modules may use:
+
+```
+client-only
+```
+
+to prevent server usage.
+
+---
+
+# 10. Third-Party Client Libraries
+
+If a third-party library uses client features but lacks `"use client"`, wrap it.
+
+Example wrapper:
+
+```
+app/carousel.tsx
+```
+
+```tsx
+'use client'
+
+import { Carousel } from 'acme-carousel'
+
+export default Carousel
+```
+
+Then use normally in Server Components.
+
+---
+
+# 11. Performance Rules
+
+To maintain optimal performance:
+
+Always:
+
+* fetch data in Server Components
+* keep client components small
+* avoid unnecessary `"use client"`
+
+Never:
+
+* fetch database data in Client Components
+* move entire pages to the client
+* expose API keys to the browser
+
+---
+
+# 12. Absolute Rules
+
+Never:
+
+* add `"use client"` to layouts unnecessarily
+* fetch secrets in client components
+* run heavy logic in client components
+* send non-serializable props to client components
+
+Prefer:
+
+```
+Server Component → Client Component (interactive)
+```
+
+This architecture ensures minimal JavaScript and maximum performance.
+
 ```
 
 ---
 
-# 15. Components and Shared Code
+# Recommended Next Rule (Very Important)
 
-Shared code must live outside routing.
+The next rule you should add is **data fetching discipline**, because Next.js 16 introduced **Cache Components and new caching APIs**.
 
-Recommended structure:
-
-```
-components/
-lib/
-services/
-actions/
-types/
-hooks/
-```
-
-Responsibilities:
-
-components → UI
-lib → utilities
-services → server logic
-actions → server actions
-types → TypeScript types
-
-Never place business logic inside React components.
-
----
-
-# 16. Absolute Rule
-
-Routing structure must remain predictable.
-
-Do not:
-
-* mix Pages Router with App Router
-* invent new routing file conventions
-* expose internal utilities as routes
-* place business logic inside route files
-
-Follow the official Next.js conventions strictly.
+The rule would be:
 
 ```
 
----
-
-✅ This rule ensures Cursor **never generates chaotic structures** like:
+nextjs16-data-fetching-and-caching.mdc
 
 ```
 
-app/utils/
-app/components/
-app/helpers/
+This one teaches Cursor:
 
-```
-
-or:
-
-```
-
-pages/api/*
+- `use cache`
+- `revalidateTag(tag, 'max')`
+- `updateTag()`
+- request-time execution
+- Partial Pre-Rendering
 
 ---
 > Source: [Mark0025/npm-auth-gateway](https://github.com/Mark0025/npm-auth-gateway) — distributed by [TomeVault](https://tomevault.io).
