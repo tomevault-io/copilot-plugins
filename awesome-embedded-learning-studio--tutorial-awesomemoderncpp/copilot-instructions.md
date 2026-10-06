@@ -1,64 +1,67 @@
 ## tutorial-awesomemoderncpp
 
-> Claude Code 在本项目的**专属补充**。通用项目信息(架构 / 命令 / 校验 / 金科玉律)见 [AGENTS.md](AGENTS.md) —— **先读它**。本文件只放 Claude 特有的。
+> 给任何 AI coding agent 的目录级入口:在本目录(或其子目录)落新一期题目、投稿题解时,您照本文件执行。人读的机制详解在站点手册 `documents/community/weekly-guide/`(五篇,含全部字段说明与报错对照表),模板在 `_template/`。本文件只放执行规程,两者冲突时以实际代码行为为准(`site/.vitepress/config/weekly-manifest.ts`、`site/.vitepress/theme/utils/quiz-data.ts`)。
 
-# CLAUDE.md
+# AGENTS.md — 「每周一些题」落题规程
 
-Claude Code 在本项目的**专属补充**。通用项目信息(架构 / 命令 / 校验 / 金科玉律)见 [AGENTS.md](AGENTS.md) —— **先读它**。本文件只放 Claude 特有的。
+给任何 AI coding agent 的目录级入口:在本目录(或其子目录)落新一期题目、投稿题解时,您照本文件执行。人读的机制详解在站点手册 `documents/community/weekly-guide/`(五篇,含全部字段说明与报错对照表),模板在 `_template/`。本文件只放执行规程,两者冲突时以实际代码行为为准(`site/.vitepress/config/weekly-manifest.ts`、`site/.vitepress/theme/utils/quiz-data.ts`)。
 
-## 写作纪律(必须遵守)
+## 两类任务
 
-1. 写作前 **MUST** 先查 [.claude/style/writing-style.md](.claude/style/writing-style.md)(人格、语气、文章骨架、代码风格)
-2. 写作前 **MUST** 先 web search,准确性优先,token 成本其次
-3. 完成后 **MUST** 自查,而非留给作者;自查后告知如何验证
-4. 完成一个文件夹下的文章,**MUST** 顺手建 `index.md`,确保每篇都能被 VitePress 访问
-5. 计划模式用中文写计划文件
-6. 审查文章准确性,用 [.claude/prompts/](.claude/prompts/) 下的 prompt:
-   - `article-factcheck-audit.md` —— 事实准确性 + 引用验证(人名 / 日期 / 规格 / 代码行为)
-   - `article-rigor-audit.md` —— 编译器行为 + 技术断言验证(强制编译 / 汇编佐证)
+**落一期新周**:输入通常是出题人给的原始材料(题面文本、参考答案、题目出处、大致难度),也可能只有半成品目录。这份材料交到您手上,就由您把它变成完整的一期。
 
-## 规划命令(skills,规划者模式 —— 只规划不执行)
+**投稿题解**:您往已有题目目录的 `solution/` 下加一个投稿人文件夹,不动周页面。
 
-- [`/patch`](.claude/commands/patch.md) —— 小迭代规划(开发原子单位,累积制)
-- [`/minor`](.claude/commands/minor.md) —— 发版打包规划(攒够后手工判定触发)
+## 落题步骤
 
-确认讨论后产出【总结 + 迭代 Issue】到聊天框,套本地 `.claude/templates/iteration-issue.md`。不调 `gh`、不开 issue。
+1. **定周号**:您 `ls documents/weekly-problems/` 找现有最大的 `week-NN`,取下一个。周号永远两位数字(`week-02`,不是 `week-2`)。
+2. **复制模板**:
+   - `_template/week-NN.md` → `documents/weekly-problems/week-NN.md`
+   - `_template/01-your-problem/` → `code/volumn_codes/weekly-problems/week-NN/01-<题名slug>/`
+   - `solution/your-github-name/` 改名为出题人或投稿人的 GitHub 用户名。
+   多道题就多复制目录,`02-`、`03-` 前缀即展示顺序。
+3. **填空**(删光模板里的注释和占位):
+   - `problem.md`:纯题面,无 frontmatter,不写标题头;
+   - `quiz.json`:按材料选题型(六选一,契约见下);
+   - `starter.cpp`:仅判题类(judge-assert 给函数骨架,judge-io 给含 main 的程序骨架);
+   - `solution/<用户名>/answer.md`(必有)+ `solution.cpp`(判题类要有);
+   - 周页面:frontmatter 全字段 + 引言 + `<QuizProblem src="…"/>` 每题一条 + 出处致谢段。
+4. **自检**(见下),`pnpm dev` 眼验,然后按 PR 规范提交。
 
-## 实用命令(skills,执行型)
+## 硬规则(违反会静默失败或构建失败)
 
-- [`/audit`](.claude/commands/audit.md) —— 对一篇文章跑事实 + 严谨双审查并修正
-- [`/verify-claim`](.claude/commands/verify-claim.md) —— 编译最小例子 + 查 cppreference,验证一条 C++ 断言
-- [`/explain`](.claude/commands/explain.md) —— 给学习者讲一个概念(定位 → 验证 → 项目声音讲解)
-- [`/new-article`](.claude/commands/new-article.md) —— 按骨架起一篇新文章
-- [`/preflight`](.claude/commands/preflight.md) —— 提交前自检(frontmatter / lint / 链接 / 索引)
+- 周页面文件名去掉 `.md` 必须与本目录下的题目目录**同名**。不同名不报错,那一期零道题。
+- 周页面 frontmatter 的 `title` / `description` / `dateRange` 必须各自**单行**——栏目数据是按行正则提取的,折行即残缺。
+- `weeklyThanks[].github` 必须是合法 GitHub 用户名(字母开头结尾,1–39 位,字母数字连字符),`role` 非空;不合法构建直接失败。
+- `solution/` 下投稿人子目录**必须含 `answer.md`**,缺失构建失败。
+- `quiz.json` 契约:判题类(`judge-assert`/`judge-io`)必须有非空 `tests`;assert 按**最后一个 `==`** 切分「表达式 == 期望值」,函数名须与 starter 一致;io 的 `in`/`out` 必须是字符串;`choice` 要 `options`(≥2)+ `answer`(1-based 行号数组);`fill` 要 `answerText`;`find-bug` 要 `bugLines`(1-based,数 `code.cpp` 的行)。
+- `stars` 非法时**静默取 3**,不报错——填完核对一眼。
+- 任何出题文件里**不得出现 `##JUDGE##`**:那是站点判题器生成的内部协议标记,写了会干扰判题。
+- 周页面 `difficulty` 只能 beginner / intermediate / advanced;`tags` 只能从 `scripts/tags.json` 白名单取。
+- `examples/` 与 `_template/` 不进周列表,别把正式题放进去;也别动这两个目录的内容(除非模板本身要改)。
 
-## 记忆系统
+## 自检命令
 
-Claude Code 有持久记忆(跨会话保留用户偏好、项目进展、踩坑),由 `MEMORY.md` 索引;具体存储位置在本地 Claude 配置,因人而异。
+在仓库根执行,Python 咱们一律用 `.venv/bin/python`(系统 python 缺 PyYAML,结果不可信):
 
-## 添加贡献者
+```bash
+.venv/bin/python scripts/validate_frontmatter.py   # 周页面 frontmatter
+pnpm check:links                                    # 文档链接
+.venv/bin/python scripts/check_quality.py documents/
+pnpm test:weekly                                    # weekly 机制回归
+pnpm build                                          # 完整构建(manifest 校验在这步爆)
+```
 
-用户说"添加贡献者"时:① 问 GitHub URL + 贡献内容 + 是否匿名;② 同步更新 `CONTRIBUTORS.md` + `documents/team/index.md` + `documents/en/team/index.md`;③ 卡片格式(`<a class="contributor-card">`)参照 `documents/team/index.md` 现有条目。
+`pnpm dev` 眼验清单,您逐项确认:栏目首页新周出现在最前;周页题卡渲染;参考答案提交判题通过;题解页出现投稿人条目。dev 下改目录刷新即生效,无需重启。
 
-## 配置
+## 正文写作约束
 
-- [.claude/settings.json](.claude/settings.json) —— 权限 allowlist + PreToolUse hook
-- [.claude/hooks/block-bare-python.sh](.claude/hooks/block-bare-python.sh) —— 强制 `.venv/bin/python`
-- `.claude/settings.local.json` —— 本地覆盖(不入库)
+周页面引言、出处致谢段、`answer.md` 都是站内中文正文,不是代码注释。动笔前读 `.claude/style/writing-style.md`(公开风格卡,写作人格与去 AI 味规则);维护者本地 `.claude/tools/content_forge/`(gitignore 不入库)有完整声音资产(`tools/humanizer-zh/corpus/VOICE.md` + `COMPARE.md`)与 `tools/humanizer_lint.py`,能跑则跑。要点:自称笔者;拉着人一起走用咱们;称呼对方用您。口语可以留,比喻和框架词不要;`answer.md` 讲思路带排错段,参考 `week-01/01-count-coins/solution/charliechen114514/answer.md` 的结构。
 
-## 参考文件索引
+## PR 规范
 
-| 文件 | 用途 |
-|---|---|
-| [AGENTS.md](AGENTS.md) | 跨 agent 通用入口(架构 / 命令 / 金科玉律) |
-| [.claude/style/writing-style.md](.claude/style/writing-style.md) | 写作人格 / 语气 / 骨架 / 代码风格 |
-| [.claude/rules/documents-frontmatter.md](.claude/rules/documents-frontmatter.md) | Frontmatter 字段与标签 |
-| [.claude/commands/](.claude/commands/) | `/patch` `/minor` 规划 skills |
-| [.claude/prompts/](.claude/prompts/) | 文章审查 prompt(事实 / 严谨) |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | 贡献流程一条龙 |
-| `site/.vitepress/config/` | VitePress 配置(nav / sidebar / theme) |
-| `scripts/build.ts` | 分卷并行构建 |
+分支、squash、CI 排错您看 `CONTRIBUTING.md` 与 `documents/community/dev/03-contribution-cookbook.md`,此处咱们不重复。PR 标题按仓库惯例写清改了什么(如 `feat(weekly-problems): Week 2 · xxx 三题`)。
 
 ---
 > Source: [Awesome-Embedded-Learning-Studio/Tutorial_AwesomeModernCPP](https://github.com/Awesome-Embedded-Learning-Studio/Tutorial_AwesomeModernCPP) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
