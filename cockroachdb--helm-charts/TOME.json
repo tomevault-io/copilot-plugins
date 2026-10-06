@@ -1,0 +1,81 @@
+{
+  "name": "helm-charts",
+  "owner": "cockroachdb",
+  "repo": "helm-charts",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "helm-charts",
+      "path": "skills/cockroachdb-operations-and-lifecycle/configuring-cockroachdb-helm-tls/SKILL.md",
+      "github_url": "https://github.com/cockroachdb/helm-charts/tree/main/skills/cockroachdb-operations-and-lifecycle/configuring-cockroachdb-helm-tls/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helm-charts",
+      "path": "skills/cockroachdb-onboarding-and-migrations/installing-cockroachdb-with-helm/SKILL.md",
+      "github_url": "https://github.com/cockroachdb/helm-charts/tree/main/skills/cockroachdb-onboarding-and-migrations/installing-cockroachdb-with-helm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helm-charts",
+      "path": "skills/cockroachdb-onboarding-and-migrations/validating-cockroachdb-helm-multiregion/SKILL.md",
+      "github_url": "https://github.com/cockroachdb/helm-charts/tree/main/skills/cockroachdb-onboarding-and-migrations/validating-cockroachdb-helm-multiregion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helm-charts",
+      "path": "skills/cockroachdb-onboarding-and-migrations/debugging-cockroachdb-operator-migrations/SKILL.md",
+      "github_url": "https://github.com/cockroachdb/helm-charts/tree/main/skills/cockroachdb-onboarding-and-migrations/debugging-cockroachdb-operator-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helm-charts",
+      "path": "skills/cockroachdb-observability-and-diagnostics/diagnosing-cockroachdb-helm-deployments/SKILL.md",
+      "github_url": "https://github.com/cockroachdb/helm-charts/tree/main/skills/cockroachdb-observability-and-diagnostics/diagnosing-cockroachdb-helm-deployments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helm-charts",
+      "path": "skills/cockroachdb-observability-and-diagnostics/collecting-cockroachdb-operator-escalation-packet/SKILL.md",
+      "github_url": "https://github.com/cockroachdb/helm-charts/tree/main/skills/cockroachdb-observability-and-diagnostics/collecting-cockroachdb-operator-escalation-packet/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cockroachdb/helm-charts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-06T21:34:57Z"
+}
