@@ -1,0 +1,9 @@
+{
+  "name": "zivtech--accessibility-skills",
+  "displayName": "accessibility-skills",
+  "description": "AI agent skills for accessibility testing and WCAG 2.2 audits in Claude Code: planner, critic, Playwright/axe-core tester, screen reader reviews, bug reports, and draft ACRs.",
+  "version": "1.0.0",
+  "author": "zivtech",
+  "homepage": "https://github.com/zivtech/accessibility-skills",
+  "skills": []
+}
