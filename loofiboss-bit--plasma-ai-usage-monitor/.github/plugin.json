@@ -1,0 +1,9 @@
+{
+  "name": "loofiboss-bit--plasma-ai-usage-monitor",
+  "displayName": "plasma-ai-usage-monitor",
+  "description": "KDE Plasma 6 widget for local AI provider usage, spend, limits, and coding-tool activity",
+  "version": "1.0.0",
+  "author": "loofiboss-bit",
+  "homepage": "https://github.com/loofiboss-bit/plasma-ai-usage-monitor",
+  "skills": []
+}
