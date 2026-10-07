@@ -1,0 +1,9 @@
+{
+  "name": "openprx--fenfa",
+  "displayName": "fenfa",
+  "description": "Self-hosted app distribution platform for iOS, Android, macOS, Windows & Linux. Open-source alternative to Pgyer/TestFlight.",
+  "version": "1.0.0",
+  "author": "openprx",
+  "homepage": "https://github.com/openprx/fenfa",
+  "skills": []
+}
