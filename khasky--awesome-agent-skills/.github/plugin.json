@@ -1,0 +1,9 @@
+{
+  "name": "khasky--awesome-agent-skills",
+  "displayName": "awesome-agent-skills",
+  "description": " Skills for AI coding agents: code review, debugging, security audits, refactoring, cleaning up AI-written code and text, and more.",
+  "version": "1.0.0",
+  "author": "khasky",
+  "homepage": "https://github.com/khasky/awesome-agent-skills",
+  "skills": []
+}
