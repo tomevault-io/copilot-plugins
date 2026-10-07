@@ -1,0 +1,9 @@
+{
+  "name": "heygen-com--liveavatar-agent-skills",
+  "displayName": "liveavatar-agent-skills",
+  "description": "A collection of skills to help coding agents onboard to LiveAvatar. ",
+  "version": "1.0.0",
+  "author": "heygen-com",
+  "homepage": "https://github.com/heygen-com/liveavatar-agent-skills",
+  "skills": []
+}
