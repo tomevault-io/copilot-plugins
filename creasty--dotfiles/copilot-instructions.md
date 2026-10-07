@@ -1,72 +1,98 @@
 ## dotfiles
 
-> What the code and the README don't tell about this repository.
+> A repository's own CLAUDE.md adds what's particular to it, and wins where the two differ.
 
 # CLAUDE.md
 
-What the code and the README don't tell about this repository.
+A repository's own CLAUDE.md adds what's particular to it, and wins where the two differ.
 
-## Verification gaps
+## Talking with me
 
-- **Neovim's config**: `./verify` starts Neovim without it (`-u NONE`, `nix/tests/vim.bats`).
-  The e2e suite (`nvim/tests/`) runs it with the plugins `nvim/lazy-lock.json` pins, but CI restores those from its cache: a pinned repository that vanishes breaks fresh installs unnoticed, until Renovate fails to bump it or the pins change.
-  The provisioning job has everything installed, so a test there could start Neovim with its config.
-- **kitty**: no test starts it, so that it starts Neovim (`shell`) goes untested; `nix/tests/link.bats` loads its config, which flags only unknown options.
-- **Idempotency**: nothing checks that a second switch changes nothing.
-  The activation steps (mise, rustup, VS Code's extensions, the agent skills) skip what's done, but no test runs them twice.
-- **Budgets on CI**: CI's runners measured `zsh -i -c exit` at 68–151 ms over 82 runs (2026-10-01 to 05), as far apart on one config as across configs.
-  So the provisioning job benchmarks it against 200 ms (`DOTFILES_VERIFY_STARTUP_MS`), where the default is 150 ms (`nix/tests/shell.bats`): a regression fails it only once it more than doubles a typical run.
-  Neovim's benchmarks keep their defaults on CI, 150 ms to start (`nvim/tests/spec/startup_spec.lua`) and 16.7 ms to follow a held key (`emacs_keys_spec.lua`), and a pass prints no time, so CI has no numbers for them; if one flakes, give CI its own `E2E_STARTUP_BUDGET_MS` or `E2E_KEY_REPEAT_BUDGET_MS` rather than loosening the default.
-- **Flutter**: only the cask's installation is checked; `flutter doctor` would need the Android SDK and Xcode set up first.
+- I often dictate: read typos and misheard words by context, and ask only when another reading would change what you do.
+- Say what an identifier or a term of your own means before you use it in chat.
+  Ground an explanation in where its effect shows up: what someone writes, what appears on screen, which call breaks.
+- "Do we need X?" about something that exists usually means we don't: remove X, or give the concrete reason it stays.
+  Any other question, "explain" or "propose" gets its answer in chat, direct answer first; files wait until I've chosen.
+- When behavior is hard to follow in text (ordering, timing, state), draw it, as an inline visual or an artifact.
 
-## opfmt is off
+## Decisions
 
-`creasty/opfmt` is switched off (`cond = false` in `nvim/lua/user/plugins.lua`) until it works with nvim-treesitter's `main` branch:
+- Lay design questions out in a message: number the questions and letter the options, each option saying what it is, where it shows up, what it costs and where it comes from (the platform's docs, a common practice, your own judgment); end each question with your recommendation.
+  I answer by quoting your lines.
+- Keep the AskUserQuestion picker for quick factual forks; its cards truncate the context a decision needs.
+  In plan mode too, end the turn on the questions, and call ExitPlanMode once I've agreed on the direction.
+- When I ask what you think, give your view and why; when I question an option, explain it further and leave the choice to me.
+  Either way, tell me when the evidence says I'm wrong.
+- In an open-ended design discussion, widen before narrowing, starting from what's needed rather than from the current form.
 
-- It loads modules only `master` has: `nvim-treesitter.query`, `.parsers` (`has_parser`) and `.ts_utils`, and registers itself as one of `master`'s modules (`define_modules`).
-- Its `opfmt!` directive takes a capture as one node, where Neovim 0.12 passes a list of nodes.
-  `compat.lua` (below) doesn't cover it, as it's registered without `all = false`.
+## Evidence
 
-It stays pinned in `nvim/lazy-lock.json`, where lazy.nvim keeps the pins of the plugins `cond` switches off, and its tests skip while it's off (`probe.opfmt_enabled` in `nvim/tests/spec/treesitter_spec.lua` and `snippets_spec.lua`).
-With `dev = true`, lazy.nvim loads it from its working copy in `~/go/src/github.com/creasty/opfmt` when there is one.
+- Take the answer from the thing itself, measured rather than reasoned about: run it, and read the implementation and its tests (a sibling repository's too, at `~/go/src/github.com/<owner>/<repo>`), the deployed page, the published package, the pixels.
+  A schema, a doc, a blog post, a name or what I remember is a lead to check.
+  A finding an earlier session measured stands until you measure otherwise, except machine state (versions, paths, configs), which you check again.
+- Report what you ran and what came back, and say up front what's untested, unread, left out or failed (a subagent's usage limit, a run that never happened); redo what failed.
+  A gap stays a gap.
+- Read all of what I point you to, its subpages and subfolders included, in its original form.
+- Before reporting a problem or calling a change done, look at the current state where it lands: the file as it is now, your own screenshot, the built page, the preview.
+  Report what else the change affected without being asked (every metric that moved, size, test counts), and how you verified each.
+- When several changes rest on one premise, land first, alone, the one that could disprove it, and build nothing else on the premise until it answers.
 
-## lazy.nvim rewriting its lockfile at start
+## Changes
 
-After installing missing plugins on a start, lazy.nvim rewrites `nvim/lazy-lock.json` with what is installed: that undoes the pins a pull moved, and drops the pin of a plugin that failed to install.
-So `keep_pins` in `nvim/lua/user/plugins.lua` puts them back.
-Remove it once lazy.nvim keeps the lockfile when it installs from it ([lazy.nvim#2127](https://github.com/folke/lazy.nvim/pull/2127) would): a start that installs a missing plugin while another is behind its pin tells.
+- Do what I asked, in the form I asked for, at every place within the scope I gave, and nothing beyond it.
+  Inside it, make the obvious fixes and routine follow-through without asking; bring me design decisions and changes of scope.
+- YAGNI: the simplest implementation wins, and everything you add answers a case that exists today.
+  Where the change reaches, delete unused code, leftovers of dropped experiments and workarounds whose cause is gone.
+  Narrow a helper to what its consumers use, keep internals out of the public API, and prefer readability to micro-tuning.
+- Reuse before adding: the codebase's own mechanism, then the platform's official feature or an established library, then your own code.
+  One general mechanism beats special cases and custom syntax; split mixed concerns into independent options, modeled on the platform's own API.
+- Work in one sweep: when fixing or auditing, cover every path a cause reaches and fix all you find, restructuring overlapping parts rather than patching one.
+  Fan a large sweep, or research over many sources, out to subagents or a dynamic workflow, on this session's model.
+- Prevent a mistake by construction rather than by documentation: required settings fail closed, and destructive operations get the narrowest scope.
+- Run it yourself: turn a manual procedure into a script that checks its own result, and iterate until it passes; do a check now if you can.
+- Before producing many documents, rows or records, settle the format on one or two and tell me how many will change.
 
-## nvim/lua/user/plugin/treesitter/compat.lua
+## Writing
 
-nvim-treesitter-endwise registers its `endwise!` directive with `all = false`, for a handler that gets one node per capture.
-Neovim 0.12 dropped the option and always passes a list of nodes, which breaks endwise: no `endfunction` after `function` in Vim script.
-`compat.lua` wraps `vim.treesitter.query.add_directive` to bring the option back, as Neovim 0.11 had it; `nvim/init.vim` loads it before the tree-sitter plugins.
-Remove it once endwise takes lists ([nvim-treesitter-endwise#60](https://github.com/RRethy/nvim-treesitter-endwise/pull/60) would): the endwise tests in `nvim/tests/spec/treesitter_spec.lua` tell.
+- Be understated and exact: claim only what the facts support, in words and structures that need no gloss.
+- Say each thing once, where it belongs: a more specific document states only how it differs, and nothing restates what's self-evident or already enforced.
+- Keep it short: lead with what the reader needs, stop once it's said, one concern per bullet.
+  In documents: lists for parallel items, tables only when the columns truly correspond, links on their titles, diagrams in Mermaid, emphasis from structure rather than bold.
+- The examples and background I give to explain myself are for you; only the claim goes into what you write.
+- Docs and comments describe what is and change with the behavior; history, even an unmerged draft's, stays in git.
+- After restructuring docs, have a fresh subagent with no context check that nothing was lost.
 
-## Neovim's exit without a UI
+## Git and pull requests
 
-An error on exit has Neovim wait for Enter (`getout()` calls `wait_return()`), which a server whose UI is gone never gets: it keeps running, with its terminals ([neovim#42096](https://github.com/neovim/neovim/issues/42096), seen with 0.12.4).
-Writing the ShaDa file is such an error when several Neovims exit at once, as kitty or Ghostty quitting with several windows has them: `vim_rename()` deletes `main.shada` before renaming its temporary file onto it, and one that checks for it in between fails with E137 and keeps its `main.shada.tmp.X` ([neovim#41940](https://github.com/neovim/neovim/issues/41940)).
-So `_exit_without_ui` in `nvim/init.vim` writes the ShaDa file as the last UI leaves, with errors silenced, and empties `'shada'` so the exit doesn't write it again.
-Remove it once neovim#42096 is fixed: the read-only case in `nvim/tests/spec/exit_spec.lua` passes without it.
+- Fetch first and start from the base on origin before planning, since other sessions merge all day; fetch again before opening a PR, pushing to one or measuring.
+  A fix to a merged PR goes in a new one.
+- I edit files, plans and docs between your turns: keep changes you didn't make, as mine.
+  When I've staged changes, a commit takes exactly what's staged.
+- Once a PR is open and I'm reviewing it, commit and push each verified fix and tell me.
+  Ask first for a merge, a push to the default branch, a PR I didn't ask for, or any other rewrite of pushed history.
+- Write commits and PRs for someone who never saw this session.
+  The title states the goal, not the mechanism; the description gives each fix's cause, when it started, and its impact, and the decisions we made in chat.
+  Check each at its source before the PR opens: when something started is the first release that has it, found through every commit that touched it, not the first one you came across.
+  Keep the title and description true after every push.
+- Before opening a PR, rename a random branch (`claude/peaceful-curie-r1d11b`) to say what it changes, and run the checks CI runs over the whole repository that read what the change touches; when none does (a bot's settings, docs), run none.
+- I squash-merge PRs myself; "#N merged" means fetch, rebase what's next onto it, force-push that branch with lease, and carry on.
+- In GitHub bodies, comments and release notes, a newline renders as a line break: write each paragraph on one line, and backtick any `@name` that isn't a mention.
 
-## kitty off every Space
+## This machine
 
-kitty takes each window it opens off every Space, the first at launch included, whatever Dock > Options > Assign To says ([kitty#10581](https://github.com/kovidgoyal/kitty/issues/10581), seen with 0.49.1 and 0.49.2).
-The likely cause is `_glfwPlatformShowWindow` in its `glfw/cocoa_window.m`, which resets the window's collection behavior as it shows it (from 0.43.0) and adds it to the active Space (from 0.48.0), a workaround for its quick-access terminal (kitty#8740).
-Hammerspoon can't put a window back: the private calls `hs.spaces.moveWindowToSpace` makes fail on macOS 26, and restarting the Dock doesn't either.
-So as ;+M brings kitty, `hammerspoon/kitty.lua` (called from `hammerspoon/apps.lua`) has it hide and show its windows on other Spaces through its remote control (`allow_remote_control` and `listen_on` in `config/kitty/kitty.conf`), which adds them to the current Space.
-Remove both once kitty#10581 is fixed and a new window stays on every Space.
+- It's shared: several sessions and worktrees run at once.
+  Stop only what you started, through its handle (TaskStop, preview_stop) or a PID you captured, never by name, pattern or port; when a port is taken, use another.
+  Stop your servers when you're done unless I'm looking at them.
+- Never load it to make a race or a flaky test show up (CPU-hogging processes, parallel loops of a test): run such a load on CI, or in an isolated Docker container capped with `--cpus` and `--memory`.
+- I work in the desktop app, locally and in the cloud: push before handing work to a cloud session.
+- Give me times in JST.
+- Keep secrets out of repositories, URLs, logs and messages; read them at the point of use.
+- What's in a private repository stays out of public repositories and published artifacts unless I say otherwise.
 
-## Homebrew tap trap
+## Memory
 
-`brew tap` checks that every formula and cask of a tap loads on Linux too, and refuses the whole tap when one doesn't: a formula with a URL only `on_macos`, or a cask without Linux stanzas or `depends_on :macos`.
-Such a tap can't go in `homebrew.taps`, which nix-darwin taps with that check. Instead:
-
-- Install the formula by its full name, with its tap unlisted: installing taps it without the check, and nix-darwin trusts the formula itself (`trusted`, for Homebrew's `HOMEBREW_REQUIRE_TAP_TRUST`).
-  `nix/modules/java.nix` installs `jetbrains/utils/kotlin-lsp` so, until kotlin-lsp has a URL outside `on_macos` too and its tap can be listed.
-- Or take the tool from nixpkgs, as `nix/modules/1password.nix` does 1Password's CLI: Homebrew refuses `1password/tap`.
+- A lesson that holds in every repository and changes your default belongs here, `home/claude/CLAUDE.md` in creasty/dotfiles: propose it rather than saving it to one project's memory.
 
 ---
 > Source: [creasty/dotfiles](https://github.com/creasty/dotfiles) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
