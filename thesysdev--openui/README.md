@@ -1,8 +1,6 @@
 # openui
 
-> Source: [thesysdev/openui](https://github.com/thesysdev/openui). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
-
-The Open Standard for Generative UI
+> Source: [thesysdev/openui](https://github.com/thesysdev/openui). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,11 +15,7 @@ Original source: `AGENTS.md` in [thesysdev/openui](https://github.com/thesysdev/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [openui](https://github.com/thesysdev/openui/tree/main/skills/openui/SKILL.md)
-
-From [thesysdev/openui](https://github.com/thesysdev/openui) — a repo with 8146+ stars on GitHub.
+From [thesysdev/openui](https://github.com/thesysdev/openui) — a repo with 8147+ stars on GitHub.
 
 ---
 
