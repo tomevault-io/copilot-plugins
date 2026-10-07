@@ -1,0 +1,9 @@
+{
+  "name": "hongxin--jetbot",
+  "displayName": "JetBot",
+  "description": "rowser-based AI coding assistant \u2014 zero install, zero deploy, zero config. Agentic loop with 10 tools, 18 skills, and a   force-directed Cosmos visualization. Runs entirely client-side.",
+  "version": "1.0.0",
+  "author": "hongxin",
+  "homepage": "https://github.com/hongxin/JetBot",
+  "skills": []
+}
