@@ -4,7 +4,7 @@
   "repo": "great_cto",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/avelikiy/great_cto",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T23:37:10Z"
+  "distributed_at": "2026-10-07T08:42:30Z"
 }
