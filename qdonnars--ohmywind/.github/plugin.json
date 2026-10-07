@@ -1,0 +1,9 @@
+{
+  "name": "qdonnars--ohmywind",
+  "displayName": "ohmywind",
+  "description": "MCP server + web app for sailing passage planning, worldwide: per-leg ETA, 1-5 complexity score, multi-model winds (AROME 1.3 km in France). SHOM C2D and MARC PREVIMER tidal atlases on the French Atla",
+  "version": "1.0.0",
+  "author": "qdonnars",
+  "homepage": "https://github.com/qdonnars/ohmywind",
+  "skills": []
+}
