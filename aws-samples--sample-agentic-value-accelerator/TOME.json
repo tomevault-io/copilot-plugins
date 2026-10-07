@@ -1,0 +1,285 @@
+{
+  "name": "sample-agentic-value-accelerator",
+  "owner": "aws-samples",
+  "repo": "sample-agentic-value-accelerator",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/map/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/test/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/assess/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/assess/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/evidence/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/evidence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/validate/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/research/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/generate/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/generate-iac/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/generate-iac/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/map-assemble/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/map-assemble/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/service-approval/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/service-approval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/generate-detective/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/generate-detective/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/map/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/generate-preventive/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/generate-preventive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/map-parse-framework/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/map-parse-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/test/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/research-api-surface/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/research-api-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/research-mitigations/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/research-mitigations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/assess/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/assess/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/research-capabilities/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/research-capabilities/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/map-framework-mapping/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/map-framework-mapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/map-generate-controls/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/map-generate-controls/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/evidence/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/evidence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/validate/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/research/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/skills/research-attack-surface/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/skills/research-attack-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/generate/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/generate-iac/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/generate-iac/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/map-assemble/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/map-assemble/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/service-approval/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/service-approval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/generate-detective/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/generate-detective/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/generate-preventive/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/generate-preventive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/map-parse-framework/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/map-parse-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/research-api-surface/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/research-api-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/research-mitigations/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/research-mitigations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/research-capabilities/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/research-capabilities/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/map-framework-mapping/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/map-framework-mapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/map-generate-controls/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/map-generate-controls/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-agentic-value-accelerator",
+      "path": "platform/control_plane/service_approval/plugin/.claude-plugin/skills/research-attack-surface/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-agentic-value-accelerator/tree/main/platform/control_plane/service_approval/plugin/.claude-plugin/skills/research-attack-surface/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aws-samples/sample-agentic-value-accelerator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T00:38:20Z"
+}
