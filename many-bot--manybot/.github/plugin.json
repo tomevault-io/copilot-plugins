@@ -1,0 +1,9 @@
+{
+  "name": "many-bot--manybot",
+  "displayName": "manybot",
+  "description": "Framework to build WhatsApp bots, without the boring part",
+  "version": "1.0.0",
+  "author": "many-bot",
+  "homepage": "https://github.com/many-bot/manybot",
+  "skills": []
+}
