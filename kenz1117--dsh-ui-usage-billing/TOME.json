@@ -4,7 +4,7 @@
   "repo": "dsh-ui-usage-billing",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kenz1117/dsh-ui-usage-billing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T07:11:13Z"
+  "distributed_at": "2026-10-07T23:49:02Z"
 }
