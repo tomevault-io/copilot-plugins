@@ -1,0 +1,14 @@
+{
+  "name": "openstack-k8s-operators--devskills",
+  "displayName": "devskills",
+  "description": "openstack-k8s-operators agent development and troubleshooting skills",
+  "version": "1.0.0",
+  "author": "openstack-k8s-operators",
+  "homepage": "https://github.com/openstack-k8s-operators/devskills",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    }
+  ]
+}
