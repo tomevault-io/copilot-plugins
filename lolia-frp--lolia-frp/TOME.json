@@ -4,7 +4,7 @@
   "repo": "lolia-frp",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Lolia-FRP/lolia-frp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T11:56:42Z"
+  "distributed_at": "2026-10-07T01:25:39Z"
 }
