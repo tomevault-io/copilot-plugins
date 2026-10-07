@@ -1,22 +1,27 @@
 # unluac-rs
 
-> Source: [x3zvawq/unluac-rs](https://github.com/x3zvawq/unluac-rs). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [x3zvawq/unluac-rs](https://github.com/x3zvawq/unluac-rs). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+
+A cross-platform, Rust-based Lua decompilation library for multiple dialects
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [x3zvawq/unluac-rs](https://github.com/x3zvawq/unluac-rs).
+Original source: `AGENTS.md` in [x3zvawq/unluac-rs](https://github.com/x3zvawq/unluac-rs).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [x3zvawq/unluac-rs](https://github.com/x3zvawq/unluac-rs) — a repo with 50+ stars on GitHub.
+## Bundled Skills (1)
+
+- [unluac-rs](https://github.com/x3zvawq/unluac-rs/tree/main/.agents/skills/unluac-debug/SKILL.md)
+
+From [x3zvawq/unluac-rs](https://github.com/x3zvawq/unluac-rs) — a repo with 68+ stars on GitHub.
 
 ---
 
