@@ -1,0 +1,9 @@
+{
+  "name": "neoclide--coc-yaml",
+  "displayName": "coc-yaml",
+  "description": "coc-yaml",
+  "version": "1.0.0",
+  "author": "neoclide",
+  "homepage": "https://github.com/neoclide/coc-yaml",
+  "skills": []
+}
