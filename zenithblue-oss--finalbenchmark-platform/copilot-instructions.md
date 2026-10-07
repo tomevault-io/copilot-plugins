@@ -1,92 +1,66 @@
 ## finalbenchmark-platform
 
-> context-mode MCP tools available. Rules protect context window from flooding. One unrouted command dumps 56 KB into context.
+> You have context-mode MCP tools available. These rules are NOT optional — they protect your context window from flooding. A single unrouted command can dump 56 KB into context and waste the entire session. Antigravity does NOT have hooks, so these instructions are your ONLY enforcement mechanism. Follow them strictly.
 
 # context-mode — MANDATORY routing rules
 
-context-mode MCP tools available. Rules protect context window from flooding. One unrouted command dumps 56 KB into context.
+You have context-mode MCP tools available. These rules are NOT optional — they protect your context window from flooding. A single unrouted command can dump 56 KB into context and waste the entire session. Antigravity does NOT have hooks, so these instructions are your ONLY enforcement mechanism. Follow them strictly.
 
-## Think in Code — MANDATORY
+## BLOCKED commands — do NOT use these
 
-Analyze/count/filter/compare/search/parse/transform data: **write code** via `context-mode_ctx_execute(language, code)`, `console.log()` only the answer. Do NOT read raw data into context. PROGRAM the analysis, not COMPUTE it. Pure JavaScript — Node.js built-ins only (`fs`, `path`, `child_process`). `try/catch`, handle `null`/`undefined`. One script replaces ten tool calls.
+### curl / wget — FORBIDDEN
+Do NOT use `curl` or `wget` via `run_command`. They dump raw HTTP responses directly into your context window.
+Instead use:
+- `mcp__context-mode__ctx_fetch_and_index(url, source)` to fetch and index web pages
+- `mcp__context-mode__ctx_execute(language: "javascript", code: "const r = await fetch(...)")` to run HTTP calls in sandbox
 
-## BLOCKED — do NOT attempt
+### Inline HTTP — FORBIDDEN
+Do NOT run inline HTTP calls via `run_command` with `node -e "fetch(..."`, `python -c "requests.get(..."`, or similar patterns. They bypass the sandbox and flood context.
+Instead use:
+- `mcp__context-mode__ctx_execute(language, code)` to run HTTP calls in sandbox — only stdout enters context
 
-### curl / wget — BLOCKED
-Shell `curl`/`wget` intercepted and blocked. Do NOT retry.
-Use: `context-mode_ctx_fetch_and_index(url, source)` or `context-mode_ctx_execute(language: "javascript", code: "const r = await fetch(...)")`
+### Direct web fetching — FORBIDDEN
+Do NOT use `read_url_content` for large pages. Raw HTML can exceed 100 KB.
+Instead use:
+- `mcp__context-mode__ctx_fetch_and_index(url, source)` then `mcp__context-mode__ctx_search(queries)` to query the indexed content
 
-### Inline HTTP — BLOCKED
-`fetch('http`, `requests.get(`, `requests.post(`, `http.get(`, `http.request(` — intercepted. Do NOT retry.
-Use: `context-mode_ctx_execute(language, code)` — only stdout enters context
-
-### Direct web fetching — BLOCKED
-Use: `context-mode_ctx_fetch_and_index(url, source)` then `context-mode_ctx_search(queries)`
-
-## REDIRECTED — use sandbox
+## REDIRECTED tools — use sandbox equivalents
 
 ### Shell (>20 lines output)
-Shell ONLY for: `git`, `mkdir`, `rm`, `mv`, `cd`, `ls`, `npm install`, `pip install`.
-Otherwise: `context-mode_ctx_batch_execute(commands, queries)` or `context-mode_ctx_execute(language: "shell", code: "...")`
+`run_command` is ONLY for: `git`, `mkdir`, `rm`, `mv`, `cd`, `ls`, `npm install`, `pip install`, and other short-output commands.
+For everything else, use:
+- `mcp__context-mode__ctx_batch_execute(commands, queries)` — run multiple commands + search in ONE call
+- `mcp__context-mode__ctx_execute(language: "shell", code: "...")` — run in sandbox, only stdout enters context
 
 ### File reading (for analysis)
-Reading to **edit** → reading correct. Reading to **analyze/explore/summarize** → `context-mode_ctx_execute_file(path, language, code)`.
+If you are reading a file to **edit** it → `view_file` / `replace_file_content` is correct (edit needs content in context).
+If you are reading to **analyze, explore, or summarize** → use `mcp__context-mode__ctx_execute_file(path, language, code)` instead. Only your printed summary enters context. The raw file stays in the sandbox.
 
-### grep / search (large results)
-Use `context-mode_ctx_execute(language: "shell", code: "grep ...")` in sandbox.
+### Search (large results)
+Search results can flood context. Use `mcp__context-mode__ctx_execute(language: "shell", code: "grep ...")` to run searches in sandbox. Only your printed summary enters context.
 
-## Tool selection
+## Tool selection hierarchy
 
-0. **MEMORY**: `context-mode_ctx_search(sort: "timeline")` — after resume, check prior context before asking user.
-1. **GATHER**: `context-mode_ctx_batch_execute(commands, queries)` — runs all commands, auto-indexes, returns search. ONE call replaces 30+. Each command: `{label: "header", command: "..."}`.
-2. **FOLLOW-UP**: `context-mode_ctx_search(queries: ["q1", "q2", ...])` — all questions as array, ONE call (default relevance mode).
-3. **PROCESSING**: `context-mode_ctx_execute(language, code)` | `context-mode_ctx_execute_file(path, language, code)` — sandbox, only stdout enters context.
-4. **WEB**: `context-mode_ctx_fetch_and_index(url, source)` then `context-mode_ctx_search(queries)` — raw HTML never enters context.
-5. **INDEX**: `context-mode_ctx_index(content, source)` — store in FTS5 for later search.
+1. **GATHER**: `mcp__context-mode__ctx_batch_execute(commands, queries)` — Primary tool. Runs all commands, auto-indexes output, returns search results. ONE call replaces 30+ individual calls.
+2. **FOLLOW-UP**: `mcp__context-mode__ctx_search(queries: ["q1", "q2", ...])` — Query indexed content. Pass ALL questions as array in ONE call.
+3. **PROCESSING**: `mcp__context-mode__ctx_execute(language, code)` | `mcp__context-mode__ctx_execute_file(path, language, code)` — Sandbox execution. Only stdout enters context.
+4. **WEB**: `mcp__context-mode__ctx_fetch_and_index(url, source)` then `mcp__context-mode__ctx_search(queries)` — Fetch, chunk, index, query. Raw HTML never enters context.
+5. **INDEX**: `mcp__context-mode__ctx_index(content, source)` — Store content in FTS5 knowledge base for later search.
 
-## Parallel I/O batches
+## Output constraints
 
-For multi-URL fetches or multi-API calls, **always** include `concurrency: N` (1-8):
-
-- `context-mode_ctx_batch_execute(commands: [3+ network commands], concurrency: 5)` — gh, curl, dig, docker inspect, multi-region cloud queries
-- `context-mode_ctx_fetch_and_index(requests: [{url, source}, ...], concurrency: 5)` — multi-URL batch fetch
-
-**Use concurrency 4-8** for I/O-bound work (network calls, API queries). **Keep concurrency 1** for CPU-bound (npm test, build, lint) or commands sharing state (ports, lock files, same-repo writes).
-
-GitHub API rate-limit: cap at 4 for `gh` calls.
-
-## Output
-
-Write artifacts to FILES — never inline. Return: file path + 1-line description.
-Descriptive source labels for `search(source: "label")`.
-
-## Session Continuity
-
-Skills, roles, and decisions persist for the entire session. Do not abandon them as the conversation grows.
-
-## Memory
-
-Session history is persistent and searchable. On resume, search BEFORE asking the user:
-
-| Need | Command |
-|------|---------|
-| What did we decide? | `context-mode_ctx_search(queries: ["decision"], source: "decision", sort: "timeline")` |
-| What constraints exist? | `context-mode_ctx_search(queries: ["constraint"], source: "constraint")` |
-
-DO NOT ask "what were we working on?" — SEARCH FIRST.
-If search returns 0 results, proceed as a fresh session.
+- Keep responses under 500 words.
+- Write artifacts (code, configs, PRDs) to FILES — never return them as inline text. Return only: file path + 1-line description.
+- When indexing content, use descriptive source labels so others can `search(source: "label")` later.
 
 ## ctx commands
 
 | Command | Action |
 |---------|--------|
-| `ctx stats` | Call `stats` MCP tool, display full output verbatim |
-| `ctx doctor` | Call `doctor` MCP tool, run returned shell command, display as checklist |
-| `ctx upgrade` | Call `upgrade` MCP tool, run returned shell command, display as checklist |
-| `ctx purge` | Call `purge` MCP tool with confirm: true. Warns before wiping knowledge base. |
-
-After /clear or /compact: knowledge base and session stats preserved. Use `ctx purge` to start fresh.
+| `ctx stats` | Call the `stats` MCP tool and display the full output verbatim |
+| `ctx doctor` | Call the `doctor` MCP tool, run the returned shell command, display as checklist |
+| `ctx upgrade` | Call the `upgrade` MCP tool, run the returned shell command, display as checklist |
 
 ---
 > Source: [zenithblue-oss/finalbenchmark-platform](https://github.com/zenithblue-oss/finalbenchmark-platform) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
