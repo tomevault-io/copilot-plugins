@@ -1,0 +1,9 @@
+{
+  "name": "volkgg--openfused",
+  "displayName": "openfused",
+  "description": " OpenFused is a shared memory and messaging layer for AI agents, built on plain files. It gives agents persistent context, signed mail, and peer sync without locking them into a proprietary runtime. ",
+  "version": "1.0.0",
+  "author": "volkgg",
+  "homepage": "https://github.com/volkgg/openfused",
+  "skills": []
+}
