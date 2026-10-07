@@ -1,137 +1,102 @@
 ## grimoire
 
-> Mod manager and companion tool for Deadlock (Valve hero shooter). Electron desktop app (Windows/Linux).
+> Desktop mod manager for Deadlock (Valve). Electron 35 + React 19 + TypeScript 5.9 + Tailwind 4, pnpm. Ships for Windows, Linux (AppImage, deb, AUR, Flatpak) and macOS (Apple Silicon only, ad-hoc signed, no auto-update: see `docs/macos.md`).
 
 # Grimoire
 
-Mod manager and companion tool for Deadlock (Valve hero shooter). Electron desktop app (Windows/Linux).
+Desktop mod manager for Deadlock (Valve). Electron 35 + React 19 + TypeScript 5.9 + Tailwind 4, pnpm. Ships for Windows, Linux (AppImage, deb, AUR, Flatpak) and macOS (Apple Silicon only, ad-hoc signed, no auto-update: see `docs/macos.md`).
 
-## What It Does
+Single maintainer. Part of the `grimoire-workspace` monorepo-ish root; sibling repos (`../grimoire-social`, `../vpkmerge`, ...) have their own `AGENTS.md`/`CLAUDE.md`.
 
-- **Browse & Install Mods** from GameBanana (download queue, archive extraction for ZIP/7Z/RAR)
-- **Import GameBanana Collections** by URL
-- **One-Click Install** via custom protocol handler (`gb1click://`)
-- **Catalog Sync** - background mirror of the GameBanana mod index into local SQLite for fast offline browse + FTS5 search
-- **Manage Installed Mods** - enable/disable, reorder priority, delete
-- **Hero Locker** - organize cosmetic skins by hero
-- **Crosshair Designer** - real-time preview, save/load presets, apply to autoexec
-- **Autoexec Manager** - console command editor for autoexec.cfg
-- **Mod Profiles** - save/switch mod configurations
-- **Portable Profile Export/Import** - share profiles via `mp1:` share codes or `.modprofile.json` files (Grimoire-only format; see `docs/profile-spec.md`)
-- **Conflict Detection** - identify overlapping file paths between mods
-- **Player Stats** - MMR tracking, match history, hero stats, leaderboards (via deadlock-api.com)
-- **Deadworks Server Browser** - browse/join community dedicated servers; auto-downloads required map/addon content before connecting (gated behind `experimentalDeadworksServers`; see `docs/deadworks-servers.md`)
-- **Auto-Update** - GitHub releases integration
+## Commands
 
-## Tech Stack
-
-- **Electron 35** + **electron-vite** (Vite-based build)
-- **React 19** + **React Router 7** + **TypeScript 5.9**
-- **TailwindCSS 4** + **Lucide React** (icons)
-- **Zustand** (state management)
-- **better-sqlite3** (two SQLite databases: mods-cache.db, stats.db)
-- **pnpm** (package manager)
-
-## Project Structure
-
+```bash
+pnpm install                                     # postinstall fetches the pinned vpkmerge binary
+pnpm exec electron-rebuild -f -w better-sqlite3  # rebuild the native module (after any install that touched it)
+pnpm dev                                         # electron-vite with HMR
+pnpm typecheck                                   # tsc -b: covers src/ AND electron/
+pnpm lint
+pnpm test                                        # vitest run (node env, no DOM)
+pnpm i18n:check && pnpm i18n:manifest            # after touching any locale catalog
+pnpm build                                       # needs GRIMOIRE_SOCIAL_BASE_URL set (any URL works locally)
+pnpm package:linux | package:win | package:mac
 ```
-electron/
-  main/
-    index.ts          # Entry point, window creation, app lifecycle
-    ipc/              # IPC channel handlers (mods, gamebanana, system, settings, profiles, conflicts, modDatabase, crosshairPresets, stats, updater, launch)
-    services/         # Business logic (mods, download, extract, gamebanana, modDatabase, statsDatabase, stats, deadlock, steamDetect, vpk, conflicts, profiles, portableProfile, searchService, syncService, security, autoexec, metadata, settings, rateLimiter, updater, system, launch, launchOptions, oneClickInstall, dev)
-  preload/
-    index.ts          # Context-isolated IPC API (contextBridge)
-src/
-  App.tsx             # Root component with React Router
-  pages/              # Installed, Browse, Locker, LockerHero, Conflicts, Profiles, Settings, Crosshair, Autoexec, Stats
-  components/         # Layout, Sidebar, WelcomeModal, ModThumbnail, ModDetailsModal, ImportCollectionModal, MultiVpkPickerModal, VariantPickerModal, AudioPreviewPlayer, DownloadQueueIndicator, SyncIndicator, UpdateModal, common/ui, locker/, crosshair/, profiles/
-  stores/             # Zustand stores (appStore, statsStore, crosshairStore)
-  lib/                # api.ts (IPC wrapper), appSettings, assetPath, lockerUtils, dates
-  types/              # mod.ts, gamebanana.ts, deadlock-stats.ts, portableProfile.ts, electron.d.ts
-docs/                 # profile-spec, gamebanana_api_reference, deadlock-api-architecture, social-architecture, social-architecture-decisions, design-overhaul-brief
-```
+
+Before calling a change done: `pnpm typecheck && pnpm lint && pnpm test` (plus `pnpm ui:check` for renderer UI). CI (`.github/workflows/ci.yml`) runs lint, the `ui:check` design-system ratchet, `tsc -b`, vitest, the i18n gates, then `electron-vite build`. The husky pre-push hook runs only the i18n gates.
 
 ## Architecture
 
-Electron multi-process: Main (Node.js backend) <-> Preload (context bridge) <-> Renderer (React UI).
+Electron multi-process with context isolation on and `nodeIntegration` off.
 
-- UI calls `window.electronAPI.*` methods exposed by preload
-- Main process handles file I/O, SQLite, external APIs, archive extraction
-- Renderer uses Zustand stores for state, React Router for navigation
-- Context isolation enabled, nodeIntegration disabled
+- `electron/main/`: Node side. `ipc/*` registers `ipcMain.handle` channels; `services/*` holds the logic (file I/O, SQLite, VPK work, external APIs, archive extraction).
+- `electron/preload/index.ts`: the `contextBridge` API. Pure pass-through, no logic.
+- `src/`: React renderer. `pages/` (routes, HashRouter), `components/` (feature folders + `common/` primitives), `stores/` (Zustand), `lib/` (pure helpers, most of the unit tests), `types/`, `locales/`.
 
-## Dev Commands
+**Adding an IPC method:** declare it once in the `ElectronAPI` interface in `src/types/electron.ts`, add the one-line bridge in `electron/preload/index.ts` (checked with `satisfies ElectronAPI`), then the handler in `electron/main/ipc/*`. **Adding a setting:** field in `AppSettings` (`src/types/mod.ts`) plus its default in `electron/main/services/settings.ts`.
 
-```bash
-pnpm install                                      # Install dependencies
-pnpm exec electron-rebuild -f -w better-sqlite3   # Rebuild native SQLite module
-pnpm dev                                          # Dev server with HMR (localhost:5173)
-pnpm build                                        # Build bundles
-pnpm lint                                         # ESLint
-pnpm package:linux                                # Package for Linux (AppImage + deb)
-pnpm package:win                                  # Package for Windows (NSIS + portable)
-```
+Runtime data lives in the Electron `userData` dir: `mods-cache.db` (GameBanana catalog mirror + FTS5), `stats.db` (player stats), `unknown-crc-cache.db`, `settings.json`, `mod-metadata.json`, `profiles.json`, plus asset caches.
 
-## Databases (runtime, in app userData dir)
+Heavy VPK/model/texture/sound work shells out to the bundled `vpkmerge` CLI (`resources/vpkmerge/`, version + sha256 pinned in `scripts/fetch-vpkmerge.mjs`).
 
-- **mods-cache.db** - GameBanana mod catalog cache with FTS5 search. Tables: `mods`, `mods_fts`, `sync_state`
-- **stats.db** - Player stats. Tables: `players`, `mmr_snapshots`, `match_history`, `hero_stats_snapshots`, `aggregated_stats`, `stats_settings`
+## Hard rules
 
-Both use WAL mode with foreign keys enabled.
+- **No em-dashes**, anywhere: UI strings, comments, docs, commit messages. Use a colon, period or parens.
+- **No telemetry.** Nothing phones home on a fresh install: no analytics, usage pings or heartbeats. Network calls only happen for features the user invoked or opted into.
+- **Main process owns secrets.** API keys and the social session token (stored via `safeStorage`) never reach the renderer. The main process attaches auth headers itself.
+- **Wire-format types come from `@grimoire/social-types`** (`../grimoire-social/packages/social-types/`). Never redeclare them here. Social routes are `/v1/*`, additive only; breaking changes go to `/v2/`.
+- **External APIs go through a rate limiter** in `electron/main/services/rateLimiter.ts` (GameBanana, deadlock-api, Steam community, GitHub). New integrations reuse that pattern.
+- **The portable profile format is Grimoire-only.** Don't claim compatibility with other mod managers in copy.
+- **Visible strings are i18n keys** (see below). Never hardcode user-facing copy.
 
-## Key Config Files
+## UI and design
 
-- `electron.vite.config.ts` - Three Vite builds: main (Node), preload (CJS), renderer (React)
-- `electron-builder.yml` - Packaging targets and auto-update config
-- `tsconfig.json` / `tsconfig.app.json` / `tsconfig.node.json` - TypeScript configs (strict mode)
-- `eslint.config.js` - ESLint 9 flat config with TypeScript + React plugins
+Read `docs/ui-conventions.md` before any renderer UI work. The short version:
 
-## No Tests
+- Reuse the primitives in `src/components/common/` (`ui.tsx`, `forms.tsx`, `PageComponents.tsx`, `Modal.tsx`, `menu.tsx`, `ToastStack.tsx`) before writing markup.
+- Colors come from the tokens in `src/index.css` `@theme`, never raw hex or raw Tailwind palette colors.
+- **The accent color is user-chosen at runtime** (`src/lib/accentColor.ts` rewrites `--color-accent*`; OLED mode swaps the surface tokens). Orange `#f97316` is only the default. Always use `accent`/`accent-hover`/`accent-foreground` utilities and never design around a specific hue.
+- The z-index ladder is documented at the top of `src/index.css`. Don't invent new z values.
 
-No test framework or test files. Quality relies on TypeScript strict mode and ESLint.
+## i18n
 
-## Documentation
+`src/locales/en/translation.json` is the source of truth and the only catalog translators see (via Weblate). It must contain only keys actually referenced by `t()`/`<Tx>`. `src/locales/unwired-en.json` is an English-only to-do list of hardcoded strings still to be wired. It is never bundled or translated.
 
-Design docs and references live in `docs/`:
+After any catalog change run `pnpm i18n:manifest`, or CI and pre-push fail. Translations come back on `translations/<lang>` branches and only reach users once merged to `main`, because the app fetches the manifest and catalogs from `raw.githubusercontent.com/Slush97/grimoire/main` on demand. Full flow: `docs/localization.md`.
 
-- `profile-spec.md` - The portable profile format (`mp1:` share codes, `.modprofile.json`). Read this before touching `electron/main/services/portableProfile.ts` or the import/export UI.
-- `gamebanana_api_reference.md` + `gamebanana_categories_reference.md` - GameBanana API contract notes
-- `deadlock-api-architecture.md` + `DEADLOCK_STATS_API.md` - deadlock-api.com integration
-- `design-overhaul-brief.md` - UI design language reference
-- `social-architecture.md` + `social-architecture-decisions.md` - Architecture and ADRs for the planned `grimoire-social` companion service (see below)
-- `ability-vfx-recolor.md` - Hero ability VFX layer extraction + in app recoloring. Read before touching `detectVfxLayer`/`extractVfxLayer` (in `vpk.ts`/`modMerger.ts`) or building the recolor/Locker surface. Covers why particle recolor must use an in place scalar patch, not a KV3 re-encode.
-- `deadworks-servers.md` - The Deadworks server browser: relay data flow, content provisioning, and (critically) how the deadworks content path is woven into grimoire's canonical `gameinfo.gi` block so Fix Configuration never erases it. Read before touching `deadworksServers.ts`, `ipc/servers.ts`, or the gameinfo handling in `system.ts`/`deadlock.ts`.
+## Gotchas that have shipped bugs
 
-## Companion Service: grimoire-social
+- **New main-process runtime deps must be bundled.** `externalizeDepsPlugin()` leaves prod deps as bare imports, and `electron-builder.yml` strips `node_modules` except an explicit native allowlist. Add the package to the `exclude` list in `electron.vite.config.ts`, or every packaged user crashes on launch. After `pnpm build`, `grep -c 'Could not resolve "' dist/main/index.js` must print `0`.
+- **`@grimoire/social-types` stays in `devDependencies`.** It is bundled at build time. As a prod dep, `@electron/rebuild` trips over its out-of-root symlink.
+- **Main-process string literals must not end with the word `import`.** electron-vite's CJS shim regex treats `...import'` as an import statement and splices code into the next string literal. The error ("Unterminated string literal") points at an unrelated line.
+- **Tests run on Node 20 in CI** with no DOM. A renderer module that touches `navigator`/`window` at import time passes locally on newer Node and fails CI for every test that transitively imports it. Watch the test count, not just pass/fail.
+- **The CSP only applies to packaged builds.** `pnpm dev` has none, so "works in dev, broken packaged" bugs (especially 3D previews over `grimoire-hero:`/`grimoire-soul:`/`blob:`) usually mean the `connect-src` in `electron/main/index.ts` needs updating.
+- **vpkmerge version coupling.** A feature that needs a new vpkmerge flag or subcommand requires a vpkmerge release first, then a bump of the version + 3 sha256s in `scripts/fetch-vpkmerge.mjs`. `pnpm dev` hides the break when a locally built binary sits in `resources/vpkmerge/`.
+- **Mod mutations are serialized.** Enable/disable/reorder share an in-process lock (`withModMutationLock` / `runExclusiveModMutation` in `electron/main/services/mods.ts`) because racing `pakNN` slot writes clobbered VPKs. Route new mutating operations through it.
+- **pnpm-workspace.yaml is gitignored but load-bearing.** It holds `packages: ['../grimoire-social/packages/*']`. CI pins pnpm 10. Local pnpm 11 also needs `blockExoticSubdeps: false` and `allowBuilds.better-sqlite3: false`. Never commit a lockfile regenerated from a git worktree: the social-types link path is relative and dangles everywhere else.
 
-The planned social layer (publish profiles, browse, like) lives in a separate repo at `../grimoire-social`. It's a Cloudflare Worker (Hono + D1 + KV + Durable Objects) consumed exclusively by this desktop client.
+## Read before touching
 
-When you're working on social features in this repo:
+| Area | Doc |
+|---|---|
+| Portable profiles (`mp1:` codes, `.modprofile.json`) | `docs/profile-spec.md` |
+| Social layer, ADRs (append-only, never edit a shipped ADR) | `docs/social-architecture.md`, `docs/social-architecture-decisions.md` |
+| `gameinfo.gi` handling, Deadworks servers | `docs/deadworks-servers.md` |
+| `citadel/grimoire` priority root, load order | `docs/locker-global-mods.md` |
+| macOS / CrossOver, `steamRoots.ts`, `bottleLaunch.ts` | `docs/macos.md` |
+| Ability VFX recolor (`detectVfxLayer`/`extractVfxLayer`) | `docs/ability-vfx-recolor.md` |
+| Performance config presets | `docs/performance-config-integration.md` |
+| Crosshair math | `docs/crosshair-geometry.md` |
+| Foundry ("Door Stuck") | `docs/foundry-tab-design.md` |
+| VPK embedded metadata | `docs/vpk-modinfo-spec.md`, `docs/vpk-metadata-embed-integration.md` |
+| GameBanana API | `docs/gamebanana_api_reference.md`, `docs/gamebanana_categories_reference.md` |
+| deadlock-api.com (stats) | `docs/deadlock-api-architecture.md`, `docs/DEADLOCK_STATS_API.md` |
 
-- Wire format types are defined in `../grimoire-social/src/shared/schemas.ts` (Zod). The Electron client should import from there to stay in sync; never drift the types.
-- All social API routes are prefixed `/v1/`. Versioning is locked — additive-only changes (see `../grimoire-social/CLAUDE.md`).
-- The session token (returned by Steam OpenID auth) lives in the main process via `safeStorage` (async API; refuse to persist on Linux without libsecret). **The renderer must never see the token.** New IPC handlers in `electron/main/ipc/social.ts` will attach the bearer in the main process.
-- Social UI lives in `src/pages/Discover.tsx` (planned) and `src/components/social/` (planned). Existing `src/components/profiles/ImportProfileDialog.tsx` is reused as the import surface from a discovered profile.
+## Working conventions
 
-If the parent design needs to change (API surface, schema, identity provider), update `docs/social-architecture.md` and add an ADR to `docs/social-architecture-decisions.md` rather than editing existing ADRs.
-
-## Internationalization (i18n)
-
-i18next + react-i18next. `src/i18n.ts` eagerly globs `src/locales/*/translation.json`, so adding a language is purely a catalog drop, no code change.
-
-- **`src/locales/en/translation.json` is the source of truth and the only translatable catalog.** It must contain *only* real, displayed strings (keys actually referenced by `t()`/`<Tx>`). It is what Weblate (grimoire-translate) translates.
-- **`src/locales/unwired-en.json` is an English-only staging file**, never translated and never bundled at runtime (the glob only matches `*/translation.json`). It holds `unwired.*` keys: a developer to-do list of hardcoded strings still to be wired. `pnpm i18n:extract-unwired -- --merge` appends candidates here. Wiring a string means giving it a real key in `translation.json` and deleting the `unwired.*` entry. Keeping these out of `translation.json` is what stops Weblate from showing translators strings that are never displayed and keeps the completeness percentage honest.
-- **Translation round-trip (the leg that's easy to forget):** en strings reach translators only after they land on `main`; finished translations come back on a `translations/<lang>` branch (e.g. `origin/translations/he`), which must be **merged to `main`** and then `pnpm i18n:manifest` run to regenerate `src/locales/manifest.json`. The app fetches that manifest + each catalog from `raw.githubusercontent.com/Slush97/grimoire/main` on demand (download-on-demand language packs, ETag-refreshed on startup; see `electron/main/services/localeDownload.ts`). **Until a `translations/*` branch is merged, the picker offers English only**, however complete the catalog is on the Weblate side.
-- **Gates (CI `ci.yml` + husky `pre-push`):** `pnpm i18n:check` (every referenced key must exist in en) and `gen-locale-manifest.mjs --check` (committed manifest must match the catalogs). Regenerate the manifest with `pnpm i18n:manifest` after any catalog change. Whether new keys auto-sync *into* Weblate depends on the Weblate component's repo-pull setting (webhook/poll), which lives on the Weblate server, not in this repo.
-
-## Conventions
-
-- **No em-dashes** anywhere - in UI strings, comments, or replies. Substitute colon, period, or parens.
-- **Portable profile format is Grimoire-only.** Don't claim compatibility with other mod managers in copy.
-- **Two-process security**: main process owns secrets (API keys, session tokens); renderer talks to main via IPC. Don't expose secrets to the renderer.
-- **Rate limiters in `electron/main/services/rateLimiter.ts`** wrap external API calls (GameBanana 10 req/sec, deadlock-api 5 req/sec). New external integrations should reuse this pattern.
+- `Installed.tsx` and `Browse.tsx` are god files (thousands of lines). Put new features in their own components under `src/components/<feature>/` rather than growing them. When splitting, make move-only PRs with no behavior or visual change mixed in.
+- Experimental features are gated behind `experimental*` settings (see `AppSettings`) and default off.
+- Commits: imperative, conventional-style subjects (`fix(installed): ...`, `feat: ...`). PRs are squash-merged. Branch protection has no required checks, so `gh pr merge --auto` merges immediately: check `gh pr checks` first.
 
 ---
 > Source: [Slush97/grimoire](https://github.com/Slush97/grimoire) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
