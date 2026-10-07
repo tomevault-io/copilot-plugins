@@ -4,7 +4,7 @@
   "repo": "bram",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/judell/bram",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T01:07:24Z"
+  "distributed_at": "2026-10-07T04:49:55Z"
 }
