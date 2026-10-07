@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [Nyumat/NyumatFlix](https://github.com/Nyumat/Ny
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Nyumat/NyumatFlix](https://github.com/Nyumat/NyumatFlix) — a repo with 100+ stars on GitHub.
+From [Nyumat/NyumatFlix](https://github.com/Nyumat/NyumatFlix) — a repo with 104+ stars on GitHub.
 
 ---
 
