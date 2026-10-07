@@ -1,0 +1,9 @@
+{
+  "name": "seacrowd--seataubench",
+  "displayName": "SEATauBench",
+  "description": "Evaluating Conversational Agents in a Multimodal Multilingual Environment",
+  "version": "1.0.0",
+  "author": "SEACrowd",
+  "homepage": "https://github.com/SEACrowd/SEATauBench",
+  "skills": []
+}
