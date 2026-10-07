@@ -1,0 +1,15 @@
+## stapleengine
+
+> This project subscribes to SDL's own Generative AI stance.
+
+This project subscribes to SDL's own Generative AI stance.
+
+Generative AI, including large language models (LLMs), should not be used in any way when contributing to Staple Engine.
+
+We want our code to be art. We want to interact with real humans. Please don't submit AI-generated comments or code in bug reports or pull requests. We understand some people consider AI to be a useful tool, but we want to connect with you, not your computer.
+
+Any pull request to this project will ask you to confirm that you are the author and that you are contributing your changes under the MIT license.
+
+---
+> Source: [Staple-Engine/StapleEngine](https://github.com/Staple-Engine/StapleEngine) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
