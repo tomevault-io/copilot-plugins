@@ -1,0 +1,9 @@
+{
+  "name": "sadewadee--foxhound",
+  "displayName": "foxhound",
+  "description": "Go scraping framework with native Camoufox anti-detection. Dual-mode fetching (TLS stealth + browser), 60+ identity profiles, human behavior simulation, adaptive parsing, 12-layer middleware, 9 export",
+  "version": "1.0.0",
+  "author": "sadewadee",
+  "homepage": "https://github.com/sadewadee/foxhound",
+  "skills": []
+}
