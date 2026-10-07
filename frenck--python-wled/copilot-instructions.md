@@ -106,4 +106,4 @@ See [AI_POLICY.md](AI_POLICY.md) for the contribution policy around AI tooling.
 
 ---
 > Source: [frenck/python-wled](https://github.com/frenck/python-wled) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
