@@ -1,0 +1,9 @@
+{
+  "name": "emgarten--nuget-catalogreader",
+  "displayName": "NuGet.CatalogReader",
+  "description": "NuGet.CatalogReader",
+  "version": "1.0.0",
+  "author": "emgarten",
+  "homepage": "https://github.com/emgarten/NuGet.CatalogReader",
+  "skills": []
+}
