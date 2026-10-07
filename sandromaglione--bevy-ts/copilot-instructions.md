@@ -1,0 +1,85 @@
+## bevy-ts
+
+> - [`packages/core`](./packages/core/): strict public ECS/runtime library surface.
+
+## Repo Structure
+- [`packages/core`](./packages/core/): strict public ECS/runtime library surface.
+- [`packages/browser`](./packages/browser/): browser timing (FixedLoop) and keyboard input.
+- [`packages/pixi`](./packages/pixi/): Pixi node registry and render-sync systems.
+- [`packages/math`](./packages/math/): validated math values (Scalar, Vector2, Size2, Aabb, InputAxis).
+- [`packages/devtools`](./packages/devtools/): debug sessions, trace history, and text reports over the core `Debug` handle.
+- [`examples`](./examples/): workspace example apps that consume packages by package name.
+
+## Core Principles
+- Type safety is the first and absolute priority.
+- Public APIs must be as strict as possible.
+- If a runtime failure can be made impossible by types, it must be.
+- If a guarantee depends on runtime state, that uncertainty must be explicit in the type surface.
+- Prefer explicit APIs over overloaded, implicit, heuristic, or convenience-first APIs.
+- Build APIs as small composable lego blocks that remain independently type-safe.
+
+All changes to be complete MUST BE VERIFIED by running `pnpm run check`.
+Changes to what a package publishes (exports, `package.json`, build config) must also pass `pnpm pack:check`.
+Every change to a published package needs a changeset (`pnpm changeset`); all `@typeonce/bevy-ts*` packages share one version.
+Changes to runtime internals or public types must also pass `pnpm bench:check`; if a change intentionally moves the numbers, record it with `pnpm bench:update` and commit the new baseline.
+
+## Type Tests
+- Public types are tested with TSTyche in `packages/*/dtslint/*.tst.ts` (`pnpm test-types`).
+- Every public API gets a test of its inferred type (`expect(...).type.toBe<...>()`) and a failing test for each constraint.
+- A failing test states the error it expects: `// @ts-expect-error <fragment of the message>`, or `expect(fn).type.not.toBeCallableWith(...)` paired with a passing call. `// @ts-expect-error!` (message not checked) is rejected by `pnpm test-types`, because such a test also passes for unrelated errors.
+- Pick fragments that name the cause (the missing requirement, the conflicting name, the wrong value) and avoid printed unions, whose order is not stable.
+
+## Public API Rules
+- Do not require user-facing casts.
+- Do not require explicit generic arguments for normal usage.
+- Do not require users to split schedules, features, or flows into pieces only to satisfy the compiler.
+- Do not hide normal failure behind exceptions.
+- Do not make the wrong call easy through broad overloads or ambiguous semantics.
+
+## Internal Type Rules
+- Validate exact structure at the constructor boundary.
+- Derive normalized carried types once, then reuse them.
+- Relax only internal post-validation precision when that precision is not user-meaningful.
+- Never trade away root safety, requirement safety, or explicit runtime-failure semantics for compiler performance.
+- Internal type optimization is allowed only when the user-facing API stays unchanged and requires no casts or scaffolding.
+
+```ts
+const A = Game.System("A", { queries: { moving: Moving } }, ...)
+const B = Game.System("B", { resources: { score: Game.System.writeResource(Score) } }, ...)
+
+const schedule = Game.Schedule(A, Game.Schedule.applyDeferred(), B)
+
+// Acceptable internal strategy:
+// 1. Validate exact references here.
+// 2. Carry a cheaper normalized schedule type afterward.
+// 3. Keep the same public guarantees.
+```
+
+## Explicit Runtime Semantics
+- Long-lived references are storage-safe handles, not proof of liveness.
+- Lookups and dynamic reads must stay explicit and typed as fallible when they depend on current runtime state.
+- Schedule boundaries stay explicit: deferred commands and state transitions are applied only by explicit schedule markers (`applyDeferred()`, `applyStateTransitions(...)`).
+- Reads are per-reader streams, not marker-driven: change detection, events, transition events, and relation failures show each system what was published since its own previous run, once. Change detection keeps two ticks; events, transition events, and relation failures are kept until every reading system has run (capped, with `lagged()` reporting loss).
+
+```ts
+const target = lookup.getHandle(handle, query)
+if (!target.ok) {
+  return
+}
+```
+
+## Debugging Game Behavior
+- Reproduce headless before changing code: build the game's simulation schedules on a runtime made with `debug: true` and scripted input (`Keyboard.scripted`). [`examples/top-down/simulation.ts`](./examples/top-down/simulation.ts) is the reference; copy [`examples/top-down/debug.ts`](./examples/top-down/debug.ts) and run it with `node --import tsx <script>`.
+- Use `@typeonce/bevy-ts-devtools` sessions: read the lints at the top of `describe()` first, then orient, `run(name, { frames })` with an `Invariant` that encodes the bug, then `why(entity, Component)`, `journal({ frames, entity })`, and `report()` to explain it. See [`packages/devtools/README.md`](./packages/devtools/README.md).
+- Once the script reproduces the bug, turn it into a test next to the game.
+
+## Design References
+- [`bevy`](./.agents/bevy/): ECS concepts, scheduling, states, and relationships. Reference for the problem space, not a mandate to copy engine-owned ergonomics.
+- [`effect-smol`](./.agents/effect-smol/): explicit dependencies, canonical carried types, derive-once/carry-later type architecture.
+- [`arktype`](./.agents/arktype/): TypeScript performance patterns, normalization strategy, merge-over-intersection when valid, and avoidance of reflective type machinery.
+
+Use these references to guide design decisions, but preserve this library's stricter rule: user-facing safety and explicitness come first.
+
+---
+> Source: [SandroMaglione/bevy-ts](https://github.com/SandroMaglione/bevy-ts) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
