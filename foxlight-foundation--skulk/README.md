@@ -7,13 +7,13 @@ Skulk is an interconnect fabric for multi-node AI compute; it features intellige
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Foxlight-Foundation/Skulk](https://github.com/Foxlight-Foundation/Skulk).
+Original source: `CLAUDE.md` in [Foxlight-Foundation/Skulk](https://github.com/Foxlight-Foundation/Skulk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
