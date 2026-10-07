@@ -5,7 +5,7 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [roedyrustam/vibes-plug](https://github.com/roedyrustam/vibes-plug).
+Original source: `` in [roedyrustam/vibes-plug](https://github.com/roedyrustam/vibes-plug).
 
 ## Also available for
 
@@ -14,6 +14,7 @@ Original source: `.windsurf/rules/*.md` in [roedyrustam/vibes-plug](https://gith
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/roedyrustam/vibes-plug](https://github.com/roedyrustam/vibes-plug)
 
