@@ -4,7 +4,7 @@
   "repo": "helix",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gattaca-com/helix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T07:11:29Z"
+  "distributed_at": "2026-10-07T02:01:50Z"
 }
