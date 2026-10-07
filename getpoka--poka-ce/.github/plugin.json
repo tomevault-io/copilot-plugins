@@ -1,0 +1,14 @@
+{
+  "name": "getpoka--poka-ce",
+  "displayName": "poka-ce",
+  "description": "poka-ce",
+  "version": "1.0.0",
+  "author": "getpoka",
+  "homepage": "https://github.com/getpoka/poka-ce",
+  "skills": [
+    {
+      "name": "poka-ce",
+      "description": ""
+    }
+  ]
+}
