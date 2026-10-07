@@ -1,0 +1,18 @@
+{
+  "name": "kensaurus--skills",
+  "displayName": "skills",
+  "description": "You say the job; the playbook runs. 158 agent skills + 63 slash commands for Claude Code, Cursor, Codex, and Gemini CLI. Tuned for React / Next.js / Supabase.",
+  "version": "1.0.0",
+  "author": "kensaurus",
+  "homepage": "https://github.com/kensaurus/skills",
+  "skills": [
+    {
+      "name": "create-rule",
+      "description": ""
+    },
+    {
+      "name": "migrate-to-skills",
+      "description": ""
+    }
+  ]
+}
