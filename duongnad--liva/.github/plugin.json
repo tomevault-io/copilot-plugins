@@ -1,0 +1,9 @@
+{
+  "name": "duongnad--liva",
+  "displayName": "LIVA",
+  "description": "Advanced Agentic AI Assistant & Desktop Cognitive Architecture (5-tier memory, SQLite-Vec, 91 MCP tools, Llama.cpp)",
+  "version": "1.0.0",
+  "author": "DuongNAD",
+  "homepage": "https://github.com/DuongNAD/LIVA",
+  "skills": []
+}
