@@ -4,7 +4,7 @@
   "repo": "premiere-pro-mcp",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/leancoderkavy/premiere-pro-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T01:49:39Z"
+  "distributed_at": "2026-10-07T01:51:01Z"
 }
