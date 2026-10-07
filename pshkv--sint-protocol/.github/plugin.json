@@ -1,0 +1,9 @@
+{
+  "name": "pshkv--sint-protocol",
+  "displayName": "sint-protocol",
+  "description": "Runtime authorization & audit layer for physical AI \u2014 T0\u2013T3 tiers, capability tokens, Ed25519, ROS2/MCP/MAVLink bridges, OWASP ASI coverage",
+  "version": "1.0.0",
+  "author": "pshkv",
+  "homepage": "https://github.com/pshkv/sint-protocol",
+  "skills": []
+}
