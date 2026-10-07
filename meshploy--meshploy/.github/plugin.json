@@ -1,0 +1,9 @@
+{
+  "name": "meshploy--meshploy",
+  "displayName": "meshploy",
+  "description": "The connectivity and runtime platform for your apps: public and private routing across all your machines. Self-hosted, on a WireGuard mesh, with an MCP server for AI agents.",
+  "version": "1.0.0",
+  "author": "meshploy",
+  "homepage": "https://github.com/meshploy/meshploy",
+  "skills": []
+}
