@@ -4,7 +4,7 @@
   "repo": "agent-foundation",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/converge-ai-labs/agent-foundation",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T15:56:13Z"
+  "distributed_at": "2026-10-07T00:51:28Z"
 }
