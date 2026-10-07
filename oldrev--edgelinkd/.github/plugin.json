@@ -1,0 +1,14 @@
+{
+  "name": "oldrev--edgelinkd",
+  "displayName": "edgelinkd",
+  "description": "Node-RED Reimplemented in Rust",
+  "version": "1.0.0",
+  "author": "oldrev",
+  "homepage": "https://github.com/oldrev/edgelinkd",
+  "skills": [
+    {
+      "name": "edgelinkd",
+      "description": ""
+    }
+  ]
+}
