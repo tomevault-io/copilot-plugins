@@ -1,0 +1,105 @@
+{
+  "name": "webforj",
+  "owner": "webforj",
+  "repo": "webforj",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "webforj",
+      "path": ".agents/skills/writing-java/SKILL.md",
+      "github_url": "https://github.com/webforj/webforj/tree/main/.agents/skills/writing-java/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webforj",
+      "path": ".agents/skills/testing-java/SKILL.md",
+      "github_url": "https://github.com/webforj/webforj/tree/main/.agents/skills/testing-java/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webforj",
+      "path": ".agents/skills/writing-prose/SKILL.md",
+      "github_url": "https://github.com/webforj/webforj/tree/main/.agents/skills/writing-prose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webforj",
+      "path": ".agents/skills/reviewing-java/SKILL.md",
+      "github_url": "https://github.com/webforj/webforj/tree/main/.agents/skills/reviewing-java/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webforj",
+      "path": ".agents/skills/changing-devtools/SKILL.md",
+      "github_url": "https://github.com/webforj/webforj/tree/main/.agents/skills/changing-devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webforj",
+      "path": ".agents/skills/verifying-changes/SKILL.md",
+      "github_url": "https://github.com/webforj/webforj/tree/main/.agents/skills/verifying-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webforj",
+      "path": ".agents/skills/describing-changes/SKILL.md",
+      "github_url": "https://github.com/webforj/webforj/tree/main/.agents/skills/describing-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webforj",
+      "path": ".agents/skills/proposing-libraries/SKILL.md",
+      "github_url": "https://github.com/webforj/webforj/tree/main/.agents/skills/proposing-libraries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webforj",
+      "path": ".agents/skills/delegating-to-agents/SKILL.md",
+      "github_url": "https://github.com/webforj/webforj/tree/main/.agents/skills/delegating-to-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webforj",
+      "path": ".agents/skills/adding-devtools-actions/SKILL.md",
+      "github_url": "https://github.com/webforj/webforj/tree/main/.agents/skills/adding-devtools-actions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/webforj/webforj",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T00:53:50Z"
+}
