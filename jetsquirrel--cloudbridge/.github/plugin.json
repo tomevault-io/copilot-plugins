@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "JetSquirrel",
   "homepage": "https://github.com/JetSquirrel/cloudbridge",
-  "skills": []
+  "skills": [
+    {
+      "name": "cloudbridge",
+      "description": ""
+    },
+    {
+      "name": "cloudbridge",
+      "description": ""
+    }
+  ]
 }
