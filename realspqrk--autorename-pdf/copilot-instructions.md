@@ -1,73 +1,121 @@
 ## autorename-pdf
 
-> PDF auto-renamer using AI + OCR. Output: `YYYYMMDD COMPANY AP 12,13.pdf` (business) or academic date/author/venue/title.
+> PDF auto-renamer using AI + OCR. Extracts company name, date, document type, and printed invoice total from PDFs; default name `YYYYMMDD COMPANY AP 12,13.pdf`. Academic profile uses date, author, venue, and title.
 
 # AutoRename-PDF
 
-PDF auto-renamer using AI + OCR. Output: `YYYYMMDD COMPANY AP 12,13.pdf` (business) or academic date/author/venue/title.
+PDF auto-renamer using AI + OCR. Extracts company name, date, document type, and printed invoice total from PDFs; default name `YYYYMMDD COMPANY AP 12,13.pdf`. Academic profile uses date, author, venue, and title.
 
-Be concise. Smallest correct diff. Always use the project venv — never install Python deps globally.
+## Development Setup
 
-## Sources of truth
+**Always use a virtual environment.** Never install dependencies globally.
 
-Do not copy these into this file.
-
-| Need | Where |
-|------|--------|
-| Provider / OCR / vision knobs | `config.yaml.example` |
-| Recipe configs (academic, ER/AR, Ollama, vision, invoice-id) | `examples/` |
-| Human install and usage | `README.md` |
-| Company-name aliases | `harmonized-company-names.yaml.example` |
+```bash
+python -m venv venv
+venv\Scripts\activate          # Windows
+# source venv/bin/activate     # Linux/macOS
+pip install -r requirements.txt
+pip install -r requirements-dev.txt  # for testing
+```
 
 ## Commands
 
-Activate `venv` first (`venv\Scripts\activate` on Windows).
+All commands assume the venv is activated.
 
-| Task | Command |
-|------|---------|
-| Install | `pip install -r requirements.txt` and `requirements-dev.txt` |
-| CLI | `python autorename-pdf.py rename <path>` |
-| Dry-run | `python autorename-pdf.py rename <path> --dry-run` |
-| Undo | `python autorename-pdf.py undo` |
-| Config | `python autorename-pdf.py config show` / `config validate` |
-| Lint | `python -m ruff check .` |
-| Test | `pytest tests/ -v --cov` |
-| Live test | `pytest tests/ --run-live --provider ollama -v` |
-| EXE + GUI zip | `python build.py` |
-| GUI typecheck | `pnpm -C gui typecheck` |
-| GUI unit tests | `pnpm -C gui test:run` |
-| GUI dev | `pnpm -C gui tauri dev` |
+- **Run**: `python autorename-pdf.py [options] <files_or_folders>`
+- **Dry run**: `python autorename-pdf.py rename --dry-run <files_or_folders>`
+- **Undo**: `python autorename-pdf.py --undo`
+- **Test**: `pytest tests/ -v --cov`
+- **Lint**: `python -m ruff check .`
+- **Build EXE**: `python build.py`
+- **Install deps**: `pip install -r requirements.txt`
 
-JSON mode: `--output json`. Exit codes: `0` ok, `1` error, `2` usage, `3` config, `4` no files, `5` partial, `10` provider, `11` auth.
+## AI Tool Integration
+
+- `.claude/` is committed to git — skills, agents, and shared settings are available to all developers.
+- `settings.local.json` is gitignored (personal overrides).
+- **Skill (dev)**: `/rename-pdfs <path>` — Python source, requires venv. For development and macOS/Linux.
+- **Skill (prod)**: `/rename-pdfs-exe <path>` — compiled EXE, Windows only. For production/automation.
+- Both skills dry-run first, then ask for confirmation before renaming.
+- **CLI JSON mode**: `python autorename-pdf.py rename <path> --output json`
+- **Exit codes**: 0=success, 1=error, 2=usage, 3=config, 4=no files, 5=partial, 10=provider, 11=auth
+- **Subcommands**: `rename`, `undo`, `config show`, `config validate`
+- **Primary usage**: GUI app (Tauri) or Windows context menu via compiled EXE from release ZIP.
 
 ## Architecture
 
-Functional Python (no classes). `_*.py` modules are internal.
+Functional Python (no classes). Modules prefixed with `_` are internal:
 
-| Module | Role |
-|--------|------|
-| `autorename-pdf.py` | CLI + orchestration |
-| `_ai_processing.py` | Native structured parse for OpenAI (`responses.parse`) and Anthropic (`messages.parse`); instructor for Gemini, xAI, Ollama |
-| `_pdf_utils.py` | pdfplumber, pypdfium2, PaddleOCR bridge |
-| `_paddleocr_bridge.py` | Isolated PaddleOCR venv subprocess |
-| `_document_processing.py` | Harmonize (Jaro-Winkler), rename, undo |
-| `_config_loader.py` | YAML v2; `${VAR}` from `.env` beside config |
+| Module | Purpose |
+|--------|---------|
+| `autorename-pdf.py` | Entry point, CLI (argparse), orchestration |
+| `_ai_processing.py` | Multi-provider AI: native structured parse (OpenAI/Anthropic) or instructor (Gemini/xAI/Ollama) |
+| `_pdf_utils.py` | Text extraction (pdfplumber), image rendering (pypdfium2), PaddleOCR bridge |
+| `_paddleocr_bridge.py` | Subprocess bridge script for PaddleOCR venv |
+| `_document_processing.py` | Company harmonization (rapidfuzz), renaming, undo log |
+| `_config_loader.py` | YAML v2 config loading, schema validation, defaults |
 | `_utils.py` | Filename validation, constants |
 
-GUI lives in `gui/`: Tauri 2 sidecar wrapping the CLI (`autorename-pdf-cli`). Vanilla TypeScript, Tailwind 4, Vitest. Use **pnpm** (`gui/pnpm-lock.yaml`); ignore `gui/package-lock.json`.
+## Key Rules
 
-## Hard rules
+- **NEVER commit `config.yaml`** — contains API keys. Only commit `config.yaml.example`.
+- **NEVER commit `harmonized-company-names.yaml`** — user-specific data. Only commit the `.example`.
+- Platform: Windows-only (context menu EXE via PyInstaller)
+- Config: YAML-based (`config.yaml`), v2 schema — see `config.yaml.example`. Recipe configs (academic, ER/AR, Ollama, vision, invoice-id) live in `examples/`.
+- Python 3.11+ floor for the CLI; OCR embed is Python 3.13.15
+- Company name matching uses Jaro-Winkler similarity (rapidfuzz library)
+- Date parsing uses dateparser with DMY locale
+- OCR: PaddlePaddle 3.3.1 / PaddleOCR 3.7.0 via isolated subprocess venv (optional, installed by setup.ps1). Defaults: `PP-OCRv6_small_det` + `PP-OCRv6_small_rec` for `en` and latin-script langs.
 
-- Never commit `config.yaml` or `harmonized-company-names.yaml`. Examples only.
-- Do not add classes to the Python core.
-- GUI and Explorer context-menu EXE are Windows-only. The Python CLI is cross-platform.
-- Python 3.11+ floor for the CLI. OCR embed is Python 3.13.15.
-- Default OpenAI model is `gpt-5.6-luna`.
-- OpenAI and Anthropic use native structured parse. Instructor is only for Gemini (TOOLS), xAI (TOOLS), and Ollama (JSON).
-- pdfplumber always runs. OCR (`pdf.ocr`) and vision (`pdf.vision`) are independent (`false` / `true` / `auto`).
-- OCR pins: PaddlePaddle 3.3.1 / PaddleOCR 3.7.0. Defaults `PP-OCRv6_small_det` + `PP-OCRv6_small_rec` for `en` and latin-script langs.
-- Dates: dateparser, DMY locale.
-- Business logic (harmonization, dates, filenames) should stay above 80% test coverage. Mock AI in unit tests; live calls are `--run-live` only.
+## AI Providers
+
+Supports 5 providers via `ai.provider` config key:
+
+| Provider | SDK | Notes |
+|----------|-----|-------|
+| `openai` | openai (native) | Default. Native `responses.parse`. Default model `gpt-5.6-luna`. |
+| `anthropic` | anthropic (native) | Native `messages.parse`. OpenAI-compat layer ignores structured output. |
+| `gemini` | openai (base_url) | Instructor TOOLS mode via Google's OpenAI-compatible endpoint |
+| `xai` | openai (base_url) | Instructor TOOLS mode |
+| `ollama` | openai (base_url) | Instructor JSON mode, local models, no API key needed |
+
+OpenAI and Anthropic use native structured parse. Instructor is used only for Gemini, xAI, and Ollama.
+
+## Three-Tier Extraction
+
+1. **Tier 1**: pdfplumber text extraction (free, instant)
+2. **Tier 2a**: PaddleOCR via subprocess (free, ~2-5s/page, if installed)
+3. **Tier 2b**: Vision mode — page images sent to LLM (~$0.0001/page)
+
+Controlled by `pdf.ocr` (false/true/"auto") and `pdf.vision` (false/true/"auto").
+
+## Environment Variables
+
+Config values support `${VAR_NAME}` syntax for environment variable references.
+A `.env` file next to `config.yaml` is loaded automatically via `python-dotenv`.
+
+## Testing
+
+Tests in `tests/` using pytest. Unit tests mock AI API calls. Live integration tests (`--run-live`) call real providers.
+Business logic (harmonization, date parsing, filename generation) should have >80% coverage.
+
+### Live Tests
+
+```bash
+pytest tests/ --run-live -v                       # All available providers
+pytest tests/ --run-live --provider ollama -v      # Free, local only
+pytest tests/ --run-live --provider openai -v      # OpenAI only
+pytest tests/ --run-live --provider anthropic -v   # Anthropic only
+```
+
+API keys are loaded from `.env` file (see `.env.example`). Ollama tests require Ollama running locally.
+
+## Build & Distribution
+
+`build.py` creates signed EXE via PyInstaller, packages as ZIP with setup.ps1.
+`setup.ps1` installs context menu entries and optionally PaddleOCR (~500MB).
+
+**GUI platform support**: Windows only. The Tauri GUI invokes the CLI as a sidecar binary (compiled EXE). Cross-platform would require PyInstaller builds for each target OS — the TypeScript/Rust code is already platform-agnostic.
 
 ---
 > Source: [realspqrk/autorename-pdf](https://github.com/realspqrk/autorename-pdf) — distributed by [TomeVault](https://tomevault.io).
