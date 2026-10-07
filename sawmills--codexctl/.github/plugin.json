@@ -1,0 +1,9 @@
+{
+  "name": "sawmills--codexctl",
+  "displayName": "codexctl",
+  "description": "Manage multiple OpenAI Codex CLI accounts \u2014 profile switching, rate limit dashboard, shell completions",
+  "version": "1.0.0",
+  "author": "Sawmills",
+  "homepage": "https://github.com/Sawmills/codexctl",
+  "skills": []
+}
