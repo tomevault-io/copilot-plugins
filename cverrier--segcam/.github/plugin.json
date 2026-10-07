@@ -1,0 +1,14 @@
+{
+  "name": "cverrier--segcam",
+  "displayName": "segcam",
+  "description": "Semantic segmentation using your camera",
+  "version": "1.0.0",
+  "author": "cverrier",
+  "homepage": "https://github.com/cverrier/segcam",
+  "skills": [
+    {
+      "name": "tdd",
+      "description": ""
+    }
+  ]
+}
