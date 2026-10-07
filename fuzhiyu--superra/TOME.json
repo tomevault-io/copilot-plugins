@@ -1,0 +1,51 @@
+{
+  "name": "superRA",
+  "owner": "FuZhiyu",
+  "repo": "superRA",
+  "description": "An agentic workflow for economic research",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "econ-data-analysis",
+      "path": "skills/econ-data-analysis/SKILL.md",
+      "github_url": "https://github.com/FuZhiyu/superRA/tree/main/skills/econ-data-analysis/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/FuZhiyu/superRA",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T10:32:51Z"
+}
