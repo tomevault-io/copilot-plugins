@@ -1,25 +1,54 @@
-## design-system
+## engineering-discipline
 
-> t2000 design system — design-tokens/tokens.css is the copy-in SSOT for values; shadcn primitives owned per-app; near-black house theme + per-app accent; never reintroduce @t2000/ui. Full model in .claude/skills/t2000-design-system/.
+> Core engineering discipline — trace before fix, verifiable goals, simplicity, complete removal, Musk algorithm. The always-on assertions; depth lives in .claude/skills/t2000-engineering/.
 
 
-# Design System → `.claude/skills/t2000-design-system/SKILL.md`
+# Engineering Discipline
 
-**The model in one line:** share VALUES by copy-in (`design-tokens/tokens.css`,
-pure CSS variables only), own COMPONENTS per-app (shadcn in `components/ui/`), and
-never ship a shared UI/token package again — `@t2000/ui` was removed 2026-07-01
-because it bundled a marketing global stylesheet and packaged primitives a
-consumer's Tailwind can't scan.
+> **Canonical depth: `.claude/skills/t2000-engineering/SKILL.md`.** That file holds
+> the worked examples, the ask-vs-proceed test, the ESLint flat-config override
+> trap, and the test-file convention. This block is the always-on summary and is
+> intentionally mirrored in `CLAUDE.md § Engineering Discipline` — those two copies
+> must stay in sync; everything else lives in the skill only.
+>
+> Replaced (2026-07-24) the four separate always-apply rules
+> `engineering-principles` · `goal-driven-execution` · `coding-discipline` ·
+> `product-build-algorithm`.
 
-House look is the seamless near-black dark theme (`--bg #08090a`); the one per-app
-knob is `--t2k-accent`. Read semantic tokens (`--bg`/`--bg-elevated`/`--border`),
-never the raw `--ds-gray-*` palette, and never hardcode hex outside `tokens.css`.
+**Trace before you fix.** Trace the ACTUAL execution path (user action → route →
+handler → SDK → chain → response → UI) and confirm which code actually runs before
+changing anything. Most multi-iteration fixes are one-iteration fixes that started
+in the wrong layer.
 
-**Read the full model — adoption table, theme values, and the five rules — before
-styling any app:** `.claude/skills/t2000-design-system/SKILL.md`.
+**Verifiable goals, always.** Convert every task into a goal with a runnable check.
+State multi-step plans as `step → verify:` pairs. Never say "done" without running
+the verify step; never "should be fine" without re-reading the diff.
 
-*(Content moved there 2026-07-24 from `geist-ds.mdc` — do not re-inline it here;
-this file is a pointer so Cursor and Claude Code cannot drift.)*
+**Single source of truth.** If data exists somewhere, import it. Never copy a token
+map, decimal, coin type, or config into a second file. Before hardcoding any list,
+ask whether someone will have to hand-update it later — if yes, the approach is wrong.
+
+**Fix at the root.** If a fix needs 3+ places or several attempts, the architecture
+is wrong. Find the single point of failure.
+
+**Simplicity first, surgically applied.** Minimum code that solves the problem;
+nothing speculative. No abstractions for single-use code — and none whose *shape* is
+shared but whose *logic* isn't. Touch only what the request requires; match existing
+style; mention unrelated dead code rather than deleting it.
+
+**Remove completely — no orphans.** When you delete a feature, sweep every layer in
+the same pass: source, types, error codes, tests, deps, patches, docs, rules, CI,
+export barrels, empty dirs. Dead remnants of your own removal are in scope; "keep it
+just in case" is not.
+
+**Run the product algorithm in order.** (1) Make the requirements less dumb —
+requirements are guilty until proven innocent. (2) Delete the part or step; if you
+aren't adding back ≥10%, you didn't delete enough. (3) Optimize what survived.
+(4) Accelerate. (5) Automate last. Default to deletion; name the fork rather than
+silently picking a constrained path.
+
+**Machines AND humans.** Every surface must work for an autonomous agent *and* a
+person. If a design serves only one, it's half-built.
 
 ---
 > Source: [t2000-afi/t2000](https://github.com/t2000-afi/t2000) — distributed by [TomeVault](https://tomevault.io).
