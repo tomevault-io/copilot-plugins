@@ -1,0 +1,9 @@
+{
+  "name": "neoclide--coc-r-lsp",
+  "displayName": "coc-r-lsp",
+  "description": "coc-r-lsp",
+  "version": "1.0.0",
+  "author": "neoclide",
+  "homepage": "https://github.com/neoclide/coc-r-lsp",
+  "skills": []
+}
