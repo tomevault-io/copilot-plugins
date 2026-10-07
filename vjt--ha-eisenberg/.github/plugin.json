@@ -1,0 +1,9 @@
+{
+  "name": "vjt--ha-eisenberg",
+  "displayName": "ha-eisenberg",
+  "description": "Arlo cameras integration for HA done right",
+  "version": "1.0.0",
+  "author": "vjt",
+  "homepage": "https://github.com/vjt/ha-eisenberg",
+  "skills": []
+}
