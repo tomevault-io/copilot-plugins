@@ -1,22 +1,49 @@
-## docs
+## public-api
 
-> README and docs/ carry every user-visible change, checked against the code
+> The exported API of pkg/, the command flags and the sim API are a versioned contract with known consumers
 
 
-# Documentation
+# Public API
 
-`README.md` is the landing page; `docs/` is the reference, one page per
-surface: `command.md`, `bot-api.md`, `sim-api.md`, `mini-apps.md`,
-`scripted-model.md`, `go.md`, `ci.md`, `development.md`.
+`pkg/` is imported by other modules and the command is started by other
+projects' scripts and CI. Both are a contract versioned by the module's tags.
 
-- A change that a user can see carries its documentation in the same commit: a
-  method, a refusal, a route, a flag, an option field, an action input.
-- Every statement is checked against the code; an example is run before it is
-  written down.
-- Images live in `docs/assets/` and every file there is referenced by a page.
-- English prose, a spaced hyphen " - " instead of an em dash, straight quotes,
-  no emoji, no horizontal rules. Code blocks name their language.
-- Links between pages are relative; links to sources are relative to `docs/`.
+## What is public
+
+- Every exported identifier of `pkg/server`, `pkg/botapi`, `pkg/webapp` and
+  `pkg/llmstub`, including struct fields and their JSON names (the simulation API
+  serialises `ChatView`, `MessageView`, `Call`, `Fault`, `IncomingMessage` and the
+  rest as they are).
+- The command's flags, their defaults, the banner's lines (scripts read the
+  origin from it) and its exit codes.
+- The simulation API routes, bodies and status codes.
+- Release asset names (see the release rule).
+
+`internal/` is for what nobody else may import (the chat page).
+
+## Changing it
+
+- Releases follow semantic versioning from v1.0.0 on. A patch release (vX.Y.Z+1)
+  fixes behaviour, a minor release (vX.Y+1.0) only adds, and nothing in v1 breaks
+  a caller: a breaking change is v2, which for a Go module means the module path
+  `github.com/EvilFreelancer/tgfake/v2`, so it is a decision for the owner, not a
+  side effect of a change. Mark one in its commit message (`feat!:` or a
+  `BREAKING CHANGE:` footer) so the release notes carry it.
+- Prefer adding over changing: a new option field with a zero value that keeps
+  the old behaviour, a new flag, a new route.
+- Removing or renaming an exported identifier, a flag, a JSON field or a route is
+  breaking. So is changing a default the documentation names (`@tgfake_bot`,
+  `tgfake`, `tgfake-demo`, port 18790, user 4242 `alice`).
+- Keep the packages free of non-test dependencies and buildable with the Go
+  version in `go.mod`; CI runs the oldest one.
+
+## Known consumers
+
+Coddy (`github.com/coddy-project/coddy-agent`) pins this module in its `go.mod`:
+its Telegram gateway tests run `pkg/server` in-process, several tests use
+`pkg/llmstub`, and its end-to-end scripts and CI start the release binary of the
+same version (the action of this repository). A release that changes what Coddy
+uses is followed by a version bump there.
 
 ---
 > Source: [EvilFreelancer/tgfake](https://github.com/EvilFreelancer/tgfake) — distributed by [TomeVault](https://tomevault.io).
