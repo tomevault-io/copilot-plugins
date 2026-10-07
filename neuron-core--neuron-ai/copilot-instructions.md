@@ -1,64 +1,79 @@
 ## neuron-ai
 
-> This module evaluates input against closed answer domains and returns probabilities. It is a standalone component that workflow nodes can consume through `ClassifierInterface`.
+> The protocol boundary between Neuron's native streamed objects and UI protocols such as AG-UI and the Vercel AI SDK data stream. `AgentChunkAdapter` is the same boundary for a destination that speaks no UI protocol.
 
-# Classifier
+# Stream Adapters
 
-This module evaluates input against closed answer domains and returns probabilities. It is a standalone component that workflow nodes can consume through `ClassifierInterface`.
+The protocol boundary between Neuron's native streamed objects and UI protocols such as AG-UI and the Vercel AI SDK data stream. `AgentChunkAdapter` is the same boundary for a destination that speaks no UI protocol.
 
-## Boundaries
+## Ownership and layering
 
-- Keep the shared definitions, requests, and results independent of providers, HTTP, Chat, Agent, and Workflow.
-- Classification has its own contract. Do not extend `AIProviderInterface` or introduce chat messages, tools, or streaming into it.
-- Keep vendor authentication, models, payload mapping, transport, and service limits inside the provider directory.
-- Thresholds, abstention, routing, and actions belong in application code or workflow nodes.
+`StreamAdapterInterface`, `ProtocolEvent` and `SSEEncoder` live under `Workflow\Streaming` because the Workflow consumes the capability; the protocol-specific adapters live under `Agent\Adapters`. The Workflow-level contract must stay free of Agent- and memory-specific concepts so custom workflows can use it:
+
+- a node may `yield` any object as live, intermediate output, and must still `return` its routing event;
+- `Workflow::events()` exposes the native objects when no adapter is configured;
+- the stream adapter, built for every segment by the `setStreamAdapter()` factory or the `streamAdapter()` hook, makes the Workflow convert output to `ProtocolEvent`s **once**: without a channel, pull consumers receive those events; with a channel, iteration also delivers them through `send(ProtocolEvent)`. `run()` consumes eagerly and returns state. A channel without an adapter receives only the segment lifecycle during iteration;
+- `Agent::stream()` creates a streaming start request and always returns a lazy generator, including with a channel.
+
+An adapter holds the state of one segment's stream, so its factory returns a new instance every time. A continuation's adapter starts from what the client already holds, which a protocol request carries: the AG-UI `messages`, the Vercel message and its `parts`. An adapter owns its protocol vocabulary and state, and nothing about bytes: `ProtocolEvent` carries a `type` and a JSON-serializable `data` payload (`jsonSerialize()` places the type first), and `SSEEncoder::encode()` / `frame()` turn events into `data:` lines at the HTTP edge, never inside the Workflow. The HTTP headers a protocol requires stay on the adapter (`getHeaders()`), because the Vercel header is part of that protocol's contract. Message IDs come from the chunks, which carry the ID of the message the provider returns (`src/Providers/AGENTS.md`); `UniqueIdGenerator` fills in only where nothing identifies the source.
 
 ## Contract
 
-`ClassifierInterface::classify(ClassificationRequest): ClassificationResult` evaluates named questions against one input. Input is text or JSON-compatible array data. Questions do not depend on other answers; batching does not imply statistical independence or concurrency.
+`start()` (optional framing), `transform(object $chunk)` (one object → zero or more `ProtocolEvent`s), and one terminal per segment, selected by the Workflow from the segment's outcome: `end()` on completion, `interrupt(InterruptRequest $request)` on suspension (the single current `InterruptRequest`, encoded so the client learns what the run waits for; return `[]` when the protocol cannot express a pause) and `error(Throwable $error)` on failure (return `[]` when the protocol has no failure frames). The Workflow calls `error()` itself for failures during streamed execution or chunk transformation; the run is settled as failed exactly as for a failing node, the channel still receives `failed()` and the exception is rethrown to the caller. After `error()` an adapter emits no further frames. An `InterruptEvent` never reaches `transform()`.
 
-Definitions and results are immutable values. Reuse definitions across calls; do not store request input or questions on a provider instance.
+## Portable stream events
 
-| Definition | Meaning | Result |
-| --- | --- | --- |
-| `Choice` | Mutually exclusive, unordered options | Full distribution and most probable option |
-| `Score` | Ordered levels at positions `0..n-1` | Full distribution and expected position |
-| `Boolean` | Whether a proposition is true | Probability of true |
+Nodes yield protocol-neutral UI information without importing AG-UI or Vercel types:
 
-Return exactly one answer for each question identifier, with the matching definition and result type. Preserve option and level order. Consumers use `choice($id)`, `score($id)`, and `boolean($id)` for concrete return types; missing or mismatched answers throw.
-
-## Probability semantics
-
-- Probabilities are required. Never invent them from labels or relabel arbitrary scores as probabilities.
-- Choice and Score distributions cover every outcome, including zero-probability outcomes. Values are finite, in `[0, 1]`, and sum to one within `1e-6`; `ProbabilityDistribution` normalizes accepted rounding error.
-- Choice ties follow definition order, regardless of response order.
-- Score is the probability-weighted mean of equally spaced level indices. Preserve the distribution: different distributions can have the same mean.
-- Boolean returns the probability of true without applying a threshold. Multiple Boolean questions can represent multilabel classification; their probabilities need not sum to one.
-- Provider confidence statistics are distinct from probabilities. The contract does not guarantee calibration or accuracy.
-
-## Providers
-
-Implement `ClassifierInterface` and translate vendor data into the shared result classes. Reuse their validation and derived values. Fail explicitly when a provider cannot honor a definition.
-
-Use `HasHttpClient` with `CurlHttpClient` by default. Attach authentication and endpoint information to requests so replacing the client preserves provider behavior. Keep retries in the HTTP client.
-
-TypeSafeAI maps `Boolean` to `noul`. Its option limits stay in the adapter.
-
-Use `InvalidArgumentException` for invalid caller input, `ProviderException` for malformed provider responses, and preserve `HttpException` for HTTP or network failures. Include question identifiers in response errors where applicable.
-
-## Verification
-
-Keep tests under `tests/Classifier/`. Test provider requests and responses through `GuzzleHttpClient` with `MockHandler`; routine tests must not require credentials or live services. Cover payload mapping, result semantics, malformed responses, provider limits, and state isolation between calls.
-
-Run only the affected checks:
-
-```bash
-php vendor/bin/phpunit tests/Classifier
-php vendor/bin/phpstan analyse src/Classifier tests/Classifier --memory-limit=1G
+```text
+workflow domain event → exact-class mapper (optional) → StreamEventInterface → AG-UI event | Vercel data part
 ```
 
-See [README.md](README.md) for public usage examples. Keep the API small and examples easy to follow; do not add wrappers or interfaces without a concrete responsibility.
+`Events/` holds the portable value objects: `StepStartedStreamEvent`, `StepFinishedStreamEvent`, `ActivityStreamEvent` (a replaceable progress snapshot) and `CustomStreamEvent` (a named escape hatch with a JSON-serializable value). They are stream output, not workflow routing events, and contain no protocol field names; each adapter translates them (`STEP_STARTED` / `STEP_FINISHED` / `ACTIVITY_SNAPSHOT` / `CUSTOM` on AG-UI, transient `data-*` parts on Vercel).
+
+`CustomizableStreamAdapterInterface::mapEvent()` (implemented once in `MapsStreamEvents`, used by every built-in adapter) lets a developer map their own domain events without touching the adapter. Register mappings where the factory builds the adapter:
+
+```php
+$adapter->mapEvent(
+    IndexingProgress::class,
+    static fn (IndexingProgress $event): ?ActivityStreamEvent => new ActivityStreamEvent(
+        id: $event->jobId,
+        type: 'indexing',
+        data: ['processed' => $event->processed, 'total' => $event->total],
+    ),
+);
+```
+
+Resolution order: a yielded `StreamEventInterface` is encoded directly; then an **exact-class** mapping (no inheritance or first-match rules, so behavior stays predictable); then built-in native chunk conversion; anything else is ignored. A mapper returning `null` suppresses the event, and the implementation distinguishes "no mapping" from "mapped to null" so suppression never falls through to chunk handling. Mappers return portable value objects, never `ProtocolEvent`s or protocol arrays: the adapter is the single owner of the protocol vocabulary, and framing belongs to the transport edge. A `StreamEventInterface` the adapter cannot encode fails with an expressive exception rather than being dropped silently.
+
+## Protocol invariants
+
+- **Failures**: no adapter puts `Throwable::getMessage()` on the wire. `RUN_ERROR`, the Vercel `error` part and the native `error` event carry the neutral text of the protected `errorMessage()` hook, which an application subclass overrides to expose what its clients may know.
+- **AG-UI**: `RUN_STARTED` is first, `RUN_FINISHED` or `RUN_ERROR` last. Text uses the native message ID; reasoning uses `reasoning_{messageId}` and closes before text starts. Tool calls publish under the ID of the `ToolCallMessage` holding them, carried by `ToolCallChunk` and remembered for deferred calls published at suspension; a result is `result_{callId}`. Every ID Neuron publishes is therefore a stored message ID or derived from one. Constructor `messages` and `state` seed the frontend snapshot. New streamed text, reasoning, activities, calls and results update this projection. Explicit interruptions emit `STATE_SNAPSHOT` and `MESSAGES_SNAPSHOT` before finishing. Approval proposals use `confirmation` interrupts with action IDs, metadata and a response schema; no executable tool call is published before approval. Argument deltas are buffered. Local calls publish with their results, and deferred calls publish only from the persisted `ToolResultsRequest` in `interrupt()`. A deferred tool request finishes normally so CopilotKit can return tool messages; a custom wait uses a standard interrupt and explicit resume. Other branch requests wait their turn inside Workflow. Seeded calls and results are not echoed again.
+- **Vercel**: `start` is lazy and carries a non-null message ID. Constructor `messageId` and `parts` retain the latest assistant message on continuation. Text and reasoning use stable part IDs with start/delta/end lifecycles; an inference following tool results starts a new UI step. `ToolCallChunk` and argument deltas preview input without triggering execution. Only `interrupt(ToolResultsRequest)` emits `tool-input-available`; approval emits a preview followed by `tool-approval-request`. Local results settle preview parts directly. Errors use `tool-output-error`, rejections use `tool-output-denied`, and known frontend outputs are not echoed or converted to strings. Pending parts already in `input-available` are not redispatched on partial continuation. Other waits remain transient `data-workflow-interrupt`. Success closes parts and finishes with `finish`; errors close parts and end with `error`. The SSE `[DONE]` sentinel is not emitted: the AI SDK client discards it and non-SSE transports never carry it. For native application payloads, continue through `$agent->submitApprovalDecisions($decisions)->events()` or `$agent->submitToolResults($results)->events()`. Raw AG-UI and Vercel envelopes use `submitInputs()` with the corresponding protocol translator. See `src/Agent/Frontend/README.md` for the combined automatic-continuation predicate needed for mixed batches.
+- **Native**: `AgentChunkAdapter` is Neuron's own vocabulary for a consumer that speaks no UI protocol, typically a custom frontend behind a channel. It is stateless and one-to-one: a chunk becomes one event named after its kind (`text`, `reasoning`, `image`, `audio`, `tool-argument`, `tool-call`, `tool-result`) whose payload is the chunk's own `toArray()`, and the portable events become `step-started`, `step-finished`, `activity` and `custom`. It frames nothing on start or completion, because a channel already reports the segment's end through its lifecycle; `interrupt()` emits one `interrupt` event and `error()` one `error` event. `ProtocolEvent` flattens its payload beside `type`, so a payload never carries a `type` of its own: the activity's type travels as `activityType` and the `InterruptRequest` stays nested under `request`. It is the only built-in adapter that carries `ImageChunk` and `AudioChunk`. Attaching it is always explicit: a channel without an adapter still receives only the lifecycle.
+- The AG-UI and Vercel adapters preserve tool call IDs across fresh instances. They reindex yielded frames so default `iterator_to_array()` cannot overwrite frames from delegated generators, and terminal methods suppress any later output.
+
+## Reload (AG-UI)
+
+`AGUIAdapter::hydrate(array $messages, ?WorkflowRunSnapshot $run)` rebuilds from storage what a client held when the live stream ended: `messages` seed the client's initial messages, `interrupts` its pending interrupts. It shares the tool call, tool result, confirmation and generic-interrupt mappings with the live path, so an adapter subclass that customizes them changes reloads too, and it never touches the stream state.
+
+```php
+$run = $inspector->inspect($threadId);
+$page = (new AGUIAdapter($threadId))->hydrate($store->loadAll($threadId, limit: 50), $run);
+```
+
+- Pass the run's snapshot only with the latest page; older pages take `null`. Page older messages with the stored ID of the first message loaded (`loadAll()`'s `before`), never an ID derived for AG-UI such as `result_…`.
+- Interrupts come back only for a `Suspended` run: a running or failed run can still carry an interrupt whose answer was accepted.
+- On the latest page, a call whose result is not in the page belongs to the batch still in progress and is held back, as live, unless the suspended run waits for it from the frontend. Those calls come back with one generic interrupt (reason `neuron:wait_for_event`, metadata carrying `eventName: tool_results` and the pending calls), because a reload discards the execution the live stream had started in the browser; results already accepted from a partial delivery come back as `tool` messages. The interrupt resumes through `AGUIInputTranslator`, resolved with the result map or cancelled.
+- A user message reaches history only after the run's first inference succeeds. Until then `hydrate()` appends it from the snapshot's start event, with the ID it keeps once stored. The latest page must reach back to the running turn's user message, otherwise a turn longer than the page shows it again at the end until the run completes.
+- Text-only user content stays a string; image, audio, video and file blocks become input parts with `url` or `data` sources; files referenced by a provider-hosted ID are omitted. AG-UI `state` and activity messages are never stored, so they are not restored.
+- A reload does not reattach to a stream still running: show the working state from `$run->status` and hydrate again when the run settles.
+
+## Durability
+
+Yielded items are live, ephemeral output: they are not stored in workflow persistence and are not replayed when a completed step is restored. Only the generator's returned routing event is durable. Never promise that a reconnecting client sees past progress events, and never make correctness depend on receiving one.
 
 ---
 > Source: [neuron-core/neuron-ai](https://github.com/neuron-core/neuron-ai) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
