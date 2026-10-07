@@ -1,0 +1,9 @@
+{
+  "name": "matrixorigin--astra",
+  "displayName": "Astra",
+  "description": "Astra \u2014 The context-to-execution runtime for enterprise agents. https://matrixorigin.io/astra",
+  "version": "1.0.0",
+  "author": "matrixorigin",
+  "homepage": "https://github.com/matrixorigin/Astra",
+  "skills": []
+}
