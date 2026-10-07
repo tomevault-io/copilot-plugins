@@ -1,0 +1,9 @@
+{
+  "name": "primitivedotdev--sdks",
+  "displayName": "sdks",
+  "description": "Official Node.js, Python, and Go SDKs plus the primitive CLI for Primitive \u2014 email infrastructure for AI agents. Generated from the OpenAPI spec.",
+  "version": "1.0.0",
+  "author": "primitivedotdev",
+  "homepage": "https://github.com/primitivedotdev/sdks",
+  "skills": []
+}
