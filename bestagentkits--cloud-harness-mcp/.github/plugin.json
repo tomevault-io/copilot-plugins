@@ -1,7 +1,7 @@
 {
   "name": "bestagentkits--cloud-harness-mcp",
   "displayName": "cloud-harness-mcp",
-  "description": "Remote coding harness exposed as a secure Streamable HTTP MCP server",
+  "description": "cloud-harness-mcp",
   "version": "1.0.0",
   "author": "bestagentkits",
   "homepage": "https://github.com/bestagentkits/cloud-harness-mcp",
