@@ -1,0 +1,14 @@
+{
+  "name": "pegainfer-project--kern",
+  "displayName": "kern",
+  "description": "kern",
+  "version": "1.0.0",
+  "author": "pegainfer-project",
+  "homepage": "https://github.com/pegainfer-project/kern",
+  "skills": [
+    {
+      "name": "kern",
+      "description": ""
+    }
+  ]
+}
