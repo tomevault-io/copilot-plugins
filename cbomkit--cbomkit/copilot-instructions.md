@@ -1,10 +1,10 @@
 ## cbomkit
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Guidance for agents working in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for agents working in this repository.
 
 ## What this is
 
@@ -43,7 +43,7 @@ make dev           # postgres only          -> run backend + frontend locally
 make dev-backend   # postgres + frontend    -> run backend locally
 make dev-frontend  # postgres + backend     -> run frontend locally
 make production    # full stack
-make ext-compliance# full stack + OPA container serving opa/*.rego
+make ext-compliance # full stack + OPA container serving opa/*.rego
 make coeus         # frontend only (viewer)
 ```
 
@@ -110,4 +110,4 @@ Everything is env-driven through `src/main/resources/application.properties`: `C
 
 ---
 > Source: [cbomkit/cbomkit](https://github.com/cbomkit/cbomkit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
