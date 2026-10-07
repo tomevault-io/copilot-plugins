@@ -1,18 +1,26 @@
-## frontend-knip-exports
+## no-long-shell-wait
 
-> 前端 export / knip：只导出被外部使用的符号，改完须过 knip
+> 计划/需求改完后禁止长时间挂起等待 Shell；交付即收尾
 
 
-# 前端导出与 knip
+# 禁止交付后长时间等待 Shell
 
-修改 `frontend/`（尤其新增 `utils`、hooks、公共组件）时：
+## 硬性要求
 
-1. **默认不 `export`**：模块内辅助函数/类型保持私有；仅当其它文件真实 import 时才导出。
-2. **禁止「顺便导出」**：不要为「以后可能用」或对称 API 而 export 未使用的 `patchX` / `listX` / `addX` / `removeX`。
-3. **交付前跑 knip**：`cd frontend && npm run knip`，修到无 Unused exports / Unused dependencies 再结束（pre-commit husky 会拦）。
-4. **与 `.qoder/rules/agent.md` 第 8 条一致**：禁止默认 `--no-verify` 跳过。
+1. **改完即交付**：计划执行、需求修改、缺陷修复完成后，立刻给出结论/变更说明并结束回合，**禁止**为「再等一会儿看输出」而长时间阻塞。
+2. **禁止空等**：不得在工作已完成后用 `AwaitShell`、大 `block_until_ms`、反复 poll、或 `sleep` 空转等待终端。
+3. **Shell 只服务进行中的步骤**：仅在**下一步立刻依赖**该命令结果时才等待；无关后台任务交给完成通知，不要主动长轮询。
+4. **默认短超时**：非编译/测试类命令 `block_until_ms` 宜短（通常 ≤30s）；确需更长时，只等必要结果，到点就汇报进展或失败，不要无限挂起。
+5. **本仓库编译/启动**：仍遵守「禁止自动 `cargo build` / `cargo run` / `npm run dev` 等」；不要用长等待编译来「验证交付」。
 
-典型修法：去掉多余 `export`，或删除完全未引用的函数。
+## 反例 / 正例
+
+```text
+❌ 改完代码后 AwaitShell 数分钟「确认日志正常」再回复用户
+❌ 任务已完成仍 sleep / 轮询无关后台进程
+✅ 改完 → 简述结果与注意点 → 结束；需用户本地重启时直接说明
+✅ 仅当下一步必须读命令输出时，短等一次；超时则说明现状并继续或收尾
+```
 
 ---
 > Source: [aiqachat/tkeapi](https://github.com/aiqachat/tkeapi) — distributed by [TomeVault](https://tomevault.io).
