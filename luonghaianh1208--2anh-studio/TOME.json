@@ -4,7 +4,7 @@
   "repo": "2anh-studio",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/luonghaianh1208/2anh-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T22:02:54Z"
+  "distributed_at": "2026-10-07T01:02:43Z"
 }
