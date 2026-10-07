@@ -1,0 +1,72 @@
+## dotfiles
+
+> What the code and the README don't tell about this repository.
+
+# CLAUDE.md
+
+What the code and the README don't tell about this repository.
+
+## Verification gaps
+
+- **Neovim's config**: `./verify` starts Neovim without it (`-u NONE`, `nix/tests/vim.bats`).
+  The e2e suite (`nvim/tests/`) runs it with the plugins `nvim/lazy-lock.json` pins, but CI restores those from its cache: a pinned repository that vanishes breaks fresh installs unnoticed, until Renovate fails to bump it or the pins change.
+  The provisioning job has everything installed, so a test there could start Neovim with its config.
+- **kitty**: no test starts it, so that it starts Neovim (`shell`) goes untested; `nix/tests/link.bats` loads its config, which flags only unknown options.
+- **Idempotency**: nothing checks that a second switch changes nothing.
+  The activation steps (mise, rustup, VS Code's extensions, the agent skills) skip what's done, but no test runs them twice.
+- **Budgets on CI**: CI's runners measured `zsh -i -c exit` at 68–151 ms over 82 runs (2026-10-01 to 05), as far apart on one config as across configs.
+  So the provisioning job benchmarks it against 200 ms (`DOTFILES_VERIFY_STARTUP_MS`), where the default is 150 ms (`nix/tests/shell.bats`): a regression fails it only once it more than doubles a typical run.
+  Neovim's benchmarks keep their defaults on CI, 150 ms to start (`nvim/tests/spec/startup_spec.lua`) and 16.7 ms to follow a held key (`emacs_keys_spec.lua`), and a pass prints no time, so CI has no numbers for them; if one flakes, give CI its own `E2E_STARTUP_BUDGET_MS` or `E2E_KEY_REPEAT_BUDGET_MS` rather than loosening the default.
+- **Flutter**: only the cask's installation is checked; `flutter doctor` would need the Android SDK and Xcode set up first.
+
+## opfmt is off
+
+`creasty/opfmt` is switched off (`cond = false` in `nvim/lua/user/plugins.lua`) until it works with nvim-treesitter's `main` branch:
+
+- It loads modules only `master` has: `nvim-treesitter.query`, `.parsers` (`has_parser`) and `.ts_utils`, and registers itself as one of `master`'s modules (`define_modules`).
+- Its `opfmt!` directive takes a capture as one node, where Neovim 0.12 passes a list of nodes.
+  `compat.lua` (below) doesn't cover it, as it's registered without `all = false`.
+
+It stays pinned in `nvim/lazy-lock.json`, where lazy.nvim keeps the pins of the plugins `cond` switches off, and its tests skip while it's off (`probe.opfmt_enabled` in `nvim/tests/spec/treesitter_spec.lua` and `snippets_spec.lua`).
+With `dev = true`, lazy.nvim loads it from its working copy in `~/go/src/github.com/creasty/opfmt` when there is one.
+
+## lazy.nvim rewriting its lockfile at start
+
+After installing missing plugins on a start, lazy.nvim rewrites `nvim/lazy-lock.json` with what is installed: that undoes the pins a pull moved, and drops the pin of a plugin that failed to install.
+So `keep_pins` in `nvim/lua/user/plugins.lua` puts them back.
+Remove it once lazy.nvim keeps the lockfile when it installs from it ([lazy.nvim#2127](https://github.com/folke/lazy.nvim/pull/2127) would): a start that installs a missing plugin while another is behind its pin tells.
+
+## nvim/lua/user/plugin/treesitter/compat.lua
+
+nvim-treesitter-endwise registers its `endwise!` directive with `all = false`, for a handler that gets one node per capture.
+Neovim 0.12 dropped the option and always passes a list of nodes, which breaks endwise: no `endfunction` after `function` in Vim script.
+`compat.lua` wraps `vim.treesitter.query.add_directive` to bring the option back, as Neovim 0.11 had it; `nvim/init.vim` loads it before the tree-sitter plugins.
+Remove it once endwise takes lists ([nvim-treesitter-endwise#60](https://github.com/RRethy/nvim-treesitter-endwise/pull/60) would): the endwise tests in `nvim/tests/spec/treesitter_spec.lua` tell.
+
+## Neovim's exit without a UI
+
+An error on exit has Neovim wait for Enter (`getout()` calls `wait_return()`), which a server whose UI is gone never gets: it keeps running, with its terminals ([neovim#42096](https://github.com/neovim/neovim/issues/42096), seen with 0.12.4).
+Writing the ShaDa file is such an error when several Neovims exit at once, as kitty or Ghostty quitting with several windows has them: `vim_rename()` deletes `main.shada` before renaming its temporary file onto it, and one that checks for it in between fails with E137 and keeps its `main.shada.tmp.X` ([neovim#41940](https://github.com/neovim/neovim/issues/41940)).
+So `_exit_without_ui` in `nvim/init.vim` writes the ShaDa file as the last UI leaves, with errors silenced, and empties `'shada'` so the exit doesn't write it again.
+Remove it once neovim#42096 is fixed: the read-only case in `nvim/tests/spec/exit_spec.lua` passes without it.
+
+## kitty off every Space
+
+kitty takes each window it opens off every Space, the first at launch included, whatever Dock > Options > Assign To says ([kitty#10581](https://github.com/kovidgoyal/kitty/issues/10581), seen with 0.49.1 and 0.49.2).
+The likely cause is `_glfwPlatformShowWindow` in its `glfw/cocoa_window.m`, which resets the window's collection behavior as it shows it (from 0.43.0) and adds it to the active Space (from 0.48.0), a workaround for its quick-access terminal (kitty#8740).
+Hammerspoon can't put a window back: the private calls `hs.spaces.moveWindowToSpace` makes fail on macOS 26, and restarting the Dock doesn't either.
+So as ;+M brings kitty, `hammerspoon/kitty.lua` (called from `hammerspoon/apps.lua`) has it hide and show its windows on other Spaces through its remote control (`allow_remote_control` and `listen_on` in `config/kitty/kitty.conf`), which adds them to the current Space.
+Remove both once kitty#10581 is fixed and a new window stays on every Space.
+
+## Homebrew tap trap
+
+`brew tap` checks that every formula and cask of a tap loads on Linux too, and refuses the whole tap when one doesn't: a formula with a URL only `on_macos`, or a cask without Linux stanzas or `depends_on :macos`.
+Such a tap can't go in `homebrew.taps`, which nix-darwin taps with that check. Instead:
+
+- Install the formula by its full name, with its tap unlisted: installing taps it without the check, and nix-darwin trusts the formula itself (`trusted`, for Homebrew's `HOMEBREW_REQUIRE_TAP_TRUST`).
+  `nix/modules/java.nix` installs `jetbrains/utils/kotlin-lsp` so, until kotlin-lsp has a URL outside `on_macos` too and its tap can be listed.
+- Or take the tool from nixpkgs, as `nix/modules/1password.nix` does 1Password's CLI: Homebrew refuses `1password/tap`.
+
+---
+> Source: [creasty/dotfiles](https://github.com/creasty/dotfiles) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
