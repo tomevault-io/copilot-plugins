@@ -1,0 +1,93 @@
+{
+  "name": "orbitkv",
+  "owner": "feichai0017",
+  "repo": "orbitkv",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "orbitkv",
+      "path": ".claude/skills/server-ops/SKILL.md",
+      "github_url": "https://github.com/feichai0017/orbitkv/tree/main/.claude/skills/server-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orbitkv",
+      "path": ".claude/skills/version-bump/SKILL.md",
+      "github_url": "https://github.com/feichai0017/orbitkv/tree/main/.claude/skills/version-bump/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orbitkv",
+      "path": ".claude/skills/python-binding/SKILL.md",
+      "github_url": "https://github.com/feichai0017/orbitkv/tree/main/.claude/skills/python-binding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orbitkv",
+      "path": ".claude/skills/vllm-async-loading-debug/SKILL.md",
+      "github_url": "https://github.com/feichai0017/orbitkv/tree/main/.claude/skills/vllm-async-loading-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orbitkv",
+      "path": ".agents/skills/server-ops/SKILL.md",
+      "github_url": "https://github.com/feichai0017/orbitkv/tree/main/.agents/skills/server-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orbitkv",
+      "path": ".agents/skills/version-bump/SKILL.md",
+      "github_url": "https://github.com/feichai0017/orbitkv/tree/main/.agents/skills/version-bump/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orbitkv",
+      "path": ".agents/skills/python-binding/SKILL.md",
+      "github_url": "https://github.com/feichai0017/orbitkv/tree/main/.agents/skills/python-binding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orbitkv",
+      "path": ".agents/skills/engine-integration/SKILL.md",
+      "github_url": "https://github.com/feichai0017/orbitkv/tree/main/.agents/skills/engine-integration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/feichai0017/orbitkv",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T00:42:06Z"
+}
