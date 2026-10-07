@@ -1,22 +1,19 @@
 ## skillsbank
 
-> A brief description of what this skill does
+> - **ONLY PUSH TO THE `backup` REMOTE (`JantonioFC/skillsbank`)**.
 
+# Antigravity Awesome Skills - Agent Rules
 
-# antigravity-awesome-skills
+## Inviolable Git Rules
+- **ONLY PUSH TO THE `backup` REMOTE (`JantonioFC/skillsbank`)**.
+- **NEVER** push to `origin` (`sickn33/antigravity-awesome-skills`) or any other remote.
+- If you need to synchronize, always fetch from remotes and push exclusively to `backup`.
 
-Instructions for the agent to follow when this skill is activated.
-
-## When to use
-
-Describe when this skill should be used.
-
-## Instructions
-
-1. First step
-2. Second step
-3. Additional steps as needed
+## Security & Privacy
+- Always run `fix_skills.py` after importing new skills to normalize frontmatter.
+- Audit any imported GitHub Actions workflows using the `agentic-actions-auditor` skill.
+- Do not commit API keys or sensitive environment variables.
 
 ---
 > Source: [JantonioFC/skillsbank](https://github.com/JantonioFC/skillsbank) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
