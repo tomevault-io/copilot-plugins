@@ -2,9 +2,9 @@
   "name": "portfolio",
   "owner": "lightify97",
   "repo": "portfolio",
-  "description": "New portfolio using Next.js.",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lightify97/portfolio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T14:55:17Z"
+  "distributed_at": "2026-10-07T13:26:40Z"
 }
