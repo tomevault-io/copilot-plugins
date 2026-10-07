@@ -1,0 +1,87 @@
+{
+  "name": "pilotfish-codex",
+  "owner": "miyago9267",
+  "repo": "pilotfish-codex",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pilotfish-codex",
+      "path": "plugin/plugins/pilotfish-codex/skills/pilotfish-orchestration/SKILL.md",
+      "github_url": "https://github.com/miyago9267/pilotfish-codex/tree/main/plugin/plugins/pilotfish-codex/skills/pilotfish-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pilotfish-codex",
+      "path": "hosts/agy/src/skills/pilotfish-orchestration/SKILL.md",
+      "github_url": "https://github.com/miyago9267/pilotfish-codex/tree/main/hosts/agy/src/skills/pilotfish-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pilotfish-codex",
+      "path": "tests/golden/agy/skills/pilotfish-orchestration/SKILL.md",
+      "github_url": "https://github.com/miyago9267/pilotfish-codex/tree/main/tests/golden/agy/skills/pilotfish-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pilotfish-codex",
+      "path": "hosts/claude/src/skills/pilotfish-orchestration/SKILL.md",
+      "github_url": "https://github.com/miyago9267/pilotfish-codex/tree/main/hosts/claude/src/skills/pilotfish-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pilotfish-codex",
+      "path": "tests/golden/claude/skills/pilotfish-orchestration/SKILL.md",
+      "github_url": "https://github.com/miyago9267/pilotfish-codex/tree/main/tests/golden/claude/skills/pilotfish-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pilotfish-codex",
+      "path": "hosts/agy/dist/skills/pilotfish-orchestration/SKILL.md",
+      "github_url": "https://github.com/miyago9267/pilotfish-codex/tree/main/hosts/agy/dist/skills/pilotfish-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pilotfish-codex",
+      "path": "hosts/claude/dist/skills/pilotfish-orchestration/SKILL.md",
+      "github_url": "https://github.com/miyago9267/pilotfish-codex/tree/main/hosts/claude/dist/skills/pilotfish-orchestration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/miyago9267/pilotfish-codex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T06:33:54Z"
+}
