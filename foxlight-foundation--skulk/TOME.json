@@ -4,7 +4,7 @@
   "repo": "Skulk",
   "description": "Skulk is an interconnect fabric for multi-node AI compute; it features intelligent model storage, adjustable sharding, speculative decoding across ranks, support for heterogeneous nodes (Apple Silicon, AMD, Nvidia) and more.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Foxlight-Foundation/Skulk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T22:27:01Z"
+  "distributed_at": "2026-10-07T20:10:37Z"
 }
