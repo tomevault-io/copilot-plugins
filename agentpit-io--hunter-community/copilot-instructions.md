@@ -1,0 +1,23 @@
+## hunter-community
+
+> 评分接入与证据口径见 `docs/agent-overfit-monitor.md`。缺失检查不计分，不把分数称为赚钱概率或过拟合概率；不能借用其他方向的冻结日。个人试验归档包含失败结果，不受最近十条展示上限影响。为什么：只展示赢家或把反复看过的数据称为独立验证，会让错误策略获得虚假的可信度。
+
+# hunter-community 工作约定
+
+## 过拟合监测
+
+评分接入与证据口径见 `docs/agent-overfit-monitor.md`。缺失检查不计分，不把分数称为赚钱概率或过拟合概率；不能借用其他方向的冻结日。个人试验归档包含失败结果，不受最近十条展示上限影响。为什么：只展示赢家或把反复看过的数据称为独立验证，会让错误策略获得虚假的可信度。
+
+既有维护约定见 CLAUDE.md。
+
+## 个人规则编辑与回测
+
+创建页多语言输入与简介约定见 [docs/agent-builder.md](docs/agent-builder.md)：简介选填且最多100字，语言/原文/AI输入分别保存进版本。多语言只表示AI翻译输入，不表示原生执行；未支持的语义必须待确认。为什么：截断旧原文、丢失语言上下文或静默近似规则都会让回测偏离用户策略。
+
+实现与验证口径见 [docs/agent-manual-rules.md](docs/agent-manual-rules.md)。
+个人配置必须按账号隔离，回测必须绑定完整参数版本；不能覆盖公共研究账本。
+为什么：规则改变后沿用旧收益、或不同账号互相覆盖，会使研究结果无法追溯。
+
+---
+> Source: [agentpit-io/hunter-community](https://github.com/agentpit-io/hunter-community) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
