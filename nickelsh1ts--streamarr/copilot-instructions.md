@@ -1,114 +1,47 @@
 ## streamarr
 
-> Codebase knowledge for any AI agent or reviewer. Agent workflow rules for Copilot live in `.github/copilot-instructions.md`.
+> Use when editing GitHub Actions workflows, release automation, Docker image publishing, Cosign signing, SBOMs, Renovate action pins, or release PRs.
 
-# Streamarr Development Guide
 
-Codebase knowledge for any AI agent or reviewer. Agent workflow rules for Copilot live in `.github/copilot-instructions.md`.
+# CI and Release Workflow Conventions
 
-## Architecture
+## General
 
-Hybrid **Next.js 16 + Express** app wrapping Plex/\*Arr services. Single process runs both servers.
+- Pin third-party actions to full commit SHAs and keep the trailing version comment equal to a real upstream tag, including a leading `v` when present. Renovate uses that comment to resolve digest updates.
+- Validate workflow edits with actionlint (for example, the pinned `rhysd/actionlint` container) and Prettier. Treat this as syntax/static validation, not proof that registry, OIDC, artifact, or release operations work.
+- Keep job permissions minimal. Grant `id-token: write` only to jobs that request OIDC credentials, and keep verification jobs read-only when possible.
+- Add explicit timeouts to jobs. Do not rely on hosted-runner defaults for required tools; use pinned setup actions for Buildx, Cosign, Trivy, Node, and pnpm.
 
-| Layer       | Stack                                       | Location          |
-| ----------- | ------------------------------------------- | ----------------- |
-| Frontend    | Next.js App Router, React 19, SWR, Tailwind | `src/`            |
-| Backend API | Express, TypeORM, SQLite                    | `server/`         |
-| Real-time   | Socket.IO                                   | `server/index.ts` |
+## Docker Build and Publish
 
-Express serves API routes (`/api/v1/*`) and delegates everything else to Next.js. See `server/index.ts`.
+- Build amd64 and arm64 on native runners and push by digest. Transfer per-platform digests with short-lived artifacts, then create the multi-arch manifest in a publish job.
+- Require the expected number of platform digests before publishing. Verify the final index contains both `linux/amd64` and `linux/arm64`.
+- Pass final registry digests between jobs as separate raw `sha256:...` outputs. Construct fixed `repo@digest` references in consumer jobs. Do not combine full registry references into one job output: GitHub may suppress it as potentially secret.
+- Publish immutable exact-version tags plus documented rolling tags. Signing and verification must use digests, never mutable tags.
 
-**Path aliases** (enforced by ESLint): use `@server/*` or `@app/*` for any import that crosses a top-level directory boundary (e.g., `server/routes/` importing from `server/lib/` must use `@server/lib/…`). Use relative `./` imports only when importing from within the same directory (e.g., `./utils` inside `server/routes/`).
+## Signing, SBOM, and Verification
 
-- `@server/*` → `server/*`
-- `@app/*` → `src/*`
+- Keep Publish, Sign, Verify, and Publish Release as separate jobs. Sign is the only stage that needs OIDC credentials; Build, Publish, and Sign require registry write access as appropriate. Publishing the GitHub release must depend on successful verification.
+- Sign the multi-arch index and platform manifests. Generate one CycloneDX SBOM when both registries contain the same digest, attest it to both registry references, and attach it to the draft release before publication.
+- Verify certificate identity against the exact workflow reference and GitHub OIDC issuer. Verify the index signature, SBOM attestation, and required platform signatures for each registry.
+- A successful Publish job does not prove Sign ran. Empty loops can succeed; validate non-empty digest/image inputs before signing, scanning, attesting, or verifying.
 
-## Build & Test
+## Release Operations
 
-| Task               | Command                                                              |
-| ------------------ | -------------------------------------------------------------------- |
-| Dev (Node only)    | `pnpm dev`                                                           |
-| Build all          | `pnpm build`                                                         |
-| Pre-commit check   | `pnpm check` (format + lint + css-lint + typecheck)                  |
-| Type check         | `pnpm typecheck` / `pnpm typecheck:server` / `pnpm typecheck:client` |
-| Lint               | `pnpm lint` / `pnpm css-lint`                                        |
-| Format             | `pnpm format`                                                        |
-| E2E tests          | `pnpm cypress:build && pnpm cypress:open`                            |
-| Generate migration | `pnpm migration:generate server/migration/Name`                      |
-| Run migrations     | `pnpm migration:run`                                                 |
-| Extract i18n       | `pnpm i18n:extract` (runs both `:client` and `:server` variants)     |
-| API docs (dev)     | `http://localhost:3000/api-docs` (Swagger UI)                        |
+- `develop` is the integration branch; release PRs promote it to `main`, where semantic-release runs. Before promotion, calculate the highest pending release type: `feat` is minor; `fix`/`perf`/`security` are patch; a breaking change is major; non-releasing types do not lower a higher bump.
+- GitHub reruns use the workflow revision from the original commit. A workflow fix merged later will not repair a failed historical run.
+- Releases are created as drafts and published only after required assets and verification succeed. With immutable releases enabled, attach assets before publishing.
+- Never manually publish a failed draft without stating which signatures, attestations, verification steps, or assets are missing and obtaining explicit approval.
+- Release PR descriptions are release notes, not implementation instructions. Summarize included user-facing changes and security fixes; do not include the normal development checklist unless requested.
 
-Dev uses `nodemon` watching `server/**/*.ts` and `streamarr-api.yml`.
+## Functional Validation
 
-**Git hooks (Husky)**: `pnpm install` sets up Husky automatically via `bin/prepare.mjs`. Pre-commit runs `lint-staged` (format + lint on staged files). `commit-msg` enforces Conventional Commits via `commitlint`. Bypass with `HUSKY_BYPASS=1` if needed (e.g. CI sets `CI=true` to skip).
-
-## Conventions
-
-- Backend route conventions, authentication, OpenAPI, persistence, error handling, and serialization are in `.github/instructions/backend-api.instructions.md`.
-- Frontend data fetching, state, i18n, styling, and mutation conventions are in `.github/instructions/frontend-components.instructions.md`.
-- Workflow-specific release rules are in `.github/instructions/release-workflows.instructions.md`.
-
-### Database Migrations
-
-- **Dev**: `synchronize: true` — entity changes apply automatically in development. However, always run `pnpm migration:generate` before a production deploy whenever entity files change; synchronize does not create migration files and prod startup will fail if schema drifts without them.
-- **Prod**: Migrations run automatically on startup. Generate from entity changes with `pnpm migration:generate`.
-
-### Settings Migrations
-
-A separate, lightweight migration system for JSON settings (not TypeORM). Files live in `server/lib/migrations/` and are run by `server/lib/migrator.ts` at startup before the settings singleton initialises. Each migration is a default-exported function `(settings: AllSettings) => AllSettings`. A backup (`settings.old.json`) is written before running. Use this when renaming or restructuring settings keys across versions.
-
-## Key Files
-
-| Purpose                     | File                                                                                                             |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| API spec (source of truth)  | `streamarr-api.yml`                                                                                              |
-| Server entry point          | `server/index.ts`                                                                                                |
-| DB config & `getRepository` | `server/datasource.ts`                                                                                           |
-| Settings schema & defaults  | `server/lib/settings.ts`                                                                                         |
-| Route registration          | `server/routes/index.ts`                                                                                         |
-| Root layout (SSR data)      | `src/app/layout.tsx`                                                                                             |
-| Permission flags            | `server/lib/permissions.ts`                                                                                      |
-| Network settings            | `/settings/network` (GET/POST) — `requestTimeout` and base-URL validation via `server/lib/validation/baseUrl.ts` |
-| Avatar proxy                | `server/routes/avatarproxy.ts` — server-side avatar cache, rate-limited                                          |
-| Linked accounts             | `/user/{userId}/settings/linked-accounts/plex` (GET/POST/DELETE) — manages Plex OAuth links per user             |
-| Settings migrator           | `server/lib/migrator.ts` + `server/lib/migrations/`                                                              |
-
-## Gotchas
-
-- **OpenAPI validation**: Request and route definitions are validated at runtime against `streamarr-api.yml`; missing paths or invalid request parameters/bodies can cause 400 errors. Response schemas are not currently runtime-validated.
-- **CSRF**: Enabled for state-changing requests. Frontend handles automatically via cookies.
-- **Service proxies**: External services (Plex, \*Arr, Tdarr, Tautulli) are embedded via iframe proxies in `server/lib/proxy/`. Changes to proxy-affecting settings require a server restart — tracked by `server/lib/restartManager.ts`.
-- **PWA service worker**: `public/sw.js` — edit carefully to avoid breaking caching.
-- **Hand-maintained iframe stylesheets**: `public/watch.base.css`, `public/watch.css`, `public/request.css`, and `public/tautulli.css` style the embedded `/watch` (Plex) and `/request` (Seerr) iframes — they are NOT compiled by Next.js. `watch.base.css` is generated by `pnpm css-build` (standalone Tailwind CLI + `bin/flatten-css.mjs` to strip `@layer` wrappers so iframe CSS is unlayered like the v3 build); the others are edited by hand and are in `pnpm css-lint` scope. Because these are served at stable URLs, all `<link>` references MUST go through `withVersion()` from `src/utils/assetVersion.ts` for cache busting (appends `?v=<cssVersion>`, set in `next.config.mjs` env from `COMMIT_TAG` in CI or a per-build timestamp locally). After editing `src/styles/watch.tailwind.css`, run `pnpm css-build` then validate with `pnpm lint`, `pnpm typecheck:client`, `pnpm css-lint`.
-- **Iframe theming (oklch + nearest-ancestor vars)**: Saved theme colors may be `oklch()` strings, which `colord` cannot parse — use `parseColorToHex()` from `src/utils/themeUtils.ts`. Seerr/Overseerr consumes `--accent-color` ONLY as raw RGB channels (`rgb(var(--accent-color))`), so inject comma-separated channels, never a whole color. Theme-park wraps Seerr content in `.react-chroma-dark`, which re-declares these vars; since custom-property resolution uses the nearest declaring ancestor, that wrapper must set them to `inherit` so values injected on the iframe `<html>`/`<body>` cascade into SPA-added content.
-- **`DynamicFrame` theme injection is opt-in**: `src/components/Common/DynamicFrame` is shared by all proxied services, but only those shipping a matching theme-park stylesheet (Tautulli `tautulli.css`, Seerr `request.css`) should be themed. Pass `injectTheme` ONLY on those callers (alongside the matching `<link>`); without it the theme effect early-returns so services like Tdarr and the \*Arrs keep their native styling. Injecting the streamarr vars into an unsupported service breaks its colors.
-- **Email templates**: Pug templates in `server/templates/email/`.
-- **HTML sanitization**: Use `server/lib/sanitize.ts` (DOMPurify). YouTube URLs auto-convert to nocookie embeds.
-- **TypeScript**: Strict mode is OFF by design. `experimentalDecorators` enabled for TypeORM.
-- **`CONFIG_DIRECTORY` env var**: All config (settings, DB, logs, cache) lives under this path (default: `./config`). Always use it when resolving file paths.
-- **Session store**: TypeORM-backed sessions (`Session` entity via `connect-typeorm`). Cleared on server restart in development — expect re-login after restart.
-- **Server-side i18n**: `server/i18n/index.ts` provides translation helpers for notification emails and subscribers. Locale files live at `server/i18n/locale/<lang>.json`. Extract with `pnpm i18n:extract:server`. The build step copies these to `dist/i18n/locale/`.
-- **Docker runtime**: Uses `node:26-alpine`. `engines` in `package.json` requires `node >=24.0.0` and `pnpm ^12.0.0`.
-
-## External Integrations
-
-| Service                | Code                             | Notes                             |
-| ---------------------- | -------------------------------- | --------------------------------- |
-| Plex                   | `server/api/plexapi.ts`          | Plex API integration and invites  |
-| Sonarr/Radarr          | `server/api/servarr/`            | Calendar + proxy                  |
-| Lidarr/Prowlarr/Bazarr | Settings-based                   | Proxy only                        |
-| Tdarr                  | `server/lib/proxy/tdarrProxy.ts` | WebSocket proxy                   |
-| Tautulli               | `server/api/tautulli.ts`         | Activity/stats proxy              |
-| TMDB                   | `server/api/themoviedb/`         | Metadata enrichment               |
-| Download clients       | `server/api/downloads/`          | qBittorrent, Deluge, Transmission |
-
-## Documentation
-
-User-facing docs are in `docs/` (GitBook format). See `docs/SUMMARY.md` for full index.
-
-Developer architecture details are in this file. For deployment, see `docs/getting-started/installation.md`.
+- For workflow changes, test shell fragments with representative values and inspect real prior run logs when available.
+- Confirm registry tags and manifests with `docker buildx imagetools inspect`; confirm both registries resolve to the intended digest.
+- Clearly label anything requiring a real GitHub Actions run: OIDC signing, cross-job output handling, registry writes, immutable release publication, and hosted-runner behavior.
+- In PR descriptions, keep `Has This Been Tested?` proportional to the change. For workflow-only changes that do not alter application functionality, a concise statement such as `No application functionality changed; workflow updates only.` is preferable to a checklist of formatter, typecheck, or CI job results. For behavior-affecting workflow changes, list concrete local or agent-performed checks and remaining manual checks; do not turn GitHub Actions job status into the test checklist.
+- In the standard PR checklist, check only applicable completed items. Leave non-applicable items unchecked without adding `not required`, `N/A`, or similar annotations.
 
 ---
 > Source: [nickelsh1ts/streamarr](https://github.com/nickelsh1ts/streamarr) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
