@@ -2,8 +2,8 @@
   "name": "openui",
   "owner": "thesysdev",
   "repo": "openui",
-  "description": "The Open Standard for Generative UI",
-  "type": "tome",
+  "description": "",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "openui",
-      "path": "skills/openui/SKILL.md",
-      "github_url": "https://github.com/thesysdev/openui/tree/main/skills/openui/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/thesysdev/openui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T06:20:34Z"
+  "distributed_at": "2026-10-07T08:30:33Z"
 }
