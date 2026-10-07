@@ -1,0 +1,9 @@
+{
+  "name": "jakublibik--readfine",
+  "displayName": "readfine",
+  "description": "Self-hosted RSS reader and Tiny Tiny RSS alternative, with filters, relevance scoring and optional AI summaries and briefings.",
+  "version": "1.0.0",
+  "author": "jakublibik",
+  "homepage": "https://github.com/jakublibik/readfine",
+  "skills": []
+}
