@@ -1,0 +1,9 @@
+{
+  "name": "orbiqd--orbiqd-briefkit",
+  "displayName": "orbiqd-briefkit",
+  "description": "  Orchestrate multiple coding CLIs (Claude Code/Codex/Gemini) from one interface. Exposes MCP server for tool integration. Run agents locally without API keys, track all executions, resume conversatio",
+  "version": "1.0.0",
+  "author": "orbiqd",
+  "homepage": "https://github.com/orbiqd/orbiqd-briefkit",
+  "skills": []
+}
