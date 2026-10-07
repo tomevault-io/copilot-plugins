@@ -1,0 +1,9 @@
+{
+  "name": "cilium--little-vm-helper",
+  "displayName": "little-vm-helper",
+  "description": "little-vm-helper",
+  "version": "1.0.0",
+  "author": "cilium",
+  "homepage": "https://github.com/cilium/little-vm-helper",
+  "skills": []
+}
