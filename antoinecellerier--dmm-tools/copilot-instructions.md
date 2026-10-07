@@ -1,0 +1,113 @@
+## dmm-tools
+
+> Rust workspace for communicating with digital multimeters via USB (CP2110, CH9329, CH9325 and BU-86X HID cables) and Bluetooth LE. Supports UNI-T, Voltcraft, ZOTEK, EEVblog, Brymen and OWON meters.
+
+# dmm-tools
+
+Rust workspace for communicating with digital multimeters via USB (CP2110, CH9329, CH9325 and BU-86X HID cables) and Bluetooth LE. Supports UNI-T, Voltcraft, ZOTEK, EEVblog, Brymen and OWON meters.
+
+## Project structure
+
+- `crates/dmm-lib/` — library: CP2110/CH9329/CH9325/BU-86X and Bluetooth LE transports, protocol framing (AB CD and 0xAC extractors), measurement parsing, device tables. Protocol families: `ut61eplus`, `ut8802`, `ut8803`, `ut80x` (UT803/UT804, and the UT71 and Voltcraft VC920/940/960 on the UT804's packets), `ut171`, `ut181a`, `vc8x0` (VC-880/VC-890), `zotek` (ZOTEK's Bluetooth meters, sold as ZOYI, BSIDE and ANENG), `eevblog121gw` (EEVblog 121GW), `bm78xbt` (Brymen BM788BT/BM787BT), `bm86x` (Brymen's BM860s, BM820s and BM520s series on the BU-86X cable), `owon` (OWON's Bluetooth meters). Protocol internals (framing, per-family parsers) are `pub(crate)` — consumers use the `Dmm` API, not raw frame extraction; only `protocol::registry` is `pub` for the CLI/GUI, plus the fixtures their tests take behind the `test-support` feature (`MockTransport`, `Measurement::test_fixture`, `protocol::make_test_measurement`).
+- `crates/dmm-shared/` — app-only things the CLI and GUI must agree on that `dmm-lib` has no business carrying, compile-enforced: the settings schema (`SharedSettings { device_family }`), `write_atomic`, `logging` (the default log levels), `help` (the help and version text both binaries print), `replay` (what `--replay` opens: a replay file, or a golden fixture as a one-frame recording), and `export` (the CSV columns, the JSON reading shape and the `measurements-<meter>-<mode>-<start>.<ext>` file name both binaries write). GUI-only settings fields (colors, panel visibility, theme) live in `dmm-gui` and merge via `#[serde(flatten)]`. Export formats stay identical in both binaries: a new format or field lands in both in one change.
+- `crates/dmm-cli/` — CLI binary `dmm-cli`.
+- `crates/dmm-gui/` — GUI binary `dmm-gui` (eframe/egui).
+
+## Build & test
+
+- `cargo build --workspace`
+- `cargo test --workspace`
+- `cargo clippy --workspace --all-targets -- -D warnings` (must pass clean)
+- `cargo fmt --check`
+
+A pre-commit hook (`git-hooks/pre-commit`) runs fmt, clippy, and the test suite on every commit; a commit-msg hook (`git-hooks/commit-msg`) rejects a `Claude-Session:` trailer. Fix failures; never bypass with `--no-verify`.
+
+## Working with the user
+
+### Physical device interaction
+- When testing requires physical device interaction (dial position, lead placement, connections), describe the setup and **wait for user confirmation** before each step. Never assume the device is in the right state.
+- What a check can answer, check yourself before asking: `dmm-cli list` shows any attached cable or meter. When a step needs a cable out and the check finds one (e.g. `scripts/doc-screenshots.sh` names skipped scenes), ask the user to unplug it, wait for confirmation, then rerun the skipped part.
+
+### Specification data
+- **Never fabricate specification data.** If a value cannot be directly read from the source document, mark it unknown rather than guessing.
+- Verify PDF-sourced specs against the actual PDF rendering, not text-extracted versions — PDF-to-text conversion corrupts multi-column and merged-cell tables.
+
+### Simplicity and scope
+- Default to the simplest approach that meets the requirement. No speculative abstractions or "just in case" configurability.
+- When told "keep it simple", revert anything that adds complexity without clear value.
+- When a request is ambiguous about scope, ask before implementing.
+- For multi-step work, persist progress in durable files (an untracked `<NAME>_PROGRESS.md`, excluded via `.git/info/exclude`) — sessions can run out of context.
+
+### Plans and background agents
+- Before presenting a plan, have a subagent critique it and fold in the fixes.
+- While background agents run, end the turn; their notification wakes you. Don't poll.
+
+### Tool usage
+- Prefer Read/Grep/Glob/Write/Edit over Bash to reduce permission prompts.
+- Run git commands directly — cwd is the repo. Don't use `git -C`.
+- With Edit's `replace_all`: check the pattern doesn't match unintended locations (e.g. replacing `AcDcA` also catches `AcDcA2`). Prefer targeted single replacements.
+
+## Engineering standards
+
+Subsystem-specific rules live in path-scoped rule files that load when their files are touched: `.claude/rules/protocol.md` (protocol correctness, logging — `crates/dmm-lib/`), `.claude/rules/gui.md` (GUI correctness, egui pitfalls — `crates/dmm-gui/`), `.claude/rules/changelog.md` (entry format, sectioning — `CHANGELOG.md`), `.claude/rules/research-docs.md` (what a family spec and its approach doc carry — `docs/research/`), `.claude/rules/verification-docs.md` (which verification file owns an item and what leaves it once verified — `docs/verification-backlog.md`, `docs/research/*/verification.md`), `.claude/rules/developer-docs.md` (altitude: how parts fit and why, detail in the code — `docs/architecture.md`, the design docs, `docs/development.md`, `docs/adding-devices.md`, `docs/protocol.md`, `docs/future-improvements.md`) and the user-facing doc rules: `.claude/rules/docs-user-facing.md` (what user docs carry and what goes to design docs — `README.md`, the references, the device catalog, `docs/setup.md`, `CONTRIBUTING.md`), `.claude/rules/reference-docs.md` (section shape — the CLI and GUI references), `.claude/rules/device-catalog.md` (`docs/supported-devices.md`) and `.claude/rules/readme.md` (`README.md`).
+
+### Code quality
+- All code must pass `cargo clippy --workspace --all-targets -- -D warnings` and `cargo fmt --check`.
+- Write tests alongside non-trivial logic, especially protocol parsing and byte manipulation.
+- `unwrap()` only in tests and examples; return `Result` elsewhere.
+- Default new items to `pub(crate)`; widen to `pub` only for a concrete external consumer.
+- Prefer `&'static str` over `String` for static lookup values — avoids allocation in measurement-parsing hot paths.
+- Prefer enums over string-typed status/state values — lets the compiler catch typos and missing match arms.
+- Add `#[serde(default)]` on all optional/new fields in serialized structs. Forgetting this breaks deserialization of existing user config files.
+- Deduplicate user-facing error/help strings via helper functions — duplicated strings drift.
+- Avoid `unsafe` unless absolutely necessary.
+
+### Robustness
+- Use `checked_duration_since()` instead of `duration_since()` — the latter panics on backward clock jumps (VM suspend, NTP correction).
+- Background threads must propagate errors to the main thread via channel; wrap bodies in `catch_unwind` rather than silently failing.
+- Write data files atomically: write to `.tmp`, then `fs::rename`. Protects user data (settings, captures, CSV exports) against kill signals and disk-full mid-write.
+- Bound buffer growth. The graph history and the recording share one user-configurable bound (`max_samples`, default 500K samples). New buffers need an explicit bound too.
+
+### Commit discipline
+- **Never push without explicit per-push permission.** One "commit and push" authorizes that push only — re-ask for the next. Same for `--force`, tags, and opening or merging PRs. A plan that mentions pushing is not the permission; ask when the commits are ready.
+- **Posting or editing a GitHub issue, PR or comment is an outward-facing action** — draft it, show it, and apply only when told to.
+- Commit logical units of work — one concept per commit, each compiling and passing tests.
+- Include tests alongside new non-trivial code.
+- Commit messages: imperative mood, explain the *why*. Prefix with the affected component (`lib:`, `gui:`, `cli:`, `docs:`, `claude:` for assistant config) — not conventional-commits types.
+- **Keep messages short.** Subject ≤72 chars; body normally ≤10 lines, and only where the *why* isn't evident from the diff. State the reason and any non-obvious consequence — not the investigation that produced it. Rejected alternatives, per-test rationale, and known limitations belong in code comments, `docs/`, or the backlog, where they stay findable; a commit body is read once.
+- Never commit `references/` — gitignored; holds vendor software, decompilations, and manuals that must not live in the repo.
+
+### Dependencies
+- `dmm-lib` stays self-contained (see `.claude/rules/protocol.md`).
+- CLI and GUI crates: prefer well-maintained community crates over hand-rolled equivalents (markdown rendering, UI widgets, date handling).
+- Evaluate new dependencies on maintenance health, transitive footprint, and whether they solve a real problem vs. something achievable in a few lines.
+
+### Clean-room reverse engineering
+- Only consume sources the user has explicitly approved (manuals, vendor software, public datasheets). Do not read external implementations or community code until the clean-room analysis is complete and the user approves cross-referencing.
+- Document sources used and avoided so the clean-room boundary is auditable.
+
+## Documentation
+
+Documentation is part of the deliverable — update affected docs in the same commit as the change, not after.
+
+- `docs/architecture.md` — crate layering, core concepts, the connect and reading paths, subsystems, design decisions by label, module map.
+- `docs/protocol.md` — index of per-family specs. Authoritative content lives in `docs/research/<family>/reverse-engineered-protocol.md`.
+- `docs/setup.md`, `docs/development.md`, `docs/cli-reference.md`, `docs/gui-reference.md` — user and contributor references; update when their subject changes. `docs/ux-design.md` holds the design principles and the reasons behind UX decisions.
+- `docs/adding-devices.md` — end-to-end guide for new device support. **Read this before starting work on any new device.**
+- `docs/research/<family>/` — per-family RE methodology and wire-protocol spec.
+- `docs/research/<family>/verification.md` — each family's open hardware checks; `docs/verification-backlog.md` — checks that span families, and known defects. Update them whenever items are verified or new unknowns surface: a verified item leaves the list and its result goes to the spec or the code (`.claude/rules/verification-docs.md`).
+- For new device support, use the `/add-device` skill (`.claude/skills/add-device/SKILL.md`) — it carries the gates, the user checkpoints, the subagent briefs, the standing reviews and the verification-issue pattern.
+- For spec data (resolution, accuracy, notes from a manual), use the `/spec-data` skill (`.claude/skills/spec-data/SKILL.md`) — it carries the transcription workflow, the user checkpoints and the verification steps.
+- For issue and PR replies, use the `/issue-replies` skill (`.claude/skills/issue-replies/SKILL.md`) — it carries the reply structure, the assertion bar, the standard device-report asks, and the write-back rule for verified results.
+- For GUI screenshots and visual or interaction checks, use the `/verify-gui` skill (`.claude/skills/verify-gui/SKILL.md`) — it carries the private-display script, the input commands and the scenario flags.
+- Escape angle brackets in markdown (`\<foo\>` or `` `<foo>` ``) — bare `<tags>` render as invisible HTML on GitHub.
+- Anything GitHub renders (release bodies, issue/PR comments) is GFM, not plain text: bare `@name` mentions a real account, and a single newline becomes `<br>`, so keep each paragraph on one line. Check the render, not the source: `jq -n --rawfile t F.md '{text:$t,mode:"gfm"}' | gh api /markdown --input -`.
+
+### Changelog
+- Add entries to `## Unreleased` in the same commit as user-visible changes. The release workflow extracts the entry for the tagged version — don't defer.
+- **Scope is strictly user-visible impact.** Someone running a prebuilt binary must be able to notice the difference; if you can't say the "before/after a user would observe" sentence out loud, don't add an entry. No entries for refactors, code reorganization, new public API, extracted helpers, added tests, dependency bumps, or CI tweaks — however large the diff.
+- Entry format and section order: `.claude/rules/changelog.md` (loads when `CHANGELOG.md` is edited).
+
+---
+> Source: [antoinecellerier/dmm-tools](https://github.com/antoinecellerier/dmm-tools) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
