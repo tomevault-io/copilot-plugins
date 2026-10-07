@@ -2,9 +2,9 @@
   "name": "grimoire",
   "owner": "Slush97",
   "repo": "grimoire",
-  "description": "Mod manager for Deadlock",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Slush97/grimoire",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T20:30:53Z"
+  "distributed_at": "2026-10-07T08:50:16Z"
 }
