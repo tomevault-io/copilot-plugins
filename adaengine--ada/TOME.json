@@ -1,0 +1,99 @@
+{
+  "name": "Ada",
+  "owner": "AdaEngine",
+  "repo": "Ada",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Ada",
+      "path": ".agents/skills/adaengine-development/SKILL.md",
+      "github_url": "https://github.com/AdaEngine/Ada/tree/main/.agents/skills/adaengine-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Ada",
+      "path": "Editor/Sources/AdaEditor/Assets/AgentSkills/ada-coding/SKILL.md",
+      "github_url": "https://github.com/AdaEngine/Ada/tree/main/Editor/Sources/AdaEditor/Assets/AgentSkills/ada-coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Ada",
+      "path": "Editor/Sources/AdaEditor/Assets/AgentSkills/ada-assets/SKILL.md",
+      "github_url": "https://github.com/AdaEngine/Ada/tree/main/Editor/Sources/AdaEditor/Assets/AgentSkills/ada-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Ada",
+      "path": "Editor/Sources/AdaEditor/Assets/AgentSkills/ada-build-run/SKILL.md",
+      "github_url": "https://github.com/AdaEngine/Ada/tree/main/Editor/Sources/AdaEditor/Assets/AgentSkills/ada-build-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Ada",
+      "path": "Editor/Sources/AdaEditor/Assets/AgentSkills/ada-ui-debugging/SKILL.md",
+      "github_url": "https://github.com/AdaEngine/Ada/tree/main/Editor/Sources/AdaEditor/Assets/AgentSkills/ada-ui-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Ada",
+      "path": "Editor/Sources/AdaEditor/Assets/AgentSkills/ada-scene-authoring/SKILL.md",
+      "github_url": "https://github.com/AdaEngine/Ada/tree/main/Editor/Sources/AdaEditor/Assets/AgentSkills/ada-scene-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Ada",
+      "path": "Editor/Sources/AdaEditor/Assets/AgentSkills/ada-visual-verification/SKILL.md",
+      "github_url": "https://github.com/AdaEngine/Ada/tree/main/Editor/Sources/AdaEditor/Assets/AgentSkills/ada-visual-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Ada",
+      "path": "Editor/Sources/AdaEditor/Assets/AgentSkills/ada-project-orientation/SKILL.md",
+      "github_url": "https://github.com/AdaEngine/Ada/tree/main/Editor/Sources/AdaEditor/Assets/AgentSkills/ada-project-orientation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Ada",
+      "path": "Editor/Sources/AdaEditor/Assets/AgentSkills/ada-gravity-lsp/SKILL.md",
+      "github_url": "https://github.com/AdaEngine/Ada/tree/main/Editor/Sources/AdaEditor/Assets/AgentSkills/ada-gravity-lsp/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AdaEngine/Ada",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T00:43:30Z"
+}
