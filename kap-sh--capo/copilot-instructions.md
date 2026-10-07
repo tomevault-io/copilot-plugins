@@ -1,16 +1,13 @@
 ## capo
 
-> The code in this repository is **generated from the Smithy models** in [smithy-models/](smithy-models/).
+> ::: capo_bedrock_agent.types.agent.Agent
 
-# AGENTS.md
 
-## Generated Code — Do Not Edit
-
-The code in this repository is **generated from the Smithy models** in [smithy-models/](smithy-models/).
-
-- The [services/](services/) folder **must not receive any manual changes**. Every file in it is regenerated from the Smithy models, so hand edits will be overwritten and must never be made.
-- To change service code, change the source Smithy models and regenerate instead of editing the generated output.
+::: capo_bedrock_agent.types.agent.Agent
+    options:
+      show_source: true
+      merge_init_into_class: false
 
 ---
 > Source: [kap-sh/capo](https://github.com/kap-sh/capo) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
