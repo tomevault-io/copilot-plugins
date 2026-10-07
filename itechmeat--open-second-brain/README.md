@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [itechmeat/open-second-brain](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [itechmeat/open-second-brain](https://github.com/itechmeat/open-second-brain) — a repo with 418+ stars on GitHub.
+From [itechmeat/open-second-brain](https://github.com/itechmeat/open-second-brain) — a repo with 430+ stars on GitHub.
 
 ---
 
