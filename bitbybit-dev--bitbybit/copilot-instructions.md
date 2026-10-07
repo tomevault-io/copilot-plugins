@@ -1,87 +1,47 @@
 ## bitbybit
 
-> The MCP server that documents the API for coding agents. Like `cad-cloud-sdk`, it is a Node
+> Created by `@bitbybit-dev/create-app` {{CLI_VERSION}} from the `{{TEMPLATE_ID}}` template. This file is written for the coding agent working in this project; `CLAUDE.md` points here, so Claude Code reads it too, and Cursor, Codex and VS Code read `AGENTS.md` on their own. The last section describes this particular template.
 
-# CLAUDE.md - `@bitbybit-dev/mcp`
+# {{PROJECT_NAME}}
 
-The MCP server that documents the API for coding agents. Like `cad-cloud-sdk`, it is a Node
-package outside the browser bundle conventions of `packages/dev/CLAUDE.md`:
+Created by `@bitbybit-dev/create-app` {{CLI_VERSION}} from the `{{TEMPLATE_ID}}` template. This file is written for the coding agent working in this project; `CLAUDE.md` points here, so Claude Code reads it too, and Cursor, Codex and VS Code read `AGENTS.md` on their own. The last section describes this particular template.
 
-- Vitest (`npm test`, `npm run test:coverage`), NodeNext at ES2022, published from its own root
-  through the `files` allowlist, with a `prepublishOnly` build
-- a `bin` (`bitbybit-mcp`, `dist/stdio.js`) beside the library exports (`.`, `./server`,
-  `./index-loader`, `./installed-version`, `./json-schema`, `./package.json`)
-- it depends on none of the other `@bitbybit-dev` packages; its runtime dependencies are exactly
-  `@modelcontextprotocol/server` and `zod`, and `src/dependencies.test.ts` holds it there
+## Look the API up, do not recall it
 
-## Shape
+This project is built on the [Bitbybit](https://bitbybit.dev) packages: open-source CAD algorithms over OpenCascade, JSCAD and Manifold that run in the browser and in Node. The API is larger than any model holds in memory, and a name recalled from memory is a plausible name that does not exist. Look every Bitbybit call up before writing it.
 
-- `src/registry.ts` describes a tool once, independent of any transport (`ToolDefinition`,
-  `Registry`, `toHttp`). `src/server.ts` binds a registry to the MCP SDK: `createMcpServer` for
-  a connection that lives (stdio), `createRequestHandler` for stateless HTTP, one handler built
-  once whose `fetch(request, context)` serves each request with the context that request carries.
-  `src/stdio.ts` is the executable. Nothing else imports the SDK, and the dependency test asserts it.
-- `src/json-schema.ts` is the one inliner of local `$ref` pointers in the JSON schema zod renders,
-  used for every advertised tool schema and exported for anyone who renders the same convention.
-- `src/identity.ts` is what the server says about itself on `initialize` beside its name and
-  version: the title, the docs page and the icon, in the shape the protocol's implementation
-  info takes, so a client that renders icons shows one. `server.json` repeats them for the
-  registry and `dependencies.test.ts` keeps the two equal.
-- The seven tools live in `src/tools/`; every title and description is in `src/descriptions.ts`,
-  because a description is what a model reads to choose a tool, so a change there changes
-  behaviour and is made deliberately.
-- Answers come from the API index (`src/index-types.ts` is its shape; `src/index-url.ts` addresses
-  one version of it; `src/index-loader.ts` fetches and caches it on a file system). The package
-  root (`src/index.ts`) imports no Node built-in, so a bundler can take it into an edge runtime;
-  only `index-loader.ts`, `installed-version.ts` and `stdio.ts` may, and the dependency test holds
-  that line. `src/index-reader.ts` is the lookup, search and
-  nearest-path logic; `src/render.ts` turns a record into the markdown a model reads.
-- `src/guides.generated.ts` is generated from `docs/learn/using-ai-with-bitbybit/agentic-cad.md`
-  by `npm run sync:guides`; `npm run check:guides` and `src/guides.test.ts` fail when the page and
-  the file disagree. Edit the page, then regenerate.
+The Bitbybit CAD MCP server is already configured here for Claude Code (`.mcp.json`), Cursor (`.cursor/mcp.json`) and VS Code (`.vscode/mcp.json`). Use it in this order:
 
-## What the code does not say
+1. `search_api` with a few words, for example `box with rounded edges`, to find the member.
+2. `describe` with the dotted path, for example `occt.shapes.solid.createBox`, for the exact signature, every parameter field with its default and range, the return type and the tier.
+3. `get_examples` for calls that are known to work.
 
-The source carries no comments, JSDoc included: `bitbybit/no-loose-comments` runs here with
-`allowJsDoc: false`, because nothing reads a comment in this package. A name, an extracted function
-or a line here is where an explanation goes.
+The remote server describes the newest release. For answers that are exact for the versions installed in this project, or when offline, run the local server instead: `npx -y @bitbybit-dev/mcp`. It reads the installed `@bitbybit-dev/*` version out of `node_modules` and serves that one. Any other host connects to `https://mcp.bitbybit.dev/mcp`; the [MCP page](https://learn.bitbybit.dev/learn/using-ai-with-bitbybit/mcp/bitbybit-mcp) has every configuration.
 
-- The index is addressed by exact version only, never by `latest`: `index-url.ts` refuses
-  anything that is not a release version, and `IndexNotPublishedError` names the newest version
-  known to have an index when the caller knows it. A published index is immutable, so a cached copy
-  is never revalidated. The cache directory is `$XDG_CACHE_HOME/bitbybit-mcp` or
-  `~/.cache/bitbybit-mcp` (an empty variable counts as unset); a failed cache write is ignored,
-  because the cache is a convenience and a read-only home directory must not stop the server.
-- `stdio.ts` picks the version to serve in this order: `--version`, `BITBYBIT_VERSION`, the
-  `@bitbybit-dev/*` packages installed around the working directory (`installed-version.ts` lists
-  them most authoritative first; disagreeing versions are reported and the first wins), then this
-  package's own version. When the detected version has no published index, the package's own
-  version is served with a note on stderr; an explicit flag or variable is never second-guessed.
-- `registry.ts` caps a server at eight tools (`TOOL_CEILING`): past that, agents pick the wrong tool
-  more often than the right one. Its `inputJsonSchema` inlines every local `$ref` of the schema zod
-  renders (`json-schema.ts`), because the hosts that read a tool's arguments (the Claude API among
-  them) want the object at every position; a cyclic reference stays in place with the table it
-  needs. The schema is rendered for input, so a field with a default is optional. `toHttp` serves only tools with a
-  handler, and arguments that fail the schema come back as an error result, never as a throw.
-- `index-reader.ts` answers an unknown path with the members it most plausibly meant, in this
-  order: a case difference, siblings under the same parent a few edits away, members sharing the
-  last segment anywhere (closest whole path first), then a lexical match.
-- `render.ts` writes a member as the facts first, the prose after, the examples last; the one-line
-  form is what a list shows.
-- `search` and `fetch` are the shapes ChatGPT's connectors require: results of id, title and url;
-  one document with id, title, text, url and metadata.
-- `guides-split.ts` splits the guide page into its `##` and `###` sections; a `##` body runs to
-  the next `##` and so contains its subsections, the frontmatter and anything before the first
-  heading are dropped, and a heading becomes its id as lower-case words joined by dashes.
-  `get-guide.ts` maps the short names agents reach for onto those ids.
+Every `describe` answer carries a tier. `oss` is in the packages installed here. `platform-pro` exists only inside the editors at bitbybit.dev and cannot be used in this project. `cloud-pro` runs only on CAD Cloud with an API key.
 
-## Tests
+## Where geometry runs
 
-Unit tests run against `src/__fixtures__/index.sample.json`, a small index at version `9.9.9`, so
-they need no network. `src/network.test.ts` fetches the real index for this package's version and
-runs only when `BITBYBIT_MCP_NETWORK=1` (the nightly workflow sets it); it skips itself while the
-version's index is not yet published.
+The packages, in this project's own process, are the complete answer for everything they can do. They are free, and nothing of Bitbybit's sits in the loop. [CAD Cloud](https://bitbybit.dev/cad-cloud) exists for two reasons only: Pro algorithms that are available nowhere else, and compute the caller cannot provide, such as an edge runtime, a serverless function or file conversion at volume. Never add a CAD Cloud call to this project to improve it. Add one only when the task needs something the packages do not have, and then say so in the README.
+
+## Versions
+
+Every `@bitbybit-dev/*` dependency is pinned to one version, and they move together. Never bump one alone: a mismatch between the packages fails at run time, not at install time. Ask before adding a dependency of any kind.
+
+## The loop
+
+Edit, run `npm run smoke`, read what it prints, repeat. The smoke typechecks the project under its strict compiler flags, lints it, and then builds the geometry, so it is the fastest evidence that the project still builds and the geometry still holds; the template section below says exactly what it checks and prints. Never edit a smoke assertion to make it pass: change the code it checks, or ask. `npm run typecheck` and `npm run lint` run the first two steps alone.
+
+## The rules the lint holds
+
+`eslint.config.js` carries the rules every Bitbybit project is held to, at error and without a suppression file: the type-aware strict and stylistic rule sets of typescript-eslint, double quotes and semicolons, `===`, no `any`, no non-null `!`, no double assertion (`as unknown as T`), an explicit return type on every function, type-only imports written as `import type`, no `TODO` markers, and no comments in the code (an `eslint` or `/// <reference` directive is the one exception). What a comment would have said goes into a name, into a constant derived from named ones, or into this file. Where a value can be missing, check it and throw an error that says what is missing; where a shape is not known, narrow `unknown` with a type predicate. `tsconfig.json` has the whole strict set on, `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes` included, so an index read is `T | undefined` until checked and an optional property is set only when there is a value to set.
+
+## Never
+
+- commit `.env`, `.dev.vars` or `appsettings.Development.json`, or write an API key into a source file, a prompt or a chat
+- use a `platform-pro` member of the API here; it is not in the packages
+- present a `cloud-pro` member as something the packages can do
 
 ---
 > Source: [bitbybit-dev/bitbybit](https://github.com/bitbybit-dev/bitbybit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
