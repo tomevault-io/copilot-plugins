@@ -1,0 +1,9 @@
+{
+  "name": "thejefflarson--mosaic",
+  "displayName": "mosaic",
+  "description": "Infinite 2D spatial canvas for macOS where every window is a live terminal",
+  "version": "1.0.0",
+  "author": "thejefflarson",
+  "homepage": "https://github.com/thejefflarson/mosaic",
+  "skills": []
+}
