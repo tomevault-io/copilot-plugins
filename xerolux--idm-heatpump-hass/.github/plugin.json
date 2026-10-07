@@ -1,0 +1,9 @@
+{
+  "name": "xerolux--idm-heatpump-hass",
+  "displayName": "idm-heatpump-hass",
+  "description": "Local IDM heat pump / W\u00e4rmepumpe integration for Home Assistant via Modbus TCP \u2014 Navigator 2.0, 10 and Pro; installable with HACS.",
+  "version": "1.0.0",
+  "author": "Xerolux",
+  "homepage": "https://github.com/Xerolux/idm-heatpump-hass",
+  "skills": []
+}
