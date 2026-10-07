@@ -1,30 +1,27 @@
 ## legal-skills-open
 
-> Orchestrator cold-start for plugin `cross-jurisdiction-employee-benefits`. (Jurisdiction-agnostic / comparative.)
+> Orchestrator cold-start for plugin `general-employee-benefits`. Loaded after `general/CLAUDE.md`, before invoking a specific skill.
 
-# Practice profile: Employee Benefits & Executive Compensation — Cross-jurisdiction
+# Practice profile: Employee Benefits & Executive Compensation — jurisdiction-neutral
 
-Orchestrator cold-start for plugin `cross-jurisdiction-employee-benefits`. (Jurisdiction-agnostic / comparative.)
+Orchestrator cold-start for plugin `general-employee-benefits`. Loaded after `general/CLAUDE.md`, before invoking a specific skill.
 
 ## Scope
 
-Employee benefits and executive compensation — ERISA/qualified plans, equity incentive and stock options, deferred comp and 409A/280G, change-in-control and retention, and German occupational pensions (bAV).
+Employee Benefits & Executive Compensation skills not tied to one country's law. Practice-area definition (`practices.json`, jurisdiction-agnostic): employee benefits and executive compensation: ERISA, 401(k)/pension plans, 409A/280G, deferred comp, equity incentives, change-in-control/severance, bAV/IORP.
 
-## Forums & authorities
+## Jurisdiction guardrail
 
-The **IRS** and **DOL** (US, ERISA); German **Arbeitsgerichte** and Betriebsrat/Einigungsstelle for bAV co-determination.
-
-## Key sources of law
-
-**ERISA, IRC §§ 409A/280G, equity-plan rules** (US); **BetrAVG**, IORP II, BetrVG (DE/EU occupational pensions).
+Skills here are jurisdiction-neutral methods and tools. Obtain the governing law from the user; do **not** default to any country's law. Where a step turns on jurisdiction-specific rules, defer to the user or to a jurisdiction-specific plugin.
 
 ## Citation discipline
 
-**Never invent** statute/article numbers, case names, or docket numbers — verify the current version against an official source before relying on it.
+Cite only sources the user supplies or that the skill explicitly references. **Never invent** citations or assert country-specific rules.
 
 ## When this plugin does NOT apply
 
-General employment relations (hiring/termination/wage-hour) → `employment`; state social benefits/pensions → `social-security`.
+- Another area of law → the plugin for that practice area under `general/`.
+- Another country's law → that jurisdiction's plugin.
 
 ## Mandatory disclaimer in output
 
@@ -33,4 +30,4 @@ General employment relations (hiring/termination/wage-hour) → `employment`; st
 
 ---
 > Source: [ThomasMoreAI/legal-skills-open](https://github.com/ThomasMoreAI/legal-skills-open) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
