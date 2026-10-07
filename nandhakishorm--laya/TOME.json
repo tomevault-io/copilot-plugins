@@ -4,7 +4,7 @@
   "repo": "laya",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NandhaKishorM/laya",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T11:05:38Z"
+  "distributed_at": "2026-10-07T07:18:48Z"
 }
