@@ -1,0 +1,9 @@
+{
+  "name": "ilert--ilert-cli",
+  "displayName": "ilert-cli",
+  "description": "Rust native Alerting and Incident Management on your CLI & favorite Coding Agents",
+  "version": "1.0.0",
+  "author": "iLert",
+  "homepage": "https://github.com/iLert/ilert-cli",
+  "skills": []
+}
