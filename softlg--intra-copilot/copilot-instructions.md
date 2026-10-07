@@ -1,51 +1,90 @@
 ## intra-copilot
 
-> - `backend/` contains the Spring Boot 3 service (Java 17). Application code is under `src/main/java/com/intra/copilot`, configuration under `src/main/resources`, and JUnit tests under `src/test/java`.
+> 本文档是 `admin/` 管理后台的 UI 约定。新增页面、组件或资源管理功能时，优先复用现有组件和语义化 Design Token，不在页面中直接堆叠新的颜色、字号或间距。
 
-# Repository Guidelines
+# 管理后台 UI 设计规范
 
-## Project Structure & Module Organization
+本文档是 `admin/` 管理后台的 UI 约定。新增页面、组件或资源管理功能时，优先复用现有组件和语义化 Design Token，不在页面中直接堆叠新的颜色、字号或间距。
 
-- `backend/` contains the Spring Boot 3 service (Java 17). Application code is under `src/main/java/com/intra/copilot`, configuration under `src/main/resources`, and JUnit tests under `src/test/java`.
-- `extension/` contains the Chrome/Edge MV3 client. React/TypeScript UI code lives in `src/`; `content.ts` handles page context and actions, `service-worker.ts` handles extension messaging, and `sidepanel.tsx` contains the chat UI. `public/manifest.json` is copied into the production bundle.
-- `README.md` documents local setup. SQLite files and `extension/dist/` are generated artifacts; do not commit credentials or generated build output.
+## 产品定位
 
-## Build, Test, and Development Commands
+- 产品类型：Apple 风格、内容优先的 AI 管理控制台。
+- 重点：信息层级、批量管理效率、明确的风险反馈和键盘可用性。
+- 视觉原则：使用 Apple 系统蓝、中性表面和克制的毛玻璃层次；状态色只表达状态，危险操作降低视觉权重。
 
-Backend (from `backend/`):
+## 布局与响应式
 
-```powershell
-mvn spring-boot:run   # start the API on 127.0.0.1:8080
-mvn test              # run backend tests
-mvn fmt:format        # apply Google Java formatting
-```
+- 页面主内容最大宽度 1200～1280px，桌面左右内边距 32px，区块间距 24px。
+- 侧边栏宽 240px，收缩后 76px；导航项高度 44～48px。
+- `>=768px` 使用固定视口骨架：侧边栏和顶部栏固定，`main` 是唯一纵向滚动容器，页面本身不得滚动。
+- `<768px` 恢复自然文档流，使用顶部导航和整页滚动，不强制固定视口。
+- `>=1200px` 的 AI 工作台默认宽 430px，可从左侧拖动调整并记忆宽度；宽度必须同时保留业务主内容的最小可用空间。`<1200px` 时使用现有覆盖式布局，不显示拖拽柄。
+- 页面缩放范围为 75%～150%，通过设置面板或 `Ctrl/Cmd + +`、`Ctrl/Cmd + -`、`Ctrl/Cmd + 0` 控制。缩放统一使用 `--admin-page-zoom`，视口尺寸统一使用 `--admin-viewport-width` / `--admin-viewport-height`，禁止直接新增 `100vh` 或 `100dvh` 固定尺寸。
+- 卡片间距 16px，小组件间距 8px。
+- `<480px` 单列；`480～767px` 单列或双列；`768～1199px` 双列；`>=1200px` 三列或四列。
+- 实现对应三个断点：`max-width: 479px`、`max-width: 767px`（侧边栏堆叠为顶部导航）、`768px～1199px`（平板）。不要新增其它断点。
+- 必须测试 320、375、414、768、1024、1440px，禁止出现非预期横向滚动。
 
-Extension (from `extension/`):
+## 颜色 Token
 
-```powershell
-npm install
-npm run dev           # start Vite development server
-npm run build         # type-check and create extension/dist/
-npm run format        # format TypeScript, CSS, HTML, and JSON
-npm run format:check  # verify formatting without changes
-```
+配色统一走 `admin/src/style.css` 顶部的语义 Token，`:root` 为深色、`:root[data-theme="light"]` 为浅色，两者键名完全一致。分组如下：
 
-## Coding Style & Naming Conventions
+- 表面：`--page-bg`、`--surface`、`--surface-raised`、`--surface-sunken`、`--surface-muted`、`--surface-hover`、`--control-bg`、`--control-hover`、`--input-bg`、`--pre-bg`、`--chip-bg`、`--code-block-bg`、`--off-surface`、`--glass-bg`、`--glass-border`、`--overlay-bg`
+- 描边：`--border`、`--border-strong`、`--border-faint`、`--input-border`、`--off-border`
+- 文字：`--text`、`--text-strong`、`--text-on-brand`、`--muted`、`--muted-subtle`、`--text-muted`、`--nav-idle`、`--nav-active-bg`、`--nav-active-text`、`--focus-ring`、`--focus-shadow`、`--code-color`、`--accent-text`
+- 品牌：`--brand`、`--brand-hover`、`--accent`、`--brand-surface`、`--brand-surface-hover`、`--brand-surface-text`、`--brand-border`、`--tag-bg`、`--tag-text`
+- 状态：`--success`、`--success-strong`、`--success-surface`、`--warning`、`--warning-surface`、`--danger`、`--danger-strong`、`--danger-soft`、`--danger-text`、`--danger-surface`、`--danger-border`
+- 状态药丸（深浅同色）：`--status-*-bg` / `--status-*-border` / `--status-*-text`
+- 半透明染色与阴影：`--accent-tint*`、`--danger-tint*`、`--warning-tint*`、`--shadow-card`、`--shadow-card-hover`、`--shadow-popover`、`--modal-actions-fade`
 
-Use two-space indentation and let Prettier format extension files. Java follows the Google Java Format plugin. Use `PascalCase` for Java/React types, `camelCase` for variables and methods, and kebab-case IDs for agents or API routes. Keep browser actions structured and allowlisted; never add arbitrary script execution.
+组件中不得新增未命名的原始颜色；需要新颜色时先加 Token，再在深色/浅色两处都给出值。
 
-## Testing Guidelines
+- 毛玻璃只能用于侧边栏、固定顶部栏和浮层，并保留不透明语义表面作为能力回退。
+- 主色使用 Apple 系统蓝；圆角、阴影和描边统一走 Token，不在组件中堆叠近似值。
 
-Add backend tests beside the relevant package using `*Test.java` names and JUnit assertions. Run `mvn test` before submitting backend changes. Frontend changes must at least pass `npm run format:check`, `npx tsc --noEmit`, and `npm run build`; manually verify Chrome/Edge behavior for UI or permission changes.
+- 正文对比度至少 4.5:1。
+- 正文不低于 14px，辅助信息不低于 12px。
+- 状态不能只依靠颜色，必须同时有文字或图标。
+- 浅色主题使用同一组语义 Token，不为单个组件写特殊颜色。
 
-## Commit & Pull Request Guidelines
+## 字体与组件
 
-Use concise Conventional Commit-style subjects such as `feat:`, `fix:`, `style:`, `docs:`, or `chore:`. Pull requests should explain user-visible behavior, list verification commands, identify configuration or permission changes, and include screenshots for side-panel or floating-ball UI work. Keep API keys in environment variables only.
+- 页面标题 28px/700；区块标题 18px/650；卡片标题 16px/600；正文 14px；辅助信息 12～13px。
+- 正文行高 1.5～1.75，代码行高约 1.55。
+- 每个区域最多一个 Primary 按钮；编辑、查看使用 Secondary；刷新、复制使用 Tertiary；删除、清空使用 Danger。
+- 普通按钮高度 36px，主操作 40px，图标按钮至少 40×40px；移动端点击区域至少 44×44px。
+- 统一使用 SVG 图标，并为图标按钮提供 `aria-label`，不要用 Unicode 字符承担图标含义。
 
-## Security & Configuration
+## 资源卡片
 
-Configure `LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`, and CORS settings in the backend environment. Never place secrets in the extension, source files, logs, or committed configuration.
+- 卡片主信息依次为：名称、描述、状态、版本/更新时间/绑定数量。
+- UUID、内部 ID 放到详情抽屉或复制操作中，不作为主视觉信息。
+- 主操作只保留“编辑”；停用和删除放入“更多”菜单或次级操作区。
+- 空状态、加载状态、失败状态必须分别设计，不能都显示“暂无数据”。
+
+## 表单、弹窗与反馈
+
+- 每个字段必须有可见 Label、格式提示、必填标识和就近错误信息。
+- 弹窗打开后聚焦第一个字段，支持 Escape 关闭并恢复原焦点。
+- 长表单使用固定底部操作栏；保存中禁用按钮并显示加载状态。
+- 删除操作明确展示对象和影响范围，优先使用名称确认，不使用无上下文的“确认”。
+- 异步成功使用 Toast，失败提示原因和下一步；状态变化使用 `aria-live="polite"`。
+
+## 可访问性
+
+- 所有交互元素可通过键盘访问，统一提供明显的 `:focus-visible` 焦点环。
+- 弹窗使用 `role="dialog"` 和 `aria-modal="true"`；标签页使用正确的 tab 语义。
+- 不能依赖 hover 才能看到关键操作；不使用颜色作为唯一状态表达。
+- 支持 `prefers-reduced-motion`，动效通常为 150～240ms，避免布局抖动。
+- 页面切换只使用轻微淡入和位移动效；卡片悬浮最多上移 2px，不使用持续背景动画或高成本滤镜。
+- 可拖拽分隔条必须支持 Pointer Events、方向键调整、最小/最大宽度约束和 `aria-valuenow`；使用视口定位的浮层必须按页面缩放比例校正坐标。
+
+## 开发检查清单
+
+- 运行 `npm run format:check`、`npx tsc --noEmit` 和 `npm run build`。
+- 检查深色/浅色主题、键盘 Tab 顺序、焦点可见性、空状态、错误状态和窄屏布局。
+- 新增接口或管理操作时，同步考虑权限、错误码、加载反馈和审计信息。
 
 ---
 > Source: [softlg/intra-copilot](https://github.com/softlg/intra-copilot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
