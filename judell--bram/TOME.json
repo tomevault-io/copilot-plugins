@@ -1,0 +1,57 @@
+{
+  "name": "bram",
+  "owner": "judell",
+  "repo": "bram",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bram",
+      "path": "app/skills/loose-ends/SKILL.md",
+      "github_url": "https://github.com/judell/bram/tree/main/app/skills/loose-ends/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bram",
+      "path": ".claude/skills/loose-ends/SKILL.md",
+      "github_url": "https://github.com/judell/bram/tree/main/.claude/skills/loose-ends/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/judell/bram",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T01:07:24Z"
+}
