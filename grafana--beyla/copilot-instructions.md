@@ -1,81 +1,50 @@
 ## beyla
 
-> This file provides guidelines for AI agents contributing to go-toml. All agents must follow these rules derived from [CONTRIBUTING.md](./CONTRIBUTING.md).
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Agent Guidelines for go-toml
+# CLAUDE.md
 
-This file provides guidelines for AI agents contributing to go-toml. All agents must follow these rules derived from [CONTRIBUTING.md](./CONTRIBUTING.md).
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## Project
 
-go-toml is a TOML library for Go. The goal is to provide an easy-to-use and efficient TOML implementation that gets the job done without getting in the way.
+`universal-translator` (`ut`) is a Go i18n library that wraps `github.com/go-playground/locales` (CLDR locale data) to provide translation registration, plural rule handling (cardinal, ordinal, range), and `{0}`-style parameter substitution. Translations can be registered programmatically or loaded from JSON files.
 
-## Code Change Rules
+## Commands
 
-### Backward Compatibility
+```bash
+# Run tests with race detection and coverage
+make test
 
-- **No backward-incompatible changes** unless explicitly discussed and approved
-- Avoid breaking people's programs unless absolutely necessary
+# Run benchmarks
+make bench
 
-### Testing Requirements
+# Lint
+make lint    # or: golangci-lint run
 
-- **All bug fixes must include regression tests**
-- **All new code must be tested**
-- Run tests before submitting: `go test -race ./...`
-- Test coverage must not decrease. Check with:
-  ```bash
-  go test -covermode=atomic -coverprofile=coverage.out
-  go tool cover -func=coverage.out
-  ```
-- All lines of code touched by changes should be covered by tests
+# Run a single test
+go test -run TestTranslatorAdd -race -v ./...
+```
 
-### Performance Requirements
+## Architecture
 
-- go-toml aims to stay efficient; avoid performance regressions
-- Run benchmarks to verify: `go test ./... -bench=. -count=10`
-- Compare results using [benchstat](https://pkg.go.dev/golang.org/x/perf/cmd/benchstat)
+Flat package `ut` at the repo root — no sub-packages.
 
-### Documentation
+- **`universal_translator.go`** — `UniversalTranslator` struct: holds a `map[string]Translator` (keyed by lowercased locale) plus a fallback. Constructor: `New(fallback, ...supportedLocales)`. Methods: `FindTranslator`, `GetTranslator`, `AddTranslator`, `VerifyTranslations`.
+- **`translator.go`** — `Translator` interface (embeds `locales.Translator`) and private `translator` impl. Registration: `Add`, `AddCardinal`, `AddOrdinal`, `AddRange`. Resolution: `T`, `C`, `O`, `R`. Each translation key is `interface{}` (string or int). Parameter substitution indexes are precomputed at registration time via `transText`.
+- **`import_export.go`** — JSON import/export. `Export` writes per-locale JSON files. `Import` reads them (supports recursive directory traversal). `ImportByReader` for streaming.
+- **`errors.go`** — Typed error structs: `ErrUnknownTranslation`, `ErrExistingTranslator`, `ErrConflictingTranslation`, `ErrRangeTranslation`, `ErrOrdinalTranslation`, `ErrCardinalTranslation`, `ErrMissingPluralTranslation`, `ErrMissingBracket`, `ErrBadParamSyntax`, `ErrMissingLocale`, `ErrBadPluralDefinition`.
 
-- New features or feature extensions must include documentation
-- Documentation lives in [README.md](./README.md) and throughout source code
+Note: the private field names `cardinalTanslations`, `ordinalTanslations`, `rangeTanslations` are historical typos — do not "fix" them as it would break serialization/deserialization compatibility.
 
-### Code Style
+## Testing
 
-- Follow existing code format and structure
-- Code must pass `go fmt`
-- Code must pass linting with the same golangci-lint version as CI (see version in `.github/workflows/lint.yml`):
-  ```bash
-  # Install specific version (check lint.yml for current version)
-  curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s -- -b $(go env GOPATH)/bin <version>
-  # Run linter
-  golangci-lint run ./...
-  ```
+Tests live at the repo root alongside source files. Test data JSON files are in `testdata/`. The library is goroutine-safe for reads once translations are registered — benchmarks in `benchmarks_test.go` test both serial and parallel `T()` calls.
 
-### Commit Messages
+## CI
 
-- Commit messages must explain **why** the change is needed
-- Keep messages clear and informative even if details are in the PR description
-
-### Capabilities
-
-go-toml tracks system-level capabilities using [capslock](https://github.com/google/capslock). The baseline is in `capability_baseline.txt` and CI enforces that it does not grow.
-
-- **Do not introduce new capabilities.** PRs that increase the capability set (e.g., adding network access, subprocess execution, syscalls) are unlikely to be accepted.
-- If a change causes the capabilities check to fail, do not update the baseline to make it pass. Instead, rethink the approach to avoid requiring new capabilities.
-- To check locally: `./caps.sh check` (requires `capslock` installed via `go install github.com/google/capslock/cmd/capslock@latest`)
-
-## Pull Request Checklist
-
-Before submitting:
-
-1. Tests pass (`go test -race ./...`)
-2. No backward-incompatible changes (unless discussed)
-3. Relevant documentation added/updated
-4. No performance regression (verify with benchmarks)
-5. Capabilities are not increasing (`./caps.sh check`)
-6. Title is clear and understandable for changelog
+GitHub Actions (`.github/workflows/workflow.yml`): Go 1.19.x matrix across ubuntu/macos/windows with race detection, coverage via goveralls, and golangci-lint.
 
 ---
 > Source: [grafana/beyla](https://github.com/grafana/beyla) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
