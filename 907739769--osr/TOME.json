@@ -4,7 +4,7 @@
   "repo": "OSR",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/907739769/OSR",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T17:43:33Z"
+  "distributed_at": "2026-10-07T13:30:43Z"
 }
