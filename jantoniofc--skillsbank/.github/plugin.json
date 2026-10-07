@@ -1,9 +1,302 @@
 {
   "name": "jantoniofc--skillsbank",
   "displayName": "skillsbank",
-  "description": "skillsbank",
+  "description": "archivo de skills",
   "version": "1.0.0",
   "author": "JantonioFC",
   "homepage": "https://github.com/JantonioFC/skillsbank",
-  "skills": []
+  "skills": [
+    {
+      "name": "m365-agents-py",
+      "description": ""
+    },
+    {
+      "name": "backend-dev-guidelines",
+      "description": ""
+    },
+    {
+      "name": "security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "database-migrations-sql-migrations",
+      "description": ""
+    },
+    {
+      "name": "sql-database-assistant",
+      "description": ""
+    },
+    {
+      "name": "machine-learning-ops-ml-pipeline",
+      "description": ""
+    },
+    {
+      "name": "terraform-patterns",
+      "description": ""
+    },
+    {
+      "name": "terraform-patterns",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-development",
+      "description": ""
+    },
+    {
+      "name": "agent-eval",
+      "description": ""
+    },
+    {
+      "name": "django-perf-review",
+      "description": ""
+    },
+    {
+      "name": "django-access-review",
+      "description": ""
+    },
+    {
+      "name": "django-drf",
+      "description": ""
+    },
+    {
+      "name": "django-security",
+      "description": ""
+    },
+    {
+      "name": "django-celery",
+      "description": ""
+    },
+    {
+      "name": "django-pro",
+      "description": ""
+    },
+    {
+      "name": "django-patterns",
+      "description": ""
+    },
+    {
+      "name": "fastapi-templates",
+      "description": ""
+    },
+    {
+      "name": "fastapi-pro",
+      "description": ""
+    },
+    {
+      "name": "fastapi-router-py",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-deployment",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-architect",
+      "description": ""
+    },
+    {
+      "name": "terraform-infrastructure",
+      "description": ""
+    },
+    {
+      "name": "terraform-skill",
+      "description": ""
+    },
+    {
+      "name": "terraform-specialist",
+      "description": ""
+    },
+    {
+      "name": "terraform-module-library",
+      "description": ""
+    },
+    {
+      "name": "terraform-aws-modules",
+      "description": ""
+    },
+    {
+      "name": "pytest",
+      "description": ""
+    },
+    {
+      "name": "flutter-dart-code-review",
+      "description": ""
+    },
+    {
+      "name": "flutter-expert",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "documentation-templates",
+      "description": ""
+    },
+    {
+      "name": "documentation-generation-doc-generate",
+      "description": ""
+    },
+    {
+      "name": "documentation-lookup",
+      "description": ""
+    },
+    {
+      "name": "golang-pro",
+      "description": ""
+    },
+    {
+      "name": "golang-testing",
+      "description": ""
+    },
+    {
+      "name": "langchain-architecture",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "description": ""
+    },
+    {
+      "name": "nodejs-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "graphql",
+      "description": ""
+    },
+    {
+      "name": "graphql-schema",
+      "description": ""
+    },
+    {
+      "name": "graphql-architect",
+      "description": ""
+    },
+    {
+      "name": "microsoft-foundry",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-pipeline-builder",
+      "description": ""
+    },
+    {
+      "name": "javascript-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "security-bluebook-builder",
+      "description": ""
+    },
+    {
+      "name": "scikit-learn",
+      "description": ""
+    },
+    {
+      "name": "mle-workflow",
+      "description": ""
+    },
+    {
+      "name": "azure-ai-ml-py",
+      "description": ""
+    },
+    {
+      "name": "ai-ml",
+      "description": ""
+    },
+    {
+      "name": "react-native",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-native-skills",
+      "description": ""
+    },
+    {
+      "name": "react-native-skills",
+      "description": ""
+    },
+    {
+      "name": "react-native-design",
+      "description": ""
+    },
+    {
+      "name": "react-native-architecture",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review-excellence",
+      "description": ""
+    },
+    {
+      "name": "code-review-graph",
+      "description": ""
+    },
+    {
+      "name": "code-review-ai-ai-review",
+      "description": ""
+    },
+    {
+      "name": "marketing-demand-acquisition",
+      "description": ""
+    },
+    {
+      "name": "marketing-ops",
+      "description": ""
+    },
+    {
+      "name": "marketing-skill",
+      "description": ""
+    },
+    {
+      "name": "marketing-skills",
+      "description": ""
+    },
+    {
+      "name": "rust",
+      "description": ""
+    },
+    {
+      "name": "rust-async-patterns",
+      "description": ""
+    },
+    {
+      "name": "rust-testing",
+      "description": ""
+    },
+    {
+      "name": "rust-patterns",
+      "description": ""
+    },
+    {
+      "name": "rust-pro",
+      "description": ""
+    },
+    {
+      "name": "ios-developer",
+      "description": ""
+    },
+    {
+      "name": "github-ecosystem",
+      "description": ""
+    },
+    {
+      "name": "gemini-interactions-api",
+      "description": ""
+    },
+    {
+      "name": "golang-patterns",
+      "description": ""
+    }
+  ]
 }
