@@ -1,158 +1,55 @@
 ## builderbot
 
-> Guide for agentic coding tools working in this repository.
+> > Complements `AGENTS.md` (the canonical agent guide for this repo). Read both.
 
-# AGENTS.md
-Guide for agentic coding tools working in this repository.
+# Project Instructions
 
-## Rule Files (Cursor/Copilot)
-- `.cursorrules`: not found.
-- `.cursor/rules/`: not found.
-- `.github/copilot-instructions.md`: not found.
-- `.cursor/commands/update-providers.md` exists, but it is a custom command doc, not a global rule file.
+> Complements `AGENTS.md` (the canonical agent guide for this repo). Read both.
 
-## Repository Snapshot
-- Monorepo managed with `pnpm` + `lerna` (Nx cache configured in `nx.json`).
-- Workspaces: `packages/*`.
-- Main source: `packages/**/src`.
-- Build artifacts: `packages/**/dist` (Rollup output).
-- Package manager is enforced: `only-allow pnpm`.
+## Tech Stack
+- TypeScript monorepo (pnpm workspaces + Lerna + Nx cache), Node >=18 (use Node 22 + pnpm 9).
+- Core lib: `@builderbot/bot` — flows, state machine, queue, provider interface.
+- Providers: `packages/provider-*` (baileys, meta, twilio, telegram, voice, …).
+- Databases: `packages/database-*` (json, mongo, mysql, postgres).
+- Build: Rollup + `rollup-plugin-typescript2`. HTTP: Polka.
+- Tests: UVU (`bot`, `cli`, `manager`, db pkgs) and Jest (most providers).
+- Release: Lerna + standard-version + Conventional Commits.
 
-## Runtime Expectations
-- Root engines: Node `>=18`, pnpm `>=8.6.12`.
-- `CONTRIBUTING.md` recommends Node 20+.
-- CI workflows use Node `22.20.0`.
-- Safe default for agents: Node 22 + pnpm 9.
+## Code Style
+- 4-space indent, single quotes, no semicolons, `es5` trailing commas, print width 120.
+- Import order enforced: `[builtin+external]` → `internal` → `[parent+sibling+index]`, blank line between groups, case-insensitive alphabetical.
+- Mixed file-naming conventions per package — follow local style. Classes PascalCase, vars/functions camelCase.
+- Guard clauses and early returns; contextual log prefixes; HTTP layers return explicit status + JSON.
+- Flow semantics (enforced by `eslint-plugin-builderbot`): `return gotoFlow/endFlow/fallBack`, `await flowDynamic`, `await state.update`; never mix `endFlow` + `flowDynamic`.
 
-## Build / Lint / Test Commands
-Run from repo root unless noted.
+## Testing
+- Run all: `pnpm test` · Coverage: `pnpm run test:coverage`
+- Test dirs: `__tests__` (CLI uses `_test_`); files `*.test.ts` / `*.spec.ts`.
+- UVU single file (anchor the regex): `pnpm --filter @builderbot/bot exec uvu -r tsm ./__tests__/units "^state\\.test\\.ts$"`
+- Jest single file: `pnpm --filter @builderbot/provider-gupshup exec jest __tests__/core.test.ts --runInBand`
 
-```bash
-pnpm install
-pnpm run clean.lib
-pnpm run build
-pnpm run build:full
-pnpm run lint:check
-pnpm run lint:fix
-pnpm run format:check
-pnpm run format:write
-pnpm test
-pnpm run test:coverage
-```
+## Build & Run
+- Install: `pnpm install`
+- Clean libs: `pnpm run clean.lib` · Build: `pnpm run build` · Full: `pnpm run build:full`
+- Lint: `pnpm run lint:check` / `pnpm run lint:fix` · Format: `pnpm run format:check` / `format:write`
+- Scaffold a bot: `pnpm run cli` · Commit: `pnpm commit`
 
-Package-scoped commands:
+## Project Structure
+- `packages/bot/src/core/` — CoreClass engine (events, queue, state)
+- `packages/bot/src/io/` — FlowClass + methods (addKeyword/addAnswer) + events
+- `packages/bot/src/provider/interface/provider.ts` — abstract provider contract
+- `packages/bot/src/types.ts` — public types (BotContext, TFlow, GeneralArgs)
+- `packages/manager/` — multi-tenant REST manager (api.ts, bot-manager.ts, rate-limiter.ts)
+- `packages/provider-*/`, `packages/database-*/` — adapters
+- `starters/apps/` — generated templates · `base-ts-*-memory/` — runnable examples
 
-```bash
-pnpm --filter <package-name> build
-pnpm --filter <package-name> test
-pnpm --filter <package-name> test:coverage
-```
-
-Examples:
-
-```bash
-pnpm --filter @builderbot/bot build
-pnpm --filter @builderbot/manager test
-pnpm --filter @builderbot/provider-gupshup test
-```
-
-## Running A Single Test (Important)
-This repo uses both Jest and UVU.
-
-Jest single file:
-
-```bash
-pnpm --filter @builderbot/provider-gupshup exec jest __tests__/core.test.ts --runInBand
-```
-
-Jest single test case:
-
-```bash
-pnpm --filter @builderbot/provider-gupshup exec jest __tests__/core.test.ts -t "incomingMsg"
-```
-
-UVU single file (use directory + exact regex):
-
-```bash
-pnpm --filter @builderbot/manager exec uvu -r tsm ./__tests__ "^api\\.test\\.ts$"
-pnpm --filter @builderbot/bot exec uvu -r tsm ./__tests__/units "^state\\.test\\.ts$"
-pnpm --filter @builderbot/cli exec uvu -r tsm ./_test_ "^check\\.test\\.ts$"
-```
-
-UVU gotcha:
-- `pnpm --filter <pkg> test -- state.test.ts` may match multiple files by substring.
-- Prefer narrowed directory + anchored regex for true single-file runs.
-
-## Test Runner Map
-- Jest packages: `@builderbot/provider-baileys`, `@builderbot/provider-evolution-api`, `@builderbot/provider-facebook-messenger`, `@builderbot/provider-gupshup`, `@builderbot/provider-instagram`, `@builderbot/provider-meta`, `@builderbot/provider-sherpa`, `@builderbot/provider-twilio`, `@builderbot/provider-venom`, `@builderbot/provider-web-whatsapp`, `@builderbot/provider-wppconnect`.
-- UVU packages: `@builderbot/bot`, `@builderbot/cli`, `@builderbot/manager`, `@builderbot/contexts-dialogflow`, `@builderbot/contexts-dialogflow-cx`, `@builderbot/database-json`, `@builderbot/database-mongo`, `@builderbot/database-mysql`, `@builderbot/database-postgres`, `eslint-plugin-builderbot`.
-- No `test` script currently: `create-builderbot`, `@builderbot/provider-telegram`.
-
-## Code Style: Formatting and Imports
-Source of truth: root `eslint.config.js` and `.prettierrc.json`.
-
-- 4-space indentation.
-- Single quotes.
-- No semicolons.
-- Trailing commas: `es5`.
-- Print width: 120.
-- Import ordering is enforced:
-  - `builtin` + `external`
-  - `internal`
-  - `parent` + `sibling` + `index`
-  - blank line between groups
-  - alphabetical in each group (case-insensitive)
-
-## Code Style: Types and Modules
-- TypeScript is primary, but many packages compile with `allowJs: true`.
-- Strict mode is not universally enabled; avoid assuming strict-only constraints.
-- `any` is lint-allowed, but prefer explicit types for new code.
-- Use `import type` for type-only imports when it improves clarity.
-- Keep public exports typed in `src/index.ts`.
-- Some packages use `~/*` path aliases (notably provider-meta); only use aliases already configured in that package.
-
-## Code Style: Naming
-- Follow local package conventions; do not force one naming style repo-wide.
-- Existing file patterns include camelCase (`queueClass.ts`), kebab-case (`rate-limiter.ts`), and dotted names (`instagram.provider.ts`).
-- Class/type names: PascalCase.
-- Function/variable/method names: camelCase.
-- Constants intended as true constants: UPPER_SNAKE_CASE.
-
-## Error Handling Conventions
-- Prefer guard clauses and early returns.
-- API/HTTP layers should return explicit status codes + JSON payloads.
-- Catch errors where you can recover or attach useful context.
-- Log with contextual prefixes when practical (module/adapter/provider name).
-- Avoid empty catches unless intentionally ignoring known-safe failures.
-
-## BuilderBot Flow Conventions
-When touching flow callbacks (or `eslint-plugin-builderbot` behavior), preserve these semantics:
-
-- `return gotoFlow(...)`
-- `return endFlow(...)`
-- `return fallBack(...)`
-- `await flowDynamic(...)`
-- `await state.update(...)`
-- Do not mix `endFlow` and `flowDynamic` in the same execution context.
-
-## Testing Conventions
-- Put tests in `__tests__` (CLI package uses `_test_`).
-- Use `.test.ts` or `.spec.ts` according to local package style.
-- UVU test files should call `test.run()`.
-- Mock provider/network dependencies for unit tests.
-- Keep tests deterministic and isolated.
-
-## Agent Workflow
-1. Identify affected package(s) and runner (Jest or UVU).
-2. Edit `src/**`; avoid hand-editing generated `dist/**`.
-3. Run single-file tests first, then package-level tests.
-4. Run lint/format checks for broad or cross-package changes.
-5. Run `pnpm run build` for release-sensitive changes.
-
-## Known Gotchas
-- `CONTRIBUTING.md` references `pnpm run test.e2e`, but that script is not currently defined at root.
-- Jest and UVU coexist; verify runner before writing automation/test commands.
+## Conventions
+- Conventional Commits (commitlint + commitizen); Husky hooks run on commit/push.
+- Edit `src/**` only; never hand-edit generated `dist/**`.
+- Add new providers by mirroring `packages/provider-baileys`.
+- Verify the test runner (Jest vs UVU) before adding test commands.
+- Known gotcha: `CONTRIBUTING.md` references `pnpm run test.e2e`, which is not defined at root.
 
 ---
 > Source: [codigoencasa/builderbot](https://github.com/codigoencasa/builderbot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
