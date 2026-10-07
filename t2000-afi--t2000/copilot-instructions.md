@@ -1,25 +1,56 @@
-## machine-front-door
+## spend-lanes
 
-> Machine front door — t2000.ai/llms.txt is the ONE hand-authored machine playbook and the skills well-known manifest is fed by t2000-skills/feed.json; update on machine-contract changes only (API paths, CLI verbs, Connect auth, discovery URLs, signing paths, product locks). Full rule in .claude/skills/t2000-machine-front-door/.
+> Spend lanes — Cursor for review/specs, Claude Code for all implementation. Stops frontier token burn on multi-file code work in Cursor.
 
 
-# Machine Front Door → `.claude/skills/t2000-machine-front-door/SKILL.md`
+# Spend lanes (founder 2026-07-24, revised)
 
-**The invariant:** `t2000.ai/llms.txt` (served from
-`audric/apps/console/app/llms.txt/route.ts`) is the single machine playbook —
-never create a second SSOT. Update it only when a machine contract changes
-(public `api.t2000.ai/v1/*` shapes, CLI marketplace/wallet verbs, Connect auth
-model or connector URL, discovery URLs, who can sign, earn-first/fee/open-reject
-locks) — never for UI polish. Connect always signs as Passport, never a local
-key. The skills manifest enumerates from `t2000-skills/feed.json`, gated by
-`validate.ts` in CI.
+Burning Cursor frontier tokens (especially `claude-fable-*-thinking-high`) on
+implementation is the failure mode this rule stops. Founder pays Cursor Max +
+Anthropic Max; **all multi-file code work goes to Claude Code on the Max
+subscription** (browser OAuth login — never an Anthropic API key in Cursor).
 
-**Read the full rule before editing llms.txt, well-known routes, or
-agent-discovery copy:** `.claude/skills/t2000-machine-front-door/SKILL.md` —
-gate list, facts that must stay true, verify curls.
+## The two lanes
 
-*(Pointer only — do not re-inline the content here; same pattern as
-env-validation-gate.mdc so Cursor and Claude Code cannot drift.)*
+| Lane | Tool | Use for |
+|---|---|---|
+| **Think / Review** | This Cursor chat (default = Auto; Fable only for hard architecture or debugging) | Specs, plans, diff review, acceptance criteria, handoff prompts |
+| **Build** | Claude Code (`claude`) on Anthropic Max | Features, refactors, multi-file implementation, long agentic loops, mechanical sweeps |
+
+## What this chat MUST do
+
+When the user asks for code / implementation / "build X" / "fix the tests":
+
+1. Write a short plan + **acceptance criteria** (verifiable).
+2. Emit a **paste-ready Claude Code prompt** (Build lane).
+3. **Stop.** Do not open a large edit loop in Cursor.
+
+Exceptions (OK to implement here): single-file typo, one-line config, or the user
+explicitly says "do it in this chat."
+
+## What this chat MUST NOT do
+
+- Multi-hour agentic coding sessions in Cursor on Fable / thinking-high.
+- Re-open or continue a months-long mega-thread for a new task — **one task = one chat**.
+- Put an Anthropic API key into Cursor "to use Max" — Max does not cover API keys.
+
+## Where the rules actually live (2026-07-24 migration)
+
+Claude Code is now the canonical agent surface. `.claude/` owns the content:
+
+- `CLAUDE.md` — auto-loaded every turn (architecture, critical rules, release process)
+- `.claude/skills/*/SKILL.md` — subsystem depth, auto-loaded on task match
+- `.claude/commands/*.md` — the repeatable rituals (`/release`, `/ship`, `/tracker`)
+
+Files in `.cursor/rules/` are **pointers into `.claude/`**, not copies — so the two
+tools cannot drift. When a rule needs updating, edit the `.claude/` file. The one
+deliberate exception is `engineering-discipline.mdc`, which mirrors the short
+always-on block from `CLAUDE.md` because Cursor does not read `CLAUDE.md`.
+
+## After Build finishes
+
+Review the diff (`git diff`). Commits stay on the normal review path — do not tell
+Claude Code to push blindly.
 
 ---
 > Source: [t2000-afi/t2000](https://github.com/t2000-afi/t2000) — distributed by [TomeVault](https://tomevault.io).
