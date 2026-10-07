@@ -1,0 +1,44 @@
+{
+  "name": "quintpact-vas",
+  "owner": "zmsqnfl-commits",
+  "repo": "quintpact-vas",
+  "description": "VAS 2.7.0 \u2014 Local design studio and AI handoff toolkit with 14 curated visual choices, interactive sample websites, and a working proof app.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zmsqnfl-commits/quintpact-vas",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T05:03:58Z"
+}
