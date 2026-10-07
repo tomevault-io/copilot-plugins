@@ -1,0 +1,9 @@
+{
+  "name": "antune-l--skillzer",
+  "displayName": "skillzer",
+  "description": "Collection of reusable skills, agents, and scheduled tasks for Claude Code",
+  "version": "1.0.0",
+  "author": "Antune-L",
+  "homepage": "https://github.com/Antune-L/skillzer",
+  "skills": []
+}
