@@ -4,7 +4,7 @@
   "repo": "python-wled",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/frenck/python-wled",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T17:18:18Z"
+  "distributed_at": "2026-10-07T02:48:29Z"
 }
