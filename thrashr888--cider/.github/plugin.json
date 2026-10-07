@@ -1,0 +1,9 @@
+{
+  "name": "thrashr888--cider",
+  "displayName": "cider",
+  "description": "Manage macOS Apple apps from the command line. JSON on stdout, errors on stderr. Designed for both humans and AI agents.",
+  "version": "1.0.0",
+  "author": "thrashr888",
+  "homepage": "https://github.com/thrashr888/cider",
+  "skills": []
+}
