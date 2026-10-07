@@ -1,0 +1,9 @@
+{
+  "name": "rocm--hrx-system",
+  "displayName": "hrx-system",
+  "description": "hrx-system",
+  "version": "1.0.0",
+  "author": "ROCm",
+  "homepage": "https://github.com/ROCm/hrx-system",
+  "skills": []
+}
