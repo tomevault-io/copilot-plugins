@@ -1,0 +1,9 @@
+{
+  "name": "agencyenterprise--glossogen",
+  "displayName": "GlossoGen",
+  "description": "A platform for running controlled experiments on teams of LLM agents: multi-agent simulations, an event-sourced run log, swap and fork interventions, and post-hoc evaluation metrics.",
+  "version": "1.0.0",
+  "author": "agencyenterprise",
+  "homepage": "https://github.com/agencyenterprise/GlossoGen",
+  "skills": []
+}
