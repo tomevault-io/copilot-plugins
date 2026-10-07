@@ -1,0 +1,9 @@
+{
+  "name": "clayrune-io--clayrune",
+  "displayName": "clayrune",
+  "description": "Open-source mission control for running multiple Claude Code agents across projects - one dashboard, a scheduler, cross-session memory, and browser/phone access. Runs locally on your own Claude subscr",
+  "version": "1.0.0",
+  "author": "clayrune-io",
+  "homepage": "https://github.com/clayrune-io/clayrune",
+  "skills": []
+}
