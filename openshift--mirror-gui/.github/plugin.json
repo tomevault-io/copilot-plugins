@@ -1,0 +1,9 @@
+{
+  "name": "openshift--mirror-gui",
+  "displayName": "mirror-gui",
+  "description": "Graphical User Interface for oc-mirror v2",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/mirror-gui",
+  "skills": []
+}
