@@ -1,16 +1,25 @@
-## karpathy-guidelines
+## deci-fe
 
-> Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+> This project includes **GEMINI.md** so the Karpathy-inspired behavioral guidelines apply automatically when you work here.
 
+# Using this repo with Gemini CLI
 
-# Karpathy behavioral guidelines
+@CONVENTION.md
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+@DESIGN.md
+@DESIGN-DARK.md
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+This project includes **GEMINI.md** so the Karpathy-inspired behavioral guidelines apply automatically when you work here.
 
-## 1. Think Before Coding
+## In this repository
 
+1. Open the folder in Gemini CLI.
+2. The file [`GEMINI.md`](GEMINI.md) is committed in the root, so Gemini CLI reads it automatically upon startup.
+3. The behavioral guidelines below govern all implementation, refactoring, and research tasks.
+
+## Karpathy Behavioral Guidelines
+
+### 1. Think Before Coding
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
 Before implementing:
@@ -19,8 +28,7 @@ Before implementing:
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
 
-## 2. Simplicity First
-
+### 2. Simplicity First
 **Minimum code that solves the problem. Nothing speculative.**
 
 - No features beyond what was asked.
@@ -31,8 +39,7 @@ Before implementing:
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
-## 3. Surgical Changes
-
+### 3. Surgical Changes
 **Touch only what you must. Clean up only your own mess.**
 
 When editing existing code:
@@ -47,8 +54,7 @@ When your changes create orphans:
 
 The test: Every changed line should trace directly to the user's request.
 
-## 4. Goal-Driven Execution
-
+### 4. Goal-Driven Execution
 **Define success criteria. Loop until verified.**
 
 Transform tasks into verifiable goals:
@@ -63,7 +69,25 @@ For multi-step tasks, state a brief plan:
 3. [Step] → verify: [check]
 ```
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+## Use the same guidelines in another project
+
+**Gemini CLI (recommended):** Copy [`GEMINI.md`](GEMINI.md) into that project’s root directory. Adjust or merge with existing instructions as you like.
+
+**Other tools:** If using Cursor, use [`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc). If using Claude Code, use [`CLAUDE.md`](CLAUDE.md).
+
+## Optional: personal Agent Skills
+
+If you want the same content as a reusable skill for Gemini CLI, you can use the `skill-creator` to wrap these guidelines into a persistent skill.
+
+## Claude vs Cursor vs Gemini CLI
+
+- **Claude Code:** Uses [`CLAUDE.md`](CLAUDE.md).
+- **Cursor:** Uses [`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc).
+- **Gemini CLI:** Uses [`GEMINI.md`](GEMINI.md).
+
+## For contributors
+
+When you change the four principles, keep **[`GEMINI.md`](GEMINI.md)**, **[`CLAUDE.md`](CLAUDE.md)**, and **[`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)** in sync. If the published skill/plugin text should match, update **[`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)** as well.
 
 ---
 
