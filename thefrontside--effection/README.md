@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [thefrontside/effection](https://github.com/thef
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [thefrontside/effection](https://github.com/thefrontside/effection) — a repo with 836+ stars on GitHub.
+From [thefrontside/effection](https://github.com/thefrontside/effection) — a repo with 859+ stars on GitHub.
 
 ---
 
