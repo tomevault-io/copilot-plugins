@@ -1,0 +1,9 @@
+{
+  "name": "crestapps--crestapps-core",
+  "displayName": "CrestApps.Core",
+  "description": "CrestApps.Core is the AI application framework for .NET. It gives you the orchestration, management, chat, document, RAG, MCP, A2A, agent, reporting, and extensibility building blocks needed to add pr",
+  "version": "1.0.0",
+  "author": "CrestApps",
+  "homepage": "https://github.com/CrestApps/CrestApps.Core",
+  "skills": []
+}
