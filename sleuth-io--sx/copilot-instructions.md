@@ -41,18 +41,34 @@ make build && ./dist/sx <command>
 - [Vault Spec](docs/vault-spec.md) - Vault structure and management
 - [Manifest Spec](docs/manifest-spec.md) - sx.toml format (source of truth)
 - [Lock Spec](docs/lock-spec.md) - Per-user resolved lock file format
-- [Teams & installs](docs/teams.md) - Team management, targeted installs
+- [Scoping](docs/scoping.md) - Overview of every install scope (org/repo/path/team/user/bot), links to per-scope docs
+- [Permissions / RBAC](docs/rbac.md) - github vault: who can set scope (org-admins) and who can edit a skill (team-scope membership)
+- [Vault copy](docs/copy.md) - `sx vault copy` cross-vault migration (assets, teams, bots, scopes, audit, usage)
+- [Synced folders](docs/synced-folders.md) - Shared path vaults inside Dropbox/Drive/OneDrive/iCloud folders
+- [Plugins](docs/plugins-spec.md) - Exposing vaults as Claude Code / Codex plugin marketplaces
+- [Orgs](docs/orgs.md) - Org-scoped (global) installs
+- [Repos](docs/repos.md) - Repo and path-scoped installs (monorepo patterns)
+- [Teams](docs/teams.md) - Team management and team-scoped installs
+- [Users](docs/users.md) - Single-user installs and self-only restriction
+- [Bots](docs/bots.md) - Bot identities and bot-scoped installs
 - [Audit log](docs/audit.md) - Mutation audit trail format and queries
 - [Usage analytics](docs/stats.md) - `sx stats` dashboard and event format
 - [Metadata Spec](docs/metadata-spec.md) - Asset metadata format and fields
 - [MCP Spec](docs/mcp-spec.md) - MCP server tools (query)
+- [Environment Variables](docs/environment-variables.md) - SX_CONFIG_DIR, SX_CACHE_DIR, and isolation recipes
+- [GitHub Actions](docs/github-actions.md) - Installing from a private vault in CI (deploy keys, SX_SSH_KEY, SX_BOT)
 
 ## Development
 
 - Format: `gofmt`
 - Lint: `golangci-lint`
 - Tests must pass with race detection
-- Use conventional commit messages
+- **Keep the commit subject line ≤ 72 characters** (the `pr-check/sleuth`
+  status enforces this maximum subject length and blocks the PR when it is
+  longer). Put detail in the body, not the subject.
+- Keep code comments to the density of the surrounding code. Design rationale,
+  cross-client comparisons, and rejected alternatives belong in the PR
+  description, not hanging off a `const` or a one-line helper.
 - **NEVER run `git push` without explicit user permission**
 
 ## Releases
@@ -68,4 +84,4 @@ GoReleaser builds for Linux/macOS/Windows and auto-generates changelog.
 
 ---
 > Source: [sleuth-io/sx](https://github.com/sleuth-io/sx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
