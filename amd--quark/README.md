@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [amd/Quark](https://github.com/amd/Quark).
+Original source: `CLAUDE.md` in [amd/Quark](https://github.com/amd/Quark).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -64,7 +64,7 @@ Original source: `AGENTS.md` in [amd/Quark](https://github.com/amd/Quark).
 - [Quark](https://github.com/amd/Quark/tree/main/.claude/skills-impl/l2-workflows/torch/quark-torch-llm-ptq-workflow/SKILL.md)
 - [Quark](https://github.com/amd/Quark/tree/main/.claude/skills-impl/l1-atomic/torch/quark-torch-file2file-quantization/SKILL.md)
 
-From [amd/Quark](https://github.com/amd/Quark) — a repo with 180+ stars on GitHub.
+From [amd/Quark](https://github.com/amd/Quark) — a repo with 181+ stars on GitHub.
 
 ---
 
