@@ -1,0 +1,9 @@
+{
+  "name": "b0x42--paperless2papra",
+  "displayName": "paperless2papra",
+  "description": "CLI migration tool to export documents from Paperless-ngx and import them into Papra",
+  "version": "1.0.0",
+  "author": "b0x42",
+  "homepage": "https://github.com/b0x42/paperless2papra",
+  "skills": []
+}
