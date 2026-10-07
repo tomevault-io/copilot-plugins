@@ -1,0 +1,51 @@
+{
+  "name": "sperax-skills",
+  "owner": "Sperax",
+  "repo": "sperax-skills",
+  "description": "Open-source AI agent skills for DeFi, MCP servers, Web3 tooling, and the Sperax ecosystem. Skills teaching agents crypto trading, yield optimization, smart contract auditing, protocol analytics, and more. Compatible with OpenClaw, ClawHub, Claude Code, GitHub Copilot, and more.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-agent-defi-guide",
+      "path": "skills/ai-agent-defi-guide",
+      "github_url": "https://github.com/Sperax/sperax-skills/tree/main/skills/ai-agent-defi-guide",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Sperax/sperax-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T21:30:21Z"
+}
