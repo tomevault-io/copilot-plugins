@@ -1,0 +1,57 @@
+{
+  "name": "videowright",
+  "owner": "scosman",
+  "repo": "videowright",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "videowright",
+      "path": "packages/lib/skill/SKILL.md",
+      "github_url": "https://github.com/scosman/videowright/tree/main/packages/lib/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "videowright",
+      "path": "specs/projects/vibe_forge_v1/components/skill.md",
+      "github_url": "https://github.com/scosman/videowright/tree/main/specs/projects/vibe_forge_v1/components/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/scosman/videowright",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T04:52:59Z"
+}
