@@ -1,0 +1,9 @@
+{
+  "name": "embeddedos-org--eboot",
+  "displayName": "eBoot",
+  "description": "Project: Bootloader for Any Hardware",
+  "version": "1.0.0",
+  "author": "embeddedos-org",
+  "homepage": "https://github.com/embeddedos-org/eBoot",
+  "skills": []
+}
