@@ -1,0 +1,9 @@
+{
+  "name": "leekiyoung--local-llm",
+  "displayName": "local-llm",
+  "description": "Local LLM setup guide for Apple Silicon",
+  "version": "1.0.0",
+  "author": "LeeKiYoung",
+  "homepage": "https://github.com/LeeKiYoung/local-llm",
+  "skills": []
+}
