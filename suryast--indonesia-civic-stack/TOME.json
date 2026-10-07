@@ -4,7 +4,7 @@
   "repo": "indonesia-civic-stack",
   "description": "\ud83c\uddee\ud83c\udde9 Production-ready Python SDK + MCP server for 14 Indonesian government data sources \u2014 halal certs, company registry, procurement, budget, legal docs & more. 46 AI-agent tools.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/suryast/indonesia-civic-stack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T19:36:51Z"
+  "distributed_at": "2026-10-07T22:05:26Z"
 }
