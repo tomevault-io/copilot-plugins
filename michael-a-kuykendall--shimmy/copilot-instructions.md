@@ -1,71 +1,48 @@
 ## shimmy
 
-> shimmy-private/              ← THIS REPO — public-facing CLI/server product (private working copy)
+> Instructions for deploying the Shimmy Vision frontend to GitHub Pages.
 
-# Agent Instructions — Shimmy
+---
+applyTo: "**"
+---
+# GitHub Pages Deployment Instructions
 
-## Repository Architecture
+## Overview
+Instructions for deploying the Shimmy Vision frontend to GitHub Pages.
 
-```
-shimmy-private/              ← THIS REPO — public-facing CLI/server product (private working copy)
-public remote: shimmy.git    ← https://github.com/Michael-A-Kuykendall/shimmy.git
-airframe = { version = "0.1" }  ← PUBLIC crates.io dep — no path dep, no cloning needed
-```
+## Repository Setup
+- Repository: michaelallenkuykendall/shimmy-vision
+- Branch: main (or gh-pages for deployment)
+- GitHub Pages enabled in repository settings
 
-- **Shimmy is the product. Airframe is the public GPU engine** (crates.io: https://crates.io/crates/airframe).
-- Both are MIT-licensed. Both are public. No private dependencies.
-- `cargo build` (default features) compiles the full GPU engine — airframe is downloaded from crates.io.
-
-## Repository Push Policy
-
-- Two remotes exist:
-  - `origin` → `https://github.com/Michael-A-Kuykendall/shimmy-private.git` (private working copy)
-  - `public` → `https://github.com/Michael-A-Kuykendall/shimmy.git` (public GitHub repo users see)
-- In the submodule context (`shimmy_integration/` inside airframe workspace): push with `git push private <branch>`.
-- In the standalone context (`C:/Users/micha/repos/shimmy-private`): push with `git push origin <branch>` (private) or `git push public <branch>` (public).
-- Do not push unless explicitly requested by the user.
-- To publish to the public shimmy repo, push to the `public` remote.
-
-## Test Failures
-
-**Zero tolerance. No exceptions.**
-
-`cargo test` must finish with 0 failures before any task is considered done.
-There is no such thing as a "pre-existing" failure. Fix it before moving on.
-
-## Architecture (v2.0)
-
-- **Engine**: wgpu/WebGPU WGSL pipeline via Airframe (crates.io: `airframe = "0.1"`). Replaces llama.cpp entirely.
-- **Server**: OpenAI-compatible (`/v1/chat/completions`, `/v1/completions`), Ollama-compat (`/api/generate`, `/api/tags`), LM Studio discovery.
-- **No Python in default path.** Default build is `airframe` + `huggingface` features.
-- **WGSL quant coverage**: F32, F16, Q4_0, Q8_0, Q4_K(M/S), Q5_K(M/S), Q6_K.
-- **wgpu 2 GB buffer cap**: Known limit for models with tensors >2 GB. Deferred to v2.1.
-
-## Feature Flags
-
-```toml
-default = ["airframe", "huggingface"]  # Full GPU build; use --no-default-features --features huggingface for CPU-only
-airframe = ["dep:airframe"]            # Airframe native GPU engine (from crates.io)
-gpu = ["airframe", "huggingface"]      # GPU-optimized build
-full = ["airframe", "huggingface", "mlx"]
-fast / coverage = ["huggingface"]      # CI-safe, no GPU hardware required
-# Deprecated stubs (llama.cpp removed in v2.0):
-llama = []  llama-cuda = []  llama-vulkan = []  llama-opencl = []
+## Build Process
+```bash
+cd shimmy-vision  # Assuming frontend code is in this directory
+npm install
+npm run build
 ```
 
-## Scope Control
+## Deployment
+```bash
+npm run deploy  # If configured with gh-pages package
+# OR manually copy dist/ to docs/ and push
+```
 
-- Console (`crates/console/`) is scaffolded but unimplemented. Keep isolated from runtime release changes.
-- Vision work is deferred. Keep on dedicated branches.
-- Launch scope is architecture/runtime path only.
+## Configuration
+- Update API endpoints in code:
+  - Test: `shimmy-license-webhook-test.michaelallenkuykendall.workers.dev`
+  - Live: `shimmy-license-webhook.michaelallenkuykendall.workers.dev`
 
-## What NOT To Do
+## Verification
+- URL: https://michael-a-kuykendall.github.io/shimmy-vision/
+- Check console for errors
+- Test purchase flow (redirects to Stripe)
 
-- Do NOT add an `airframe/` submodule inside this repo.
-- Do NOT use a path dep for airframe — it is on crates.io as `airframe = { version = "0.1", optional = true }`.
-- Do NOT push without explicit user request.
-- Do NOT mix vision or console feature work into launch-critical runtime changes.
+## Previous Usage
+- Frontend deployed to test mode
+- API endpoints switched manually in code
+- Site loads but may need live endpoint update
 
 ---
 > Source: [Michael-A-Kuykendall/shimmy](https://github.com/Michael-A-Kuykendall/shimmy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
