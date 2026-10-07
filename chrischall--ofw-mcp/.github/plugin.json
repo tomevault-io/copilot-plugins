@@ -1,0 +1,9 @@
+{
+  "name": "chrischall--ofw-mcp",
+  "displayName": "ofw-mcp",
+  "description": "MCP for interacting with Our Family Wizard (OFW)",
+  "version": "1.0.0",
+  "author": "chrischall",
+  "homepage": "https://github.com/chrischall/ofw-mcp",
+  "skills": []
+}
