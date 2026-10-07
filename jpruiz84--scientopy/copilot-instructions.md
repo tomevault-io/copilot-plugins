@@ -152,4 +152,4 @@ The artifact configuration is at `.signpath/artifact-configuration.xml` — defi
 
 ---
 > Source: [jpruiz84/ScientoPy](https://github.com/jpruiz84/ScientoPy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
