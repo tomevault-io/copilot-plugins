@@ -1,66 +1,59 @@
 ## ayu-colors
 
-> Color palette for the [ayu theme](https://github.com/ayu-theme/ayu) as an npm package.
+> The ayu palette as an npm package (`ayu`). It is the single source of colors for every ayu port, so the Light, Mirage and Dark schemes defined here are what the VS Code theme, the Sublime theme and third-party tools all build on. It also owns the file icon set used by the ports.
 
 # ayu-colors
 
-Color palette for the [ayu theme](https://github.com/ayu-theme/ayu) as an npm package.
+The ayu palette as an npm package (`ayu`). It is the single source of colors for every ayu port, so the Light, Mirage and Dark schemes defined here are what the VS Code theme, the Sublime theme and third-party tools all build on. It also owns the file icon set used by the ports.
 
-## Scripts
+## Source of truth
 
-- `npm run build` - Compile TypeScript to dist/
-- `npm run svg` - Build + generate colors.svg and palette.svg
-- `npm test` - Build + run tests
-- `npm start` - Run svg + test
-- `npm run designer` - Run the color designer app
+The `themes/` YAML files are the only place colors are defined. Everything under `src/generated/`, `src/scheme.d.ts` and `dist/` is derived from them by the build. Edit the YAML, never the output.
 
-## Project Structure
+- The three schemes must keep an identical shape. Consumers access colors by path (`dark.editor.bg`) across all variants, and the tests fail when a key exists in one scheme but not the others. Add every key to all three files.
+- Comments in the YAML are part of the content. The designer and the generated types carry them through, so they describe what a color is for.
+- `themes/icons.yaml` maps icon IDs to image files in `icons/`, and file extensions and file names to icon IDs. Ports copy both, so a new file icon is added here, never in a port.
 
-- `src/color.ts` - Color class with hex(), rgb(), alpha() methods
-- `src/colors.ts` - Exports dark, light, mirage schemes
-- `src/dark.ts` - Dark theme colors
-- `src/light.ts` - Light theme colors
-- `src/mirage.ts` - Mirage theme colors
-- `scripts/build-svg.ts` - Generates preview SVGs
+## YAML color syntax
 
-## Color Categories
+A value is a hex color or a reference, followed by optional space-separated modifiers.
 
-Each scheme has: `syntax`, `vcs`, `editor`, `ui`, `common`
+- `F07178`: a hex color (6 or 8 digits).
+- `$syntax.markup`, `$palette.orange.l3`: a reference to another color by path. Circular references are an error.
+- The `palette` section generates `l1`…`l5` lightness steps per hue across the `range` of OKLCH lightness. A hue can override its range with `R<min>:<max>`.
 
-Colors use tagged template syntax: `` e`HEXCODE` `` where `e` is bound to editor background for alpha blending.
+Modifiers are applied left to right. Without a sign they set a value; with `+` or `-` they shift it.
 
-## Designer App
+| Modifier | Meaning |
+|---|---|
+| `A0.25` | alpha |
+| `L0.6`, `-L0.1` | OKLCH lightness, 0–1 |
+| `C0.5`, `+C0.1` | chroma relative to the most saturated in-gamut color at that lightness and hue, 0–1 |
 
-The `designer/` directory contains a Next.js app for visually editing theme colors.
+Because chroma is relative, a color keeps its saturation character when its lightness moves.
 
-### State Management
+## Commands
 
-Uses Zustand for centralized state management:
+- `npm run build`: generate from YAML, compile to `dist/`.
+- `npm test`: build, then check scheme shape and YAML parsing.
+- `npm run designer`: the visual color editor (Next.js, in `designer/`).
+- `npx tsx scripts/build-svg.ts`: regenerate the `colors.svg` and `palette.svg` previews shown in the README. It embeds the Iosevka web font from the ayu website checkout, which must be at `~/Developer/site`.
 
-- `store/designerStore.ts` - Single store with all state and actions
-- `store/selectors.ts` - Memoized hooks for derived values (useCurrentTheme, useThemeColors, etc.)
-- `store/index.ts` - Public exports
+## Designer
 
-Key patterns:
+The designer edits the YAML directly: saving rewrites the theme file with its comments and formatting preserved, then runs the build. That means a checked-out port consuming this repo through a `file:` dependency picks up the change on its next build.
 
-- All state lives in the Zustand store (activeTheme, themesData, selected, etc.)
-- Selectors use `useMemo`/`useCallback` for memoization
-- Switching themes clears the selection to prevent stale state
-- Modifier values (alpha, lightness, chroma) are remembered when toggled off/on
+Its state lives in a single Zustand store. Switching themes clears the selection to prevent stale state. Toggling a modifier off and on restores its previous value.
 
-### Designer Structure
+## Consumers
 
-- `app/page.tsx` - Main page, initializes store and renders panels
-- `components/colors/` - Color list and row components
-- `components/color/` - Color editor, modifier editor, reference picker
-- `components/palette/` - Palette section and row components
-- `hooks/useColors.tsx` - ThemeColorsProvider context for UI styling
+The VS Code port ([vscode-ayu](https://github.com/ayu-theme/vscode-ayu)) depends on this repo as a sibling checkout (`file:../ayu-colors`) during development and copies `icons/` at build time. Renaming or removing a scheme key or an icon ID breaks it and any other port, so it is a breaking change for the published package.
 
-## Ports
+## Tooling constraints
 
-- VS Code: <https://github.com/ayu-theme/vscode-ayu>
-- Sublime: <https://github.com/ayu-theme/ayu>
+- TypeScript stays on 6.x. TypeScript 7 ships only the native compiler, which Next.js cannot load. Next then tries to install TypeScript by itself with yarn, leaving a `yarn.lock` behind.
+- Scripts run through `tsx`. The package is ESM and compiled with `NodeNext` resolution, so imports inside `src/` use `.js` specifiers.
 
 ---
 > Source: [ayu-theme/ayu-colors](https://github.com/ayu-theme/ayu-colors) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
