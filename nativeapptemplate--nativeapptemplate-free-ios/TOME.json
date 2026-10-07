@@ -2,9 +2,9 @@
   "name": "NativeAppTemplate-Free-iOS",
   "owner": "nativeapptemplate",
   "repo": "NativeAppTemplate-Free-iOS",
-  "description": "Modern, full-featured, production-ready native iOS app with user authentication and background tag reading.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T08:31:38Z"
+  "distributed_at": "2026-10-07T13:14:50Z"
 }
