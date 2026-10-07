@@ -1,125 +1,69 @@
 ## satvis
 
-> git submodule update --init
+> A SwiftUI shell around a `WKWebView` that loads <https://satvis.space>. The app adds
 
-# AGENTS.md
+# AGENTS.md — iOS app
 
-## Setup
+A SwiftUI shell around a `WKWebView` that loads <https://satvis.space>. The app adds
+what the PWA cannot: local pass notifications, and the page's service worker
+through App-Bound Domains. Xcode 27, Swift 6 with MainActor default isolation.
+Xcode Cloud builds, numbers and publishes every release; there is no fastlane.
 
-```sh
-git submodule update --init
-pnpm install
-```
+## Layout
 
-A single `pnpm install` at the repository root installs dependencies for both
-the SPA and the `worker/` package (a pnpm workspace). CI uses `pnpm ci`.
+- `satvis/` and `satvisUITests/` are folder-synchronized: a file added on disk joins
+  its target, with no `project.pbxproj` edit.
+- `Info.plist` is generated from `INFOPLIST_KEY_*` build settings. The file
+  `satvis/Info.plist` holds only the keys that have no build setting:
+  `UILaunchScreen` and `WKAppBoundDomains`.
+- The deployment target stays `$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)` on purpose.
+- The app icon (`AppIcon.icon`) and the launch image are cut from `public/logo.svg`:
+  counting its `<path>`s from 0, 0 is the #0b222d background, 1–3 sky, 4–6 hills,
+  7–49 shuttle and 50–51 exhaust. Cut them again when the logo changes.
 
-## Commands
+## Tasks
 
-| Task              | Command                                                               |
-| ----------------- | --------------------------------------------------------------------- |
-| Dev server        | `pnpm dev` (proxies `/api` → <https://satvis.space>)                  |
-| Full-stack dev    | `pnpm dev:worker` + `SATVIS_API_PROXY=http://localhost:8080 pnpm dev` |
-| Build             | `pnpm build`                                                          |
-| Test (CI)         | `pnpm test` (frontend) and `pnpm --filter satvis-worker test`         |
-| Lint (CI)         | `pnpm lint` (runs frontend and worker lint)                           |
-| Lint fix          | `pnpm lint:fix` (runs frontend and worker fixes)                      |
-| Type-check only   | `pnpm type-check`                                                     |
-| Refresh static GP | `pnpm update-gp` (writes the gitignored `data/gp/` snapshot)          |
-| Deploy            | `pnpm deploy` (builds frontend, then deploys worker)                  |
+`make` in `ios/` runs them: `build`, `test`, `run`, `logs`, `format`, `lint`,
+`screenshots`, `clean`. `DEVICE="iPad Pro 13-inch (M5)"` picks the simulator by name,
+on `RUNTIME="iOS 27"` or the newest runtime that has it (default `iPhone 17`);
+`UDID=…` picks one exactly.
+`make run` opens no simulator window; follow the app with `make logs`.
 
-Worker-only scripts run via `pnpm --filter satvis-worker <script>`.
+- **`test`** launches the app against satvis.space and checks the page renders;
+  it needs the network.
+- **`run URL=…`** installs and launches with the page replaced.
+- **`screenshots`** erases one simulator per App Store size and writes
+  `screenshots/`: the about page's three demo views, from the
+  `testScreenshot*` tests. `BASE_URL=http://localhost:5187` takes them from
+  `pnpm dev` instead of satvis.space, for views that need undeployed changes.
+  Upload them to App Store Connect by hand.
+- **Inspect the page:** Debug builds are inspectable from Safari's Develop menu.
 
-CI runs `lint`, then `test` (frontend + worker), then `build`.
+## The web page
 
-## Architecture
+- `URL` in the launch environment replaces satvis.space: `make run URL=…`, or a
+  scheme environment variable in Xcode.
+- Hosts in `WKAppBoundDomains` (satvis.space, localhost) get a web view limited to
+  them, which is what lets the service worker run. Any other host loads unlimited
+  and without one. External links always leave for Safari.
+- The bridge is one message handler, `iosNotify`, posting
+  `{message, delay, date}` from `src/modules/util/PushManager.ts`. It schedules a
+  local notification `delay` seconds out, keeping the 60 soonest.
+- Permissions are asked on use: WebKit raises the location prompt when the page
+  calls `navigator.geolocation`, and the first `iosNotify` raises the
+  notification prompt. User agents carry `SatvisApp/<version>`.
 
-- **Frontend**: Vue 3 + Vite + CesiumJS + Nuxt UI (Tailwind). Single-page app in `src/`.
-- **Worker**: Cloudflare Worker backend in `worker/` — a workspace package (`satvis-worker`) with its own `package.json`, installed by the root `pnpm install`. Uses Wrangler for dev/deploy. Has its own `lint`, `type-check`, `test`, and `generate-types` scripts (run via `pnpm --filter satvis-worker <script>`).
-- **Satellite data (GP element sets)**: fetched from CelesTrak as OMM JSON.
-  - The worker refreshes each group into Workers KV via a cron trigger (every 3 h) and serves `/api/gp/<group>.json`, `/api/groups.json`, `/api/metadata.json`.
-  - Groups are declarative: core groups in `worker/src/config/groups.core.json`, plugin groups in `data/custom/<plugin>/groups.json` (`sources`/`satellites`/`select`/`rename`/`include`/`extraRecordsFile`). `pnpm --filter satvis-worker generate-groups` merges them into the gitignored `worker/src/config/groups.generated.json`.
-  - **Worker-less mode**: `pnpm update-gp` runs the same evaluator and writes a static snapshot into `data/gp/` (gitignored). The app probes `/api/groups.json` and falls back to that snapshot.
-- **Data assets**: `data/` also contains Cesium assets (imagery, textures, stars) and 3D-model plugins under `data/custom/`. Copied into `dist/` at build time via `vite-plugin-static-copy`.
-- Entrypoints: `index.html`, `embedded.html`, `test.html` (all configured as Vite MPA inputs).
+## Gotchas
 
-## Key quirks
-
-- **Cesium static assets**: Vite copies Cesium engine assets from `node_modules/@cesium/engine` and `@cesium/widgets` into `dist/cesium/`. The global `CESIUM_BASE_URL` is defined as `"./cesium"` in `vite.config.ts`.
-- **Git submodules**: Required — `data/` content depends on them. Run `git submodule update --init` before first build.
-- **Build globals**: `__BUILD_DATE__` and `__BUILD_SHA__` are injected via `vite.config.ts` `define`.
-- **Path aliases**: `@/*` → `src/*` (in `tsconfig.json`).
-- **Formatting**: `oxfmt` (config in `.oxfmtrc.json`): `printWidth: 180`, `sortImports`, and `sortPackageJson` enabled.
-- **Linting**: `pnpm lint` runs frontend `oxlint`, `oxfmt --check`, and `vue-tsc`, then the worker's own lint script.
-- **Env files**: `.env.development` / `.env.production` — only PostHog keys (`VITE_POSTHOG_*`). See `.env.example`.
-- **PWA**: Service worker via `vite-plugin-pwa` with Workbox caching strategies.
-- **TypeScript**: Strict mode, `noUnusedLocals`, `noUncheckedIndexedAccess`. Unused vars must be prefixed with `_`.
-- **Vue conventions**: Component names in templates must use kebab-case.
-
-## Deployment
-
-`pnpm deploy` builds the frontend and deploys the worker. The worker needs a KV
-namespace bound as `GP_KV` (see `worker/wrangler.jsonc`). After the first
-deploy, KV is empty until a cron run fills it — either wait for the cron
-(≤ 3 h) or force a fill now against the deployed KV:
-
-```
-cd worker
-wrangler dev --remote --test-scheduled
-curl "http://localhost:8080/__scheduled?cron=23+*%2F3+*+*+*"
-```
-
-### Migrating a private plugin from `sync.sh` to `groups.json`
-
-Private plugins (e.g. the maintainer's untracked `data/custom/ot-tle/`) used to
-be shell scripts that `grep`/`sed`-ed the bundled TLE files. Rewrite each as a
-declarative `data/custom/<plugin>/groups.json` (untracked; same trust model as
-before — never commit private plugin data):
-
-- **`satellites`** (preferred for known, individually-named satellites): an
-  array of per-satellite rows, each co-locating a satellite's NORAD id, its
-  expected upstream name, and its display name so a rename's three facts live
-  together instead of being scattered across `select.noradIds` and `rename`:
-
-  ```json
-  "satellites": [{ "noradId": 43556, "upstreamName": "LEMUR-2-EMBRIONOVIS", "name": "FOREST-2" }]
-  ```
-
-  A row matches by `noradId` when present (else by exact `upstreamName`), is
-  unioned with `select`, and its `name` renames the matched record (taking
-  precedence over the `rename` map). Omit `name` to keep the upstream name;
-  omit `noradId` to select a satellite that only has an upstream name. When a
-  row carries both id and `upstreamName`, an id match against a differently
-  named record — or a row whose id matches nothing — surfaces a warning in
-  `/api/groups.json` (the group's `warnings` array) so upstream renames and
-  decays are caught. Optional per-row `metadata` (e.g. `{ "swathKm": 290 }`) is
-  lifted into the metadata rules served at `/api/metadata.json`.
-
-- **`select`** (for bulk/pattern selection): `noradIds`, `names`, or a
-  `namePattern` regex, ORed together. Prefer `noradIds` over `names` — CelesTrak
-  `OBJECT_NAME` values are matched exactly and lose the old fixed-width TLE
-  padding, so name matches are brittle. Use `namePattern` for whole
-  constellations (`^STARLINK`).
-- **`rename`**: `{ "<OBJECT_NAME>": "<new name>" }`, applied after select to any
-  record a `satellites` row did not already rename. Use for bulk/pattern renames;
-  for a single known satellite prefer a `satellites` row.
-- **`extraRecordsFile`**: a path (relative to the config) to a TLE text file for
-  pseudo element sets (fake satnums that can't be expressed as OMM). The
-  generator inlines it into `extraRecords`.
-- **`include`**: compose groups by name. **Semantics differ from the old shell
-  pipeline**: an included group contributes its FULL evaluated output —
-  including its own `extraRecords` and renames — prepended before this group's
-  records (the old sync.sh concatenated the base list _before_ appending
-  extras). If you need the old ordering, split the extras into a separate
-  included group. See the comment on `include` in `worker/src/gp/types.ts`.
-- **`celestrakSup`**: use `{ "celestrakSup": "<file>" }` sources for CelesTrak
-  supplemental data (e.g. launch/pre-launch element sets).
-- **`metadata`**: an optional array of remote metadata rules, merged and served
-  at `/api/metadata.json` (e.g. sensor swath for OT satellites).
-
-Deploy migration: write the plugin `groups.json`, delete the old local
-`sync.sh`, `pnpm deploy`, then force the first KV fill as above.
+- **`make test` never exits after a failed test**, nor does the `xcodebuild` under
+  it. Watch the output for `Test Suite 'All tests' failed` and stop it.
+- **A simulator keeps its cached launch screen across reinstalls.** Judge
+  launch-screen changes on a simulator that never had the app, or after
+  `simctl erase`; the screen shows for ~1.5 s, so record it with
+  `simctl io <udid> recordVideo`.
+- **An open Xcode rewrites `project.pbxproj`** — it re-sorts entries you added by
+  hand. Close the project before editing the file, or expect the churn.
 
 ---
 > Source: [Flowm/satvis](https://github.com/Flowm/satvis) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
