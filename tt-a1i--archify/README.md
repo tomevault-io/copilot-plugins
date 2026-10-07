@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tt-a1i/archify](https://github.com/tt-a1i/archify).
+Original source: `CLAUDE.md` in [tt-a1i/archify](https://github.com/tt-a1i/archify).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,7 +21,7 @@ Original source: `AGENTS.md` in [tt-a1i/archify](https://github.com/tt-a1i/archi
 - [archify](https://github.com/tt-a1i/archify/tree/main/archify)
 - [archify](https://github.com/tt-a1i/archify/tree/main/.agents/skills/archify-review/SKILL.md)
 
-From [tt-a1i/archify](https://github.com/tt-a1i/archify) — a repo with 78408+ stars on GitHub.
+From [tt-a1i/archify](https://github.com/tt-a1i/archify) — a repo with 78674+ stars on GitHub.
 
 ---
 
