@@ -1,0 +1,14 @@
+{
+  "name": "getlago--lago-helm-charts",
+  "displayName": "lago-helm-charts",
+  "description": "lago-helm-charts",
+  "version": "1.0.0",
+  "author": "getlago",
+  "homepage": "https://github.com/getlago/lago-helm-charts",
+  "skills": [
+    {
+      "name": "lago-helm-charts",
+      "description": ""
+    }
+  ]
+}
