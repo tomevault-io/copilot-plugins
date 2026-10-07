@@ -4,7 +4,7 @@
   "repo": "MangaAgentsStudio-A",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/potechitakusan/MangaAgentsStudio-A",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T16:01:39Z"
+  "distributed_at": "2026-10-07T06:51:01Z"
 }
