@@ -1,0 +1,22 @@
+{
+  "name": "docker--sandbox-kit-spec",
+  "displayName": "sandbox-kit-spec",
+  "description": "sandbox-kit-spec",
+  "version": "1.0.0",
+  "author": "docker",
+  "homepage": "https://github.com/docker/sandbox-kit-spec",
+  "skills": [
+    {
+      "name": "sandbox-kit-spec",
+      "description": ""
+    },
+    {
+      "name": "sandbox-kit-spec",
+      "description": ""
+    },
+    {
+      "name": "sandbox-kit-spec",
+      "description": ""
+    }
+  ]
+}
