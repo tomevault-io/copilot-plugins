@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [XRSPACE-Inc/perxona-connect-kit](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [XRSPACE-Inc/perxona-connect-kit](https://github.com/XRSPACE-Inc/perxona-connect-kit) — a repo with 62+ stars on GitHub.
+From [XRSPACE-Inc/perxona-connect-kit](https://github.com/XRSPACE-Inc/perxona-connect-kit) — a repo with 63+ stars on GitHub.
 
 ---
 
