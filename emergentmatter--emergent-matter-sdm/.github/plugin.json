@@ -1,0 +1,9 @@
+{
+  "name": "emergentmatter--emergent-matter-sdm",
+  "displayName": "emergent-matter-sdm",
+  "description": "Software Defined Matter (SDM) is an engineering framework designed for agentic AI systems: the entire path from specification to working machine is designed and executed by software, and the final out",
+  "version": "1.0.0",
+  "author": "EmergentMatter",
+  "homepage": "https://github.com/EmergentMatter/emergent-matter-sdm",
+  "skills": []
+}
