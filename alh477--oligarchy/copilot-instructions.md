@@ -1,0 +1,628 @@
+## oligarchy
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this is
+
+A single Nix flake defining a complete NixOS distribution ("Oligarchy") targeting the **Framework 16 AMD 7040**. Configuration-as-code: six `nixosConfigurations` (`nixos` is the primary; `nixos-asher` is the maintainer's real Framework 16 — `nixos` extended with the committed `hosts/asher/` layer, see Flake composition below; `nixos-fw13`, `nixos-intel`, `nixos-optimus` are the alternate laptops; `builder` is the headless CI box), an installer ISO, nineteen locally-vendored `path:` sub-flakes (several containing Rust programs), and a Home Manager user config. The build artifact is an OS — there is nothing to "run".
+
+<!-- truth:claim
+id: source-of-truth
+kind: file_exists
+path: docs/architecture.md
+-->
+The README is heavy in-character satire ("war machine", fake legal decrees). Ignore the tone; the technical tables near the bottom, `flake.nix`, and `docs/architecture.md` are the source of truth.
+
+Large: tens of thousands of lines of Nix, Rust and Shell. `docs/architecture.md` §1a carries the per-language breakdown; treat its exact figures as a snapshot, not a contract, because nothing checks them and they were already stale once. The useful part is which subsystems are dense versus merely large: `home/` is broad and mostly not load-bearing, while `oligarchy-p2p`, `oligarchy-plugins`, `warroom` and `reliquary` are where the invariants live.
+<!-- truth:end --> Two things to expect when reading: **19% of the Nix and Rust is whole-line comments** (the reason a decision was made lives next to it, not only in a roadmap), and **14% of the Rust is `#[cfg(test)]`** — which still undercounts testing, because the expensive assertions are VM gates rather than unit tests.
+
+## Where the docs are
+
+`docs/` is the long form. This file states the rules; these state why, and are the place to read before a non-trivial change to the subsystem they cover.
+
+| doc | covers |
+|---|---|
+| `architecture.md` | straight technical reference to the whole tree; §1a is the scale/density breakdown |
+| `plugins-roadmap.md` | `oligarchy-plugins` design, staging record, per-stage known gaps. Superset of the plugin landmines below |
+| `p2p-substituter-roadmap.md` | `oligarchy-p2p` design, trust argument, staging, known gaps. Superset of the p2p landmines below |
+| `mcp-servers-roadmap.md` | the ten read-only MCP aspects; adding one |
+| `oligarchy-forge-roadmap.md`, `oligarchy-forge-research.md` | forge design + roadmap (Phases 0-1 built), and the prior art it rests on |
+| `security-hardening.md` | the hardening/egress/malware-shield posture |
+| `vpn-windscribe.md` | `custom.vpn` — Windscribe over WireGuard, the sops slot, and why the tunnel is on demand with no kill switch |
+| `dgpu-steam-forcing.md` | dGPU-vs-iGPU client rendering; why Hyprland's backend never moves |
+| `secure-boot-enrollment.md`, `bios-uma-unlock.md` | firmware procedures — read before running either |
+| `dcf-mesh-agent.md` | the read-write UDP mesh endpoint kept out of the MCP surface |
+| `exsecutor-kernel-roadmap.md` | the Exsecutor/ring-0 agent-sandbox assessment: what the hardware actually allows, the six language prerequisites before any kernel object, and which phases are already built here. Claims about this tree are TrvthNvke-bound; Exsecutor claims are pinned by commit |
+| `localization-roadmap.md` | i18n/l10n design: `custom.locale.*` contract, catalogs, installer round-trip (`oligarchy-adopt`), gates. Stages 0-2 landed (`custom.locale`, `oligarchy-adopt`); §3 is the measured part; §6a records the installer reversal |
+| `installer.md` | what the ISO installs (an `installTargets` entry via `mkInstalled`, not plain NixOS), how answers map to `custom.locale.*`/`custom.user.*`, `oligarchy-install`, the ISO's SSH. `installer/README.md`: the vendored-from-ArchibaldOS rule |
+
+<!-- truth:claim
+id: subsystem-readmes
+kind: dir_exists
+path: modules/oligarchy-p2p/
+-->
+Subsystem READMEs carry the same role one level down: `modules/oligarchy-p2p/`, `modules/oligarchy-plugins/`, `modules/mcp-servers/`, `modules/demod-talk/`, `modules/minecraft/`, `modules/hypr-controller/`.
+<!-- truth:end -->
+
+## Common commands
+
+All commands run from the repo root.
+
+```bash truth:ignore
+# Enter the dev shell (Nix LSP `nil`, nixpkgs-fmt, qemu, virt-manager, network/debug tools)
+nix develop
+
+# Format Nix files. Use nixpkgs-fmt, NOT `nix fmt`: the flake's `formatter` is
+# nixfmt-rfc-style, a different style that will reformat whatever it touches.
+nixpkgs-fmt <file.nix>
+
+# Evaluate/build the full system without switching (catches most errors).
+# .#nixos is the fresh-clone-minimal config — pure eval, so it never sees a
+# ~/.config/oligarchy/{local,state}.nix override. .#nixos-asher is the
+# maintainer's real Framework 16, and is just as pure: its personal toggles
+# are the committed hosts/asher/ layer, not an out-of-repo file.
+nix build .#nixosConfigurations.nixos.config.system.build.toplevel
+nix build .#nixosConfigurations.nixos-asher.config.system.build.toplevel
+
+# Apply the config to a running NixOS host. asher's machine needs no flags —
+# .#nixos-asher is .#nixos extended with the committed hosts/asher/ layer
+# (see Flake composition below), so everything pure eval needs is already in
+# the repo. --impure stays load-bearing for anyone still on the older
+# channel: a ~/.config/oligarchy/{local,state}.nix override (see
+# configuration.nix) lives outside the repo on purpose, and pure evaluation
+# (this system's default) cannot see it. That failure mode is SILENT, not
+# loud: pure eval does not error on the pathExists guard, it answers false —
+# Nix catches its own RestrictedPathError and returns false — so without
+# --impure the personal toggles (steam, malware-shield, the DSP VM, persona,
+# etc.) quietly fall back to their fresh-clone-minimal defaults. Pure eval
+# now at least says so: custom.localOverrides.expected (default true) emits
+# a `warnings` entry when it's true but evaluation is pure; hosts/asher and
+# builder set it false, since neither reads the out-of-repo files anyway.
+# That same silence is also what lets CI evaluate this flake on a machine
+# that is not this one; see .github/workflows/eval.yml.
+sudo nixos-rebuild switch --flake .#nixos-asher      # asher's Framework 16 — pure, no flags
+sudo nixos-rebuild switch --flake .#nixos --impure   # the out-of-repo override channel, any other host
+
+# Build the installer ISO (the flake's default package)
+nix build .#iso              # -> result/iso/nixos-*.iso
+
+# Other package outputs (not gates)
+nix build .#dsp-vm-qcow      # the DSP coprocessor guest image
+nix run   .#oligarchy-hw-detect   # firmware/hardware check on an installed system
+nix run   .#oligarchy-adopt       # read this machine's /etc locale into ~/.config/oligarchy/local.nix
+
+# Validate the flake. `checks.x86_64-linux.system` is the system toplevel, so
+# this evaluates all outputs and builds the system.
+nix flake check
+
+# Update pinned inputs
+nix flake update
+```
+
+### Build gates (run on demand)
+
+```bash truth:ignore
+nix build .#malwareScan             # YARA-scan the full system closure
+nix build .#forge-catalog           # every forge agent still renders a flake that parses
+nix build .#mcp-self-audit          # verify no MCP crate opens sockets / escapes its allowlist
+nix build .#gamepad-bluetooth-tests # BLE gamepad *bonding-policy* allowlist still refuses keyboards/audio, plus `--diagnose`'s pure halves (which nodes count as a pad, which udev rules count as installed, and that no diagnostic argv can mutate bond state); 48 unittests, no KVM. Does NOT cover the post-bond driver/quirks/input path (needs real hardware) — see flake.nix's header comment on this gate
+nix build .#session-survives-switch # no unit but greetd may vhangup tty1 after boot; eval-only
+nix build .#hypr-session-tests      # hypr-session restore --dry-run matches fixtures; bash+jq, no KVM
+nix build .#screensaver-tests       # the Exsecutor screensaver: BOTH somnium builds (reference + C) match exsecutor's goldens, the host encoder matches its requests, the real somnium|mpv pipeline decodes 160x100 rgb24 (vo=null) and exits when mpv does, incl. the 3D-model path; reports fps per effect per build; no KVM
+nix build .#velocitty               # the system terminal. Applies two patches that ARE the upstream PR, runs the 96 unit tests build.zig had no step for (checkPhase refuses a run that skipped), then 9 installCheck assertions: the rpath resolves the stub-linked libxkbcommon, no RELATIVE rpath entry survives, fc-match is burned in absolute, and no .desktop is left in the XDG search path
+nix build .#velocitty-tests         # 6 checks on a real X server: velocitty launches, -e spawns a real PTY child, and it draws REAL GLYPHS -- measured in distinct pixel values (166 with a font vs 4 starved), because the "no fonts found" line is compiled out of a release build. Checks 5 and 6 break each guarantee on purpose so neither measurement can be vacuous. No KVM
+nix build .#terminal-contract       # velocitty is the SYSTEM terminal and kitty is still the user default (TERMINAL, $terminal, scratchpads, the IceWM entry), the rewired call sites name the wrapper, xdg-terminal-exec resolves kitty.desktop, and the --hold asymmetry that stops the two paths merging still holds. 39 checks, anti-vacuity first; runs the real resolver with a decoy entry. **The anti-vacuity leg must not depend on entry ORDER:** `xdg-terminal-exec` enumerates with `find -L` and sorts nowhere, prepending each id so the last `readdir` result wins, and readdir order for two names in one directory varies by filesystem (ext4 hash seed) and by creation order (tmpfs). The leg therefore flips the LIST's contents and requires the answer to follow, which is stable in both directions — an earlier "delete the list and the decoy must win" leg was green on the maintainer's disk and red on a GitHub runner from a byte-identical derivation
+nix build .#locale-contract         # 5 hosts x 5 languages; xkb == Hyprland kb_layout == console; eval-only, minutes. Lives in legacyPackages, so `nix flake check` never pays its 25 evals
+nix build .#locale-adopt-fixtures   # oligarchy-adopt turns fixture /etc trees into the expected custom.locale.*; no KVM
+nix build .#captive-portal-tests    # captive-portal scripts (53 checks) + the portal-VM orchestrator (109 checks: every refusal, both display modes' QEMU argv and sandbox, full/timeout/exit/link-change/SIGTERM/GPU-fallback lifecycles, audit chain); fakes for root/hardware, real jq/sha256sum/ssh-keygen; bash, no KVM
+nix build .#captive-portal-contract # the module is wired into nixos (probe URI, egress allowlist, watcher unit, https refused) and the portal VM is sound as shipped (verity store, no writable disk/vsock/ssh/nix/docker in the guest, bounded orchestrator, offline viewer on its own VT, DSP core and store-path key refused, off by default, a loginUrl port never reaches the egress allowlist); eval-only, 7 evals, lives in legacyPackages; eval.yml runs it
+nix build .#gc-contract           # custom.gc is inert when disabled (the ISO claim) and refuses every unsafe configuration: relative root, `/` as a root, a root inside the denylist, workspace collection with no roots, a non-empty `preserve`. 16 checks, anti-vacuity guarded; eval-only, single host, lives in packages
+nix build .#installer-unit          # the ISO installer's Calamares job: 9 unit tests against this nixpkgs' REAL upstream nixos job, the generated settings.conf, the drift guard failing a doctored upstream on purpose, oligarchy-install --dry-run; seconds, no KVM
+nix build .#installer-contract      # install.json + scan -> the chosen target under the USER's identity: host name, account, custom.locale.*, GRUB/LUKS, autologin; no maintainer SSH key or git identity survives. 3 system evals, lives in legacyPackages
+nix build .#companion-cli-tests     # oligarchy-companion against a fake companion (stub ssh runs remote commands on a scratch tree): commander.nix evaluates to what ArchibaldOS reads, deploy syncs back and refuses to clobber a remote edit, status drives dsp-ctl; no KVM
+nix build .#dsp-netjack-tests       # the DSP VM's audio path, run in the sandbox with the units' OWN commands: the guest's dsp-jackd (must pick the dummy driver: no card), its NetJack2 manager and jack-router, a companion's netadapter, and this host's dsp-netjack (PipeWire's netjack2 driver) against a PipeWire daemon. Tones round-trip box -> guest engine -> box and PipeWire app -> guest engine -> app (peak ~0.5 each), and neither path exists before the guest's router does. Loopback addresses, an engine stand-in, WirePlumber's PortConfig step done by pw-cli; no KVM
+nix build .#dsp-route-contract      # .#nixos with the DSP VM and the companions hub on, and the guest built FROM it: the routed tap (no hostfwd), forwarding on for dsp0 and wg-companions only (never net.ipv4.ip_forward), the forward table (UDP/ICMP to the guest, everything else touching either dropped; nft accepts it: parsed and evaluated where the build sandbox allows a private network namespace, parsed only on GitHub's runners, which refuse one, with the evaluation reported as SKIP), the guest's units on the host's addresses, root keys from custom.user. Eval-only, lives in legacyPackages
+nix build .#network-posture-contract # configuration.nix's LAN posture: no ~. routing domain, Avahi alone on mDNS (NM per-link AND resolved's global MulticastDNS=no), LLMNR off at both levels, stable Wi-Fi MAC, no SSH/443 outside tailscale0, trustedWifi renders $VAR not a PSK, custom.secrets.wifi refuses a missing wifi.enc.env with an assertion rather than a path error; eval-only, lives in legacyPackages; eval.yml runs it
+nix build .#captive-vm-reference     # portal-VM image: verity root re-derived from the disk, baked reference == sha256(manifest), real launcher verify, signature and tamper checks; no KVM, builds the guest (minutes). Lives in legacyPackages
+nix build .#captive-vm-image --rebuild # the manifest must be bit-identical when rebuilt (verity salt/UUID are derived, not random)
+nix build .#plugins-wx-enforcement  # boot a real kernel; assert the plugin tier/jit W^X split holds
+nix build .#plugins-policy-refusal  # assert plugin policy refuses at install time, not at load time
+nix build .#plugins-signed-install  # assert an unprivileged user can install a signed plugin and only a signed one
+nix build .#plugins-tier1-runtime   # run a REAL native plugin; assert it observes the W^X its manifest declared
+nix build .#plugins-tier2-runtime   # boot a real microVM; assert a self-JIT plugin gets W+X inside it and only inside it
+nix build .#p2p-substituter-protocol # boot a VM; run a real substitution through the P2P adapter
+nix build .#p2p-signature-refusal    # assert the adapter never becomes a trust authority
+nix build .#p2p-artifact-cache       # assert the local artifact cache is real, verified, and used
+nix build .#p2p-two-node             # two VMs; assert a host whose ONLY source is a peer gets the path
+nix build .#p2p-swarm                # two VMs; assert artifacts move over BitTorrent, small ones do not
+nix build .#p2p-no-peer-fallback     # assert P2P is an enhancement: no peers, build still works
+nix build .#p2p-local-signing        # a host seeds what it BUILT; a consumer refuses it without the key
+nix build .#p2p-peer-scope           # a peer key vouches only for the packages you named
+nix build .#p2p-selftest             # the daemon's own assertions, AND that each one fails when broken
+```
+
+All are deliberately NOT in `checks` (they are slow — most need KVM, and tier2-runtime needs *nested* KVM — and `nix flake check` already builds the toplevel). They are separate `packages` outputs.
+
+### Tests
+
+<!-- truth:claim
+id: vm-tests
+kind: file_contains
+path: tests/default.nix
+pattern: runNixOSTest
+-->
+NixOS VM integration tests live in `tests/default.nix` using `pkgs.testers.runNixOSTest`: `strict-egress`, `malware-shield` (level=enforce: a yara EICAR hit fails the unit, is quarantined and logged, the default `*/modules/security/yara-rules/*` glob and `yara.maxFileSize` are honoured; the `clamdscan` wrapper against a real offline clamd with a socket in the tree — detections reach `events.log`, unscannable files no longer fail the unit, a stopped clamd still does; AIDE drift with no generation change fails, a generation change rebaselines silently; the rootkit sweep logs no lynis summary header; `events.log` is 0640 root:wheel and the CLI says `unreadable` rather than `0` when it cannot read it), `hardening`, `dcf-spa-gate`, `ip-blocklists`, `vpn`, `windscribe-app`, `captive-portal` (two nodes: an nginx+dnsmasq venue and an NM client; asserts the probe really flips to PORTAL and back). `mdns-single-responder` (NM host + Avahi peer; asserts resolved stays off UDP 5353 and the host keeps its `.local` name). `network-profiles` (asserts `custom.network.trustedWifi` writes a 0600 keyfile with the PSK substituted from the env file at boot, and the store template carries only `$VAR`), `captive-vm-policy` (the portal VM's egress table against network namespaces, 14 checks incl. anti-vacuity) `gc` (custom.gc's deletion leg: plants aged `result` links and `target/` dirs, asserts a dry-run plan names them and deletes nothing, that `run` refuses while `dryRun = true`, and then that with dryRun off exactly the planned paths are gone while every protected one survives — newer than `minAgeDays`, inside `extraDeny`, or outside every declared root) and `captive-vm` (NESTED KVM: the signed, verity-backed portal guest end to end, login page asserted by OCR on the VT viewer, discard and audit chain checked, bad signature refused).
+<!-- truth:end -->
+
+They are exposed as `packages.test-<name>` and run like any other gate:
+
+```bash truth:ignore
+nix build .#test-strict-egress
+```
+
+**They are packages, not `checks`, deliberately.** `checks.x86_64-linux` holds only the system toplevel, which needs no KVM — that is what lets a runner without `/dev/kvm` still run `nix flake check`. Folding seven VM tests into `checks` would silently take that property away.
+
+**A gate must exercise what the subsystem DOES, not the scaffolding around it.** This is the rule every other line in this section is subordinate to, and it is written down because it was learned the expensive way. The `windscribe-app` gate asserted eight things — the `windscribe` group, the `/opt` tree, patched shebangs, the `install-update` refusal, `/etc/windscribe/platform`, helper socket ownership, the libdbus RUNPATH, the XWayland default — and every one of them was green while the client could not establish a connection by any protocol, because three independent defects all sat below the layer being measured. Nothing in that test ran a bundled binary; nothing attempted a connection. A green gate over a dead subsystem is worse than no gate, because it converts "nobody has checked" into "somebody checked and it was fine."
+
+Structural assertions are cheap and worth keeping — they localise a break fast. But each subsystem also needs at least one assertion that fails when the subsystem stops working: run the binary, complete the handshake, substitute the path, load the plugin, refuse the unsigned artifact. Where the real action cannot run in a VM (no network, no hardware), assert the nearest observable proxy and say in a comment which part is still unmeasured — an honest gap beats an implied guarantee. When a gate did not catch something it plausibly should have, fix the gate in the same change as the bug; `.#test-windscribe-app`'s exec-smoke check and the package's own `installCheckPhase` exist because of exactly that rule.
+
+<!-- truth:claim
+id: no-open-sockets
+kind: file_exists
+path: modules/mcp-servers/crates/core/tests/no_open_sockets.rs
+-->
+The MCP server workspace has its own `cargo test --workspace` (55 unit tests, plus the build gate `modules/mcp-servers/crates/core/tests/no_open_sockets.rs`). Run from `modules/mcp-servers/`.
+<!-- truth:end -->
+
+### CI
+
+`.github/workflows/` — **every lane is disabled by default.** Nothing runs until `gh variable set OLIGARCHY_CI --body true`; the agent lane needs `OLIGARCHY_CI_AGENTS` on top, because it is the only one that costs money per run.
+
+| lane | file | trigger | where |
+|---|---|---|---|
+| eval | `eval.yml` | push + PR, **incl. forks** | GitHub-hosted |
+| gates | `gates.yml` | push to main, dispatch | self-hosted, on the host |
+| nightly sweep | `gates.yml` | schedule | self-hosted, on the host |
+| agents | `agents.yml` | PR (same-repo only), dispatch | self-hosted, in a microVM |
+
+**The split is by trust, not convenience, and the repo being public is why.** A fork's pull request carries its own copy of `.github/workflows`, so any self-hosted job it can trigger is arbitrary code execution on the maintainer's LAN. `gates.yml` therefore has **no `pull_request` trigger at all** — do not add one — and every self-hosted job in `agents.yml` additionally requires `head.repo.full_name == github.repository`. That guard is on the *catalog* job too, which reads no diff and holds no key: it still runs `nix build` over checked-out source, and a Nix build executes that source's own build scripts.
+
+<!-- truth:claim
+id: ci-builder
+kind: file_contains
+path: modules/ci-builder.nix
+pattern: custom.ciBuilder
+-->
+The builder itself is `nixosConfigurations.builder` + `modules/ci-builder.nix` (`custom.ciBuilder.*`, off by default).
+<!-- truth:end --> Two things it must have: **nested KVM** (`plugins-tier2-runtime` boots a guest inside a guest — the module asserts on it, because without it the gate degrades to emulation and its boot budget stops measuring anything) and **disk** (`malwareScan` realizes the whole ~48.6 GiB closure). The nested-virt modprobe line is selected from `custom.platform.cpu` rather than hardcoded.
+
+## Architecture
+
+### Flake composition (`flake.nix`)
+
+`nixosConfigurations.nixos` is assembled from three layers, in this order (order matters — option *declarations* must precede modules that *set* them):
+
+1. **Third-party inputs** — `determinate`, `chaotic` (Chaotic-Nyx, the CachyOS kernels), `sops-nix`, `nixos-hardware` (the `framework-16-7040-amd` profile), `home-manager`, `nixos-generators`, `lanzaboote`, `demod-ip-blocker`, `hydramesh` (`github:ALH477/HydraMesh`, deliberately not following nixpkgs), `archibaldos` (ArchibaldOS, branch-pinned like `exsecutor`, following nixpkgs: the DSP guest's NetJack2/engine/control-bridge modules and, through its `demod` input, DeMoD's engine packages), `yara-rules` (`flake = false`), `xpadneo-src` (`flake = false`, tag-pinned — the Bluetooth Xbox pad driver, built from source because nixpkgs' package ships the kernel module without upstream's udev rules; see `modules/gamepad-bluetooth/`). Note `fw-fanctrl` is **not** an input — that option comes from nixpkgs 25.11 now and is configured in `modules/platform.nix`.
+2. **Home Manager** — `home-manager.nixosModules.home-manager`, with `users.asher = import ./home/home.nix`.
+3. **Local `path:` sub-flakes + modules** — nineteen sub-flakes: eighteen under `modules/` (`greeting`, `boot-intro`, `blipply-assistant`, `mcp-servers`, `dsp-ctl`, `oligarchy-forge`, `oligarchy-plugins`, `oligarchy-p2p`, `oligarchy-vault`, `demod-talk`, `demod-voice`, `demod-ip-blocker`, `minecraft`, `android-mirror`, `scrollmapper`, `reliquary`, `warroom`, `windscribe-app`) plus `vm-manager`, and then the `./modules/*.nix` files and `./configuration.nix`. `oligarchy-p2p` is wired on the `nixos` host only; `oligarchy-plugins` is on `nixos` and also on `builder`, which imports it for its `microvm.nix` host module because `custom.ciBuilder.sandbox` runs the agent lane in a guest. The rest are in `commonModules`. `demod-voice` is an input but is imported by plain path (`./modules/demod-voice/nixos-module.nix`).
+
+`specialArgs` threads `inputs`, `nixpkgs-unstable`, `chaotic`, `vm-manager`, `dsp-ctl`, `oligarchy-forge`, `mcp-servers`, `hydramesh`, `demod-talk`, `oligarchy-vault` and `reliquary` into every module.
+
+<!-- truth:claim
+id: archibaldos-placeholder
+kind: file_contains
+path: flake.nix
+pattern: archibaldos.nixosModules.dsp-control-bridge
+-->
+The `archibaldos` input in `flake.nix` is no longer a placeholder: the DSP guest imports ArchibaldOS's `netjack`, `demod-engine` and `dsp-control-bridge` modules through `dspGuestModules` (grep `archibaldos.nixosModules.dsp-control-bridge`; do not cite a line number, they rot), and DeMoD's engine packages through that input's own `demod` (see `vm-manager/` below).
+<!-- truth:end -->
+
+<!-- truth:claim
+id: asher-layer
+kind: dir_exists
+path: hosts/asher/
+-->
+**`nixosConfigurations.nixos-asher`** is `nixos.extendModules { modules = [ ./hosts/asher ]; }` — a fourth layer bolted on top of the three above, not a parallel host definition. `hosts/asher/` carries `default.nix` (the toggles that used to live in `~/.config/oligarchy/local.nix`) and `state.nix` (see landmine below). `.#nixos` itself is not edited to make this work — `extendModules` means the primary host's own ~130-line module list is untouched, which is also why it stays the fresh-clone-minimal config a fork or CI evaluates.
+<!-- truth:end -->
+
+- **`hosts/asher/state.nix` is machine-mutable, not source, despite living in the repo.** `oligarchy-ctl` (`home/apps/control-center/oligarchy-ctl.sh`) wholesale-overwrites it on every `kernel-*`/`gpu-*`/`persona-*` action. It must never be gitignored — local-flake source filtering drops gitignored files from the evaluated tree, silently reverting every persona switch back to the file's last-committed value — and its *value* is never hand-edited; only `oligarchy-ctl` writes it.
+
+<!-- truth:claim
+id: iso-generator
+kind: file_contains
+path: flake.nix
+pattern: nixos-generators
+-->
+The **ISO** (`packages.x86_64-linux.iso`) is built by `flake.nix` via `nixos-generators` from a *reduced* module set layered on the upstream Calamares-Plasma6 installer. It force-disables the heavyweight production services with `lib.mkForce`: `ollamaAgentic`, `dcfCommunityNode`, `dcfIdentity`, `dcf-tray`, `strictEgress`, `blocklists`, `cpuSecurity`, `hardening`, `malwareShield`, `secrets`, `mcpServers`, `oligarchyForge`, `hydramesh`. When adding a new always-on service, check whether it also needs disabling here.
+<!-- truth:end -->
+
+### `configuration.nix`
+
+The central system module and the main place toggles are flipped. Most features are gated behind custom options and **default to off** in this file — enabling a feature usually means setting its `custom.*`/`services.*` option to `true` here, not editing the module. Option namespaces in play:
+
+- `custom.*` — e.g. `custom.steam`, `custom.audio`, `custom.dcfCommunityNode`, `custom.dcfIdentity`, `custom.mcpServers`, `custom.malwareShield`, `custom.secrets`, `custom.secureBoot`, `custom.kernel.variant`, `custom.locale.*` (`modules/locale.nix` — language, timezone, keyboard, fonts, input method; see the landmine below). `custom.platform.*` (declared in `modules/platform.nix`, along with the fw-fanctrl config) is the hardware abstraction the hosts differ by: `gpu`, `cpu`, `framework`, and `displayGpu` — dGPU-vs-iGPU client-app rendering on dual-AMD hosts, which never routes Hyprland's own backend device to the dGPU (it has no display path and crashes the compositor; see `docs/dgpu-steam-forcing.md`). `custom.user.*` (`modules/user.nix`) and `custom.desktopFeatures.*` (`modules/desktop-features.nix`, gates `home/home.nix`) are what let a fresh clone default to something sane.
+- `services.*` — project-defined services like `services.ollamaAgentic`, `services.dcf-tray`, `services.boot-intro`, `services.oligarchyGreeting`, `services.dsp-vm`.
+- `networking.firewall.strictEgress` — the nftables egress firewall (`modules/security/strict-egress.nix`). Its `autoDetect.nixSubstituters` (default true) allows the hostname of every cache in `nix.settings.{substituters,trusted-substituters}`, so a module that adds a binary cache does not silently produce a firewall-blocked fetch. Derived from `nix.settings` rather than any one module's options, so it stays general and never references an option a given host may not declare.
+
+<!-- truth:claim
+id: security-wired
+kind: file_contains
+path: flake.nix
+pattern: ./modules/security/security-cli.nix
+-->
+`modules/security/` contributes six modules to `commonModules` in `flake.nix`: `strict-egress`, `dcf-spa-gate`, `ip-blocklists`, `hardening`, `malware-shield`, `security-cli`. (`url-host.nix` is a shared helper imported by `strict-egress`, not a seventh module.)
+<!-- truth:end -->
+
+- **A `rc=1` set inside a `while` fed by a pipe is lost** — the loop runs in a subshell, so `malware-shield`'s scanner scripts exited 0 on every detection and `level=enforce` was never able to fail a unit until the loops were restructured to read their matches from a file after the pipeline. Guard `.#test-malware-shield`, which now runs at `enforce`.
+
+### `modules/`
+
+Each `.nix` file declares the options + config for one subsystem (kernel, audio, platform, personas, the DCF stack split across `dcf-community-node`/`dcf-identity`/`dcf-tray`, agentic AI, secrets, etc.). `modules/dsp-rigs.nix` is "pedalboard as code" — switchable JACK effect chains. Several directories are **self-contained sub-flakes with their own `flake.nix`** and source trees, not plain modules:
+
+- `modules/greeting/` — Rust login greeter (Kitty graphics TUI). Exposes `nixosModules.greeting`.
+- `modules/boot-intro/` — Rust boot-intro suite (GPU video gen). Exposes `boot-intro`/`-tui`/`-api` modules. `modules/plymouth/` is the boot splash proper.
+- `modules/blipply-assistant/` — Rust voice assistant (`src/` has audio STT/TTS/VAD, UI, ollama integration). Build/architecture docs live in its own `BUILD.md`/`ARCHITECTURE.md`.
+- `modules/demod-voice/` — local TTS / voice cloning (Coqui XTTS-v2, Piper); `nixos-module.nix`.
+- `modules/dsp-ctl/` — Rust TUI/CLI for the ArchibaldOS DSP VM (status, bench, start/stop).
+- `modules/android-mirror/` — USB scrcpy `phone-mirror` (low-latency game display). `custom.androidMirror.enable`. See `modules/android-mirror/README.md`.
+- `modules/reliquary/` — cold-storage preservation tool (`services.reliquary.*`): packs a directory into a tarball+zstd block with SHA-256/512 manifests and 20% PAR2 recovery data, then can push it onto two duplicated 256GB USB sticks (GPT, `RLQ-META-*`/`RLQ-DATA-*` labels) and/or burn it to CD-R via `xorriso`. Ships a CLI, a ratatui TUI, and a stdio MCP server (`reliquary mcp`). Opt-in, defaults off; with `enable = false` the module adds no automount, no package, no tmpfiles rules, so no ISO `mkForce`. **Its `reliquary mcp` server is deliberately NOT wired into this repo's `.mcp.json`** — same reasoning as `dcf-mesh-agent`/`hypr-controller`: `reliquary_push_usb`, `reliquary_burn_cd`, `reliquary_extract` and `reliquary_ingest` are unauthenticated, unconfirmed, destructive tools (arbitrary-path ingest/extract, raw-device-adjacent USB writes, optical burns), which is the opposite of this repo's read-only MCP surface.
+
+  **The vendored tarball did not compile and had four real bugs; all were found and fixed during integration, not upstream.** Landmines:
+  - **The crate would not build at all** (`&Path` interpolated directly into `format!`, and one MCP handler returned the wrong `Result` variant) — nobody had run `cargo check` on this tree before it arrived here. Treat a vendored drop-in's own adversary-review claims as unverified until you've built it yourself; this one's "Fixed in this tree" section documented several of the bugs below as already closed.
+  - **`optical::make_iso` joined an unvalidated `block_id` onto both the store root and the ISO root, then deleted whatever the ISO path resolved to.** A `block_id` like `../../victim/dir`, reachable from the CLI, the TUI, and the MCP tool `reliquary_make_cd_iso`, made an ISO of an arbitrary directory and silently deleted an arbitrary existing `.iso`. Fixed by calling the existing `store::validate_block_id` (already used by `ingest`/`verify`/`extract`/`copy_block`) as the first line of `make_iso`, plus defense-in-depth calls at the CLI/TUI dispatch sites.
+  - **`format_usb`'s device-safety gates matched the caller's path against lsblk output with raw string equality**, so `/dev/disk/by-id/...` or a redundant slash found no matching node — and "no match" silently *skipped* both the mount check and the 64–512GB size window rather than refusing. The mount check also only looked at same-named partitions, missing a LUKS/LVM mapper child mounted at `/`. Fixed with `evaluate_format_target` (`src/usb.rs`): canonicalizes both sides before matching, walks the full lsblk subtree for a mount at any depth, and treats every "couldn't determine" case as a refusal instead of a pass-through. Pure function, unit-tested with a fake canonicalizer standing in for `/dev/disk/by-id`.
+  - **`Store::extract` allowed extracting into a non-empty destination.** The single-archive tar-slip check in `archive::extract_payload` is sound, but two sequential extracts into the same `dest` could combine to escape it: the first plants a symlink (its own path has no `..`), the second writes through it. Fixed by refusing a non-empty `dest` before extracting.
+  - **`hashing::verify_sum_file` joined an unvalidated filename parsed out of `SHA256SUMS`/`SHA512SUMS`.** Since `usb::pull_block` copies a whole block — sums file included — off a USB stick before verification runs, a hostile sums file could turn `reliquary verify` into a read/existence oracle over any path the process (root, under the NixOS module) can reach. Fixed by rejecting any parsed filename containing `/` or equal to `.`/`..` before it is ever joined onto a directory.
+  - **`reliquary mcp` spoke LSP framing (`Content-Length` headers) instead of the MCP stdio transport's actual newline-delimited JSON**, so it could not have worked with any real MCP host as shipped, and the header-driven `vec![0u8; length]` was an unbounded allocation off attacker input regardless. Rewritten to line-based framing; not that it matters for this repo, since the server stays out of `.mcp.json` either way.
+
+  What is still open, per the vendored `docs/ADVERSARY_REVIEW.md` (not touched by the fixes above — read it before enabling this anywhere real data will touch it): USB pair detection is by filesystem **label**, which is attacker-forgeable (pin by PARTUUID once a real pair is minted); no signing of manifests (a rewritten payload + regenerated PAR2 + matching checksums is indistinguishable from the original); no `fsync` after writes. Its own doc's last line is an "operator checklist before real data" that has not been run. See `modules/reliquary/README.md` and `modules/reliquary/docs/ADVERSARY_REVIEW.md`.
+- `modules/windscribe-app/` — the VENDOR Windscribe client (`custom.windscribeApp.*`): the Qt GUI, `windscribe-cli`, and the root helper daemon from `github.com/Windscribe/Desktop-App` (GPLv2). A sub-flake. Read-write and network-facing, so it stays out of the MCP surface. Opt-in, defaults off. **The alternative to `modules/vpn.nix`, not a companion** — both take the default route and an assertion refuses to have both on. See `modules/windscribe-app/README.md`.
+  - **Repackaged from the release `.deb`, not built from source, and that is forced.** Upstream's Linux build drives vcpkg against a custom Windscribe registry of patched ports (qtbase, openssl, curl-with-ech, openvpn, c-ares, spdlog), `FetchContent`-clones `Windscribe/wsnet` at configure time, and builds Qt from `tools/deps`. All three want the network, which a Nix build has none of. A source build means pinning vcpkg, the registry, wsnet and ~40 port tarballs as fixed-output derivations and making vcpkg run offline.
+  - **The helper hard-requires a group named `windscribe` and fails SILENTLY without it.** `src/helper/linux/server.cpp` `getgrnam()`s it, then `unlink`s its own control socket and returns. The unit stays `active`, one line lands in the journal, the client never connects. Guard `.#test-windscribe-app`.
+  - **`/opt/windscribe` is a compiled-in `-D` define, not a lookup**, and the helper executes `/opt/windscribe/scripts/*` by absolute path. A tmpfiles `L+` rule points it at the store. The library RPATHs are already rewritten by `autoPatchelfHook`, so the symlink is for the scripts, not the loader.
+  - **The helper's scripts are `#!/bin/bash` with an FHS `PATH`.** NixOS has neither. The package rewrites each shebang and prepends a store `PATH` **inside each script**, because the shipped unit pins `PATH=/usr/sbin:/usr/bin:/sbin:/bin` and the helper may hand that down regardless of what the unit says.
+  - **Group membership replaces upstream's setgid GUI.** The deb postinst runs `chmod 2755` on the client; a setgid bit does not survive into the store. `custom.windscribeApp.users` is the same access without the setgid surface, at the cost of one re-login.
+  - **`/etc/windscribe/platform` must parse.** It picks the in-app updater's artifact extension, and an unrecognised value leaves the download path empty and trips an assert. The `install-update` script is replaced with a refusal, since it would otherwise dpkg over a read-only store symlink.
+  - **`allowServerEgress` is a port-shaped hole and cannot be anything else.** The client picks from a runtime-fetched pool of hundreds of addresses, so unlike `custom.vpn.endpoints` there is no endpoint to allowlist.
+  - **Two of the five bundled helpers are Go binaries and `autoPatchelfHook` corrupts them into an immediate SIGSEGV** — rewriting a Go binary's ELF layout to carry a store interpreter wrecks its runtime at startup, and the client surfaces only `"wstunnel failed to start"` / `ConnectionManager error = 5`, never a loader error, taking out WireGuard/AmneziaWG along with WStunnel/Stealth. Guard `.#test-windscribe-app`'s exec-smoke check plus the package's own `installCheckPhase`.
+  - **The repair runs `patchelf` over those two binaries TWICE and the second call is load-bearing** — a fresh copy still crashes after one pass, whether `auto-patchelf.py` splits it into its usual `--set-interpreter` then `--set-rpath` calls or you combine them; only re-running the combined call on the already-rewritten file survives. `--no-clobber-old-sections` is the principled fix and is unavailable (nixpkgs 25.11 pins patchelf 0.15.2; the flag landed in 0.18), so the duplicated line in `preFixup` is deliberate — deleting it restores the bug.
+
+- `modules/vpn.nix` — Windscribe over WireGuard (`custom.vpn.*`). Not a sub-flake: a plain module that points `networking.wg-quick.interfaces.<n>.configFile` at a sops-held Windscribe config and teaches the two egress filters about it. Read-write and network-facing, so like `oligarchy-forge` it stays out of the MCP surface. Opt-in, defaults off, and **on demand even when enabled** (`autoStart = false`) — nothing routes through Windscribe until `oligarchy-vpn up`. No kill switch: a dropped tunnel falls back to the plain route. Full doc: `docs/vpn-windscribe.md`.
+  - **Declared under `wg-quick`, not a bespoke unit, and that is structural.** `modules/demod-talk/nixos-module.nix` and `modules/minecraft-server.nix` both assert their `interface` is a WireGuard interface by looking for the attribute NAME in `networking.{wireguard,wg-quick}.interfaces`. A hand-rolled unit fails those assertions with a message pointing nowhere near this file.
+  - **`custom.vpn.endpoints` is load-bearing, not documentation.** The OUTER encapsulated packet is ordinary UDP to that address, and both `strictEgress` and `blocklists` filter it. The blocklist half needs naming separately — its protected set reads `/run/strict-egress/resolved.txt`, never `strictEgress.allow.ips`. Under `recovery.dryRun` a missing endpoint is a WOULDBLOCK log line, not an error.
+  - **The wg-quick interface is declared only when `configFile != null`.** `generateUnit`'s own `assert` fires during option evaluation, earlier than the assertions list, and replaces an actionable message with nixpkgs' "Only one of privateKey, configFile or privateKeyFile may be set".
+  - **The `resolvectl` `ExecStartPost` lines carry systemd's `-` prefix.** Without it a resolvectl that cannot reach resolved fails the unit and tears the tunnel down — caught by `.#test-vpn`, not by review. A DNS preference is not worth the tunnel; `ip link set mtu` is deliberately left unprefixed.
+  - **`dns.useTunnelDns` is not redundant with the config's `DNS=` line.** wg-quick's resolvconf call sets link DNS with **no routing domain**, so on a laptop still associated to Wi-Fi the uplink's resolver keeps answering and the tunnel's is never consulted. The `~.` this puts on the tunnel LINK is what makes it a candidate for every name. Note there is no longer a global `services.resolved.domains = [ "~." ]` to outrank — it steered nothing (a global routing domain only routes to global `DNS=` servers, and none were set) and `.#network-posture-contract` asserts it stays gone.
+  - **`trustTunnel` hands the egress boundary to Windscribe while the tunnel is up.** It exists because Discord voice and arbitrary game servers are IP-diverse UDP that no address allowlist can cover. The address allowlist itself still works through a tunnel — an inner packet carries the real destination — so turning it off costs only that IP-diverse UDP.
+
+- `modules/terminal/` — `custom.terminal.*`: the split between the **user** terminal (kitty, unchanged) and the **system** terminal, the one an admin action pops when it needs a visible window — the GUI path that runs `sudo nixos-rebuild switch`, the security sweeps, the repo update checks. A plain directory module: `default.nix` declares the options and builds the wrapper, `velocitty.nix` builds the terminal from the `velocitty` source input (`flake = false`; upstream ships no flake). Read-write and it spawns processes, so like `oligarchy-forge` and `dsp-ctl` it stays **out of the MCP surface**. Guards: `.#velocitty`, `.#velocitty-tests`, `.#terminal-contract`. See `modules/terminal/README.md`.
+  - **One wrapper, `oligarchy-system-term`, at `/run/current-system/sw/bin/`, is the single interposition point** — the ~20 call sites named kitty in four languages (Nix, bash, Python, an IceWM menu DSL), and an absolute path is the only form all four can reach. It is also the only form `modules/hypr-controller/hypr_bridge.py` can use: that daemon has neither `$TERMINAL` nor a login `PATH`, so it falls through to a literal `kitty` today.
+  - **`--hold` lives in the wrapper, in shell, and must.** kitty has a native `--hold`; velocitty does not, and its parser **silently ignores unknown flags** — so `velocitty --hold -e cmd` drops it with no diagnostic and the window vanishes on the error you wanted to read.
+  - **Velocitty's font discovery fails silently AND says nothing in a release build.** It spawns `fc-match` off `PATH`; the fallbacks are hardcoded Arch paths under `/usr/share/fonts` that do not exist here. With both legs dead it opens a window, runs its `-e` child, renders nothing and exits 0. The `"no fonts found; drawing without glyphs"` line goes through `Debug.log`, which is `if (builtin.mode == .Debug)` — **compiled out of the ReleaseFast build we ship**, so grepping stderr for it is a vacuous gate. The package burns an absolute `fc-match` into the source instead; `.#velocitty-tests` measures pixels because that is the only observable left.
+  - **Not a `makeWrapper --prefix PATH`, deliberately** — velocitty hands its own environ to the shell it spawns, so a `PATH` prefix leaks into every command the user then runs in that window.
+  - **`libxkbcommon` is linked against a stub that is never installed** (`build.zig`'s `addX11LinkStub`, always, because the host library needs a newer glibc than zig's), so `DT_NEEDED libxkbcommon.so.0` is satisfied only by the rpath. The rpath work is in `postFixup`, not `postInstall`: nixpkgs' fixup runs `patchelf --shrink-rpath` and discards anything added earlier. It also has to delete a **relative** `.zig-cache/o/<hash>` entry zig leaks — a relative rpath resolves against the process CWD.
+  - **`build.zig` consults no pkg-config** (`use_pkg_config = .no` on every call) and hardcodes `/usr/include` and `/usr/lib`; `postPatch` redirects both at one `symlinkJoin`. No `--help`, no `--version`, and no `test` step, so `dontUseZigCheck = true`.
+  - **Zig 0.16 needs its own nixpkgs pin.** `build.zig.zon` sets `minimum_zig_version = 0.16.0`; our nixpkgs AND nixpkgs-unstable pins both cap at 0.15.2. Hence the `nixpkgs-zig` input — build-time only, reached lazily from the package option's default. Delete it when stable ships zig 0.16.
+  - **The wrapper is installed unconditionally**, so unlike gc/mounts/screensaver this module does NOT "emit nothing when disabled" — with velocitty off it is a ~1 KB script over the kitty already in the image, which is why the ISO still needs no `mkForce`. Say it that way; the stronger sentence is false here.
+  - **`modules/icewm.nix` is a dead duplicate** of the live menu in `configuration.nix` — nothing imports it. The rewire touched the live one only.
+  - **The XDG default terminal was WRONG before this, and nothing in the tree registered one.** `xdg-terminal-exec --print-id` resolved `kitty-open.desktop` — kitty's URL launcher (`Exec=kitty +open %U`), which has a `TerminalEmulator` category but no `X-TerminalArgExec=`. `custom.terminal.xdg` drives nixpkgs' own `xdg.terminal-exec` module (do not hand-roll `environment.etc`) and names the USER terminal only: the spec has no purpose dimension, so it cannot express "two terminals for two purposes", and every env-var workaround either leaks into the admin shell or loses to a user dotfile.
+  - **Velocitty's `.desktop` is deliberately NOT installed** — it is the only thing that could make a chooser pick velocitty, and kitty was winning that scan only because `k` sorts before `v`. `postFixup` moves it to `share/velocitty/` (so installCheck can still read it) and `rmdir`s `share/applications` — `rmdir`, not `rm -rf`, so a future upstream second entry fails loudly.
+  - **`modules/terminal/patches/` is the first applied patch directory in this tree, and the split is forced, not stylistic.** A fix that can be an upstream commit is shaped like one and lives there; a fix that interpolates a store path (`fc-match`, `/usr/{include,lib}`, the test font pins) can never be upstreamed and stays a `--replace-fail` one-liner. `patches/README.md` carries the rule: a patch dies the day its PR merges, and is never edited in place.
+  - **Upstream's `tests/` tree does not compile and is not wired.** Every file imports a `ZT` module `build.zig` never declares and `src/` never exports; there is no `Engine` in the tree and `build.zig.zon` excludes `tests/`. So the golden PNGs are unreachable and **pixel-exact rasterisation is unmeasured** — reported upstream (`modules/terminal/upstream/`), not faked. What IS wired: the 95 `test` blocks in `src/` that had never been run by `zig build`.
+- `modules/screensaver/` — `custom.screensaver.*`: an idle screensaver whose engine, `somnium`, is written in **Exsecutor** and comes from the `exsecutor` flake input (`github:ALH477/exsecutor`, deliberately not following our nixpkgs: its compiler's closure is fasmg under exsecutor's own pin). Nine effects, among them a title card (rain flying into OLIGARCHY, then EXSECVTOR PINXIT / PVNCTIM CECINIT) and the Exsecutor logo turning, drawn by Exsecutor's own 3D engine. A plain directory module, not a sub-flake: `default.nix` declares the options and an on-demand user unit, and `script.nix` builds `oligarchy-screensaver`, which pipes requests (plus the 3D model for `signum`) into `somnium` and its raw 160x100 rgb24 frames into a fullscreen mpv. `home/hyprland/default.nix` reads the option through `osConfig` and adds the hypridle listener. `backend` picks the build: `c` (default: exsc's C backend plus a buffered host, `cflags` default `-march=x86-64-v3` with `-mtune=znver4` on AMD) or `reference` (the freestanding fasmg build). Opt-in, defaults off; disabled, it adds nothing and never fetches the input, so no ISO `mkForce`. See `modules/screensaver/README.md`. Landmines:
+  - **mpv inhibits idle while it plays, by default.** hypridle honours inhibitors, so without `--stop-screensaver=no` the lock and DPMS-off listeners never fire and the screensaver holds the session unlocked indefinitely. Guard `.#screensaver-tests` part 4.
+  - **The producer loop's `|| return 0` is load-bearing.** When mpv exits, somnium dies of SIGPIPE; without the return, the loop respawns it into a closed pipe forever. `.#screensaver-tests` part 3 hangs to `timeout` on exactly that.
+  - **`timeout` must stay below hypridle's lock timeout (600)**, asserted in `home/hyprland/default.nix`: hyprlock covers every surface, so a later screensaver is invisible CPU. It is stopped at DPMS-off, not at the lock, because stopping it at the lock would uncover the desktop for as long as hyprlock takes to raise its surface.
+  - **The reference build writes one `write(2)` per byte** (48,000 a frame; Exsecutor's prelude), which is why `backend` defaults to `c`. The C build's host buffers to one frame. Both must write the same bytes: the gate holds each to exsecutor's goldens, and `-ffp-contract=off` is pinned because clang would otherwise fuse `a*b+c` under an FMA-capable `-march` and move the float effects' bits. The gate prints fps per effect per build; the `fps` default of 20 is a guess until then.
+  - **The GPU's share is presentation only** (mpv's gpu-next, on the iGPU, `DRI_PRIME` unset). Exsecutor has no parallel GPU code generation yet; do not describe this as GPU-rendered.
+  - **The `exsecutor` lock pins a branch commit** (`claude/executor-screensaver-engine-vr1ka5`) until the somnium change reaches exsecutor's main; `nix flake update exsecutor` before then loses `packages.somnium`.
+- `modules/oligarchy-archive.nix` — `oligarchy-archive` (`custom.archive.enable`), a thin glue CLI: pack a path with `oligarchy-vault pack`, then hand the resulting `.age` blob to `reliquary ingest`. On-demand only — no timer, no service — and deliberately stops at ingest; pushing the block to the USB pair, building an ISO, or burning a CD-R stay separate, manual `reliquary push`/`iso`/`burn` calls. Not a sub-flake: a plain module that reaches the `oligarchy-vault`/`reliquary` packages via `specialArgs`, the same pattern `modules/hydramesh.nix` uses for the `hydramesh` input. Opt-in, defaults off, no ISO `mkForce` needed.
+- `modules/gc.nix` — `custom.gc.*`: the garbage collector. A plain path module in `commonModules`, not a sub-flake. Opt-in, defaults off; with `enable = false` it emits no unit, no timer and no package, so the ISO needs no `mkForce`. **It replaces the unconditional weekly `nix-gc-generations` timer that used to live in `configuration.nix`**, which pruned `/nix/var/nix/profiles/system` to 5 generations and ran `nix-collect-garbage` — and could not have worked: it never named the USER profiles (eleven generations were live) and never touched gcroots, and **a gcroot pins its closure**, so 122 live auto-roots (49 of them stray `result*` symlinks in project directories) meant collecting more often reclaimed nothing. Three collectors, each separately toggleable: profile generations (system *and* user), stale `result*` links under declared `roots`, and `target`/`node_modules` directories; `nix-collect-garbage` runs last because that is the only order in which it can reclaim anything. **`dryRun` defaults true** and `oligarchy-gc run` refuses outright while it is set — the soak pattern `strict-egress` uses with `recovery.dryRun`. **The denylist cannot be emptied:** `extraDeny` appends to a built-in list covering `oligarchy-plugins`' gcroots (removing one unpins a live plugin), the P2P cache (it runs its own eviction budget), the reliquary store, and the two private DeMoD Secure Protocol trees. A root *may* contain a denied path — that is what `extraDeny` is for — and the denied tree is **pruned at the traversal layer**, so `find` never descends into it rather than filtering it out afterwards. Read-write and destructive, so like `oligarchy-forge` and `dsp-ctl` it stays **out of the MCP surface**; `crates/storage`'s allowlist deliberately contains no binary capable of deleting and `.#mcp-self-audit` enforces it. Guards: `.#gc-contract` (eval) and `.#test-gc` (the deletion leg).
+- `modules/companions/` — `custom.companions.*`: this host commands ArchibaldOS **companions** (older machines running JACK, sized for 4 GB). WireGuard hub `wg-companions` (10.77.0.1/24, UDP 51877; companions dial, peers are /32; with the DSP VM on, the tunnel is in `custom.vm.dsp.network.routed.forwardFrom` and companions reach the guest at 10.78.0.2, UDP/ICMP only) plus `oligarchy-companion` (`enroll`/`deploy`/`pull`/`status`/`ssh`). A plain directory module in `commonModules`; opt-in, emits nothing disabled, so no ISO `mkForce`. Read-write and it reaches other machines, so it stays **out of the MCP surface**. Guard: `.#companion-cli-tests`. See `modules/companions/README.md`. Landmines:
+  - **`deploy` builds HERE and syncs the flake back to the companion's `/etc/nixos`**, refusing if the companion's `hosts/installed` moved since the last sync (`pull` or `--force`). Do not make it build on the companion: a 4 GB machine compiling linux-surface is hours.
+  - **`commander.nix` is ArchibaldOS's interface, not ours** — `archibald.companion.commander.*`. The gate evaluates the generated file and compares it with that shape; change both or neither.
+  - **A `[ -f ] && …` as the last command of a loop inside `$( … | … )` ends the script silently** under `set -e` + `pipefail` (the address allocator did, on every first enrolment). Use `if`.
+- **`installTargets` in `flake.nix` is the list of machines, as data** — `board`, `hardware`, `hostName`, `modules`. `mkTarget` builds `nixosConfigurations.{nixos,nixos-fw13,nixos-intel,nixos-optimus}` from it in the original module order (drvPaths unchanged when introduced), and `mkInstalled` builds an ISO install from it with `hardware` and `hostName` swapped for the scan and the user's answer. `installer/` is **vendored from ArchibaldOS and stays byte-identical** with it (`installer/README.md`); `installer/installed.nix` is ours.
+- `modules/mounts.nix` — `custom.mounts.*`: UUID/PARTUUID-pinned volumes and the swapfiles that live on them. A plain path module in `commonModules`, not a sub-flake (no package, no source tree). Opt-in, defaults off; with `volumes = { }` it emits no `fileSystems` entry, no unit, no tmpfiles rule and no `swapDevices` entry, so the ISO needs no `mkForce`. **Plain `fileSystems` stays legal and correct** for anything that is neither removable nor a swap target — this exists for the two things it cannot do, both of which already cost a switch. **It refuses a non-identity device string at eval time:** `fileSystems`/`swapDevices` accept `/run/media/asher/<uuid>` without complaint, which is how `hosts/asher` ended up with a declarative swap unit hung off a *udisks2 automount path* (session-scoped, invented by a desktop session, so the `.swap` unit failed on every `nixos-rebuild switch` while the paired activation script skipped silently on `mountpoint -q`). There is no option here to type a mountpoint into, and `where` is asserted to be absolute and outside `/run`/`/media`. **And it orders a swapfile after its own mount:** `swapDevices` has no `RequiresMountsFor`, and NixOS's `size =` auto-creation cannot `chattr +C` — on btrfs the kernel refuses to `swapon` a file that still has datacow set and the attribute can only be set while the file is empty, so `size =` on btrfs yields a 32 GiB file that can never be used. The `chattr` is deliberately fatal here, unlike the `|| true` in the activation script it replaces. `nofail` is unconditional and not a knob: a volume on a bus `custom.vm.dsp` hands to vfio-pci vanishes mid-session (grep `disappears from the host mid-session` in `configuration.nix`), and this module must never emit anything a systemd job can block on indefinitely. Removables additionally get `nosuid nodev noexec` plus a short `x-systemd.device-timeout`, and are asserted to use `partuuid` rather than a filesystem UUID — same reasoning as `modules/reliquary/docs/ADVERSARY_REVIEW.md`'s label-forgery finding. Sole consumer: `hosts/asher/default.nix` (`volumes.data`, the internal 929.5 G btrfs `nvme0n1p2` at `/mnt/data` with a 32 GiB pri-10 swapfile — `nvme1n1p2` is the ext4 root, not this). **`where` is a published API to Steam:** that volume carries the ~392 G Steam library, Steam records library roots as absolute paths in two separate `libraryfolders.vdf` inodes, and changing `where` detaches the library with no error message — every installed game simply reads as not installed. See the comment on `volumes.data`.
+- `modules/gamepad-bluetooth/` — `custom.gamepadBluetooth.*`: finishes BLE HID gamepad bonds (appearance `0x03c4` + HID UUID only, never keyboards or audio, no BlueZ agent registered, adapter never made discoverable) and owns the whole xpadneo side of Bluetooth Xbox pads. A plain directory module in `commonModules`; `configuration.nix` defaults it to `custom.steam.enable`. Guard: `.#gamepad-bluetooth-tests`. Landmines:
+  - **nixpkgs' `xpadneo` package installs the kernel module and NOTHING ELSE, and the gap is silent and total.** Its `setSourceRoot` points at `hid-xpadneo/src`, one directory below upstream's `etc-udev-rules.d/`, and `installTargets` is `modules_install` alone — the output tree is literally one file and the derivation contains no `udev` string. Upstream installs its rules from a `dkms.post_install` hook that a Nix build never runs. The consequence is **a pad that bonds, binds, logs a flawless probe — descriptor fixups, Linux Gamepad Spec compliance, the connect-notify rumble physically firing — and delivers nothing to games**, because `70-xpadneo-disable-hidraw.rules` was absent: Steam's own `60-steam-input.rules` grants hidraw access while the pad is still on `hid-generic`, and SDL's HIDAPI backend then claims it through the raw node instead of xpadneo's translated evdev stream. So this module installs both upstream rules itself, built from the package's own `src` so they can never drift from the driver. **Never "fix" this by granting the pad's hidraw node uaccess — that is the inverse of the fix.**
+  - **It deliberately does not use `hardware.xpadneo.enable`.** That module hardcodes `config.boot.kernelPackages.xpadneo`, which nixpkgs 25.11 pins at 0.9.7, whose rules trigger on `ACTION=="add"`; upstream 0.10 widened them to `ACTION!="remove"`, and under systemd 258 the narrow form lets the first connect work while reconnects fall back to hidraw. The module pins 0.10.4 by tag+hash and inlines what `hardware.xpadneo` would have set. Delete the override once nixpkgs stable ships ≥ 0.10.4.
+  - **`quirks=MAC:N` REPLACES, it does not OR.** `xpadneo_report_fixup` can set bit 16 ("use Linux button mappings") from a descriptor byte match *before* the override is applied, and bit 16 is what makes `raw_event` repack the dpad/button bits — so a bare `512` clears it. Untested on hardware; the module header records the experiment (512, then 528, then no override).
+  - **`modinfo`'s "apply no heuristics = 512" is narrower than it sounds** — upstream's `quirks.c` gates exactly one clone-detection heuristic on that bit, not every heuristic; the built-in name/MAC-OUI quirk table runs regardless.
+  - **`oligarchy-gamepad` diagnostics:** `hog-finish-bond --diagnose` is read-only and prints the one set of facts that splits "no events" from "events nobody can read" — installed xpadneo udev rules, live `hid_xpadneo` module parameters, joystick-class event nodes, and ACLs/udev tags on the event and hidraw nodes.
+- `modules/scrollmapper/` — low-footprint scripture reader (`custom.scrollmapper.*`) that plants a verse in the boot dialogue (Plymouth message, `/dev/console`, `/run/scrollmapper`, agetty `issue.d`, and `boot-intro`'s `bottomText` via `mkDefault` when that service is enabled). Default canon filter is Eastern Orthodox; default text is KJVA (public-domain KJV + Apocrypha) — the book *filter* is Orthodox, the *text* is not the Orthodox Study Bible, and the README says so. Opt-in, defaults off; the boot-dialogue unit is `DefaultDependencies = false` in `sysinit.target` with a 5s timeout and never fails the boot (`SuccessExitStatus = "0 1"`, no `set -e`). No IFD: the module reads a small `sample.tsv` from its own source tree rather than forcing a package build (and a GitHub fetch) at NixOS eval time. Ships its own `AUDIT.md` (22 numbered findings from a prior adversary pass, all High/Medium fixed before 1.0.1). See `modules/scrollmapper/README.md`.
+- `modules/oligarchy-vault/` — user-data encryption (`custom.vault.*`), not the secrets story: `custom.secrets`/sops-nix stays the activation-secrets path and LUKS stays whole-disk, this is a path subflake for read-write user data. Three backends picked by job, not taste — `age` (portable `.tar.gz.age` blobs, on by default under `custom.vault.enable`), `fscrypt` (live ext4/F2FS directory, unlocked by login password via PAM — the option is `security.pam.enableFscrypt`, there is no `security.fscrypt.enable`), `gocryptfs` (FUSE overlay for btrfs/ZFS/network shares/removable media). Everything defaults **off**; with `enable = false` the module adds no PAM change, no FUSE config, no units, so — like `android-mirror` — the ISO needs no `mkForce`. `passFile` is a `str`, never a `path`, and an assertion refuses one under `/nix/store/`; `autoMount` without `passFile` is an assertion failure rather than a unit with nothing to prompt at login. See `modules/oligarchy-vault/README.md`.
+- `modules/minecraft/` — Prism launcher plus unofficial Bedrock (`mcpelauncher`) built from the upstream manifests. `configuration.nix` installs `packages.default`. See `modules/minecraft/README.md`.
+- `modules/minecraft-server.nix` — `services.oligarchyMinecraft`: Paper 26.2 + Geyser +
+  Floodgate on a tunnel interface (off by default; `configuration.nix` flips it).
+  `dcf.*` adds DCF-Minecraft (docs/dcf-minecraft.md): the plugin jar + datapack from the
+  `hydramesh` input, an optional `punctim mc` sidecar on the console FIFO, and a
+  tunnel-scoped Bedrock `/connect` listener. VM gate: `nix build .#test-minecraft-server`.
+- `modules/mcp-servers/` — dedicated, read-only MCP servers (one Rust process per OS aspect + the `ports-sec` auditor, ten aspects). Exposes `nixosModules.default`. Full design + living roadmap: `docs/mcp-servers-roadmap.md`. Adding an aspect means editing seven hardcoded lists — the README's checklist enumerates them; `crates/storage` is the most recent worked example.
+  - **Every tool must work unprivileged** — that is how this surface always runs, and the failures are silent. `nix-env --list-generations` on the *system* profile takes a write lock and dies "Permission denied"; `nix-collect-garbage --dry-run` as a non-root caller exits 0 having printed nothing. A tool that returns nothing looks like a healthy tool with nothing to say, so verify by driving the real server over stdio and comparing against a hand-made survey. → `modules/mcp-servers/README.md`
+  - **`crates/storage`'s allowlist contains no binary capable of deleting, and that is structural.** Not a `--dry-run` constant a later edit could drop — generations are read straight off the profile symlinks, so `nix-env` and `nix-collect-garbage` are both absent from the list.
+  - **`du` and `find` make path arguments a real injection surface even on a read-only aspect.** `runner::run` uses no shell, so quoting is not the risk — option parsing is: an argument beginning with `-` is read as a flag, and `find`'s flags include `-delete`. `checked_path` requires a leading `/`, which cannot be parsed as an option, and every call puts the path before any predicate.
+- `modules/oligarchy-forge/` — sandboxed coding-agent runner: a TOML schema (`oligarchy-forge.toml`) compiles to a generated `flake.nix` building a `dockerTools.streamLayeredImage`, then runs it via rootless Podman (or Docker). CLI verbs `oligarchy-forge build/run/shell`; bare `oligarchy-forge` (or `oligarchy-forge tui`) launches a Ratatui session-list + live-build-log dashboard (`forge-tui` crate). `custom.oligarchyForge.enable`. Unlike `mcp-servers`, this is **not** part of the MCP surface — it's a normal read-write dev tool, same category as `dsp-ctl`. See `docs/oligarchy-forge-roadmap.md` (Phases 0-1 built; Phase 2 conflict resolution and Phase 3 skill browser/security tiers specced, not started).
+- `modules/warroom/` — the Oligarchy War Room: a Rust/Ratatui unified command center (binary `warroom`) over system, DSP, mesh, perimeter, AI and forge state. `custom.warroom.enable`, **opt-in and off by default**; with `enable = false` it adds no package, no unit and no session variable, so — like `android-mirror` and `oligarchy-vault` — the ISO needs no `mkForce` for it. Read-write, same category as `oligarchy-forge`/`dsp-ctl`, so it stays **out of the MCP surface** (`.#mcp-self-audit` fails the build if it lands in `.mcp.json`). One thread per collector on its own interval, all draining into one channel, so a hung subprocess costs its own pane a timeout and never a keypress — the concrete defect in the bash `oligarchy-warroom.sh` that it exists to fix. It **drives `oligarchy-ctl` rather than forking it**: that dispatcher stays the shared action registry, and it already has a non-terminal consumer in `modules/hypr-controller/hypr_bridge.py`. Coexists with the bash control-center trio rather than replacing it, and hands off to `dsp-ctl`/`oligarchy-forge` instead of absorbing them. `warroom status --json` emits `warroom_core::model::Snapshot` verbatim — the forward hook for waybar/the greeter/a future `/run/oligarchy-warroom/status.json`. See `modules/warroom/README.md`.
+- `modules/oligarchy-plugins/` — tiered sandboxed plugin runtime (`custom.plugins.*`), the foundation for the FX Bazaar. One WIT ABI (`oligarchy:plugin@0.1.0`) across three tiers: wasm (wasmtime + WASI), native/lua (bwrap + Landlock + seccomp) and microvm. Its point is **per-instance W^X**: `MemoryDenyWriteExecute` is decided per plugin from a `jit = none|host|self` manifest field, written into a systemd drop-in, not set once for the machine. Like `oligarchy-forge` and `dsp-ctl` this is **read-write** and must stay out of the MCP surface. Exposes `nixosModules.plugins`. **Staged:** all three tiers plus the signed imperative-install path are wired and gated, on `nixosConfigurations.nixos` only.
+
+  Landmines, one line each. `docs/plugins-roadmap.md` is a strict superset of this list and carries the reasoning.
+  - **The W^X rule lives in two places and they are a mirror** — `Manifest::wx_enforced()` (`modules/oligarchy-plugins/host/src/manifest.rs`) and `wxEnforced` (`modules/oligarchy-plugins/modules/plugins.nix`). Change one, change the other. Guard `.#plugins-wx-enforcement`.
+  - **Nobody goes in `nix.settings.trusted-users`** — root-equivalent. The anchor is a signed cache + its key, every path `nix store verify`'d before registration. `custom.plugins.installers` exists so `trusted-users` need not: it adds an account to `installGroup`, which owns the control socket. → §5
+  - **Unprivileged install goes through the control socket; the enforcement is structural.** `Request::Install` has no `allow_unsigned` field — unencodable, and `deny_unknown_fields` makes smuggling one a parse error (`host/src/control.rs`). `--allow-unsigned` is refused when `requireSignature` is true: policy outranks the CLI. Guard `Policy::authorize_signature`.
+  - **`nix store verify --sigs-needed 1` is NOT a sufficient signature check** — Nix short-circuits for content-addressed paths and `nix store add-path` needs no privilege, so alone it accepts attacker-authored content as verified. `verify_signature` requires *both* a signature naming a `trusted_public_keys` entry *and* `nix store verify` accepting it; keys pinned via `NIX_CONFIG` (not `--option`, unusable by an untrusted client for a restricted setting); `nix build`/`nix store verify` run with privileges **dropped** to the state-dir owner, since `source` may be a flake ref and evaluating one as root is root code execution. All of it is `nix_cmd` in `host/src/registry.rs`. Easiest thing here to get wrong.
+  - **Tier 1 (`native`/`lua`) is four settings that each break it silently** — `RestrictNamespaces` must list every namespace bwrap unshares (one `clone()`, so denying any fails all); `RestrictAddressFamilies` must include `AF_NETLINK`; `ProtectKernelTunables` must be **off**; `NotifyAccess` must be `all`. Per-instance drop-in, both mirrors. Guard `.#plugins-tier1-runtime`.
+  - **`jit = "none"` is more than `MemoryDenyWriteExecute`, and getting it wrong is silent.** Also deny anonymous `PROT_EXEC`, `ptrace` and `userfaultfd` (each writes a page regardless of protection); drop-in carries `NoExecPaths=/ ${stateDir}` + `ExecPaths=/nix/store`, the state dir named **explicitly** because `StateDirectory=`'s bind mount comes back executable. Six routes, not two. → §4.1
+  - **`plugind selftest` ships in release builds deliberately** — a filter that silently failed to install is invisible from inside the process that installed it.
+  - **`${stateDir}/registry` is root-owned (`0750 root:oligarchy`)** — it feeds a drop-in generator root runs; every manifest read back is re-validated. A `Store` holds an flock spanning the `systemctl start`, or an `enable`/`disable` interleaving starts an instance under the template alone (no MDWE, `DevicePolicy=auto`).
+  - **Tier 2 reaches its guest over AF_VSOCK, and how depends on the hypervisor** — cloud-hypervisor/firecracker use a userspace unix socket, qemu uses kernel `vhost-vsock` (dial the cid). `connect_guest` (`host/src/tiers/microvm.rs`) does both, `boot.kernelModules` needs `vhost_vsock`, and the cid comes from `declared.json` because only the module can keep cids unique. So a tier-2 drop-in grants `AF_UNIX AF_VSOCK` and **not** `PrivateNetwork=yes` — opposite of tiers 0/1, both mirrors. Vsock has no route off the machine.
+  - **The guest's journal is a write-only hole** — journald output never reaches the console, so `modules/guest.nix` sets `StandardOutput=journal+console`. Grepping the host journal for a *unit name* also fails; the console carries its `Description`.
+  - **A plugin is a control surface; `dsp` is an optional extension.** `world plugin` is control + lifecycle, `world plugin-dsp` adds `export dsp`. WIT has no optional exports, so `wasm.rs` runs `bindgen!` twice and instantiates the superset first — the failed attempt's error is discarded deliberately, and `Plugin::create_processor` returning `Ok(None)` is normal. → §4.2
+  - **`/proc` in `forbiddenPaths` is W^X, not confidentiality** (the other six entries are). `/proc/<pid>/mem` writes use `FOLL_FORCE`, so a plugin can rewrite its own `.text`; seccomp cannot inspect path strings, so Landlock's allowlist is the only layer that can. Dropping `/proc` while tidying the secrets list weakens W^X without touching anything that looks like one. Guards `proc_is_refused_because_it_is_a_wx_bypass` (separate from `forbidden_paths_are_prefixes` so the failure names the guarantee) and `tests/wx-probe.c`, which probes seven routes and reports *which* layer refused (`EPERM` = seccomp, `EACCES` = Landlock).
+  - **`declaredPlugins` is the only way a tier-2 plugin can exist** (a guest needs a closure, so a rebuild). `declared::resolve` cross-checks the module's `tier`/`jit` against the artifact's `plugin.toml` and refuses on disagreement — the drop-in was generated from the former before the latter was opened.
+- `modules/oligarchy-p2p/` — the P2P substituter (`custom.p2pCache.*`): a loopback HTTP Nix binary-cache adapter so Nix can obtain NARs over a peer transport **without Nix being patched and without weakening its trust model**. Read-write and network-facing, so like `oligarchy-forge`/`oligarchy-plugins` it must stay out of the MCP surface. Exposes `nixosModules.p2pCache`. **Staged:** stage 6 is wired on `nixosConfigurations.nixos` only and **disabled by default**, with `transport` defaulting to `"none"` so enabling the adapter does not join a swarm, and `servePackages`/`trustedPublicKeys` defaulting to `[ ]` so it neither signs nor trusts anything.
+
+  Landmines, one line each. `docs/p2p-substituter-roadmap.md` and `modules/oligarchy-p2p/README.md` carry the reasoning, except where marked.
+
+  *Trust*
+  - **`P2P provides availability. Nix provides trust.`** Daemon is unprivileged, holds no keys, cannot write the store; nix-daemon signature- and hash-checks every path afterwards. → §2
+  - **`trustedPublicKeys` extends trust and Nix cannot scope it — so the adapter does.** `Priority: 30` puts the adapter ahead of cache.nixos.org for every path, so an unscoped compromised seeder could mint glibc and be believed. `acceptFromPeers` is **mandatory** whenever `trustedPublicKeys` is set (`["*"]` = explicit, warned opt-out). Guard `.#p2p-peer-scope`. → §2
+  - **Scope rule is "does any `Sig:` name a peer key", NOT "name a key outside the peer set".** The second fails open: a junk `Sig: cache.nixos.org-1:AAAA` looks upstream-vouched, and `checkSignatures` *counts* verifying signatures rather than requiring all. Guard `appending_a_junk_upstream_signature_does_not_lift_the_scope`.
+  - **A version suffix must begin with a digit** — `starts_with(entry + "-")` lets `glibc` reach `glibc-locales` and `linux` reach `linux-firmware`. `scope::in_scope`.
+  - **Four enforcement points, each closing what the others cannot** — the transport loop (`LanTransport::narinfo` stops at the first parseable answer, so refusing only in the caller lets one hostile peer deny any path); `resolve`'s peer arm before persisting; `resolve`'s disk arm, since a narinfo in `narinfo/` is durable; `peer.rs`, so a lax host does not relay refused metadata onward. `declared/` is exempt everywhere.
+  - **The scope check lives in the process the design calls hostile, and that costs less than it looks.** A compromised daemon holds no trusted private key, so RCE buys denial of service and request visibility, not forgery. Matters only against an attacker holding both a peer key and execution here. Clean fix = gap 38, deliberately not built.
+  - **`?trusted=1` on a substituter URI would undo all of it** — Nix then accepts paths signed by no trusted key: exit 0, no warning, no runtime signal. Guarded three times because the failure is invisible: module assertion over every substituter, daemon config validation, and a `nix.conf` grep in `.#p2p-signature-refusal`.
+  - **Content-addressed paths need no signature** — `checkSignatures` returns `maxSigs` without examining any. So `nix-store --add` output cannot test signature refusal, and the adapter's `NarHash` check adds nothing independent for CA paths.
+  - **Prefer a package to a name in `acceptFromPeers`** — `[ pkgs.my-thing ]` renders to an exact store path at eval time; a bare name is matched against a name the *peer* supplied.
+
+  *Signing and seeding*
+  - **A host seeds what it BUILT via `servePackages`, and the key never touches the daemon.** Minting a narinfo needs the signing key *and* the Nix database; `oligarchy-p2pd` is denied both (no `AF_UNIX`, so it cannot reach nix-daemon). Minting is a separate root oneshot, `oligarchy-p2p-seed.service`; `signingKeyFile` is absent from the `config.json` the daemon reads. Do not fold the units together.
+  - **Only paths with no signature at all are signed and published** — precisely the ones this host built. Signing the rest of a closure would put this host's name on glibc permanently in `/nix/var/nix/db`, travelling via `nix copy` and ssh-ng, and would let `declared/` (checked before `narinfo/`, never evicted) freeze the signature set of a path upstream also has.
+  - **Nix does the crypto** — `nix store sign` / `nix path-info --sigs`, so `ValidPathInfo::fingerprint` is never reimplemented. `--json-format 1` is Determinate Nix 3.x only; `declared.rs` tries and falls back.
+  - **`ReadOnlyPaths` for the declared tier needs the `-` prefix**, or systemd refuses to start the daemon when the directory is absent — an optional feature taking the substituter down.
+  - **`oligarchy-p2p-selftest` runs as a UNIT sharing the daemon's sandbox verbatim.** `declared_refuses_a_write` proves `ReadOnlyPaths` by attempting a write; from a root shell that succeeds and reports a false PASS, so it SKIPs loudly there. Two rules from `mcp_self_audit`: a check that inspected nothing is a **FAIL**; a skipped check is reported, never omitted. `.#p2p-selftest` breaks each guarantee and asserts it is noticed.
+
+  *The NAR path*
+  - **The signature covers `StorePath`/`NarHash`/`NarSize`/`References` only**, which is why rewriting `URL`/`Compression`/`FileHash`/`FileSize` is legal. `NarInfo::set` asserts against `SIGNED_FIELDS`; rewriting a signed field surfaces far downstream as "lacks a signature by a trusted key".
+  - **Nix imposes no upper bound on what a substituter delivers** — `FileSize` is never checked and trailing bytes are discarded silently; 64 MiB against a 279 KiB claim registers the path valid. The adapter's byte cap is the only bound.
+  - **A digest check written after the read loop does not run.** `Body::from_stream` with `Content-Length` drops the generator once it has enough bytes, so a length-preserving corruption serves HTTP 200. `verifying_stream` withholds the final chunk until `finish()` passes. Guards `a_corrupt_body_never_completes` + the journal assertion in `.#p2p-signature-refusal`.
+  - **Serve the canonical UNCOMPRESSED NAR — correctness, not preference.** Nix caches a narinfo 30 days and cache.nixos.org re-compresses, so a `FileHash`-derived URL with a compression suffix made every cached narinfo name a NAR the adapter refused, 404ing for a month. Now `Compression: none`, `FileHash = NarHash`, `FileSize = NarSize`, `URL = nar/<hashpart>/<narhash>.nar` — every field a function of signed, immutable data. Guard `the_nar_url_does_not_move_when_upstream_recompresses`. → §3.2
+  - **The narinfo is cached on disk, and that is what makes the artifact cache work at all** — a NAR request resolves its narinfo first, so when that went to the network a full cache answered 404 the moment upstream was unreachable. `<stateDir>/narinfo/` has its **own** eviction budget, deliberately not shared with the NAR budget.
+  - **Local sources are read twice on purpose.** The cache and `nix-store --dump` hash the artifact in full before opening the response, so a tampered artifact 404s and Nix never sees a byte. The upstream first-fetch cannot: Nix aborts a transfer delivering nothing for `stalled-download-timeout` (300s), so buffering a multi-gigabyte NAR would make large paths impossible — it uses a one-chunk lookahead. *(Recorded nowhere else.)*
+  - **Nothing is named until it is verified.** Writes land in `<stateDir>/tmp/` and are `rename`d into `nar/` only after the digest matches; `Slot`'s `Drop` removes an uncommitted temp, `Cache::new` sweeps `tmp/` at startup. Both directories must stay on one filesystem — `rename(2)`'s atomicity is the guarantee. *(`Slot::Drop` and the one-filesystem rule recorded nowhere else.)*
+  - **`serveFromStore` uses `nix-store --dump`, the old CLI, deliberately** — it serialises a directory and consults nothing else, so the daemon needs no Nix database and never opens the nix-daemon socket, which is why `RestrictAddressFamilies` stays `AF_INET AF_INET6`. It never asks whether a path is *valid*; output is hashed against the signed `NarHash`, so invalid debris fails and falls through. *(Recorded nowhere else.)*
+
+  *Peers and transport*
+  - **TWO listeners, and the separation is the design.** The substituter surface is loopback-only and proxies anything its upstreams hold — exposing it would publish an open proxy for all of cache.nixos.org. The peer surface (`custom.p2pCache.peer`, default off, port 5112) binds a real interface and answers only *do you already have this?*: never an upstream fetch on a peer's behalf, nothing unverified, its own route set. Reach via `peer.openFirewall`, empty by default.
+  - **Peer addresses are restricted to private ranges in code**, not left to the firewall — RFC1918 / CGNAT / link-local is exactly what `strict-egress.nix` already allows, so a LAN swarm needs no egress change. A public entry is dropped with a loud log, not fatally.
+  - **Peers supply metadata as well as bytes, and must** — a NAR cannot be verified without the signed `NarHash`, so without a peer narinfo leg the transport is useless offline. Upstream's narinfo returns verbatim, signature intact; `LanTransport::narinfo` re-checks it names the path asked for.
+  - **A peer fetch is verified in full before anything is served**, unlike the upstream path — peers are the untrusted source that most deserves the stronger guarantee.
+  - **A peer seeds what it FETCHED, not what it built** — `GET /peer/v1/narinfo/<hp>` answers only from the on-disk narinfo cache, so a locally-built path cannot be seeded at all. Hence `.#p2p-two-node` warms its seeder with a real substitution.
+  - **Testing a peer transport is where vacuous tests come from.** Test nodes share the *host's* `/nix/store`, so a leecher sees artifacts it does not have and `serveFromStore` bypasses the transport. Corrupting an honest seeder's cache proves only that the seeder refuses first. Proving a leecher refuses a lying peer needs a genuinely hostile peer — `.#p2p-two-node` ships one as a `writeText` derivation.
+  - **BitTorrent discovery is not BitTorrent's** — `disable_dht: true`, no trackers, no PEX; peers *and* infohashes come from the peer surface, since every address dialled must be in the private-range list to work under `strict-egress` unchanged. Adds nothing to trust: piece hashes come from an untrusted peer's `.torrent`, so the file is still hashed against the signed `NarHash`. Guard `.#p2p-swarm`.
+  - **A transport method must never block, with two distinct failure modes** — `Handle::block_on` from an async handler panics; from a `spawn_blocking` thread it never returns at all, leaving a healthy-looking daemon. `provide`/`remove` spawn onto the runtime and return; `remove` then has no ordering guarantee against eviction, which librqbit survives. Guard `.#p2p-swarm`.
+  - **`minArtifactSize` (default 4 MiB) is checked in `discover`, before any peer is contacted.** Median NAR here is 355 KiB; 4 MiB puts 16.4% of paths in swarms covering 96.0% of bytes. Checking in `fetch` would cost a round trip on every small path. *(Call-site placement recorded nowhere else.)*
+  - **A host seeds at every point an artifact becomes a cache entry** — upstream fetch, `nix-store --dump`, peer fetch — and re-announces at startup, since a restart otherwise silently stops seeding everything while looking healthy.
+  - **The daemon's user is a static system user, not `DynamicUser`** — `strict-egress`'s `allow.uids` matches `meta skuid "<name>"` against passwd at ruleset-load time and cannot name a runtime-allocated uid.
+- `modules/ArchibaldOS/` — the RT DSP guest OS, its own flake under `modules/ArchibaldOS/modules/`.
+
+When changing one of these, build/iterate inside that sub-flake; the top-level flake consumes it as a pinned `path:` input.
+
+`modules/hypr-controller/` is a different shape — not a sub-flake. `nixos-module.nix` + `hypr_bridge.py` declare `services.dcf-hypr-agent` (a DCF-Hypr bridge that relays Hyprland IPC + an `oligarchy-ctl` passthrough over UDP to the `android/` companion app, a plain Gradle/Kotlin project with no Nix build of its own). It's imported directly by `configuration.nix` next to `./modules/dcf-mesh-agent.nix`, off by default, and — like `dcf-mesh-agent` — is deliberately **not** part of the read-only MCP surface (`mcp_self_audit` fails the build if it ends up in `.mcp.json`). See `modules/hypr-controller/README.md`.
+
+Its `spaGated` option pulls in `modules/security/dcf-spa-gate.nix` (`networking.firewall.spaGate`). **Do not "simplify" that by importing HydraMesh's own `spa/modules/dcf-spa.nix`** — upstream sets `networking.nftables.enable`, which switches the global firewall backend and fails eval against `demod-ip-blocker`'s ipset/iptables `extraCommands`. Like `strict-egress.nix`, the gate ships a self-contained `inet` table loaded by its own oneshot service so it coexists with the iptables firewall; its chain is `policy accept` (only the gated port is dropped) rather than upstream's whole-system `policy drop`. Only upstream's `dcf-spa-authorizer` *binary* is reused. `tests/default.nix -A dcf-spa-gate` guards all of this.
+
+### `vm-manager/`
+
+A sub-flake providing two NixOS modules — `quickemu-vm` and `dsp-vm` — plus per-VM definitions in `vm-manager/config/` (DSP, coding sandbox, Kali, OpenWRT). The DSP VM is the latency-critical RT guest (isolated cores via `custom.vm.dsp.isolatedCores`, default `[ 0 1 ]`) and the NetJack2 DSP host: on a routed tap (`dsp0`, host 10.78.0.1, guest 10.78.0.2) its JACK runs jack2's netmanager and the DeMoD engine, and this host (`systemctl --user start dsp-netjack`, PipeWire's netjack2 driver) and ArchibaldOS companions (jack2's netadapter, through `wg-companions`) join it. Full doc: `vm-manager/docs/dsp-vm.md`. Guards: `.#dsp-netjack-tests`, `.#dsp-route-contract`. Landmines:
+
+- **The guest image is built FROM the host** (`mkDspImage (dspGuestFor config)` in `flake.nix`): addresses, MAC, NetJack2 port, rate, period and root's ssh keys (`custom.user.sshAuthorizedKeys`) are the host's `custom.vm.dsp`/`custom.user` values. A host-side DSP option that does not reach the guest is the failure this repo has already had once; add new guest knobs through `dspGuestFor`, never as a literal in `modules/dsp-guest.nix`.
+- **The guest used to run nothing.** It installed jack2 and started no server, and the host ran `jack_netsource` (NetJack1, a master) through a loopback forward that cannot carry NetJack2's per-follower ephemeral UDP pairs. `dsp-netjack-bridge`/`dsp-jack-bridge` and `archibaldOS.netjack.sourcePort` are gone (`mkRemovedOptionModule`); `network.mode = "user"` still exists and an assertion refuses NetJack2 with it.
+- **Forwarding is per interface, never global.** `net.ipv4.conf.<if>.forwarding` for the tap and each `forwardFrom` interface (applied when the interface appears, by systemd's own `99-systemd.rules`), plus an nft table of its own (`dsp-vm-route.service`, before `network-pre.target`, required by the VM) that admits UDP/ICMP between `forwardFrom` and the guest and drops everything else touching either. Do not "simplify" to `net.ipv4.ip_forward = 1`: that makes the laptop a router for Wi-Fi and every tunnel.
+- **`resolveDisk` resolves a derivation by its layout, not `pathExists`.** `pathExists` on the image's output was import-from-derivation: evaluating any host with the VM on built the qcow2 (a KVM job). That is why `.#nixos-asher` could not be evaluated without KVM.
+- **The netjack2 driver's ports appear only once the session manager sets PortConfig** on its nodes (WirePlumber does; the gate does it with `pw-cli`). `node.always-process` was tried and measured: no difference, so it is not set.
+
+<!-- truth:claim
+id: dsp-guest
+kind: file_exists
+path: modules/dsp-guest.nix
+-->
+**The DSP guest is code now.** `modules/dsp-guest.nix` defines it and `nix build .#dsp-vm-qcow` builds the image, wired into `custom.vm.dsp.archibaldOS.diskImage`. It used to be a hand-copied qcow2 built out-of-tree — three files in this repo *looked* like they defined it and none did, so when the image stopped booting there was nothing to rebuild it from. Two traps the file records: the format must be **`qcow-efi`, not `qcow`** (the firmware is OVMF; a BIOS image has no ESP, so OVMF finds nothing and falls through to a PXE netboot loop — silently reproducing the original failure), and <!-- truth:end -->
+
+`modules/archibaldos-dsp-vm.nix` stays **unimported** because it would declare a second unit claiming the same xHCI functions, failing with a device-busy error that reads like a hardware fault.
+
+### `home/`
+
+<!-- truth:claim
+id: home-entry
+kind: file_exists
+path: home/home.nix
+-->
+Home Manager user environment for `asher`. `home/home.nix` is the entrypoint; it builds a feature/profile set (`defaultFeatures`, `profiles/`, gated by `custom.desktopFeatures.*`) and a theme/palette system in `home/themes/` (the `p`/`activeTheme` shorthand seen throughout). Desktop config is split across `home/apps/` (KDE/Qt/GTK theming), `home/hyprland/`, `home/waybar/`, `home/x11/`, `home/terminal/`, `home/shell/`. Many `home/apps/*` modules take a `theme`/palette argument rather than reading global config.
+<!-- truth:end -->
+
+### `scripts/`
+
+<!-- truth:claim
+id: operator-scripts
+kind: glob_count
+glob: scripts/*.sh
+equals: 5
+-->
+Five standalone operator scripts, not wired into any derivation: `dsp-latency-guest.sh` / `dsp-latency-loopback.sh` (DSP latency harnesses), `usb-audio-stress.sh`, `usb-xhci-watch.sh`, `xhci-recover.sh`.
+<!-- truth:end -->
+
+## Conventions
+
+- **Unfree allowed; broken is NOT.** `pkgsConfig` sets `allowUnfree = true` and `permittedInsecurePackages = [ ]`. `allowBroken` was **deliberately removed** — it silently lets known-broken packages into the closure on a production machine. Do not re-add it; override per-package if ever needed.
+- **`nix fmt` is not the project formatter.** The flake's `formatter` is `nixfmt-rfc-style`, but the tree is written in `nixpkgs-fmt`. Format with `nixpkgs-fmt <file.nix>`, and don't blanket-format files you didn't touch.
+- **The load-bearing docs are claim-gated, and the gate is not optional.** `AGENTS.md`, `docs/architecture.md` and `README.md` carry hidden `truth:claim` blocks binding a sentence to a file, string, glob or JSON pointer in this tree; `nix build .#trvthnvke-docs` fails when the tree stops matching the sentence, and `.github/workflows/eval.yml` runs it on every push and PR. Upstream is [TrvthNvke](https://github.com/ALH477/TrvthNvke) — this tree pins the input, package and policy as `trvthnvke`. Three rules when editing those files: a claim's prose **must mention the value it binds** (`require_entailment`), so a sentence bound to `flake.nix` has to say `flake.nix`; editing `.trvthnvke.toml` means re-running `trvthnvke lock` in the same change (`require_lock`); and in `AGENTS.md`/`docs/architecture.md` every fence must be bound or marked ```` ```lang truth:ignore ```` (`require_bound_fences`). When a claim fails, the code moved — **fix the sentence, do not delete the claim.** Design and claim kinds: `docs/architecture.md` §15a.
+- **Pin everything through the flake.** New external dependencies become flake inputs, not ad-hoc fetches — the project explicitly avoids unpinned sources.
+- **A gate must exercise what the subsystem DOES, not the scaffolding around it.** Structural assertions — files in place, units declared, permissions right — localise a break quickly and are worth keeping, but they do not establish that the thing works: the `windscribe-app` gate held eight of them green while the client could not connect by any protocol, because nothing in it ever ran a bundled binary. Every subsystem needs at least one assertion that fails when the subsystem stops working, and where the real action cannot run in a VM, a comment naming what is still unmeasured. See the rule in full under **Tests** above.
+- **Locale has one source, `custom.locale.*`** — `services.xserver.xkb` and Hyprland's `kb_*` both read it, and `console.keyMap` is a ckbcomp derivation compiled from the same values (NOT `console.useXkbConfig`: nixpkgs sets `keyMap` at normal priority under that switch, so a plain `console.keyMap = …` line becomes an eval error). Every sink is `mkDefault`; an assertion refuses `services.xserver.xkb.*` set directly; `.#locale-contract` asserts the three agree on 25 host×language combinations. Override in `~/.config/oligarchy/local.nix` — `--impure` or it silently reverts. A user coming from a stock install runs `oligarchy-adopt` once to write that file from their existing `/etc/locale.conf`/`vconsole.conf`/`localtime`. See `docs/localization-roadmap.md`.
+- **Secrets** use `sops-nix`. The config is the repo-root `.sops.yaml`; encrypted material lives in `modules/secrets/*.enc.env`, and `.gitignore` keeps the plaintext `modules/secrets/*.env` out. There is no top-level `secrets/` directory. Never commit decrypted material or `*.age`.
+- **State version is `25.11`** on `nixos-25.11` (nixpkgs stable). Keep new modules consistent with that. `nixpkgs-unstable` is available via the `unstable` overlay for cherry-picks.
+- **MCP servers are read-only + dry-run by construction.** The agent surface can never mutate the running system. Each aspect server has a per-aspect CLI allowlist (`modules/mcp-servers/crates/core/src/allowlist.rs`) enforced at runtime by `runner::run` — reach CLIs only through it, never via a bare `Command::new`. The `ports-sec` crate is the only one permitted to open sockets (loopback-only, feature-gated). `nix build .#mcp-self-audit` enforces the socket rule and checks `.mcp.json` for remote transports at the project level.
+- `modules/demod-talk/` — DCF-Talk sub-flake: the pure-Lua DCF chat stack (certified text + Snake adapters, voice L3 with jitter/PLC/DTX, SuperPack + Reed-Solomon transport, StreamDB history). `services.demod-talk.enable`, **off by default**. Plaintext by design — DCF carries no encryption to stay clear of EAR/ITAR — so `interface` is mandatory with no default, the firewall opens on that interface only, and an assertion fails the build if it is not a WireGuard interface declared on this host (unless an over-the-air transport is chosen, where plaintext is lawful and expected). The package's `checkPhase` runs all six golden-vector certifications plus four smoke modes, so a failed certification is a failed build. Ships `dcf-talk`, `dcf-jam`, `dcf-certify`. See `modules/demod-talk/README.md`.
+- **HydraMesh is a hard requirement of the distro,** not an optional feature: `modules/hydramesh.nix` (`custom.hydramesh.enable`) defaults to **true** and installs the `hydramesh` / `dcf` SDK CLIs plus the HydraModem toolbox. The ISO force-disables it. `services.dcf-mesh-agent` is a separate, read-write, UDP-bound Python endpoint that is deliberately NOT part of the MCP surface and must stay out of `.mcp.json`.
+
+## Bound facts
+
+Machine-checked by `nix build .#trvthnvke-docs`. Each block below binds a sentence in this file to a path or a literal string in the tree; the gate fails when the tree stops matching. When one fails the code moved, so fix the sentence rather than deleting the claim. Claims elsewhere in this file are inline. Do not cite line numbers anywhere in this document, in any file: they rot silently and nothing can check them. Cite a path and a greppable string instead, and bind it here.
+
+<!-- truth:claim
+id: ctl-writes-state
+kind: file_contains
+path: home/apps/control-center/oligarchy-ctl.sh
+pattern: state.nix
+-->
+`home/apps/control-center/oligarchy-ctl.sh` is the only writer of the machine-mutable host state file. Nothing else may write it and its value is never hand-edited.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: asher-state
+kind: file_exists
+path: hosts/asher/state.nix
+-->
+`hosts/asher/state.nix` is committed source that must never be gitignored: local-flake source filtering drops gitignored files from the evaluated tree, which silently reverts every persona switch to the last committed value.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: plugins-control-socket
+kind: file_contains
+path: modules/oligarchy-plugins/host/src/control.rs
+pattern: deny_unknown_fields
+-->
+Unprivileged plugin install is structural, not a check: `Request::Install` has no `allow_unsigned` field and `deny_unknown_fields` in `modules/oligarchy-plugins/host/src/control.rs` makes smuggling one a parse error.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: plugins-nix-cmd
+kind: file_contains
+path: modules/oligarchy-plugins/host/src/registry.rs
+pattern: nix_cmd
+-->
+Signature verification runs with privileges dropped to the state-dir owner, all of it `nix_cmd` in `modules/oligarchy-plugins/host/src/registry.rs`. Evaluating a flake ref as root is root code execution.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: plugins-tier2-vsock
+kind: file_contains
+path: modules/oligarchy-plugins/host/src/tiers/microvm.rs
+pattern: connect_guest
+-->
+Tier 2 reaches its guest over AF_VSOCK by two different mechanisms depending on the hypervisor, both handled by `connect_guest` in `modules/oligarchy-plugins/host/src/tiers/microvm.rs`.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: mcp-crate-count
+kind: glob_count
+glob: modules/mcp-servers/crates/*/Cargo.toml
+equals: 12
+-->
+The MCP workspace is twelve crates: ten read-only aspect servers, the shared `core`, and the `umbrella` router. Adding an aspect changes this count and seven hardcoded lists.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: locale-source
+kind: file_contains
+path: modules/locale.nix
+pattern: custom.locale
+-->
+Locale has one source, `custom.locale.*`, declared in `modules/locale.nix`. X keyboard config, Hyprland and the console keymap are all sinks that read it.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: hydramesh-required
+kind: file_contains
+path: modules/hydramesh.nix
+pattern: custom.hydramesh
+-->
+HydraMesh is a hard requirement of the distro, not an optional feature: `modules/hydramesh.nix` declares `custom.hydramesh` and defaults it on. Only the ISO force-disables it.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: spa-gate-own-table
+kind: file_contains
+path: modules/security/dcf-spa-gate.nix
+pattern: spaGate
+-->
+`modules/security/dcf-spa-gate.nix` declares `spaGate` and ships a self-contained `inet` table. Do not replace it with HydraMesh's own SPA module, which sets the global nftables backend and fails eval against the IP blocker.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: egress-autodetect
+kind: file_contains
+path: modules/security/strict-egress.nix
+pattern: autoDetect
+-->
+`modules/security/strict-egress.nix` derives its substituter allowances through `autoDetect` from `nix.settings`, not from any one module's options, so adding a binary cache never silently produces a firewall-blocked fetch.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: pkgs-config
+kind: file_contains
+path: flake.nix
+pattern: permittedInsecurePackages
+-->
+`pkgsConfig` in `flake.nix` sets `allowUnfree` and an empty `permittedInsecurePackages`. `allowBroken` was deliberately removed and must not come back; override per package instead.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: reliquary-open-gaps
+kind: file_exists
+path: modules/reliquary/docs/ADVERSARY_REVIEW.md
+-->
+The unfixed gaps in the vendored preservation tool are recorded in `modules/reliquary/docs/ADVERSARY_REVIEW.md`. Read it before enabling that subsystem anywhere real data will touch it.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: localization-roadmap
+kind: file_exists
+path: docs/localization-roadmap.md
+-->
+The locale contract, catalogs and installer round-trip are specified in `docs/localization-roadmap.md`.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: subflake-count
+kind: glob_count
+glob: modules/*/flake.nix
+equals: 20
+-->
+Twenty directories under `modules/` carry their own `flake.nix`. Eighteen of them are `path:` inputs of the root flake; `ArchibaldOS` (the RT DSP guest OS) and `plymouth` (the boot splash) are standalone and are not inputs. `vm-manager` is the nineteenth input and sits outside `modules/`. Adding or removing a sub-flake changes this count and the two enumerations above.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: wx-nix-mirror
+kind: file_contains
+path: modules/oligarchy-plugins/modules/plugins.nix
+pattern: wxEnforced
+-->
+The Nix half of the W^X mirror is `wxEnforced` in `modules/oligarchy-plugins/modules/plugins.nix`. There is no `modules/plugins.nix`; this document said there was.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: plugins-on-builder
+kind: file_contains
+path: flake.nix
+pattern: oligarchy-plugins.nixosModules.default is imported for its microvm.nix
+-->
+`flake.nix` imports the plugin module on `builder` as well as `nixos`, for `microvm.nix`. Any statement that plugins are wired on `nixos` only is wrong.
+<!-- truth:end -->
+
+<!-- truth:claim
+id: sops-config
+kind: file_exists
+path: .sops.yaml
+-->
+The sops configuration is the repo-root `.sops.yaml`. There is no top-level `secrets/` directory.
+<!-- truth:end -->
+
+---
+> Source: [ALH477/Oligarchy](https://github.com/ALH477/Oligarchy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
