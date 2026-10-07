@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [cipherstash/stack](https://github.com/ciphersta
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cipherstash/stack](https://github.com/cipherstash/stack) — a repo with 156+ stars on GitHub.
+From [cipherstash/stack](https://github.com/cipherstash/stack) — a repo with 157+ stars on GitHub.
 
 ---
 
