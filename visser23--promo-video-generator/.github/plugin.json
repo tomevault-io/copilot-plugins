@@ -1,0 +1,9 @@
+{
+  "name": "visser23--promo-video-generator",
+  "displayName": "promo-video-generator",
+  "description": "A set of tools which an AI can use to built short promo videos",
+  "version": "1.0.0",
+  "author": "visser23",
+  "homepage": "https://github.com/visser23/promo-video-generator",
+  "skills": []
+}
