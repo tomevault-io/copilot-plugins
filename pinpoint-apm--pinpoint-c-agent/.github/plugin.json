@@ -1,0 +1,9 @@
+{
+  "name": "pinpoint-apm--pinpoint-c-agent",
+  "displayName": "pinpoint-c-agent",
+  "description": "pinpoint-c-agent",
+  "version": "1.0.0",
+  "author": "pinpoint-apm",
+  "homepage": "https://github.com/pinpoint-apm/pinpoint-c-agent",
+  "skills": []
+}
