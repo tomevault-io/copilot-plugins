@@ -4,7 +4,7 @@
   "repo": "suprnova",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eas4ai/suprnova",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T11:15:37Z"
+  "distributed_at": "2026-10-07T15:56:07Z"
 }
