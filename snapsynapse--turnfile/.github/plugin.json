@@ -1,0 +1,9 @@
+{
+  "name": "snapsynapse--turnfile",
+  "displayName": "turnfile",
+  "description": "Auditable peer disagreement for LLM agents: a thin, file-based governance layer with a human arbiter and no orchestrator.",
+  "version": "1.0.0",
+  "author": "snapsynapse",
+  "homepage": "https://github.com/snapsynapse/turnfile",
+  "skills": []
+}
