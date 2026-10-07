@@ -1,56 +1,28 @@
-## spend-lanes
+## sui-platform
 
-> Spend lanes — Cursor for review/specs, Claude Code for all implementation. Stops frontier token burn on multi-file code work in Cursor.
+> Sui platform patterns — Address Balances (SIP-58) make one address concurrent, gasless stablecoin transfers remove the SUI-for-gas wall, plus the eligibility gotchas that cause misleading failures. Full detail in .claude/skills/t2000-sui-platform/.
 
 
-# Spend lanes (founder 2026-07-24, revised)
+# Sui Platform → `.claude/skills/t2000-sui-platform/SKILL.md`
 
-Burning Cursor frontier tokens (especially `claude-fable-*-thinking-high`) on
-implementation is the failure mode this rule stops. Founder pays Cursor Max +
-Anthropic Max; **all multi-file code work goes to Claude Code on the Max
-subscription** (browser OAuth login — never an Anthropic API key in Cursor).
+**The two things people get wrong:**
 
-## The two lanes
+1. **"One Sui address can only do one tx at a time" is a myth** for a server payer.
+   Address Balances (SIP-58) turn fungible holdings into an accumulator (no
+   owned-object lock) and address-balance gas removes the gas-coin contention →
+   **a single settlement address scales.** A wallet fleet is a blast-radius lever,
+   never a scaling prerequisite.
+2. **"Gasless" is narrower than it sounds.** Only pure stablecoin transfers on the
+   allowlisted trio qualify — any custom Move call still needs gas. Plus: 0.01
+   minimum, a dust-remainder floor that surfaces as a misleading "insufficient SUI
+   balance" error, and auto-detect that only works on gRPC/GraphQL transports.
 
-| Lane | Tool | Use for |
-|---|---|---|
-| **Think / Review** | This Cursor chat (default = Auto; Fable only for hard architecture or debugging) | Specs, plans, diff review, acceptance criteria, handoff prompts |
-| **Build** | Claude Code (`claude`) on Anthropic Max | Features, refactors, multi-file implementation, long agentic loops, mechanical sweeps |
+**Read the full gotcha list before architecting a payer or debugging a send:**
+`.claude/skills/t2000-sui-platform/SKILL.md`.
 
-## What this chat MUST do
-
-When the user asks for code / implementation / "build X" / "fix the tests":
-
-1. Write a short plan + **acceptance criteria** (verifiable).
-2. Emit a **paste-ready Claude Code prompt** (Build lane).
-3. **Stop.** Do not open a large edit loop in Cursor.
-
-Exceptions (OK to implement here): single-file typo, one-line config, or the user
-explicitly says "do it in this chat."
-
-## What this chat MUST NOT do
-
-- Multi-hour agentic coding sessions in Cursor on Fable / thinking-high.
-- Re-open or continue a months-long mega-thread for a new task — **one task = one chat**.
-- Put an Anthropic API key into Cursor "to use Max" — Max does not cover API keys.
-
-## Where the rules actually live (2026-07-24 migration)
-
-Claude Code is now the canonical agent surface. `.claude/` owns the content:
-
-- `CLAUDE.md` — auto-loaded every turn (architecture, critical rules, release process)
-- `.claude/skills/*/SKILL.md` — subsystem depth, auto-loaded on task match
-- `.claude/commands/*.md` — the repeatable rituals (`/release`, `/ship`, `/tracker`)
-
-Files in `.cursor/rules/` are **pointers into `.claude/`**, not copies — so the two
-tools cannot drift. When a rule needs updating, edit the `.claude/` file. The one
-deliberate exception is `engineering-discipline.mdc`, which mirrors the short
-always-on block from `CLAUDE.md` because Cursor does not read `CLAUDE.md`.
-
-## After Build finishes
-
-Review the diff (`git diff`). Commits stay on the normal review path — do not tell
-Claude Code to push blindly.
+*(Content moved there 2026-07-24 from `sui-address-balances-and-gasless.mdc` — do
+not re-inline it here; this file is a pointer so Cursor and Claude Code cannot
+drift.)*
 
 ---
 > Source: [t2000-afi/t2000](https://github.com/t2000-afi/t2000) — distributed by [TomeVault](https://tomevault.io).
