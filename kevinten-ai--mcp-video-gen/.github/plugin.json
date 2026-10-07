@@ -1,0 +1,9 @@
+{
+  "name": "kevinten-ai--mcp-video-gen",
+  "displayName": "mcp-video-gen",
+  "description": "MCP server for AI video generation with multiple providers. Supports CogVideoX (free unlimited), Alibaba Wan, Kling AI, SiliconFlow, Vidu, and MiniMax Hailuo.",
+  "version": "1.0.0",
+  "author": "kevinten-ai",
+  "homepage": "https://github.com/kevinten-ai/mcp-video-gen",
+  "skills": []
+}
