@@ -1,0 +1,9 @@
+{
+  "name": "decdn--decdn",
+  "displayName": "decdn",
+  "description": "Decentralized CDN where nodes cache and serve content-addressed blobs over iroh QUIC, and clients pay per-MB via off-chain USDC shared payment pools.",
+  "version": "1.0.0",
+  "author": "decdn",
+  "homepage": "https://github.com/decdn/decdn",
+  "skills": []
+}
