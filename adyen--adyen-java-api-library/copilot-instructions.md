@@ -1,100 +1,90 @@
 ## adyen-java-api-library
 
-> This is the Adyen Java API Library, providing Java developers with an easy way to interact with the Adyen API. The library is a wrapper around the Adyen API, generated from OpenAPI specifications.
+> <integration_test_guidelines>
 
-## Overview
+<integration_test_guidelines>
+## Scope
 
-This is the Adyen Java API Library, providing Java developers with an easy way to interact with the Adyen API. The library is a wrapper around the Adyen API, generated from OpenAPI specifications.
+These instructions apply to files under `src/integration-test`.
 
-## Code Generation
+## Before Writing a Test
 
-A significant portion of this library, particularly the API services and data models, is automatically generated
+- Read `src/integration-test/README.md`.
+- Verify the public service method and model types in `src/main/java`.
+- Do not edit generated production models or services to make an integration test pass.
+- Determine whether the test is automated external coverage or requires manual infrastructure.
 
-- **Engine**: We use [OpenAPI Generator](https://openapi-generator.tech/) with custom [Mustache](https://mustache.github.io/) templates to convert Adyen's OpenAPI specifications into Java code.
-- **Templates**: The custom templates are located in the `/templates` directory. These templates are tailored to fit our custom HTTP client and model structure.
-- **Automation**:
-    - **Centralized**: The primary generation process is managed in a separate repository, [`adyen-sdk-automation`](https://github.com/Adyen/adyen-sdk-automation). Changes to the OpenAPI specs trigger a GitHub workflow in that repository, which generates the code and opens Pull Requests in this library.
-    - **Local**: For development and testing, you must use the [`adyen-sdk-automation`](https://github.com/Adyen/adyen-sdk-automation) repository.
+## Structure
 
-### Local Code Generation
+- Mirror the production package under `src/integration-test/java`.
+- Name integration-test classes `*IT` so Maven Failsafe discovers them.
+- Extend `BaseIntegrationTest` and use its typed configuration accessors.
+- Use the service-specific client accessor when an API requires dedicated credentials, such as
+  `getLegalEntityManagementClient()` or `getBalancePlatformClient()`.
+- Do not instantiate or close `Client` directly. `BaseIntegrationTest` caches clients by credential
+  and closes them after each test.
+- Annotate external tests with `@Tag(IntegrationTestTags.EXTERNAL)`.
+- Also annotate tests requiring a person, terminal, or other dedicated infrastructure with
+  `@Tag(IntegrationTestTags.MANUAL)`.
+- Use behavior-focused names such as `shouldReturnValidationErrorWhenReferenceIsMissing`.
+- Keep one observable behavior per test and use Arrange, Act, Assert sections.
+- Prefer explicit imports, response types, and checked exceptions. Do not use wildcard imports,
+  `var`, or `throws Exception`.
 
-To test new features or changes to the templates, you must run the generation process from a local clone of the `adyen-sdk-automation` repository.
+## Reliability and Safety
 
-1.  **Clone the automation repository**:
-    ```bash
-    git clone https://github.com/Adyen/adyen-sdk-automation.git
-    ```
+- Generate unique references and idempotency keys for requests that create remote state.
+- Do not share mutable state or depend on test execution order.
+- Clean up remotely created resources when the API supports cleanup.
+- For eventually consistent APIs, use bounded polling rather than fixed sleeps.
+- Add a suitable timeout when an operation can otherwise wait indefinitely.
+- Integration-test clients are configured for the TEST environment. Do not add LIVE-only behavior
+  or credentials without updating `BaseIntegrationTest` and this documentation.
+- Do not use `@Disabled` as the normal opt-in mechanism. Use the Maven profiles and JUnit tags.
+- Do not run an external integration test unless the user explicitly asks for that API call.
 
-2.  **Link this library**: The automation project needs to target your local clone of `adyen-java-api-library`. From inside the `adyen-sdk-automation` directory, run the following commands. This will replace the `java/repo` directory with a symlink to your local project.
-    ```bash
-    rm -rf java/repo
-    ln -s /path/to/your/adyen-java-api-library java/repo
-    ```
+## Configuration
 
-3.  **Run the generator**: You can now run the Gradle commands to generate code.
-    - **To generate all services for the Java library**:
-      ```bash
-      ./gradlew :java:services
-      ```
-    - **To generate a single service (e.g., Checkout)**:
-      ```bash
-      ./gradlew :java:checkout
-      ```
-    - **To clean the repository before generating**:
-      ```bash
-      ./gradlew :java:cleanRepo :java:checkout
-      ```
+- Configuration is a single JSON document with typed fields, loaded by
+  `IntegrationTestConfiguration` from the `ADYEN_API_LIBRARIES_INTEGRATION_TEST_CONFIG` environment
+  variable or, when that variable is absent or blank, from the ignored
+  `src/integration-test/resources/test-config.json`.
+- To add a setting, add the field to `test-config.example.json` and
+  `IntegrationTestConfiguration`, then expose it through a typed accessor on `BaseIntegrationTest`.
+  Never read configuration directly in tests.
+- Every field must be a non-blank JSON string and is validated at startup. Failures list field
+  names only, never values.
+- Keep secrets in the environment variable or the ignored JSON file, never in tracked files.
 
-## Core Components
+## Assertions and Comments
 
-- **`Client.java`**: The central class for configuring the library (API key, environment, etc.) and accessing API services.
-- **`Service.java`**: The base class for all API services, containing the generic HTTP client logic.
-- **`/service`**: This package contains the generated service classes (e.g., `Checkout`, `Management`) that expose methods for specific API endpoints.
-- **`/model`**: This package contains the generated data models used for API requests and responses.
+- Assert stable contract fields, identifiers, statuses, and documented error codes.
+- Assert exact error messages only when the wording is part of the documented contract.
+- Include assertion messages that explain the violated contract.
+- Extract repeated request construction and response assertions into focused helpers.
+- Keep comments limited to prerequisites, non-obvious API constraints, and Arrange, Act, Assert
+  markers. Do not narrate straightforward Java.
 
-## Development Workflow
+## Validation
 
-This is a standard Maven project.
-
-### Building
-
-To compile the source code, run the tests, and package the project into a JAR file, use:
+Validate generated tests without contacting Adyen:
 
 ```bash
-mvn install
+mvn spotless:apply
+mvn -Pintegration-tests -DskipTests test-compile
+mvn spotless:check checkstyle:check -DskipTests
 ```
 
-### Running Tests
-
-To execute the unit tests:
+The configuration tests are offline and safe to execute:
 
 ```bash
-mvn test
+mvn -Pintegration-tests test -Dtest=IntegrationTestConfigurationTest
 ```
 
-### Code Style & Formatting
-
-We use Checkstyle for linting and Spotless for formatting.
-
-- **Check for style violations**:
-  ```bash
-  mvn checkstyle:check
-  ```
-- **Apply formatting**:
-  ```bash
-  mvn spotless:apply
-  ```
-
-The build will fail if there are any Checkstyle violations. Run `spotless:apply` before committing.
-
-## Release Process
-
-The release process is automated via GitHub Actions. When a release is triggered:
-1.  A script determines the next version number (major, minor, or patch).
-2.  The `pom.xml` and other version files are updated.
-3.  A pull request is created with the version bump.
-4.  Once merged, a GitHub release is created, and the new version is published to Maven Central.
+Use the opt-in execution commands from `src/integration-test/README.md` only when external execution
+is explicitly requested.
+</integration_test_guidelines>
 
 ---
 > Source: [Adyen/adyen-java-api-library](https://github.com/Adyen/adyen-java-api-library) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
