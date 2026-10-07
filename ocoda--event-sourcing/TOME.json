@@ -4,7 +4,7 @@
   "repo": "event-sourcing",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/ocoda/event-sourcing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T15:54:46Z"
+  "distributed_at": "2026-10-07T00:49:16Z"
 }
