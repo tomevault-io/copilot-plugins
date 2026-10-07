@@ -1,0 +1,44 @@
+{
+  "name": "NeNeTeePee-Stream-Kodi",
+  "owner": "Appz4Fun",
+  "repo": "NeNeTeePee-Stream-Kodi",
+  "description": "Kodi 21 addon \u2014 stream Usenet via NZBHydra2 + nzbdav WebDAV. TMDBHelper player integration, PTT filtering, auto-updates via Kodi repository.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Appz4Fun/NeNeTeePee-Stream-Kodi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T02:22:36Z"
+}
