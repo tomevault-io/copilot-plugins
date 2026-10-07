@@ -1,0 +1,99 @@
+## mdkite-nvim
+
+> Neovim plugin for live markdown preview in the browser. Pure Lua, no npm: the plugin is Lua alone, and its browser test is a bun package under `tests/browser/`. This file is the index for any coding agent and the source of truth for how to work here; CLAUDE.md includes it. The README is the user's contract and CHANGELOG.md the record of what shipped.
+
+# mdkite.nvim: agent operating file
+
+Neovim plugin for live markdown preview in the browser. Pure Lua, no npm: the plugin is Lua alone, and its browser test is a bun package under `tests/browser/`. This file is the index for any coding agent and the source of truth for how to work here; CLAUDE.md includes it. The README is the user's contract and CHANGELOG.md the record of what shipped.
+
+## Structure
+
+- `lua/mdkite/init.lua`: setup and config, server lifecycle, refresh, scroll sync, mermaid pre-rendering
+- `lua/mdkite/floor.lua`: the Neovim requirement and its message, the one source the plugin file and the module read
+- `lua/mdkite/util.lua`: fs helpers, workspace resolution, asset resolution, browser open
+- `lua/mdkite/ts.lua`: Tree-sitter mermaid extractor plus a Lua-pattern fallback
+- `lua/mdkite/lock.lua`: the takeover-mode lock file (port, workspace, pid, token and the address the primary's server bound; mode 0600) under `stdpath("cache")/mdkite`, removed only by the instance that wrote it; a lock counts only while its pid runs and its port's server takes its token, and an older release's lock under `stdpath("cache")/markdown-preview` is read, never written
+- `lua/mdkite/remote.lua`: HTTP event injection for secondary instances (scroll sync) and the lock check's request
+- `plugin/mdkite.lua`: the floor check and the user command `:MdKite` (`start`, `stop`, `refresh`, `toggle`), and through 2.x the commands before 2.0.0 (`:MarkdownPreview`, `:MarkdownPreviewRefresh`, `:MarkdownPreviewStop`), each running its subcommand after one warning a session
+- `lua/markdown_preview.lua`: the module's name before 2.0.0, through 2.x: it hands back `mdkite`'s table and warns once a session; `vim.g.loaded_markdown_preview` opts out beside `vim.g.loaded_mdkite`
+- `assets/index.html`: the browser preview app (CSS plus JS, one file)
+- `lazy.lua`: the spec lazy.nvim reads from this plugin, listing kitehost.nvim alone; it stays in step with the README's lazy.nvim snippet
+- `tests/`: the headless suites, `helpers.lua` (the harness), `run.sh` (the runner) and `floor_smoke.sh` (the below-floor smoke)
+- `tests/browser/`: the browser smoke test (`smoke.test.ts`), a bun package that pins Playwright exactly (`package.json`, `bun.lock`)
+- `.githooks/commit-msg`: the hook `make hooks` copies into the clone with a copy of `.githooks/message-policy`, the one message policy the CI `commits` job runs too; the hook runs that copy, never the working tree's (a merge runs the hook with the merged tree checked out), so `make hooks` runs again after a policy change; `tests/message_policy_test.sh` measures both
+
+## Sibling dependency
+
+- kitehost.nvim (`selimacerbas/kitehost.nvim`, named live-server.nvim before its 2.0.0, cloned beside this repo as `../kitehost.nvim`, or still as `../live-server.nvim`) is the pure Lua HTTP server with SSE this plugin drives; one maintainer edits both, and commits stay per repo.
+- The plugin requires `kitehost.server` and `kitehost.util`, new in kitehost v2.0.0, so requiring them is the version check: without them a start refuses with one error naming the floor, and an error kitehost raises while loading goes on as raised. The lookup runs at load and again at every start until it finds them, so a kitehost put on the runtimepath after the plugin loaded is used.
+- The kitehost floor is v2.0.0 in four places that move together: `H.kitehost_floor` in `tests/helpers.lua`, `KITEHOST_FLOOR` in `lua/mdkite/init.lua`, and `KITEHOST_FLOOR` and `KITEHOST_FLOOR_SHA` in `.github/workflows/ci.yml`; the `kitehost floor is the pinned tag` step of the local action `.github/actions/kitehost-floor`, which the five jobs on the floor share, reds when the helper and the workflow disagree, `start_failure_test` reds when the helper and the module do, and the gating test jobs run on that commit.
+- kitehost exports `require("kitehost.server").features` (`token_auth`, `host_binding`, `asset_route`, `host_check`, `cors_list`, `start_raises`); a start requires `host_check` and `start_raises` (`REQUIRED_FEATURES` in `lua/mdkite/init.lua`) and refuses a kitehost without either with one error naming the floor and the missing flag, before any state is made; the asset route is older than both.
+- APIs used: `server.start(cfg)` (an instance with `.port`), `server.stop(inst)`, `server.reload(inst, path)`, `server.send_event(inst, event, data)`, `server.update_target(inst, root, index)`, `server.connected_client_count(inst)`, `server.wildcard_loopback(ip)` when present, `server.features`, and `util.random_token(16)` from `kitehost.util` (the session token).
+- Endpoints used: `GET /__live/inject?event=<type>&data=<json>&t=<token>` (remote.lua), the same route with no event to check a lock's holder (`?t=<token>`, or a bare `?`), and `GET /__live/events?t=<token>` (the event stream) and `GET /__live/asset?p=<relpath>&t=<token>` (the preview page).
+
+## Architecture
+
+- Neovim writes the buffer to `content.md` in a workspace directory under `stdpath("cache")/mdkite/` (takeover always; multi unless `workspace_dir` is set); kitehost serves it and pushes SSE events (`reload` on change, `scroll` with the cursor line).
+- What is written: the whole buffer when its filetype is `markdown` or has a `markdown` part (`rzk.markdown`, a dotted filetype Neovim reads part by part), or is named by `filetypes` whole or as a part, a `.mmd` or `.mermaid` file whole inside a mermaid fence, and for any other buffer the mermaid fence under the cursor. `setup()` builds that set once (`M._filetype_set`, markdown always in it) and refuses a `filetypes` that is not a list of filetype names with one error notice, applying nothing of that call.
+- The browser renders with markdown-it, highlight.js, KaTeX and mermaid (loaded from CDNs) and diffs the DOM with morphdom.
+- Auth: a per-session token gates five surfaces, `content.md`, the `asset_root` sidecar, the SSE stream, the inject endpoint and the asset route; on a server bound to `127.0.0.1` (the default, and what `localhost` binds) the index page is not gated and carries the token (`data-live-token`), and on any other bound address, `::1` included, the index page is gated too and carries no token, which the browser takes from the `?t=` URL; the address the server bound decides, never a `host` set after the start.
+- Instance modes: `takeover` (the default; one shared workspace, port 8421 under the default `port = 0`, a lock file elects the primary) and `multi` (a per-buffer workspace, or `workspace_dir` when set, and a server per instance on an OS-assigned port under the default `port = 0`).
+- `mermaid_renderer = "rust"` pre-renders mermaid fences through the `mmdr` CLI; the default renders them in the browser.
+
+## Conventions
+
+- Neovim 0.10 or newer: `lua/mdkite/floor.lua` states the requirement and the message once, below it the plugin file and the module stop with that message, and CI proves the refusal on a real Neovim 0.9.5 with `tests/floor_smoke.sh`.
+- `vim.uv` for async I/O; Lua patterns, never regex quantifiers.
+- StyLua 2.5.2 with `.stylua.toml` (tabs, 120 columns); the Makefile pins the version; bun runs the formatter and the browser test.
+- Gates by make target: `make fmt` (writes), `make fmt-check`, `make lint-text` (the em dash), `make lint-blame` (`.git-blame-ignore-revs`), `make shellcheck` (the POSIX scripts and hooks, read as sh), `make test`, `make test-browser` (the browser smoke test, kept out of `make test`); `make hooks` installs the commit-msg hook; `make help` lists them.
+- CI runs the same targets: `make fmt-check`, `make lint-text` and `make lint-blame` as written, `make shellcheck` in `lint-workflows` with the pinned actionlint image's shellcheck, `tests/run.sh`, which `make test` runs, in the test, floor, upstream, windows and nightly jobs, and `tests/message_policy_test.sh`, which `make test` runs next, on the test job's Linux leg; the `browser` job runs `make test-browser`, which reads the JUnit report's counts.
+- No default keymaps (issue #4). No em dash character anywhere.
+- Commits: an imperative subject of at most 72 characters and a body wrapped at 72 columns that says why (prose rules, no gate checks them), and no attribution trailer, no em dash, no workflow skip instruction (CONTRIBUTING.md lists each); `make hooks` installs the hook that refuses those three, never `core.hooksPath`.
+- Release titles are clean version numbers (`v1.10.0`); the notes come from the version's section of `CHANGELOG.md`.
+
+## Tests
+
+- `make test` runs `tests/run.sh` (every `tests/*_test.lua` under private XDG directories, then the help tags when `doc/` exists) and then `tests/message_policy_test.sh` (the policy script and the hook, committing in a scratch repository), and fails when either does.
+- One suite alone: `nvim --headless -u NONE -l "$PWD/tests/<file>_test.lua"` (the absolute name `tests/run.sh` passes, which keeps a link the checkout is reached through).
+- `helpers_test`: the harness itself (root and isolation, the bounded curl, exit rulings, callback errors, `H.expect_error`, `H.rtp`, path spelling, the teardown by `H.case` and `H.defer`, the raw TCP client, the response reader, the descriptor and handle counters).
+- `parse_test`: every tracked Lua file parses under this Neovim's LuaJIT (it needs a git checkout), and `lazy.lua` returns exactly one spec, `{ "selimacerbas/kitehost.nvim" }`.
+- `rtp_test`: how `H.rtp()` proves the checkout and chooses kitehost.nvim, each override and sibling name in its order, and what it refuses.
+- `token_auth_test`: the token reaches the served page and gates `content.md`, the lock file that holds it is private, and the preview URL names the address the server bound and carries the token on any bind but `127.0.0.1`.
+- `start_failure_test`: a start or a retarget that fails, refused or raising, is one notice and a clean state (the server stopped, no autocmd, token or lock of its own left) and leaves a running primary's files and lock alone; a refused push is told once, from a primary or a secondary, and a deferred browser open survives a stop; an older release's live lock is named and never joined, and a runtimepath without kitehost, or a kitehost without a required feature, is refused at start with one notice.
+- `asset_route_test`: the installed kitehost exports `asset_route`, `host_check` and `start_raises`, the route serves files beside the document, and the sidecar is gated.
+- `floor_guard_test`: below 0.10 every documented command refuses with the floor message, and the README's upgrading table lists each command before 2.0.0, the list `tests/floor_smoke.sh` drives; at the floor the commands are defined.
+- `command_test`: `:MdKite` runs each subcommand and a bare one starts, completion offers the subcommands for the first argument, an unknown subcommand or an argument after a known one is one error, each former command runs its subcommand with one warning a session, `toggle` starts and stops a real preview, a joined one included, and a start previews a buffer whole when its filetype has a `markdown` part or is listed in `filetypes`, which adds to markdown; setup refuses a `filetypes` that is not a list of names with one error and changes nothing, and a refresh reads the set setup built.
+- `tests/floor_smoke.sh`: the refusal on a real Neovim below the floor; CI runs it on 0.9.5, and locally such a Neovim goes first on PATH.
+- curl is needed by the five suites that make HTTP requests (`helpers_test`, `token_auth_test`, `asset_route_test`, `start_failure_test`, `command_test`).
+- No row skips for a kitehost feature: a start refuses a kitehost without a required one, so the rows that need a start that raises (its refusal texts, `localhost` and an IPv6 wildcard bound canonical) and kitehost's dot rule run on every server the plugin starts on.
+- `tests/browser/smoke.test.ts` (`make test-browser`): a headless Neovim serves a buffer, Playwright's headless Chromium renders the page, and an edit over RPC reaches it through the plugin's autocmds and its SSE push, no explicit refresh. It needs bun 1.4.0 or newer (the lockfile's version), Playwright's Chromium (`cd tests/browser && bun install --frozen-lockfile && bun x playwright install --only-shell chromium`, the install first so `bun x` runs the pinned Playwright) and network for the page's CDN libraries (jsDelivr and unpkg); a red browser job after a third-party release, with no change here, is re-run once, and if it stays red the diagnosis names the URL; a red run prints Neovim's output and exit, the page's errors and console warnings, pending and failed requests, 4xx and 5xx responses and the page state.
+
+## Test harness contract
+
+- Shared files: `tests/parity.sh` lists every file this repository shares with kitehost.nvim (the harness, the runner, the smoke, the hooks, the Makefile, the PR template) and how it is compared; `make parity SIBLING=../kitehost.nvim` runs it and the `upstream` job reports it against kitehost `main`. kitehost's copy is the source, so a change lands there first. A Lua file compares with its leading indentation stripped and nothing else ignored (tabs here, 4 spaces there) outside its `-- parity: own lines` markers: here `H.kitehost_floor` and `H.rtp` in `tests/helpers.lua`, and the lazy.lua section of `tests/parse_test.lua`.
+- Isolation: `tests/run.sh` points the four XDG directories at a private `mktemp -d` before Neovim starts, whatever the caller exported (the hosted ubuntu image exports `XDG_CONFIG_HOME`), and `H.isolate()` moves cache, data and state again before the suite loads the plugin, failing loud when `stdpath()` does not follow.
+- Lookup: `H.rtp()` takes `$KITEHOST_RTP`, else `$LIVE_SERVER_RTP` (its name before kitehost 2.0.0, read through 2.x), then `./kitehost-rtp` (the CI checkout), then `../kitehost.nvim`, then `../live-server.nvim` (a clone under its name before 2.0.0); a set override (empty reads as unset) that is not a directory raises, naming its variable, instead of falling through, otherwise the first that exists wins, and finding none raises. `tests/browser/smoke.test.ts` and `tests/floor_smoke.sh` make the same lookup and resolve a relative override against the repository root, where `H.rtp()` resolves it against the working directory, which `tests/run.sh` makes the root; `tests/floor_smoke.sh` puts the kitehost it found on the runtimepath after the checkout and before Neovim's own entries, and makes no origin proof (below the floor it wants no kitehost module loaded at all). `tests/browser/smoke.test.ts` also puts the name found on the runtimepath as it is, prints the chosen path, gives Neovim four XDG directories of its own, and proves over RPC, after the load, that `mdkite` and `kitehost.server` loaded from the chosen roots, where `H.rtp()` proves every module before any loads.
+- Proof: every module of this plugin, its name before 2.0.0 (`markdown_preview`) included, and kitehost's `server` and `util` (the modules the plugin loads, as the pinned floor ships them), must resolve from the chosen entries, or the suite raises instead of loading an installed copy.
+- One canonical path form: `H.canon` gives a path one spelling (absolute, links resolved, forward slashes), and `H.same_path` compares two, folding case where `H.fs_folds_case` measured that the filesystem folds it.
+- Exit rulings: the exit code is the ruling; a red suite, one that ends without `H.finish()`, and one whose callback raised exit 1, whatever the suite's own quits, `os.exit` calls and callbacks do.
+- Every ledger line is written as a line by `H.write_line` (straight to stdout, its own newline), and `tests/run.sh` fails a suite whose output has no `Results:` line.
+- Skips are counted: `H.skip` stands for one dropped assertion and writes a `SKIP:` line; `Results:` carries passed, failed and skipped, and a suite that asserted nothing fails.
+- Teardown and counting: `H.defer` registers a cleanup; `H.case` runs a section under `xpcall` (a raise is one FAIL, its cleanups run at its end, a raise after the ruling escapes); `H.finish` runs the rest before it rules, and a cleanup registered during that drain raises. `H.fd_count` counts the process's descriptors (nil on Windows, a raise on a failed listing), `H.handle_count` the live luv handles of one kind created since the harness loaded (never `uv.walk`, which segfaults Neovim 0.10), `H.wait_for` waits with a bound. `H.responses` splits raw bytes into responses and returns the unparsed tail; `H.response` raises when nothing parsed, so a row that asserts a header is absent fails closed.
+- The floor: `floor_guard_test` mocks `vim.fn.has` and the notifier on a supported Neovim; the real below-floor path is `tests/floor_smoke.sh` on CI's 0.9.5 leg.
+
+## CI
+
+- `.github/workflows/ci.yml`: `test` (Linux and macOS, Neovim stable), `floor` (Neovim 0.10.0), `floor-below` (Neovim 0.9.5) and `windows` (Neovim stable) on the kitehost floor; `lint-workflows`, `format`, `commits` and `browser` (Linux, Neovim stable, Playwright's headless Chromium, the kitehost floor); `ci-ok` passes only when each of those passed; `commits` runs on every event, and a manual run judges the commit it runs on alone.
+- Reporting jobs: `upstream` (kitehost `main`); `.github/workflows/nightly.yml` runs Neovim nightly against kitehost `main` weekly and by hand. Neither is in `ci-ok`.
+- Checks only GitHub makes, none of them a make target: actionlint and the composite-action step check in `lint-workflows`; `sha_pinning_required` on the repository's Actions settings (every action pinned by SHA); the pull request title at most 65 characters and the title and body judged by the message policy (`commits`); branch protection on `main` requiring `ci-ok` (strict: the branch up to date), whose context is the job id, so renaming the job or giving it a `name:` leaves every pull request waiting; one approving review, which the maintainer's own pull requests pass through the administrator bypass, with stale approvals kept after a push; squash merges only, the commit taking `PR_TITLE` and `PR_BODY`; and the `release tags` rulesets of this repository and kitehost.nvim, which refuse a moved or deleted `v*` tag.
+
+## Testing by hand
+
+1. Open a `.md` file, `:MdKite`; edit and watch the browser update; move the cursor and watch it follow.
+2. Takeover: a second Neovim instance previewing another `.md` updates the same tab.
+3. Multi: `instance_mode = "multi"` opens one tab per instance.
+4. `:MdKite stop` stops the server and removes the lock file (takeover primary).
+
+---
+> Source: [selimacerbas/mdkite.nvim](https://github.com/selimacerbas/mdkite.nvim) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
