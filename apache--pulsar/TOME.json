@@ -4,7 +4,7 @@
   "repo": "pulsar",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/apache/pulsar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T14:10:32Z"
+  "distributed_at": "2026-10-07T09:14:46Z"
 }
