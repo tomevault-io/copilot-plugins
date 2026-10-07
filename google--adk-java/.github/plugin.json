@@ -5,5 +5,26 @@
   "version": "1.0.0",
   "author": "google",
   "homepage": "https://github.com/google/adk-java",
-  "skills": []
+  "skills": [
+    {
+      "name": "adk-java",
+      "description": ""
+    },
+    {
+      "name": "adk-java",
+      "description": ""
+    },
+    {
+      "name": "adk-java",
+      "description": ""
+    },
+    {
+      "name": "adk-java",
+      "description": ""
+    },
+    {
+      "name": "adk-java",
+      "description": ""
+    }
+  ]
 }
