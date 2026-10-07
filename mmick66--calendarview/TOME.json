@@ -4,7 +4,7 @@
   "repo": "CalendarView",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/mmick66/CalendarView",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T12:42:39Z"
+  "distributed_at": "2026-10-07T02:34:48Z"
 }
