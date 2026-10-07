@@ -1,0 +1,9 @@
+{
+  "name": "ludengz--awesome-epub-translator-skill",
+  "displayName": "awesome-epub-translator-skill",
+  "description": "AI-powered ePub translator for Claude Code \u2014 translate ebooks to any language with automatic style matching, parallel agents, and checkpoint resumability",
+  "version": "1.0.0",
+  "author": "ludengz",
+  "homepage": "https://github.com/ludengz/awesome-epub-translator-skill",
+  "skills": []
+}
