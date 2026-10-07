@@ -4,7 +4,7 @@
   "repo": "Big-A-chovy",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LuQTest/Big-A-chovy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T17:47:53Z"
+  "distributed_at": "2026-10-07T18:13:20Z"
 }
