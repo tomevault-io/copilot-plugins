@@ -1,17 +1,37 @@
-## kibi-traceability
+## kibi-workflow
 
-> Requirement traceability and symbol linking through Kibi
+> Kibi capability-based discovery-first workflow and KB mutation discipline
 
 
-Before changing production code, discover linked requirements with `kb_search` and `kb_query(sourceFile=...)`.
+Use Kibi via MCP tools when available, or via CLI JSON routes when MCP is unavailable.
 
-After meaningful source edits, run `kb_check({sourceFiles:[...], includeImpactDiagnostics:true, includeWorkingTreeDiff:true})` while the edit context is fresh. Review symbol granularity and whether linked requirements, scenarios, and tests still cover the changed behavior or UI copy.
+Interface selection:
+1. If any `kb_*` or `kibi_kb_*` tool is in the tool list, use MCP only. Do not use the CLI path.
+2. Else if Shell (or equivalent) is available and the project-local CLI is trusted, run the non-installing JSON recipe below. Missing MCP tools does not mean Kibi is unavailable.
+3. Else stop and tell the operator. Do not probe the CLI, do not install packages, and do not infer MCP availability from config file existence.
+4. Shell is in-policy only for the trusted project-local `npx --no-install kibi ...` (or `bunx --no-install kibi ...`) command when step 2 applies.
+5. Never use a global fallback, an installing runner, or an unapproved route. Do not read or edit `.kb/` files directly.
 
-Preserve the canonical chain `REQ-* -> SCEN-* -> TEST-*` when modeling behavior.
+CLI JSON recipe (stdin is one UTF-8 JSON object):
 
-Prefer symbol manifest + `executable_for` for test/e2e code. Inline `// implements REQ-xxx` remains acceptable for quick code-only changes.
+```bash
+printf '%s\n' '{"query":"checkout","limit":10}' | npx --no-install kibi search --input -
+```
 
-Route durable domain facts to strict `fact` entities. Use `fact_kind: observation` or `meta` for bugs and workarounds, not `flag`.
+Map canonical MCP names to CLI routes by dropping the `kb_` prefix and replacing `_` with `-` (`kb_search` → `search`, `kb_find_gaps` → `find-gaps`, `kb_query` → `query`, `kb_status` → `status`, `kb_check` → `check`, `kb_upsert` → `upsert`).
+
+Discovery workflow:
+- Start with `kb_search` for broad discovery.
+- Follow with `kb_query` for exact entities, filters, and source-linked lookups.
+- Use `kb_status`, `kb_find_gaps`, `kb_coverage`, and `kb_graph` when reporting questions need them.
+
+Mutation workflow:
+- Query before mutate.
+- Create relationship endpoints before linking.
+- Use `kb_upsert` sequentially. Run `kb_check` before completion.
+- Use `kb_delete` only for intentional removals with dependency awareness.
+
+Completion must state KB freshness outcome: updated, no-impact with rationale, or deferred/failed.
 
 ---
 > Source: [Looted/kibi](https://github.com/Looted/kibi) — distributed by [TomeVault](https://tomevault.io).
