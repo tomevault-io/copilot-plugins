@@ -1,0 +1,9 @@
+{
+  "name": "imbue-ai--default-workspace-template",
+  "displayName": "default-workspace-template",
+  "description": "A template for running a persistent instance of Claude Code",
+  "version": "1.0.0",
+  "author": "imbue-ai",
+  "homepage": "https://github.com/imbue-ai/default-workspace-template",
+  "skills": []
+}
