@@ -3,8 +3,8 @@
   "owner": "leancoderkavy",
   "repo": "premiere-pro-mcp",
   "description": "",
-  "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "type": "tome",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "premiere-pro-mcp",
+      "path": "plugins/premiere-pro/skills/edit-premiere-project/SKILL.md",
+      "github_url": "https://github.com/leancoderkavy/premiere-pro-mcp/tree/main/plugins/premiere-pro/skills/edit-premiere-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "premiere-pro-mcp",
+      "path": "plugins/premiere-pro/skills/develop-premiere-pro-mcp/SKILL.md",
+      "github_url": "https://github.com/leancoderkavy/premiere-pro-mcp/tree/main/plugins/premiere-pro/skills/develop-premiere-pro-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "premiere-pro-mcp",
+      "path": "claude-plugins/premiere-pro/skills/edit-premiere-project/SKILL.md",
+      "github_url": "https://github.com/leancoderkavy/premiere-pro-mcp/tree/main/claude-plugins/premiere-pro/skills/edit-premiere-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "premiere-pro-mcp",
+      "path": "claude-plugins/premiere-pro/skills/develop-premiere-pro-mcp/SKILL.md",
+      "github_url": "https://github.com/leancoderkavy/premiere-pro-mcp/tree/main/claude-plugins/premiere-pro/skills/develop-premiere-pro-mcp/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/leancoderkavy/premiere-pro-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T13:55:53Z"
+  "distributed_at": "2026-10-07T01:49:39Z"
 }
