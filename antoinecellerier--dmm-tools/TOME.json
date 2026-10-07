@@ -1,0 +1,44 @@
+{
+  "name": "dmm-tools",
+  "owner": "antoinecellerier",
+  "repo": "dmm-tools",
+  "description": "Multimeter logging and graphing app for Linux, Windows, macOS and Raspberry Pi. Works with UNI-T, ZOYI/ZOTEK, ANENG, Brymen, EEVblog, OWON and Voltcraft meters over USB and Bluetooth. Open-source GUI and CLI. UT61E+, UT181A, UT161, UT71, UT60BT, UT804, AN9002, ZT-300AB, BM869s, 121GW, VC890 and more.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/antoinecellerier/dmm-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T19:47:53Z"
+}
