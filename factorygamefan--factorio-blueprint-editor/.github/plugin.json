@@ -1,0 +1,9 @@
+{
+  "name": "factorygamefan--factorio-blueprint-editor",
+  "displayName": "factorio-blueprint-editor",
+  "description": "Browser-based Factorio blueprint editor with Factorio 2.0 and Space Age support. Actively maintained; a separate project from teoxoy/factorio-blueprint-editor.",
+  "version": "1.0.0",
+  "author": "FactoryGameFan",
+  "homepage": "https://github.com/FactoryGameFan/factorio-blueprint-editor",
+  "skills": []
+}
