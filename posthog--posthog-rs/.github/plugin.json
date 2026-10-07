@@ -1,0 +1,9 @@
+{
+  "name": "posthog--posthog-rs",
+  "displayName": "posthog-rs",
+  "description": "posthog-rs",
+  "version": "1.0.0",
+  "author": "PostHog",
+  "homepage": "https://github.com/PostHog/posthog-rs",
+  "skills": []
+}
