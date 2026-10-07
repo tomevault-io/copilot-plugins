@@ -1,0 +1,18 @@
+{
+  "name": "digity-studio--astro-medusa-starter",
+  "displayName": "astro-medusa-starter",
+  "description": "astro-medusa-starter",
+  "version": "1.0.0",
+  "author": "digity-studio",
+  "homepage": "https://github.com/digity-studio/astro-medusa-starter",
+  "skills": [
+    {
+      "name": "astro-medusa-starter",
+      "description": ""
+    },
+    {
+      "name": "astro-medusa-starter",
+      "description": ""
+    }
+  ]
+}
