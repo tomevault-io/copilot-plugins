@@ -1,0 +1,9 @@
+{
+  "name": "helpin-ai--helpin",
+  "displayName": "helpin",
+  "description": "Open-source alternative to Intercom, Fin and Linear. Support, projects, CRM, meetings, and docs in one workspace\u2014with AI agents that use customer history to answer questions, plan work, and follow up.",
+  "version": "1.0.0",
+  "author": "helpin-ai",
+  "homepage": "https://github.com/helpin-ai/helpin",
+  "skills": []
+}
