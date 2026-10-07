@@ -4,7 +4,7 @@
   "repo": "Deci_FE",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/j0hs04/Deci_FE",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T08:39:21Z"
+  "distributed_at": "2026-10-07T08:41:37Z"
 }
