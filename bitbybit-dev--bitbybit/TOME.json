@@ -4,7 +4,7 @@
   "repo": "bitbybit",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bitbybit-dev/bitbybit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T09:52:29Z"
+  "distributed_at": "2026-10-07T12:56:08Z"
 }
