@@ -1,0 +1,14 @@
+{
+  "name": "fuzhiyu--superra",
+  "displayName": "superRA",
+  "description": "An agentic workflow for economic research",
+  "version": "1.0.0",
+  "author": "FuZhiyu",
+  "homepage": "https://github.com/FuZhiyu/superRA",
+  "skills": [
+    {
+      "name": "econ-data-analysis",
+      "description": ""
+    }
+  ]
+}
