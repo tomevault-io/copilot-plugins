@@ -1,0 +1,9 @@
+{
+  "name": "stubbi--paperclip-operator",
+  "displayName": "paperclip-operator",
+  "description": "Kubernetes operator for managing Paperclip instances - the open-source AI agent orchestration platform",
+  "version": "1.0.0",
+  "author": "stubbi",
+  "homepage": "https://github.com/stubbi/paperclip-operator",
+  "skills": []
+}
