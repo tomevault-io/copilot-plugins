@@ -1,26 +1,25 @@
-## financial-amounts
+## machine-front-door
 
-> Financial amount + token data safety — floor display amounts (never round up), decimals come from the SDK token registry. Full detail in .claude/skills/t2000-financial-amounts/.
+> Machine front door — t2000.ai/llms.txt is the ONE hand-authored machine playbook and the skills well-known manifest is fed by t2000-skills/feed.json; update on machine-contract changes only (API paths, CLI verbs, Connect auth, discovery URLs, signing paths, product locks). Full rule in .claude/skills/t2000-machine-front-door/.
 
 
-# Financial Amounts → `.claude/skills/t2000-financial-amounts/SKILL.md`
+# Machine Front Door → `.claude/skills/t2000-machine-front-door/SKILL.md`
 
-**The invariants:**
+**The invariant:** `t2000.ai/llms.txt` (served from
+`audric/apps/console/app/llms.txt/route.ts`) is the single machine playbook —
+never create a second SSOT. Update it only when a machine contract changes
+(public `api.t2000.ai/v1/*` shapes, CLI marketplace/wallet verbs, Connect auth
+model or connector URL, discovery URLs, who can sign, earn-first/fee/open-reject
+locks) — never for UI polish. Connect always signs as Passport, never a local
+key. The skills manifest enumerates from `t2000-skills/feed.json`, gated by
+`validate.ts` in CI.
 
-1. **Floor, never round.** Any amount shown to a user or passed to an SDK builder
-   must be **≤** the actual on-chain balance. `Math.round` can round up and produce
-   more raw units than the user holds → "Insufficient balance".
-2. **Decimals are registry data, never call-site literals.** Read them from
-   `COIN_REGISTRY` / `SUPPORTED_ASSETS` in `packages/sdk/src/token-registry.ts` +
-   `constants.ts`. Never create a second token map.
+**Read the full rule before editing llms.txt, well-known routes, or
+agent-discovery copy:** `.claude/skills/t2000-machine-front-door/SKILL.md` —
+gate list, facts that must stay true, verify curls.
 
-**Read the full detail before touching amount math or token metadata:**
-`.claude/skills/t2000-financial-amounts/SKILL.md` — per-token display precision,
-chip/preset math for tiny balances, and the canonical-source table.
-
-*(Content moved there 2026-07-24, merged with the former `token-data-architecture`
-rule — do not re-inline it here; this file is a pointer so Cursor and Claude Code
-cannot drift.)*
+*(Pointer only — do not re-inline the content here; same pattern as
+env-validation-gate.mdc so Cursor and Claude Code cannot drift.)*
 
 ---
 > Source: [t2000-afi/t2000](https://github.com/t2000-afi/t2000) — distributed by [TomeVault](https://tomevault.io).
