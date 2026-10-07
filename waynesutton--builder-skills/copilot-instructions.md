@@ -1,78 +1,76 @@
 ## builder-skills
 
-> [Project name]. [One sentence on what it does and who uses it.]
+> Agent skills for builders shipping Convex apps. This file is context for agents working inside this repo. It also symlinks to `CLAUDE.md`.
 
-# Project context
+# builder-skills
 
-[Project name]. [One sentence on what it does and who uses it.]
+Agent skills for builders shipping Convex apps. This file is context for agents working inside this repo. It also symlinks to `CLAUDE.md`.
 
-Stack: Convex (backend), [React / Next.js / Vite / Expo] (frontend), [auth provider], [email provider].
+## What this repo is
+
+Seventeen skills in `skills/<name>/`. Fourteen cover Convex. Three cover how to run a project: PRD first, docs synced from git evidence, git commands that cannot destroy work. Each skill is a folder with `SKILL.md`, an `agents/openai.yaml` for Codex icons, and sometimes a `references/` folder that the skill loads on demand.
+
+The CLI in `bin/cli.js` installs skills into `.claude/skills`, `.codex/skills`, or `.agents/skills`. Templates in `templates/` are starters a user edits. `scripts/check-skills.mjs` is the lint.
 
 ## Docs first
 
-For any Convex API, fetch https://docs.convex.dev/llms.txt and follow the link for the area before relying on memory. The skills in `.claude/skills/` (or `.agents/skills/`) cover each area in depth. Load the one that matches the task.
+For Convex APIs, fetch https://docs.convex.dev/llms.txt and follow the link for the area. Do not rely on memory for method names, validator names, or component APIs. When a skill cites an API, it was checked against that index; keep it that way.
 
-## Commands
+## Working on skills
 
-```bash
-npx convex dev                 # development. watches, syncs, regenerates types
-npx convex dev --once          # single sync
-npx convex run file:fn '{}'    # run a function with args
-npx convex logs                # tail logs
-npx convex dashboard           # open dashboard
-npm run typecheck              # tsc --noEmit
-npm run lint                   # eslint with @convex-dev/eslint-plugin
-```
+- Frontmatter is `name` and `description` only. `name` matches the folder.
+- `description` is third person, says what the skill does, and includes a `Use when ...` sentence.
+- `SKILL.md` under 300 lines. Hard limit 500. Deep material goes in `references/*.md` and gets linked from the body.
+- Code samples use the object form with `args` and `returns` validators, `withIndex` over `filter`, `internal.*` for scheduling.
+- No emojis. No em dashes. No marketing words.
+- Adding a skill means updating `bin/cli.js`, `index.js`, `.claude-plugin/plugin.json`, the README table, `docs.md`, and adding a symlink in `.codex/skills/`.
+- Run `npm run check` before calling anything done. It has to pass.
 
-Do not run `npx convex deploy`, `git commit`, `git push`, or any publish command unless the current message asks for it.
+## Working on this repo
+
+- Non trivial work gets a PRD in `prds/`. See `skills/project-workflow`.
+- After a change, sync `task.md`, `changelog.md`, `files.md`. See `skills/project-docs`. Dates come from `git log --date=short`.
+- Before any git command that could discard work, see `skills/git-safety`.
+- Do not commit, push, publish, tag, or deploy. Print a suggested commit message and stop.
 
 ## Layout
 
 ```
-convex/
-  _generated/     generated, never edit, commit to git
-  schema.ts       tables, validators, indexes
-  http.ts         http router (exact name required)
-  crons.ts        cron jobs
-  convex.config.ts components registered with app.use
-  <feature>.ts    functions, referenced as api.<feature>.<name>
-src/              frontend
-prds/             one PRD per non trivial change, plus lessons.md
-files.md          what each file is for
-changelog.md      Keep a Changelog, dates from git log
-task.md           To Do / In Progress / Completed
+skills/<name>/SKILL.md          the skill
+skills/<name>/references/*.md   loaded on demand from SKILL.md
+skills/<name>/agents/openai.yaml Codex icon metadata
+bin/cli.js                      builder-skills CLI
+index.js                        programmatic API
+scripts/check-skills.mjs        lint, run with npm run check
+templates/                      starters installed by install-templates
+.claude-plugin/                 plugin.json and marketplace.json for Claude Code
+.codex/skills/                  symlinks into skills/ for Codex discovery
+command/convex.md               OpenCode slash command
+prds/                           PRDs for this repo, lessons.md, archive/
 ```
 
-## Rules that hold everywhere
+## Skills
 
-1. Every function uses the object form with `args` and `returns` validators. `returns: v.null()` when nothing comes back.
-2. `withIndex` over `filter`. Index names list their fields: `by_user_and_status`.
-3. Mutations are idempotent. Early return when the doc is already in the target state. Patch without reading first when possible.
-4. Schedule `internal.*` functions only. Never `api.*`.
-5. No `Date.now()` inside a query. Pass time as an argument.
-6. `"use node"` only in action files that need Node APIs. No queries or mutations in those files.
-7. Throw `ConvexError` for errors the client should see.
-8. Keep `query` / `mutation` / `action` wrappers thin. Logic lives in plain functions.
-
-## Workflow
-
-- Non trivial work starts with a PRD in `prds/`. Load the `project-workflow` skill.
-- After a change lands, sync `task.md`, `changelog.md`, `files.md`. Load the `project-docs` skill.
-- Before any git command that could discard work, load the `git-safety` skill.
-- The request sets the scope. Extra ideas go in the summary, not the diff. Load `avoid-feature-creep` if unsure.
-
-## Style
-
-- No emojis. No em dashes.
-- Site design system for modals, alerts, confirmations. Never `window.confirm` or `alert`.
-- No placeholder text or images. Everything renders real data from Convex.
-- Short comments that say what a block is for.
-- Type safe. No `any`.
-
-## Project notes
-
-[Business rules, naming conventions, architecture decisions, things that bit you before.]
+| Skill | Load when |
+| --- | --- |
+| `convex` | Convex task with no closer match |
+| `convex-best-practices` | reviewing patterns, OCC conflicts, ESLint setup |
+| `convex-functions` | writing any function in `convex/` |
+| `convex-schema-validator` | tables, validators, indexes |
+| `convex-realtime` | frontend subscriptions, optimistic updates |
+| `convex-http-actions` | webhooks, REST, CORS |
+| `convex-file-storage` | uploads, serving, metadata |
+| `convex-cron-jobs` | crons, scheduled functions |
+| `convex-migrations` | live schema changes, backfills |
+| `convex-agents` | AI agents, tools, RAG |
+| `convex-component-authoring` | building a component |
+| `convex-security-check` | quick pass before merge |
+| `convex-security-audit` | full review before launch |
+| `avoid-feature-creep` | scope is drifting |
+| `project-workflow` | multi step work, PRDs, task.md |
+| `project-docs` | syncing changelog, files.md, task.md |
+| `git-safety` | any git command that could discard work |
 
 ---
 > Source: [waynesutton/builder-skills](https://github.com/waynesutton/builder-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
