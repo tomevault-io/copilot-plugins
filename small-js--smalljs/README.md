@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [Small-JS/SmallJS](https://github.com/Small-JS/S
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Small-JS/SmallJS](https://github.com/Small-JS/SmallJS) — a repo with 203+ stars on GitHub.
+From [Small-JS/SmallJS](https://github.com/Small-JS/SmallJS) — a repo with 202+ stars on GitHub.
 
 ---
 
