@@ -1,10 +1,10 @@
 ## oxia
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to coding agents working with code in this repository. `AGENTS.md` is a symlink to this file, so agents that look for either name get the same guidance.
 
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to coding agents working with code in this repository. `AGENTS.md` is a symlink to this file, so agents that look for either name get the same guidance.
 
 ## Project Overview
 
@@ -82,4 +82,4 @@ Requires: `protoc-gen-go`, `protoc-gen-go-grpc`, `protoc-gen-go-vtproto`
 
 ---
 > Source: [oxia-db/oxia](https://github.com/oxia-db/oxia) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
