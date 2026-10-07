@@ -1,212 +1,479 @@
 ## effection
 
-> This file defines how to write blog posts for the Effection website
+> This file is the behavioral contract for AI agents writing applications with
 
-# Effection Blog — Writing Agent Guide
+# AGENTS.md — Effection agent contract
 
-This file defines how to write blog posts for the Effection website
-(`www/blog/`). It covers voice, structure, and technical accuracy constraints.
+This file is the behavioral contract for AI agents writing applications with
+Effection.
 
-The Effection blog is distinct from the Frontside company blog. Posts here are
-shorter, more focused, and always grounded in what Effection actually does.
+Agents must not invent APIs, must not infer semantics from other ecosystems, and
+must ground claims in the public API.
 
-All Effection blog posts inherit the **shared Frontside voice** defined in
-[`frontside.com/AGENTS.md`](https://github.com/thefrontside/frontside.com/blob/main/AGENTS.md).
-That guide covers sentence rhythm, verbal tics, humor/metaphor patterns, and
-four voice profiles (Opinion, Tutorial, Consultative, Narrative). This file adds
-Effection-specific constraints: technical accuracy rules, shorter post length
-(500-800 words), and Taras as the default author voice.
+If you are unsure whether something exists, consult the API reference:
+https://frontside.com/effection/api/
 
-## File Conventions
+## Core invariants (do not violate)
 
-- **Directory pattern:** `www/blog/YYYY-MM-DD-slug/index.md`
-- **Slug format:** lowercase, hyphen-separated, derived from title
-- **Images:** placed in the same directory as the post's `index.md`
-- **Frontmatter:**
+### Operations vs Promises
 
-```yaml
----
-title: "The Title of the Post"
-description: "A 1-2 sentence pitch that makes someone want to read the post."
-author: "Author Name"
-tags: ["tag1", "tag2"]
-image: "featured-image.svg"
----
+- **Operations** are lazy. They execute only when interpreted (e.g. `yield*`,
+  `run()`, `Scope.run()`, `spawn()`).
+- **Promises** are eager. Creating a promise (or calling an `async` function)
+  starts work; `await` only observes completion.
+- You must not claim that a promise is "inert until awaited".
+- You must not use `await` inside a generator function (`function*`). Use
+  `yield*` with an operation instead (e.g. `yield* until(promise)`).
+
+### Structured concurrency is scope-owned
+
+- Scope hierarchy is created automatically by the interpreter; application code
+  should not manage scopes manually.
+- "Lexical" in Effection: scope hierarchy follows the lexical structure of
+  operation invocation sites (e.g. `yield*`, `spawn`, `Scope.run`), not where
+  references are stored or later used.
+- Work is owned by **Scopes**.
+- When a scope exits, all work created in that scope is halted.
+- References do not extend lifetimes. Returning a `Task`, `Scope`, `Stream`, or
+  `AbortSignal` does not keep it alive.
+
+### Effects do not escape scopes
+
+- Values may escape scopes.
+- Ongoing effects must not escape: tasks, resources, streams/subscriptions, and
+  context mutations must remain scope-bound.
+
+## Operations, Futures, Tasks
+
+### Operation
+
+- An `Operation<T>` is a recipe for work. It does nothing by itself.
+- Operations are typically created by invoking a generator function
+  (`function*`).
+
+### Future
+
+- A `Future<T>` is both:
+  - an Effection operation (`yield* future`)
+  - a Promise (`await future`)
+
+### Task
+
+- A `Task<T>` is a `Future<T>` representing a concurrently running operation.
+- A task does not own lifetime or context; its scope does.
+
+## Entry points and scope creation
+
+### `main()`
+
+- You should prefer `main()` when writing an entire program in Effection.
+- Inside `main()`, prefer `yield* exit(status, message?)` for termination; do
+  not call `process.exit()` / `Deno.exit()` directly (it bypasses orderly
+  shutdown).
+
+### `exit()`
+
+- `exit()` is an operation intended to be used from within `main()` to initiate
+  shutdown.
+
+### `run()`
+
+- You may use `run()` to embed Effection into existing async code.
+- `run()` starts execution immediately; awaiting the returned task only observes
+  completion.
+
+### `createScope()`
+
+- You must not use `createScope()` for normal Effection application code.
+- You may use `createScope()` only for **integration** between Effection and
+  non-Effection lifecycle management (frameworks/hosts/embedders).
+- You must observe `destroy()` (`await` / `yield*`) to complete teardown.
+  Calling `destroy()` without observation does not guarantee shutdown
+  completion.
+
+### `useScope()`
+
+- Use `yield* useScope()` to capture the current `Scope` for integration (e.g.
+  callbacks) and re-enter Effection with `scope.run(() => operation)`.
+
+## `spawn()`
+
+**Shape (canonical)**
+
+```ts
+const op = spawn(myOperation); // returns an OPERATION
+const task = yield * op; // returns a TASK (Future) and starts it
 ```
 
-- The title is NOT repeated as an `# H1` inside the post body.
-- Tags are lowercase strings, typically 1-3.
-- Image paths are relative to the post directory.
+**Rules**
 
-## Featured Images
+- `spawn()` does not start work by itself. Yielding the spawn operation starts
+  work.
+- Yielding `spawn()` does not guarantee that the child has reached any
+  particular point in its body before the parent continues.
+- A spawned task must not outlive its parent scope.
 
-- **Template:** `www/blog/blog-image-template.svg`
-- **Dimensions:** 1200×630 (standard OG image size)
-- **Color scheme:** Automatically adapts to system light/dark mode via
-  `@media (prefers-color-scheme: dark)` inside the SVG `<style>` block.
-- **Usage:** Copy the template into your post directory, rename it, and
-  customize the title, caption, diagram area, and legend items.
-- **Colors:** Use the CSS classes defined in the template (`svg-card`,
-  `svg-scope-parent`, `svg-scope-child`, `svg-pill`, `svg-mono`,
-  `svg-dot-primary`, etc.) — do NOT hardcode `fill`/`stroke` values that would
-  break in one mode.
-- **Class prefix:** All CSS classes in SVG images MUST use the `svg-` prefix
-  (e.g., `svg-grid`, `svg-title`, `svg-card`). This prevents namespace
-  collisions when the SVG is inlined into the page DOM by the `inline-svg`
-  plugin — without the prefix, generic class names like `.grid` or `.label` leak
-  into the page and break other elements.
-- **Diagram patterns:** The template includes three commented-out diagram
-  examples: nested boxes (scope ownership), flow arrows (pipelines/sequences),
-  and stacked items (feature lists). Uncomment the one closest to your needs and
-  customize.
-- **Shadows/filters:** Light and dark mode use separate shadow filters
-  (`softShadow-light`/`softShadow-dark`, `tinyShadow-light`/`tinyShadow-dark`).
-  Elements that need shadows must be duplicated in two `<g>` wrappers — one with
-  class `svg-shadow-light` and one with `svg-shadow-dark`. CSS toggles
-  visibility.
-- **Background:** Uses show/hide pairs (`svg-bg-light`/`svg-bg-dark`,
-  `svg-glow-light`/`svg-glow-dark`) since CSS cannot change SVG gradient stop
-  colors.
+## `Task.halt()`
 
-## Voice
+**Rules**
 
-### Primary author: Taras Mankovski
+- `task.halt()` returns a `Future<void>`. You must observe it (`await` /
+  `yield*` / `.then()`), or shutdown is not guaranteed to complete.
+- `halt()` represents teardown. It can succeed even if the task failed.
+- If a task is halted before completion, consuming its value (`yield* task` /
+  `await task`) fails with `Error("halted")`.
 
-The default voice for Effection blog posts is Taras'. Here's how it works.
+## Scope vs Task (ownership)
 
-**Register:** Clean, direct prose. Not academic, not marketing. Technically
-precise but accessible. The authority comes from having built the thing, not
-from credentials.
+| Concept | Owns lifetime | Owns context |
+| ------- | ------------: | -----------: |
+| `Scope` |            ✅ |           ✅ |
+| `Task`  |            ❌ |           ❌ |
 
-**Goal:** Make the reader understand that Effection makes async feel normal.
-That's the core message. Everything else supports it.
+## Context API (strict)
 
-## Audience
+**Valid APIs**
 
-Primary audience for Effection blog posts is Hacker News and r/javascript:
-technically fluent, skeptical, and quick to nitpick imprecision.
+- `createContext<T>(name, defaultValue?)`
+- `yield* Context.get()`
+- `yield* Context.expect()`
+- `yield* Context.set(value)`
+- `yield* Context.delete()`
+- `yield* Context.with(value, operation)`
 
-- Prefer concrete, falsifiable claims over attributed motives ("TC39 wanted…").
-- Define overloaded terms once (e.g. "scope" meaning lifetime/ownership).
-- Avoid bikeshed triggers when a tighter semantics framing will do.
-- Keep examples consistent with the hook and with real runtime behavior.
+**Rules**
 
-**Point of view:**
+- You must treat context as scope-local. Children inherit from parents; children
+  may override without mutating ancestors.
+- You must not treat context as global mutable state.
 
-- First person singular ("I") for opinion and advocacy posts.
-- First person plural ("we") for project announcements and release notes.
-- Second person ("you") when addressing the reader's situation.
-- Mix all three when a post is both advocating and explaining.
+## `race()`
 
-**Prose style:**
+**Rules**
 
-- Clean prose mostly. Every sentence earns its place.
-- Metaphors and color are welcome when they serve the argument — don't force
-  them, but don't strip them out either. If a reviewer adds a good metaphor
-  during editing, keep it.
-- No filler. No "In today's rapidly evolving landscape" openings. No padding.
-- Short posts (500-800 words). Get in, make the point, get out.
+- `race()` accepts an array of operations.
+- It returns the value of the first operation to complete.
+- It halts all losing operations.
 
-**Opening style:**
+## `all()`
 
-- Prefer grounding technical arguments in history or foundational context first,
-  then connecting to today. The goal is to show that the idea is fundamental,
-  not novel.
-- Don't lead with "Effection is..." — lead with the problem or the principle.
+**Rules**
 
-**Code:**
+- `all()` accepts an array of operations and evaluates them concurrently.
+- It returns an array of results in input order.
+- If any member errors, `all()` errors and halts the other members.
+- If you need all results regardless of success or failure, use `allSettled()`
+  instead of wrapping each member in railway-style results.
 
-- Light: 1-3 well-chosen snippets per post.
-- Code reinforces the argument. It's evidence, not tutorial steps.
-- Show the Effection way. Don't show verbose "before" code unless the contrast
-  is the point.
+## `allSettled()`
 
-**Citations and links:**
+**Rules**
 
-- Link non-obvious claims inline. Common knowledge stays unlinked.
-- Link to Effection docs when referencing specific features.
-- Link to other Effection blog posts when they exist on the topic.
-- Link to authoritative external sources (specs, foundational blog posts, docs).
+- `allSettled()` accepts an array of operations and evaluates them concurrently.
+- It returns an array of `Result<T>` objects in input order
+  (`{ ok: true, value }` or `{ ok: false, error }`).
+- It never short-circuits on error — all operations run to completion.
+- It is analogous to `Promise.allSettled()`, but uses Effection's `Result<T>`
+  shape.
 
-**Naming alternatives:**
+## `call()`
 
-- Name other projects (Effect.ts, Observables, Kotlin coroutines, etc.) to
-  validate that structured concurrency is a real, growing movement.
-- Do NOT position Effection against them or compare features. The goal is "these
-  exist too" not "we're better than X."
+**Rules**
 
-**Conclusions:**
+- `call()` invokes a function that returns a value, promise, or operation.
+- `call()` does not create a scope boundary and does not delimit concurrency.
+- If you need to report failures without throwing (e.g. so other work can
+  continue), catch errors and return a railway-style result object instead of
+  letting the error escape.
 
-- Brief: 1-3 sentences.
-- Never a recap or summary of what was covered.
-- Either a forward-looking statement, a CTA to try Effection, or a return to the
-  opening idea.
+## `lift()`
 
-### Style reference: Charles Lowell (edited result)
+**Rules**
 
-When writing as Taras, aim for the quality of a post that has been reviewed and
-polished by Charles Lowell — essayistic touches, sustained metaphors when they
-work, sudden casual lines after formal argument. The agent should produce
-something close to the final edited result, not a raw draft that needs heavy
-review.
+- `lift(fn)` returns a function that produces an `Operation` which calls `fn`
+  when interpreted (`yield*`), not when created.
 
-## What the Blog is NOT
+## `action()`
 
-- **Not academic** — no jargon for jargon's sake, no passive voice
-- **Not marketing** — no "game-changer", "revolutionary", "best-in-class"
-- **Not a tutorial site** — posts argue or explain; step-by-step guides belong
-  in `/docs/`
-- **Not padded** — every sentence earns its place
-- **Not emoji-heavy** — avoid emoji in prose
+**Rules**
 
-## Technical Accuracy
+- Use `action()` to wrap callback-style APIs when you can provide a cleanup
+  function.
+- You must not claim `action()` creates an error or concurrency boundary; it
+  does not.
 
-This is non-negotiable. The Effection blog teaches people how to think about
-structured concurrency. Wrong examples teach wrong patterns.
+## `until()`
 
-**Before writing any code example:**
+**Rules**
 
-- Consult the root `AGENTS.md` for API correctness constraints.
-- Do NOT use `await` inside a generator function. Use `yield*`.
-- Do NOT call `spawn()` without `yield*` — `spawn()` returns an Operation, not a
-  Task.
-- Do NOT claim promises are "inert until awaited" — they are eager.
-- Do NOT invent APIs. If you're unsure whether something exists, check the API
-  reference: https://frontside.com/effection/api/
+- `until(promise)` adapts an already-created `Promise` into an `Operation`.
+- Prefer `until(promise)` over `call(() => promise)` when you have a promise—it
+  is shorter and clearer.
+- It does not make the promise cancellable; for cancellable interop, prefer
+  `useAbortSignal()` with APIs that accept `AbortSignal`.
 
-**After writing any code example:**
+## `scoped()`
 
-- Verify imports match the actual Effection public API.
-- Verify the example would actually work if pasted into a file and run.
-- Check that `try/finally` patterns match the `resource()` and `ensure()`
-  conventions documented in the root `AGENTS.md`.
+**Rules**
 
-## Writing Checklist
+- Use `scoped()` to create a boundary such that effects created inside do not
+  persist after it returns.
+- You must use `scoped()` (not `call()`/`action()`) when you need boundary
+  semantics.
 
-### Before writing:
+## `resource()`
 
-- [ ] Identify the core argument — what should the reader walk away believing?
-- [ ] Search `www/blog/` for related existing posts to cross-reference
-- [ ] Determine POV: personal ("I") or project ("we")
+**Shape (ordering matters)**
 
-### During writing:
+```ts
+// synchronous teardown
+resource(function* (provide) {
+  try {
+    yield* provide(value);
+  } finally {
+    cleanup();
+  }
+});
 
-- [ ] Open with context or a problem, not with "Effection is..."
-- [ ] Keep paragraphs to 3-5 sentences
-- [ ] Include 1-3 code snippets that reinforce the argument
-- [ ] Link to Effection docs for any feature mentioned
-- [ ] Link non-obvious claims to sources
-- [ ] Stay under 800 words
+// asynchronous teardown — ensure(), never finally
+resource(function* (provide) {
+  yield* ensure(function* () {
+    yield* cleanup();
+  });
 
-### After writing:
+  yield* provide(value);
+});
+```
 
-- [ ] Conclusion is brief and is NOT a summary
-- [ ] No marketing-speak crept in
-- [ ] All code examples are correct per the root `AGENTS.md`
-- [ ] Frontmatter is complete: title, description, author, tags, image
-- [ ] File is at `www/blog/YYYY-MM-DD-slug/index.md`
-- [ ] Run `deno fmt` and `deno lint`
+**Rules**
+
+- Setup happens before `provide()`.
+- Synchronous cleanup must be in `finally` (or after `provide()` guarded by
+  `finally`) so it runs on return/error/halt.
+- Teardown can be asynchronous, but asynchronous teardown must go in `ensure()`.
+  Do not fire-and-forget cleanup.
+- You must not `yield*` inside a `finally`. See the rationale under `ensure()`.
+
+## `ensure()`
+
+**Rules**
+
+- `ensure(fn)` registers cleanup to run when the current operation shuts down.
+- `fn` may return `void` (sync cleanup) or an `Operation` (async cleanup).
+- You should wrap sync cleanup bodies in braces so the function returns `void`.
+- **Cleanup that needs `yield*` must use `ensure()`, not a `finally` block.**
+
+**Why `yield*` in a `finally` is unsafe**
+
+When a task is halted, a coroutine is unwound by calling `iterator.return()` on
+its generator. If a `finally` block then yields, the generator suspends _inside_
+the finally and reports `{ done: false }`, so the routine resumes it with
+`iterator.next()` — and that takes the frame out of return-mode. The frame is no
+longer unwinding, so once cleanup finishes, execution continues past the
+operation that was being halted. The halt is lost.
+
+This is the defect fixed inside `scoped()` in #1185: `iter.return()` yielded the
+`destroy()` effects in scoped's finally, but the resume came back as
+`iter.next()`. `scoped()` re-arms the unwind explicitly via `trap.exit()`.
+Ordinary user code has no way to do that.
+
+`ensure()` is not affected. It is implemented as a `resource()`, so its
+`finally` runs in its own task frame with nothing after it, and it is driven by
+scope destruction — which `createTask` wraps in `critical()`, making it
+non-interruptible.
+
+**Gotchas**
+
+- `ensure()` registers on the **current scope**, and `call()` does not create
+  one — it delegates to the target's iterator in the same coroutine frame. An
+  `ensure()` inside `call(function* () { ... })` attaches to the _enclosing
+  task's_ scope and fires far too late. Use `scoped()` or `spawn()` when you
+  need a boundary. Note that `scoped()`'s own async teardown was not correct
+  until 4.1, so code supporting older versions should prefer `spawn()`.
+- Scope destructors run in **reverse order of registration**. Register the
+  `ensure()` where the `try {` would have been — after any `spawn()` calls its
+  cleanup depends on — so cleanup still runs while those children are alive.
+
+## `useAbortSignal()`
+
+**Rules**
+
+- `useAbortSignal()` is an interop escape hatch for non-Effection APIs that
+  accept `AbortSignal`.
+- The returned signal is bound to the current scope and aborts when that scope
+  exits (return, error, or halt).
+- You should pass the signal to a **leaf** async API call, not thread it through
+  a nested async stack.
+- If the choice is "thread an AbortSignal through a nested async stack" vs
+  "rewrite in Effection", you should prefer rewriting in Effection.
+
+**Gotchas**
+
+- You must not assume AbortController provides structured-concurrency
+  guarantees. See:
+  https://frontside.com/blog/2025-08-04-the-heartbreaking-inadequacy-of-abort-controller/
+
+## Streams, Subscriptions, Channels, Signals, Queues
+
+### Stream and Subscription
+
+- A `Stream<T, TClose>` is an operation that yields a `Subscription<T, TClose>`.
+- A `Subscription` is stateful; values are observed via
+  `yield* subscription.next()`.
+
+### `on(target, name)` and `once(target, name)` (EventTarget adapters)
+
+**Rules**
+
+- `on()` creates a `Stream` of events from an `EventTarget`; listeners are
+  removed on scope exit.
+- `once()` yields the next matching event as an `Operation` (it is equivalent to
+  subscribing to `on()` and taking one value).
+
+### `sleep()`, `interval()`, `suspend()`
+
+**Rules**
+
+- `sleep(ms)` is cancellable: if the surrounding scope exits, the timer is
+  cleared.
+- `interval(ms)` is a `Stream` that ticks until the surrounding scope exits
+  (cleanup clears the interval).
+- `suspend()` pauses indefinitely and only resumes when its enclosing scope is
+  destroyed.
+
+### `each(streamOrSubscription)` (loop consumption)
+
+**Rules**
+
+- `each()` accepts either a `Stream` or an existing `Subscription`, including a
+  `Queue`.
+- Passing a `Stream` subscribes when `yield* each(stream)` is interpreted.
+- Passing a `Subscription` to `each()` consumes that exact subscription; it does
+  not create another subscription.
+- You must call `yield* each.next()` exactly once at the end of every loop
+  iteration.
+- You must call `yield* each.next()` even if the iteration ends with `continue`.
+
+**Subscription readiness across `spawn()`**
+
+- If a spawned consumer must receive values sent immediately afterward, create
+  the subscription in the enclosing scope before spawning, then iterate that
+  subscription in the child.
+- Do not use `yield* sleep(0)` after `spawn()` as a subscription-readiness
+  barrier.
+- For `Channel` and `Signal`, values sent after `yield* stream` returns are
+  queued for that active subscription even if the child has not begun iterating.
+  Values sent before the subscription is active are still dropped.
+- Passing a subscription to a child does not transfer or extend its lifetime.
+  The scope that created it must remain active for the consumer's full lifetime.
+- Treat a subscription as a single consumer. For broadcast consumption, create
+  one subscription per consumer before sending values.
+
+**Gotchas**
+
+- If you do not call `each.next()`, the loop throws `IterationError` on the next
+  iteration.
+- Leaving `each(subscription)` does not close that subscription. It remains
+  active until its owning scope exits.
+
+**Shape (ordering matters)**
+
+```ts
+for (let value of yield * each(stream)) {
+  // ...
+  yield * each.next();
+}
+```
+
+**Shape (subscribe before spawning)**
+
+```ts
+await main(function* () {
+  let channel = createChannel<string>();
+  let subscription = yield* channel;
+
+  let consumer = yield* spawn(function* () {
+    for (let value of yield* each(subscription)) {
+      // ...
+      yield* each.next();
+    }
+  });
+
+  // Safe immediately: the subscription is already active.
+  yield* channel.send("hello");
+  yield* channel.close();
+  yield* consumer;
+});
+```
+
+### Channel vs Signal vs Queue
+
+| Concept   | Send from                      | Send API                  | Requires subscribers    | Buffering                       |
+| --------- | ------------------------------ | ------------------------- | ----------------------- | ------------------------------- |
+| `Channel` | inside operations              | `send(): Operation<void>` | yes (otherwise dropped) | per-subscriber while subscribed |
+| `Signal`  | outside operations (callbacks) | `send(): void`            | yes (otherwise no-op)   | per-subscriber while subscribed |
+| `Queue`   | anywhere (single consumer)     | `add(): void`             | no                      | buffered (single subscription)  |
+
+### `Channel`
+
+**Rules**
+
+- Use `createChannel()` to construct a `Channel`.
+- Use `Channel` for communication between operations.
+- You must `yield* channel.send(...)` / `yield* channel.close(...)`.
+- You must assume sends are dropped when there are no active subscribers.
+
+### `Signal`
+
+**Rules**
+
+- Use `createSignal()` to construct a `Signal`.
+- Use `Signal` only as a bridge from synchronous callbacks into an Effection
+  stream.
+- You must not use `Signal` for in-operation messaging; use `Channel` instead.
+- You must assume `signal.send(...)` is a no-op if nothing is subscribed.
+
+### `Queue`
+
+**Rules**
+
+- Use `createQueue()` to construct a `Queue`.
+- You may use `Queue` when you need buffering independent of subscriber timing
+  (single consumer).
+- A `Queue` is already a `Subscription`; consume it via `yield* queue.next()` or
+  iterate it with `each(queue)`.
+
+## `subscribe()` and `stream()` (async iterable adapters)
+
+**Rules**
+
+- Use `subscribe(asyncIterator)` to adapt an `AsyncIterator` to an Effection
+  `Subscription`.
+- Use `stream(asyncIterable)` to adapt an `AsyncIterable` to an Effection
+  `Stream`.
+- You must not treat JavaScript async iterables as Effection streams without
+  wrapping.
+- You must not use `for await` inside a generator function. Use `stream()` to
+  adapt the async iterable, then `each()` to iterate.
+
+**Shape (async iterable consumption)**
+
+```ts
+for (const item of yield * each(stream(asyncIterable))) {
+  // ...
+  yield * each.next();
+}
+```
+
+## `withResolvers()`
+
+**Rules**
+
+- `withResolvers()` creates an `operation` plus synchronous `resolve(value)` /
+  `reject(error)` functions.
+- After resolve/reject, yielding the `operation` always produces the same
+  outcome; calling resolve/reject again has no effect.
 
 ---
 > Source: [thefrontside/effection](https://github.com/thefrontside/effection) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
