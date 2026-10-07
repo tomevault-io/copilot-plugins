@@ -2,8 +2,6 @@
 
 > Tome by [GeminiLight](https://github.com/GeminiLight/SocialCoach), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-Your personal EQ coach.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
