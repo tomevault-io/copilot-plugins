@@ -1,0 +1,9 @@
+{
+  "name": "neosapience--typecast-sdk",
+  "displayName": "typecast-sdk",
+  "description": "The official SDK for the Typecast API. (Python, JS/TS, C/C++, C#, Java, Kotlin, Go, Rust, Swift, Zig, PHP, Dart/Flutter, Ruby)",
+  "version": "1.0.0",
+  "author": "neosapience",
+  "homepage": "https://github.com/neosapience/typecast-sdk",
+  "skills": []
+}
