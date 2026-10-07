@@ -5,7 +5,7 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [leancoderkavy/premiere-pro-mcp](https://github.com/leancoderkavy/premiere-pro-mcp).
+Original source: `` in [leancoderkavy/premiere-pro-mcp](https://github.com/leancoderkavy/premiere-pro-mcp).
 
 ## Also available for
 
@@ -14,6 +14,14 @@ Original source: `.windsurf/rules/*.md` in [leancoderkavy/premiere-pro-mcp](http
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (4)
+
+- [premiere-pro-mcp](https://github.com/leancoderkavy/premiere-pro-mcp/tree/main/plugins/premiere-pro/skills/edit-premiere-project/SKILL.md)
+- [premiere-pro-mcp](https://github.com/leancoderkavy/premiere-pro-mcp/tree/main/plugins/premiere-pro/skills/develop-premiere-pro-mcp/SKILL.md)
+- [premiere-pro-mcp](https://github.com/leancoderkavy/premiere-pro-mcp/tree/main/claude-plugins/premiere-pro/skills/edit-premiere-project/SKILL.md)
+- [premiere-pro-mcp](https://github.com/leancoderkavy/premiere-pro-mcp/tree/main/claude-plugins/premiere-pro/skills/develop-premiere-pro-mcp/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/leancoderkavy/premiere-pro-mcp](https://github.com/leancoderkavy/premiere-pro-mcp)
 
