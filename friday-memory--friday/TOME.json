@@ -4,7 +4,7 @@
   "repo": "friday",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/friday-memory/friday",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T08:55:58Z"
+  "distributed_at": "2026-10-07T14:53:45Z"
 }
