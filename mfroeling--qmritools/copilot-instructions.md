@@ -39,8 +39,26 @@ Each guide's header links to the related guides. The shared topics are:
 
 - **Load the dev version**: `<< QMRIToolsDev`` in a notebook (a small local helper paclet, not in this repo). In a
   script: `PacletDirectoryLoad["<repo>/QMRITools"]; Get["QMRITools`"]`, where `<repo>` is the local clone.
-- **Verify semantics empirically** with `wolframscript -file test.wls`, keeping test scripts outside the repo.
-  Private symbols need their full context, e.g. `` QMRITools`SegmentationTools`Private`NormDat ``.
+- **Verify semantics empirically.** Private symbols need their full context, e.g.
+  `` QMRITools`SegmentationTools`Private`NormDat ``. Two ways, pick what fits the check:
+  - The Wolfram MCP server, if connected: a persistent kernel (`WolframLanguageEvaluator`) for quick iterative checks
+    and inspecting intermediate values, `CodeInspector` for static issues in edited files, `SymbolDefinition` for
+    loaded definitions, and `ReadNotebook` for research notebooks (e.g. to check whether they call a private function).
+    After editing package files, don't trust a partial reload of an already loaded QMRITools (see the two-pass loader
+    in ToolboxStructure.md); reload in a fresh kernel.
+  - `wolframscript -file test.wls`, with test scripts outside the repo: always a fresh kernel and a clean load, so it is
+    the safe way to confirm a change before reporting it.
+- **Call graph**: `wolframscript -file agents/callgraph.wls` (~20 s, static, nothing evaluated) uses the CodeGraph
+  paclet (installed, or cloned next to this repo as `../CodeGraph`) and writes `agents/callgraph/overview.md`,
+  `defs.tsv` and `edges.tsv` (gitignored).
+  - Read `overview.md` when work spans packages: layers, cycles, most used functions.
+  - Before changing a function, check its callers:
+    `wolframscript -file agents/callgraph.wls callers NormDat 2` (a few seconds; `callees` works too).
+  - Regenerate sparingly: only when the files are missing, when finalizing a feature that adds, removes or moves
+    definitions, or when the user asks. Small edits don't need a rerun; grep the source for anything added since.
+  - Misses runtime-built calls (`ToExpression`, `Symbol[...]`, `LinkWrite`) and callers in notebooks outside the repo.
+  For humans: ``Needs["CodeGraph`"]; cg = ImportCodeGraph["<repo>/agents/callgraph"]``, then `PackageGraph[cg]` or
+  `SymbolGraph[cg, "name", depth, "In"|"Out"|"Both"]` in a notebook.
 - **Public symbols** need a `::usage` in the front "Usage Notes" section, and `Options`/`SyntaxInformation`.
   Otherwise the function stays private.
 - **Research notebooks** that call the package live outside the repo on the author's machine. A function with no
@@ -56,4 +74,4 @@ function name instead of trusting them. New guides go in `agents/` and get a row
 
 ---
 > Source: [mfroeling/QMRITools](https://github.com/mfroeling/QMRITools) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
