@@ -1,0 +1,9 @@
+{
+  "name": "elite588--model-optimizer",
+  "displayName": "Model-Optimizer",
+  "description": "A unified library of SOTA model optimization techniques like quantization, pruning, distillation, speculative decoding, etc. It compresses deep learning models for downstream deployment frameworks lik",
+  "version": "1.0.0",
+  "author": "Elite588",
+  "homepage": "https://github.com/Elite588/Model-Optimizer",
+  "skills": []
+}
