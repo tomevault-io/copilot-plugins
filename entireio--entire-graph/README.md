@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [entireio/entire-graph](https://github.com/entireio/entire-graph).
+Original source: `CLAUDE.md` in [entireio/entire-graph](https://github.com/entireio/entire-graph).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [entireio/entire-graph](https://github.com/entir
 
 - [entire-graph](https://github.com/entireio/entire-graph/tree/main/skills/stats/SKILL.md)
 
-From [entireio/entire-graph](https://github.com/entireio/entire-graph) — a repo with 49+ stars on GitHub.
+From [entireio/entire-graph](https://github.com/entireio/entire-graph) — a repo with 50+ stars on GitHub.
 
 ---
 
