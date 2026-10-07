@@ -1,0 +1,51 @@
+{
+  "name": "nuxt-theme-builder",
+  "owner": "mattycraig",
+  "repo": "nuxt-theme-builder",
+  "description": "Design and preview Nuxt UI semantic palettes, neutral scales, radius, fonts, and light/dark mode token overrides",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vueuse",
+      "path": ".agents/skills/vueuse",
+      "github_url": "https://github.com/mattycraig/nuxt-theme-builder/tree/main/.agents/skills/vueuse",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mattycraig/nuxt-theme-builder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T21:33:00Z"
+}
