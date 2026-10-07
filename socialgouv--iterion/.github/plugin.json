@@ -1,0 +1,9 @@
+{
+  "name": "socialgouv--iterion",
+  "displayName": "iterion",
+  "description": "Build, run and orchestrate agentic AI workflows.",
+  "version": "1.0.0",
+  "author": "SocialGouv",
+  "homepage": "https://github.com/SocialGouv/iterion",
+  "skills": []
+}
