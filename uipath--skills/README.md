@@ -16,7 +16,7 @@ Original source: `` in [UiPath/skills](https://github.com/UiPath/skills).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [UiPath/skills](https://github.com/UiPath/skills) — a repo with 156+ stars on GitHub.
+From [UiPath/skills](https://github.com/UiPath/skills) — a repo with 166+ stars on GitHub.
 
 ---
 
