@@ -5,18 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [KhiopsML/khiops](https://github.com/KhiopsML/khiops).
+Original source: `AGENTS.md` in [KhiopsML/khiops](https://github.com/KhiopsML/khiops).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [KhiopsML/khiops](https://github.com/KhiopsML/khiops) — a repo with 78+ stars on GitHub.
+From [KhiopsML/khiops](https://github.com/KhiopsML/khiops) — a repo with 79+ stars on GitHub.
 
 ---
 
