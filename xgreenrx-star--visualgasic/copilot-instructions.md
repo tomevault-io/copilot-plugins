@@ -1,43 +1,32 @@
-## godot-gdscript-validation
+## vg-no-workarounds
 
-> Validate Godot GDScript changes with headless editor before finishing
+> VG is a real language — fix bugs, never silently work around them
 
 
-# Godot GDScript — validate before done
+# Visual Gasic: no bug workarounds
 
-Visual Gasic's editor addon (`addons/visual_gasic/`) must parse and load in Godot 4.6. A single parse error disables the whole addon.
+Visual Gasic is a **real programming language**. Runtime, compiler, and VM bugs are not acceptable to paper over.
 
-## Required before finishing addon edits
+## Required behavior
 
-Run a headless editor boot against a real project (not just reading the file):
+1. **Do not apply workarounds** in `.vg` game code, Narcea prompts, or docs when the root cause is a VG engine bug (compiler, VM, parser, ByRef, array semantics, etc.).
+2. **Fix the bug** in `src/` (or the relevant engine path) and add or extend a regression test in `test_proj/test_suite/` when practical.
+3. If a fix is deferred or rejected by the user:
+   - **Tell the user explicitly** what the bug is, how to reproduce it, and what behavior is wrong.
+   - **Document it** (e.g. known issue in `.github/copilot-instructions.md` or a tracked note the user chooses) — never leave a silent workaround as if it were normal VG semantics.
+4. **Do not teach Narcea or AI prompts** to avoid broken VG behavior unless the bug is documented as unfixed and temporary.
 
-```bash
-GODOT="${GODOT:-./Godot_v4.6.1-stable_linux.x86_64}"
-timeout 30 "$GODOT" --headless --path projects/vg_narcea_test --editor --quit 2>&1 \
-  | rg -i 'Parse Error|SCRIPT ERROR|Failed to load script.*visual_gasic' \
-  || echo "ok"
-```
+## Examples
 
-Or use the repo smoke script:
+| Situation | Wrong | Right |
+|-----------|-------|-------|
+| `arr(i)` ByRef write-back fails | Copy to scalar before every call | Fix `emit_byref_writebacks` / capture; test `test_byref_array_slot.vg` |
+| Read-only `Func(arr(i))` works | Still add scalar-copy “for safety” | Use `arr(i)` directly; no workaround |
+| Collision helper misnamed in docs | Document “use square hitbox instead” | Fix collision guidance; fix game logic |
 
-```bash
-scripts/ci_smoke.sh projects/vg_narcea_test
-```
+## Tests
 
-Exit must be clean — no `Parse Error`, no `SCRIPT ERROR`, no `Failed to load script` for `visual_gasic_plugin.gd`.
-
-## Common pitfalls (this repo)
-
-- **API exists in C++ but not GDScript** — e.g. `ProjectSettings.clear_setting()` is not callable from GDScript 4.6; use `ProjectSettings.set_setting(key, null)` (see `vg_input_map_editor.gd`, `vg_plugin_manager.gd`).
-- **Strict typing** — `StringName + String` fails; use `str(name) + suffix`.
-- **Assumed singleton methods** — verify against existing `.gd` usage or Godot docs; don't trust extension_api.json alone.
-- **Large plugin file** — errors may be hundreds of lines from `_enter_tree`; grep stderr for the exact line.
-
-## When changing ProjectSettings keys
-
-- Prefer patterns already used in this codebase.
-- Migrate legacy keys; don't call unbound APIs to erase them.
-- After edits, confirm the addon loads — settings registration runs at plugin `_enter_tree`.
+After C++ / VM changes: rebuild extension and run affected `test_proj/test_suite/test_*.vg` tests (or `run_test_suite.sh` with a filter).
 
 ---
 > Source: [xgreenrx-star/VisualGasic](https://github.com/xgreenrx-star/VisualGasic) — distributed by [TomeVault](https://tomevault.io).
