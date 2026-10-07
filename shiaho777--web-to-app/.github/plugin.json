@@ -5,14 +5,5 @@
   "version": "1.0.0",
   "author": "shiaho777",
   "homepage": "https://github.com/shiaho777/web-to-app",
-  "skills": [
-    {
-      "name": "vue-app",
-      "description": ""
-    },
-    {
-      "name": "python-app",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
