@@ -1,59 +1,28 @@
 ## vibes-plug
 
-> Vibes-Plug 127+ Skills Ecosystem — Universal AI plugin for modern 2026 development
+> Do not wait for the user to invoke skills. When a user issues a command, act as the Swarm Director.
 
+# Windsurf Global Context - VibesPlug Swarm Architecture
+# --------------------------------------------------------
+# CRITICAL INSTRUCTION FOR WINDSURF AI:
+# You are operating inside the VibesPlug ecosystem. You MUST adhere to the Master Rules defined in AGENTS.md.
+# Read the file AGENTS.md for your primary directives.
 
-# Vibes-Plug Core Rules
+## 1. Primary Trigger & Routing
+Do not wait for the user to invoke skills. When a user issues a command, act as the Swarm Director.
+Route your thoughts through skills/brainstorming/SKILL.md and skills/zero-to-prod-orchestrator/SKILL.md.
 
-## Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
-**MANDATORY**: Upon installation, `vibes-plug` acts as the PRIMARY TRIGGER and master conductor for all tasks.
-- Cursor AI automatically detects user intent and auto-synchronizes cooperating skills without waiting for manual `@` mentions.
-- Cross-domain cooperation is automatic: Frontend (`senior-frontend`), Backend (`js-backend-expert`), Database (`database-orm-expert`), Payments (`doku-payment-gateway`, `saas-billing`), Hardening (`production-ready-hardener`).
+## 2. LLM Agnostic Protocol
+This ecosystem is model-agnostic. Whether you are driven by Claude 3.5/4, GPT-4.5/5, Gemini, or DeepSeek, you must utilize the 132 specialized skills located in the skills/ directory.
 
-## Skill Resolution Protocol
-This project uses 127+ specialized skills in the `skills/` directory. Each skill is a `SKILL.md` file.
+## 3. Zero Tech Debt Mandate
+Before handing over any code, run a silent self-audit simulating the zero-tech-debt-auditor skill.
 
-**Before any task:**
-1. Identify relevant skills from the domain table below.
-2. Read their `skills/<skill-name>/SKILL.md` file.
-3. Follow the patterns and best practices defined in the skill.
+## 4. Sovereign Anti-Slop Directive
+Strictly adhere to the 6 pillars in `skills/anti-slop/SKILL.md`. Code must be 100% complete with no placeholders (`// TODO`, `// ...`), no syntax-narrating comments, no swallowed errors, and no sycophantic conversational fluff. Validate with `node scripts/check-anti-slop.js --strict`.
 
-## Skill Domain Map
-
-| Domain | Key Skills |
-|--------|-----------|
-| 🤖 AI & Agentic | `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `deep-research-analyst`, `synthetic-data-finetuning-expert`, `pydantic-ai-expert`, `ai-media-generation-expert`, `mcp-server-architect`, `mcp-client-orchestrator`, `vector-db-rag-expert`, `multi-agent-orchestration`, `ai-cost-token-optimizer`, `ai-prompt-engineering-expert` |
-| 🎨 Design & UI/UX | `design-system-architect`, `hig`, `ui-components-expert`, `ui-ux-pro-max`, `monday-design-aesthetic`, `visual-qa-vision-agent`, `svg-animation-motion-expert`, `data-visualization-expert`, `rich-text-editor-expert` |
-| 🖥️ Frontend | `senior-frontend`, `tailwind-expert`, `nextjs-app-router-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `tanstack-query-expert`, `state-management-expert`, `vue-frontend-expert`, `performance-web-vitals`, `form-validation-expert`, `blockchain-web3-expert` |
-| 📱 Mobile & Desktop | `mobile-expo-expert`, `mobile-push-notification-expert`, `tauri-expert`, `desktop-electron-expert` |
-| ⚙️ Backend | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `typescript-expert`, `api-design-expert`, `graphql-apollo-expert`, `bun-runtime-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert` |
-| ☁️ SaaS & Cloud | `saas-transformer`, `saas-billing`, `saas-multi-tenant`, `cloud-hosting-expert`, `ci-cd-devops-architect`, `payment-gateway-expert`, `event-driven-architect`, `monorepo-architect` |
-| 🗄️ Database | `database-orm-expert`, `edge-serverless-db-expert`, `supabase-migration`, `database-migration-versioning-expert` |
-| 🔒 Security & QA | `authentication-identity-expert`, `e2e-testing-expert`, `production-ready-hardener`, `autonomous-tdd-debugger`, `zero-trust-secret-vault`, `supabase-security-expert` |
-| 🔍 SEO | `seo` |
-| 🛠️ Utilities | `brainstorming`, `prd-architect`, `auto-doc-updater`, `token-saver`, `vibe-code-gardener`, `web-scraper`, `project-context-mapper` |
-
-## Core Stack (2026 Edition)
-- **Frontend:** React 19, Next.js 15, Tailwind CSS v4, TypeScript 5.8+
-- **Backend:** Node.js 24 LTS, Bun 1.2+, Hono v4, Fastify 5, Python 3.14, Go 1.25+, Rust 2024
-- **Database:** Prisma 6, Drizzle ORM, PostgreSQL, Supabase, Neon, Turso
-- **AI/LLM:** Vercel AI SDK 5.x, MCP v1.9+, pgvector, RAG pipelines
-
-## Behavioral Rules
-1. **Deep Reasoning:** Think before acting. Analyze constraints → question assumptions → validate → execute.
-2. **No AI Slop:** Be imperative, direct, token-efficient. No "As an AI language model..." filler.
-3. **New Projects:** Auto-generate `PRD.md`, `ERD.md`, `DOKUMENTASI.md` before any code.
-4. **Bilingual:** Skills support English & Bahasa Indonesia.
-5. **Clean Code:** Follow SOLID, DRY, Clean Code principles (ref: `scalability-clean-code`).
-
-## Orchestration Flow
-1. **Plan:** `brainstorming` → `prd-architect`
-2. **Design:** `design-system-architect` → `senior-frontend` → `ui-components-expert`
-3. **Build:** `js-backend-expert` → `event-driven-architect` → `autonomous-tdd-debugger`
-4. **AI:** `ai-llm-integration-expert` → `mcp-server-architect`
-5. **SaaS:** `saas-transformer` → auto-coordinates billing, tenancy, payments
-6. **Ship:** `e2e-testing-expert` → `seo` → `production-ready-hardener`
+Read AGENTS.md now to initialize your context.
 
 ---
 > Source: [roedyrustam/vibes-plug](https://github.com/roedyrustam/vibes-plug) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
