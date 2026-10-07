@@ -1,0 +1,9 @@
+{
+  "name": "klasscripts--ffs-explorer",
+  "displayName": "FFS-Explorer",
+  "description": "A cross\u2011platform forensic viewer for iOS & Android Full File System (FFS) extractions from GrayKey and Cellebrite UFED \u2014 browse ZIPs without unpacking.",
+  "version": "1.0.0",
+  "author": "KlasScripts",
+  "homepage": "https://github.com/KlasScripts/FFS-Explorer",
+  "skills": []
+}
