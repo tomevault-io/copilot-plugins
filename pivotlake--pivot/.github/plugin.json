@@ -1,0 +1,9 @@
+{
+  "name": "pivotlake--pivot",
+  "displayName": "pivot",
+  "description": "Pivot is a high-performance analytics engine on open data formats.",
+  "version": "1.0.0",
+  "author": "pivotlake",
+  "homepage": "https://github.com/pivotlake/pivot",
+  "skills": []
+}
