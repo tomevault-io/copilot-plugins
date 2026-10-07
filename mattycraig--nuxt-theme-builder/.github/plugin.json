@@ -1,0 +1,14 @@
+{
+  "name": "mattycraig--nuxt-theme-builder",
+  "displayName": "nuxt-theme-builder",
+  "description": "Design and preview Nuxt UI semantic palettes, neutral scales, radius, fonts, and light/dark mode token overrides",
+  "version": "1.0.0",
+  "author": "mattycraig",
+  "homepage": "https://github.com/mattycraig/nuxt-theme-builder",
+  "skills": [
+    {
+      "name": "vueuse",
+      "description": ""
+    }
+  ]
+}
