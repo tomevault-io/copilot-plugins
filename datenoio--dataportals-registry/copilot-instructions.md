@@ -1,21 +1,21 @@
 ## dataportals-registry
 
-> Discover catalogs not yet in the registry; configure Google, Censys, FOFA, Shodan, and LLM clients (Cursor, ChatGPT, Claude).
+> Resolve country codes and international blocs with Internacia when editing catalog location fields
 
 
-# Catalog discovery with search tools and agents
+# Country and bloc lookup
 
-When the user asks to find catalogs that are **not yet in this registry**, or to configure Google / Censys / FOFA / Shodan / ChatGPT / Cursor for that work:
+When setting `owner.location.country`, `coverage`, or a country path (`data/entities/{CC}/…`), resolve the code with Internacia. Install once with `pip install internacia`.
 
-1. Duplicate-check **exports** (`data/datasets/datasets.duckdb` or `full.parquet`), not `data/entities/**/*.yaml`. If DuckDB is locked, use Parquet.
-2. Follow [docs/agents/discover.md](docs/agents/discover.md).
-3. Use query recipes in [docs/discovery-search-tools.md](docs/discovery-search-tools.md) and the platform guides (`docs/discovery-opendata.md`, `discovery-geoportals.md`, `discovery-scientific.md`, `discovery-scientific-domain.md`, `discovery-metadata.md`, `discovery-indicators.md`, `discovery-other.md`). FOFA is the Censys alternative (`title=` / `body=` / `country=`).
-4. Client setup (Cursor MCP, ChatGPT Custom GPT, Censys OAuth, FOFA API keys): [docs/discovery-agent-tools.md](docs/discovery-agent-tools.md).
-5. Scope to a country, city, TLD, `software.id`, or a named list URL. For municipal geoportals, use the product tenant list, not every city name. Do not write scanners. Stop on `401`/`403`.
-6. Add verified finds with `python scripts/builder.py add-single URL --scheduled`, live GET, **promote in the same session**, then `assign` and `validate-yaml`. Probe endpoints when the software map has a GET. Append `dataquality/hunts.jsonl`. A hunt that finds 0 missing catalogs is complete.
-7. Pick the next hunt from [docs/agents/improve.md](docs/agents/improve.md). Prefer dataset-bearing IRs, named directories, IGO catalogs, Africa open-data holes, and custom retag on scientific/indicators — not more US ArcGIS or another PL/CZ/IT commune sweep.
-8. Match the user prompt to a hunt type in [docs/agents/discover.md](docs/agents/discover.md#hunt-types) / [docs/discovery.md](docs/discovery.md#hunt-patterns). Do not repeat a software-instance hunt from the last two weeks unless a new gallery URL exists.
+```bash
+python -c "from internacia import InternaciaClient; c=InternaciaClient(); print(c.search.fuzzy('QUERY', limit=5))"
+```
+
+- Country `id`: alpha-2 with `code_status == official_iso3166_1`, plus `XK`. Write `country.name` from `COUNTRIES` in `scripts/constants.py` or `data/reference/countries.csv`.
+- Blocs (EU, ASEAN, Africa, treaties): Internacia intblocks. Path roots stay `PATH_COUNTRY_ALLOWLIST` in `scripts/constants.py` (`EU`, `ASEAN`, `AFRICA`, `WORLD`, and the other listed folders).
+- Subdivisions (ISO 3166-2, such as `US-CA`): `pycountry` or `data/reference/subregions/`.
+- Quote YAML 1.1 boolean-looking codes: `'NO'`.
 
 ---
 > Source: [datenoio/dataportals-registry](https://github.com/datenoio/dataportals-registry) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
