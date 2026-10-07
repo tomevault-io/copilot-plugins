@@ -1,0 +1,9 @@
+{
+  "name": "tdimino--open-rebellion",
+  "displayName": "open-rebellion",
+  "description": "Open-source Rust rebuild of Star Wars Rebellion (1998, LucasArts). macOS + WebAssembly. 100% fully moddable",
+  "version": "1.0.0",
+  "author": "tdimino",
+  "homepage": "https://github.com/tdimino/open-rebellion",
+  "skills": []
+}
