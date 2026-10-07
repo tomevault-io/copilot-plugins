@@ -1,0 +1,9 @@
+{
+  "name": "itallstartedwithaidea--google-ads-gemini-extension",
+  "displayName": "google-ads-gemini-extension",
+  "description": "Gemini CLI extension for Google Ads management \u2014 campaign analysis, auditing, optimization skills and commands. Ported from production at googleadsagent.ai",
+  "version": "1.0.0",
+  "author": "itallstartedwithaidea",
+  "homepage": "https://github.com/itallstartedwithaidea/google-ads-gemini-extension",
+  "skills": []
+}
