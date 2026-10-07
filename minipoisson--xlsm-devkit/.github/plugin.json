@@ -1,0 +1,9 @@
+{
+  "name": "minipoisson--xlsm-devkit",
+  "displayName": "xlsm_devkit",
+  "description": "Excel VBA xlsm development toolkit for module import/export with UTF-8 conversion and sheet map markdown export.",
+  "version": "1.0.0",
+  "author": "minipoisson",
+  "homepage": "https://github.com/minipoisson/xlsm_devkit",
+  "skills": []
+}
