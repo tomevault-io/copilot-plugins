@@ -1,42 +1,58 @@
-## release
+## telegram-fidelity
 
-> Tags are module versions, release asset names are coupled across GoReleaser, the installer, the action and the docs
+> How the server mirrors api.telegram.org: answers, refusals with Telegram's words, state rules, adding a method
 
 
-# Release
+# Telegram fidelity
 
-A release is a tag `vX.Y.Z` on `main`. The tag is at once the Go module version
-(`go install ...@vX.Y.Z`, a `require` line), the name of the GitHub release
-with the binaries, and the ref of the GitHub Action (`uses:
-EvilFreelancer/tgfake@vX.Y.Z` installs that same version).
+The server exists so a bot meets in a test what it will meet in a chat. Every
+Bot API method behaves the way api.telegram.org does, including how it fails.
 
-## Coupled names
+## What "the same" means
 
-`.goreleaser.yaml` names the archives `tgfake_<version without v>_<os>_<arch>`
-(`.tar.gz`, `.zip` on Windows) with `checksums.txt` beside them, for linux,
-darwin and windows on amd64 and arm64. `scripts/install.sh` builds the same
-names, `action.yml` calls the installer, and `docs/ci.md` documents them. A
-change to one is a change to all four. The first three are exercised before a
-tag can exist: the `Release snapshot` job of `ci.yaml` builds every archive,
-and the `Install` job runs `scripts/test-install.sh` and the action from a
-local mirror of them on Linux, macOS and Windows. `docs/ci.md` is kept in step
-by review.
+- **Same answers.** The envelope is `{"ok": true, "result": ...}` or
+  `{"ok": false, "error_code": N, "description": "..."}` with the HTTP status
+  equal to `error_code` (`writeResult`, `writeError` in `pkg/server/methods.go`).
+  A 429 carries `parameters.retry_after`.
+- **Same refusals, same words.** When Telegram refuses a call, the server refuses
+  it with Telegram's own description, copied from a real answer or from the Bot
+  API documentation (`Bad Request: message is not modified: ...`,
+  `Bad Request: BUTTON_DATA_INVALID`, `Bad Request: query is too old and response
+  timeout expired or query ID is invalid`). A bot that matches on the text must
+  work against both. Never invent a friendlier message.
+- **Same state rules.** Update ids only grow, across `Reset` too; `offset`
+  confirms updates and a negative one counts from the end; `allowed_updates` is
+  remembered between polls and applied when an update is created; a callback
+  query takes exactly one answer; a draft expires 30 s after its last revision;
+  `typing` shows for 5 s.
+- **Stricter only on purpose.** The one deliberate difference is a button with
+  more than one action, which Telegram reads as its first and the server refuses.
+  Any new deviation is documented in `docs/bot-api.md` with its reason.
 
-## Cutting one
+## Adding or changing a method
 
-1. `main` is green (the `CI` gate job).
-2. `git tag vX.Y.Z && git push origin vX.Y.Z`.
-3. `release.yaml` runs the race-detector suite, publishes with GoReleaser, then
-   installs the release with the action on Linux, macOS and Windows and talks to
-   it.
+1. Find the method in the Bot API documentation and, when possible, the answer
+   Telegram gives for each failure the bot can cause.
+2. Add the case to the switch in `serveBotAPI` (lower-cased name) and a handler
+   that reads parameters through `params` (query, form, JSON and multipart all
+   arrive there) and answers through `writeResult` / `writeError`, so the call is
+   filed in the outbox and faults apply to it.
+3. Keep chat state behind `s.mu`; a helper that expects the lock ends in
+   `Locked`. Read time through `s.now`, never `time.Now`, so tests can move it.
+4. When the person would see the effect, put it in the `ChatView` (and the text
+   form `ChatView.Text`) so the simulation API and the chat page show it.
+5. Wire types go to `pkg/botapi` with the Bot API's JSON names; stateless Mini
+   App logic goes to `pkg/webapp`.
+6. Tests: the happy path in a `features/*.feature` scenario when it is a new
+   capability, every refusal as a unit test asserting status and description.
+7. Document the method in `docs/bot-api.md` (row, refusals) and, if the person
+   can trigger it, in `docs/sim-api.md`.
 
 ## Never
 
-- Move, delete or re-push a tag: the Go module proxy has already cached it. Fix a
-  bad release with the next patch version.
-- Tag a commit that is not on `main` (`release.yaml` refuses it).
-- Publish an asset under a name the installer does not build.
-- Interpolate an action input into a `run:` script; pass it through `env:`.
+- Accept input Telegram rejects because a bot under test happens to send it.
+- Add a dependency outside test files; the packages are standard library only.
+- Add behaviour that only one client needs as a default; make it an option.
 
 ---
 > Source: [EvilFreelancer/tgfake](https://github.com/EvilFreelancer/tgfake) — distributed by [TomeVault](https://tomevault.io).
