@@ -1,0 +1,9 @@
+{
+  "name": "march-language--march",
+  "displayName": "march",
+  "description": "March is a statically-typed functional language: actors and message passing from the BEAM, algebraic data types from ML, compiled to native binaries through LLVM.",
+  "version": "1.0.0",
+  "author": "march-language",
+  "homepage": "https://github.com/march-language/march",
+  "skills": []
+}
