@@ -1,0 +1,9 @@
+{
+  "name": "mazamaka--polymarket-bot",
+  "displayName": "polymarket-bot",
+  "description": "AI trading bot for Polymarket \u2014 mispricing detection with Claude, weather arbitrage (12K+ backtested markets), information arbitrage via breaking news",
+  "version": "1.0.0",
+  "author": "mazamaka",
+  "homepage": "https://github.com/mazamaka/polymarket-bot",
+  "skills": []
+}
