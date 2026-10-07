@@ -1,10 +1,10 @@
 ## dotnetrandomnamegenerator
 
-> <!-- The line above is an import: keep it. Claude Code 2.1.277+ reads AGENTS.md by itself only when no CLAUDE.md exists, and a CLAUDE.md that says "read AGENTS.md" in words loads nothing. Claude-only additions below; keep shared rules in AGENTS.md so other agents see them too. -->
+> <!-- .github/copilot-instructions.md: thin pointer so Copilot Chat in VS Code sees the same rules as the coding agent. -->
 
-@AGENTS.md
+<!-- .github/copilot-instructions.md: thin pointer so Copilot Chat in VS Code sees the same rules as the coding agent. -->
 
-<!-- The line above is an import: keep it. Claude Code 2.1.277+ reads AGENTS.md by itself only when no CLAUDE.md exists, and a CLAUDE.md that says "read AGENTS.md" in words loads nothing. Claude-only additions below; keep shared rules in AGENTS.md so other agents see them too. -->
+Follow `AGENTS.md` at the repo root.
 
 ---
 > Source: [m4bwav/DotNetRandomNameGenerator](https://github.com/m4bwav/DotNetRandomNameGenerator) — distributed by [TomeVault](https://tomevault.io).
