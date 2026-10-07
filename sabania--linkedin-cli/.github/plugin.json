@@ -1,0 +1,9 @@
+{
+  "name": "sabania--linkedin-cli",
+  "displayName": "linkedin-cli",
+  "description": "LinkedIn CLI - manage your LinkedIn from the terminal",
+  "version": "1.0.0",
+  "author": "sabania",
+  "homepage": "https://github.com/sabania/linkedin-cli",
+  "skills": []
+}
