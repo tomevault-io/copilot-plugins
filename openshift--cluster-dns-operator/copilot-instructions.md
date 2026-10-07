@@ -227,4 +227,4 @@ Example: `/api-review https://github.com/openshift/api/pull/1234`
 
 ---
 > Source: [openshift/cluster-dns-operator](https://github.com/openshift/cluster-dns-operator) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
