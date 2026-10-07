@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [uxlfoundation/oneDAL](https://github.com/uxlfou
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [uxlfoundation/oneDAL](https://github.com/uxlfoundation/oneDAL) — a repo with 651+ stars on GitHub.
+From [uxlfoundation/oneDAL](https://github.com/uxlfoundation/oneDAL) — a repo with 652+ stars on GitHub.
 
 ---
 
