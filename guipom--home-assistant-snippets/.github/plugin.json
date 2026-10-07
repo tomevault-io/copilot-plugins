@@ -1,0 +1,9 @@
+{
+  "name": "guipom--home-assistant-snippets",
+  "displayName": "home-assistant-snippets",
+  "description": "\ud83c\udfac Scripts et blueprints Home Assistant pour accompagner mes tutoriels YouTube \u2014 notifications, s\u00e9curit\u00e9, domotique. Code g\u00e9n\u00e9rique, pr\u00eat \u00e0 adapter.",
+  "version": "1.0.0",
+  "author": "GuiPoM",
+  "homepage": "https://github.com/GuiPoM/home-assistant-snippets",
+  "skills": []
+}
