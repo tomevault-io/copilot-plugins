@@ -1,0 +1,9 @@
+{
+  "name": "puppetlabs--puppetlabs-puppetdb",
+  "displayName": "puppetlabs-puppetdb",
+  "description": "puppetlabs-puppetdb",
+  "version": "1.0.0",
+  "author": "puppetlabs",
+  "homepage": "https://github.com/puppetlabs/puppetlabs-puppetdb",
+  "skills": []
+}
