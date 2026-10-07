@@ -1,0 +1,75 @@
+{
+  "name": "argi",
+  "owner": "agentic-ai-java",
+  "repo": "argi",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "argi",
+      "path": "argi-graph-core/src/test/resources/skills/sample-skill/SKILL.md",
+      "github_url": "https://github.com/agentic-ai-java/argi/tree/main/argi-graph-core/src/test/resources/skills/sample-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argi",
+      "path": "argi-agent-framework/src/test/resources/skills/copywriting/SKILL.md",
+      "github_url": "https://github.com/agentic-ai-java/argi/tree/main/argi-agent-framework/src/test/resources/skills/copywriting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argi",
+      "path": "argi-agent-framework/src/test/resources/skills/pdf-extractor/SKILL.md",
+      "github_url": "https://github.com/agentic-ai-java/argi/tree/main/argi-agent-framework/src/test/resources/skills/pdf-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argi",
+      "path": "argi-agent-framework/src/test/resources/skills/product-selection/SKILL.md",
+      "github_url": "https://github.com/agentic-ai-java/argi/tree/main/argi-agent-framework/src/test/resources/skills/product-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argi",
+      "path": "argi-agent-framework/src/test/resources/skills/grouped-tools-test/SKILL.md",
+      "github_url": "https://github.com/agentic-ai-java/argi/tree/main/argi-agent-framework/src/test/resources/skills/grouped-tools-test/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/agentic-ai-java/argi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T00:55:18Z"
+}
