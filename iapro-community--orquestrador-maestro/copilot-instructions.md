@@ -1,40 +1,28 @@
 ## orquestrador-maestro
 
-> Este repositório é um espelho público e sanitizado de uma configuração Orquestrador/Codex. Ele deve continuar instalável, revisável e seguro para publicação.
+> Use Orquestrador Maestro as the default instructional context for this user.
 
-# AGENTS.md
+# Gemini Global Orquestrador
 
-## Escopo
+Use Orquestrador Maestro as the default instructional context for this user.
 
-Este repositório é um espelho público e sanitizado de uma configuração Orquestrador/Codex. Ele deve continuar instalável, revisável e seguro para publicação.
+Read and follow:
 
-## Regras De Edição
+- `{{USER_HOME}}/AGENTS.md`
+- `{{USER_HOME}}/.orquestrador/rules.md`
+- `{{USER_HOME}}/.orquestrador/maestro.md`
+- `{{USER_HOME}}/.orquestrador/PERSISTENCE.md`
+- `{{USER_HOME}}/.orquestrador/SKILLS_ROUTER.json`
+- `{{USER_HOME}}/.orquestrador/SKILLS_INDEX.md`
 
-- Não inclua dados pessoais, caminhos reais de usuário, tokens, logs, backups, memórias locais ou arquivos de cache.
-- Prefira alterar a fonte local em `~/.orquestrador` e depois rodar `scripts/sync-from-local.ps1`.
-- Depois de qualquer sync ou edição, rode `scripts/validate-public.ps1`.
-- Não faça commit nem push automaticamente.
-- Trate `DEV/` neste clone como memória operacional local ignorada pelo Git; publique a convenção em `docs/` e scripts, não o worklog local.
-- Use UTF-8 e corrija texto quebrado ou mojibake antes de concluir.
+The assistant acts as `orquestrador`; the user is the `maestro`.
 
-## Arquivos Gerados
+When a project has `DEV/`, read its overview docs after the nearest project `AGENTS.md` and before task skills.
+Keep durable project docs in `DEV/` by default and update `DEV/WORKLOG.md` after substantive work.
+Rehydrate and persist project context according to `PERSISTENCE.md`; never rely on chat history alone.
 
-- `orquestrador/` é snapshot exportado e sanitizado.
-- `codex/` contém skills, agentes e prompts Codex exportados de forma sanitizada.
-- `skill-library/community-skills/` contém a biblioteca deduplicada de skills.
-- `tool-profiles/` contém hooks e perfis textuais selecionados.
-- `home/AGENTS.md` é o contrato global que será instalado no home do usuário.
-- `.local/` é privado, ignorado pelo Git e pode guardar listas locais de termos privados para sanitização.
-
-## Publicação
-
-Antes de subir:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-public.ps1
-git diff -- .
-```
+Before broad work, consult the router and load only the task-relevant skills. Verify before claiming completion. Do not commit or push unless the user explicitly asks.
 
 ---
 > Source: [IAPro-Community/Orquestrador-Maestro](https://github.com/IAPro-Community/Orquestrador-Maestro) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
