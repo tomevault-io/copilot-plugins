@@ -1,0 +1,165 @@
+{
+  "name": "overtime",
+  "owner": "ukanwat",
+  "repo": "overtime",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "overtime",
+      "path": ".claude/skills/game-ai/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/game-ai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/game-feel/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/game-feel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/game-ui-ux/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/game-ui-ux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/audio-design/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/audio-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/save-systems/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/save-systems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/level-design/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/level-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/input-systems/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/input-systems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/camera-systems/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/camera-systems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/unreal-niagara/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/unreal-niagara/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/procedural-gen/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/procedural-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/physics-tuning/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/physics-tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/dialogue-systems/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/dialogue-systems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/unreal-packaging/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/unreal-packaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/reference-images/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/reference-images/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/unreal-blueprints/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/unreal-blueprints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/shader-programming/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/shader-programming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/unreal-cpp-gameplay/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/unreal-cpp-gameplay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/unreal-behavior-trees/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/unreal-behavior-trees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/unreal-enhanced-input/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/unreal-enhanced-input/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "overtime",
+      "path": ".claude/skills/performance-optimization/SKILL.md",
+      "github_url": "https://github.com/ukanwat/overtime/tree/main/.claude/skills/performance-optimization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ukanwat/overtime",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T06:32:00Z"
+}
