@@ -1,0 +1,9 @@
+{
+  "name": "damione1--souffle",
+  "displayName": "souffle",
+  "description": "Private, on-device meeting transcription and dictation for macOS. Local STT, summaries and action items, full exports, MCP server for AI assistants. No cloud, no API keys.",
+  "version": "1.0.0",
+  "author": "damione1",
+  "homepage": "https://github.com/damione1/souffle",
+  "skills": []
+}
