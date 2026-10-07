@@ -12,4 +12,4 @@
 
 ---
 > Source: [antfu/starter-ts](https://github.com/antfu/starter-ts) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
