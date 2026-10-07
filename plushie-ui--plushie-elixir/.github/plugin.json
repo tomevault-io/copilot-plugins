@@ -1,0 +1,9 @@
+{
+  "name": "plushie-ui--plushie-elixir",
+  "displayName": "plushie-elixir",
+  "description": "Native desktop GUI framework for Elixir, powered by Iced",
+  "version": "1.0.0",
+  "author": "plushie-ui",
+  "homepage": "https://github.com/plushie-ui/plushie-elixir",
+  "skills": []
+}
