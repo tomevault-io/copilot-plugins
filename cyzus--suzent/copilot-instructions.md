@@ -1,19 +1,27 @@
 ## suzent
 
-> **Get your key (free tier available):** [aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
+> Use Gemini models with a Google AI Studio API key, including the free tier.
+
 
 # Google Gemini
 
-**Get your key (free tier available):** [aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
+Use Gemini models with an API key from Google AI Studio. A free tier is available.
 
-| Field | Description |
-|---|---|
-| `GEMINI_API_KEY` | Your API key (starts with `AIza...`) |
+## Set up
 
-`GOOGLE_API_KEY` is also accepted as an alias.
+1. Get an API key from [aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey).
+2. Open **Settings → Providers → Google Gemini**, click **CHANGE** on the **API KEYS** tab, and paste the key.
+3. On the **MODELS** tab, click **FETCH**, tick the models you want, and click **Save Changes**.
 
-In Settings, paste your key into **Google Gemini → API Key**, enable the models you want, then click **Save → Verify**.
+## Settings
+
+| Field | Environment variable | Notes |
+|---|---|---|
+| **API Key** | `GEMINI_API_KEY` | Starts with `AIza`. `GOOGLE_API_KEY` also works. |
+
+You can set the key's environment variable before starting Suzent instead of
+pasting it. It then shows as **Set in env** and can't be changed from the app.
 
 ---
 > Source: [cyzus/suzent](https://github.com/cyzus/suzent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
