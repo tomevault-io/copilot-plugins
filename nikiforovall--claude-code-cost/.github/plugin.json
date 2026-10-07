@@ -1,0 +1,9 @@
+{
+  "name": "nikiforovall--claude-code-cost",
+  "displayName": "claude-code-cost",
+  "description": "Cost dashboard for Claude Code usage",
+  "version": "1.0.0",
+  "author": "NikiforovAll",
+  "homepage": "https://github.com/NikiforovAll/claude-code-cost",
+  "skills": []
+}
