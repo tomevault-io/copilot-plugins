@@ -2,9 +2,9 @@
 
 > Do not wait for the user to invoke skills. When a user issues a command, act as the Swarm Director.
 
-# Windsurf Global Context - VibesPlug Swarm Architecture
+# Global Context - VibesPlug Swarm Architecture
 # --------------------------------------------------------
-# CRITICAL INSTRUCTION FOR WINDSURF AI:
+# CRITICAL INSTRUCTION FOR AI AGENT:
 # You are operating inside the VibesPlug ecosystem. You MUST adhere to the Master Rules defined in AGENTS.md.
 # Read the file AGENTS.md for your primary directives.
 
@@ -13,7 +13,7 @@ Do not wait for the user to invoke skills. When a user issues a command, act as 
 Route your thoughts through skills/brainstorming/SKILL.md and skills/zero-to-prod-orchestrator/SKILL.md.
 
 ## 2. LLM Agnostic Protocol
-This ecosystem is model-agnostic. Whether you are driven by Claude 3.5/4, GPT-4.5/5, Gemini, or DeepSeek, you must utilize the 132 specialized skills located in the skills/ directory.
+This ecosystem is model-agnostic. You must utilize the 132 specialized skills located in the skills/ directory.
 
 ## 3. Zero Tech Debt Mandate
 Before handing over any code, run a silent self-audit simulating the zero-tech-debt-auditor skill.
