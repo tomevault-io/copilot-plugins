@@ -299,4 +299,4 @@ Keep filenames stable so downstream checks can locate them.
 
 ---
 > Source: [jsdsg666/AutoWWTP-ASM-Demo](https://github.com/jsdsg666/AutoWWTP-ASM-Demo) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
