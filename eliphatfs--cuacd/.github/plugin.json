@@ -1,0 +1,9 @@
+{
+  "name": "eliphatfs--cuacd",
+  "displayName": "cuacd",
+  "description": "GPU-accelerated approximate convex decomposition for 3D meshes.",
+  "version": "1.0.0",
+  "author": "eliphatfs",
+  "homepage": "https://github.com/eliphatfs/cuacd",
+  "skills": []
+}
