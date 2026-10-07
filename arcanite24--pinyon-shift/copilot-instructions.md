@@ -23,6 +23,9 @@ Use Conventional Commits for every commit subject:
 - End the body with `Tests: <commands or result>` when validation was run.
 - Mark breaking changes with `!` before the colon and add a
   `BREAKING CHANGE: <description>` footer.
+- Never credit an AI assistant: no `Co-Authored-By` trailer, "Generated
+  with" line or other assistant attribution in commit messages, pull
+  requests or release notes. Commits are authored by the maintainer only.
 
 Examples:
 
@@ -51,9 +54,19 @@ active installed preview does not use.
 
 If the installed version changes, locate the newest matching
 `%LOCALAPPDATA%\PinyonShift\source\*\.local\preview\user\**\ForzaProfile\ForzaProfile`
-and pass its enclosing `.local\preview` directory as `-StateRoot`. Never copy,
-move, delete, reset, or overwrite save files merely to launch a test.
+and pass its enclosing `.local\preview` directory as `-StateRoot`. Never move,
+delete, reset, or overwrite the AppData save.
+
+## Scripted render tests from a pinned seed
+
+Scripted routes must not depend on how far the live save has progressed. Take
+a read-only snapshot of the AppData save with `tools/create-render-seed.py`
+(it copies `user`, `config` and the FH1 shader catalogs into
+`.local/render-seeds/<name>` and refuses to overwrite an existing seed), then
+run routes through `tools/run-fh1-render-test.py` with that seed as
+`--state-root`. The runner copies the seed into a private per-run directory,
+so neither the seed nor the AppData save is ever written.
 
 ---
 > Source: [arcanite24/pinyon-shift](https://github.com/arcanite24/pinyon-shift) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
