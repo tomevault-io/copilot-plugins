@@ -1,0 +1,9 @@
+{
+  "name": "blit386--blit386",
+  "displayName": "blit386",
+  "description": "A palette-first WebGPU retro engine for TypeScript, inspired by RetroBlit.",
+  "version": "1.0.0",
+  "author": "blit386",
+  "homepage": "https://github.com/blit386/blit386",
+  "skills": []
+}
