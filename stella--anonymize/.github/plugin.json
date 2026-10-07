@@ -1,0 +1,9 @@
+{
+  "name": "stella--anonymize",
+  "displayName": "anonymize",
+  "description": "Anonymization pipeline for sensitive text. Deterministic, local-first, fast.",
+  "version": "1.0.0",
+  "author": "stella",
+  "homepage": "https://github.com/stella/anonymize",
+  "skills": []
+}
