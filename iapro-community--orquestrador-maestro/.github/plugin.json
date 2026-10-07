@@ -1,7 +1,7 @@
 {
   "name": "iapro-community--orquestrador-maestro",
   "displayName": "Orquestrador-Maestro",
-  "description": "AI agent orchestration kit for Windows, Linux/MacOS with Codex skills, hooks, routing rules and profiles for Claude, OpenCode, Cursor, Gemini and Windsurf.",
+  "description": "Orquestrador-Maestro",
   "version": "1.0.0",
   "author": "IAPro-Community",
   "homepage": "https://github.com/IAPro-Community/Orquestrador-Maestro",
