@@ -4,7 +4,7 @@
   "repo": "finalbenchmark-platform",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zenithblue-oss/finalbenchmark-platform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T16:49:38Z"
+  "distributed_at": "2026-10-07T05:04:45Z"
 }
