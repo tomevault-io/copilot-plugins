@@ -1,0 +1,9 @@
+{
+  "name": "agentclientprotocol--java-sdk",
+  "displayName": "java-sdk",
+  "description": "java-sdk",
+  "version": "1.0.0",
+  "author": "agentclientprotocol",
+  "homepage": "https://github.com/agentclientprotocol/java-sdk",
+  "skills": []
+}
