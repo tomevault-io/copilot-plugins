@@ -1,0 +1,9 @@
+{
+  "name": "antoinecellerier--dmm-tools",
+  "displayName": "dmm-tools",
+  "description": "Multimeter logging and graphing app for Linux, Windows, macOS and Raspberry Pi. Works with UNI-T, ZOYI/ZOTEK, ANENG, Brymen, EEVblog, OWON and Voltcraft meters over USB and Bluetooth. Open-source GUI ",
+  "version": "1.0.0",
+  "author": "antoinecellerier",
+  "homepage": "https://github.com/antoinecellerier/dmm-tools",
+  "skills": []
+}
