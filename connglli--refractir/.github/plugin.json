@@ -1,0 +1,9 @@
+{
+  "name": "connglli--refractir",
+  "displayName": "RefractIR",
+  "description": "A full-fledged symbolic language for semantic reification, inspired by Reify's SymIR",
+  "version": "1.0.0",
+  "author": "connglli",
+  "homepage": "https://github.com/connglli/RefractIR",
+  "skills": []
+}
