@@ -1,0 +1,9 @@
+{
+  "name": "fcocarrascob--skills-sap",
+  "displayName": "Skills_SAP",
+  "description": "MCP + Agente para crear scripts Python de SAP2000",
+  "version": "1.0.0",
+  "author": "fcocarrascob",
+  "homepage": "https://github.com/fcocarrascob/Skills_SAP",
+  "skills": []
+}
