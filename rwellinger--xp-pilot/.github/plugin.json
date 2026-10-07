@@ -1,0 +1,9 @@
+{
+  "name": "rwellinger--xp-pilot",
+  "displayName": "xp_pilot",
+  "description": "X-Plane 12 plugin for macOS, Linux & Windows: Flight Logger with HTML logbook, Auto QNH sync, and Rain Blocker \u2014 all in one native plugin.",
+  "version": "1.0.0",
+  "author": "rwellinger",
+  "homepage": "https://github.com/rwellinger/xp_pilot",
+  "skills": []
+}
