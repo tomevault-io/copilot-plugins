@@ -1,112 +1,35 @@
 ## sonar-cryptography
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This is a Java 17, multi-module Maven project. `sonar-cryptography-plugin/` registers the SonarQube plugin. `java/`, `python/`, `go/`, and `csharp/` implement language detection; `engine/` provides shared detection logic. `mapper/`, `enricher/`, and `output/` turn findings into a cryptographic bill of materials. Shared code lives in `common/` and `rules/`. Each module keeps production code in `src/main/java` and tests in `src/test/java`; language test inputs live under `src/test/files/`. See `docs/` for rule and language-extension guides.
 
-# CLAUDE.md
+# Repository Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Project Structure & Module Organization
 
-## Project Overview
+This is a Java 17, multi-module Maven project. `sonar-cryptography-plugin/` registers the SonarQube plugin. `java/`, `python/`, `go/`, and `csharp/` implement language detection; `engine/` provides shared detection logic. `mapper/`, `enricher/`, and `output/` turn findings into a cryptographic bill of materials. Shared code lives in `common/` and `rules/`. Each module keeps production code in `src/main/java` and tests in `src/test/java`; language test inputs live under `src/test/files/`. See `docs/` for rule and language-extension guides.
 
-This is the **Sonar Cryptography Plugin (CBOMkit-hyperion)** - a SonarQube plugin that detects cryptographic assets in source code and generates Cryptographic Bill of Materials (CBOM) in CycloneDX format. Part of the [CBOMKit](https://github.com/cbomkit) toolset.
+## Build, Test, and Development Commands
 
-**Supported languages/libraries:**
-- Java: JCA (100%), BouncyCastle light-weight API (100%)
-- Python: pyca/cryptography (100%)
+- `mvn clean package`: build all modules and run tests, as CI does.
+- `mvn test`: run the test suite without packaging.
+- `mvn test -pl java`: run one module's tests; replace `java` with another module name.
+- `mvn spotless:check`: check Java formatting and license headers.
+- `mvn spotless:apply`: format Java files and apply required headers.
+- `mvn checkstyle:check`: check Java style rules.
+- `docker-compose up`: start the local PostgreSQL and SonarQube services after building the plugin.
 
-## Build Commands
+## Coding Style & Naming Conventions
 
-```bash
-# Build with tests
-mvn clean package
+Use Spotless's Google Java Format in AOSP style for Java indentation, imports, and annotations. Keep the Apache 2.0 license header on Java files. Follow existing package names in lowercase, Java types in `UpperCamelCase`, and methods and fields in `lowerCamelCase`. Checkstyle runs during Maven's `validate` phase; run formatting and style checks before submitting changes.
 
-# Build without tests
-mvn clean package -DskipTests
+## Testing Guidelines
 
-# Build specific module
-mvn clean package -pl java
+Tests use JUnit 5 and AssertJ. Name test classes `*Test.java` and place them beside the corresponding module's code under `src/test/java`. For detection rules, add representative source fixtures under that module's `src/test/files/` and assert the detected findings. Run `mvn test` for broad changes or `mvn test -pl <module>` for focused changes. No numeric coverage threshold is configured in the parent build.
 
-# Format code (Google Java Format, AOSP style)
-mvn spotless:apply
+## Commits & Pull Requests
 
-# Check formatting
-mvn spotless:check
-
-# Check code style
-mvn checkstyle:check
-```
-
-## Testing
-
-```bash
-# Run all tests
-mvn test
-
-# Run tests for specific module
-mvn test -pl java
-mvn test -pl mapper
-mvn test -pl engine
-
-# Run specific test class
-mvn test -Dtest=SimpleGuidelineTest
-
-# Run specific test method
-mvn test -Dtest=SimpleGuidelineTest#testBasicAssertion
-```
-
-**Testing Framework:** JUnit 5 + AssertJ + SonarQube Test Fixtures
-
-**Detection rule tests:**
-- Extend `TestBase` (in `java/src/test/java/com/ibm/plugin/TestBase.java`)
-- Use `CheckVerifier` from SonarQube
-- Test files (actual code to analyze) go in `src/test/files/`, not `src/test/java/`
-- Implement `asserts()` method to verify detection store values and translated nodes
-
-## Architecture
-
-Multi-module Maven project (Java 17):
-
-```
-sonar-cryptography-plugin/    # Main SonarQube plugin entry point
-├── CryptographyPlugin.java   # Plugin registration
-├── OutputFileJob.java        # CBOM output handler
-engine/                       # Core detection engine
-├── detection/                # DetectionStore, Finding classes
-├── rule/                     # IDetectionRule interface
-java/                         # Java language support (JCA, BouncyCastle)
-├── rules/detection/          # Java detection rules
-python/                       # Python language support (pyca/cryptography)
-mapper/                       # Translation layer to CBOM model
-├── model/                    # Core data model (Algorithm, Key, Protocol, etc.)
-├── ITranslator.java          # Main translation interface
-enricher/                     # Adds algorithm details to findings
-output/                       # CBOM/CycloneDX generation
-common/                       # Shared utilities
-rules/                        # Shared rule definitions
-```
-
-**Data flow:** Source code → Language module (AST) → Engine (detection) → Mapper (translation) → Enricher → Output (CBOM)
-
-## Code Style
-
-- **Formatting:** Google Java Format (AOSP style) via Spotless - runs on `mvn package`
-- **License:** Apache 2.0 header required in all Java files (applied by Spotless)
-- **Checkstyle rules:** No unused imports, camelCase lambda params, max 5 boolean operators, private utility constructors, @Override required
-
-## Running with SonarQube
-
-```bash
-docker-compose up  # Starts PostgreSQL + SonarQube
-```
-
-Plugin JAR is built to `sonar-cryptography-plugin/target/` and copied to `.SonarQube/plugins/`.
-
-## Key Documentation
-
-- `docs/LANGUAGE_SUPPORT.md` - Extending for new languages/libraries
-- `docs/DETECTION_RULE_STRUCTURE.md` - Writing detection rules
-- `docs/TROUBLESHOOTING.md` - Testing configuration guide
+Recent commits commonly use short subjects such as `feat: ...`, `fix: ...`, `ci: ...`, and `chore(deps): ...`; some use plain descriptive subjects. Keep the subject specific and include an issue or PR reference when applicable. In pull requests, describe the behavior changed, affected modules, and commands run; link the relevant issue. Add screenshots only for visible SonarQube interface changes.
 
 ---
 > Source: [cbomkit/sonar-cryptography](https://github.com/cbomkit/sonar-cryptography) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
