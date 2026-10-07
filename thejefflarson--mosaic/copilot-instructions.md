@@ -1,0 +1,151 @@
+## mosaic
+
+> macOS desktop app: an infinite 2D spatial canvas where real PTY-backed terminal windows can be freely panned, zoomed, dragged, and resized. Built in Swift + AppKit + SwiftTerm. No web/JS runtime.
+
+# CanvasTerm — Claude Code Context
+
+## What this is
+
+macOS desktop app: an infinite 2D spatial canvas where real PTY-backed terminal windows can be freely panned, zoomed, dragged, and resized. Built in Swift + AppKit + SwiftTerm. No web/JS runtime.
+
+## Build
+
+```bash
+# Generate Xcode project (required after editing project.yml)
+xcodegen generate
+
+# Build from command line
+xcodebuild build -scheme Mosaic -destination 'platform=macOS' -IDEPackageSupportDisableManifestSandbox=1
+
+# Run tests
+xcodebuild test -scheme MosaicTests -destination 'platform=macOS' -IDEPackageSupportDisableManifestSandbox=1
+
+# Open in Xcode, then Cmd+B or Cmd+R
+open Mosaic.xcodeproj
+```
+
+> **Note:** `-IDEPackageSupportDisableManifestSandbox=1` is required when running xcodebuild from a shell where `sandbox-exec` is blocked at the kernel level (e.g. inside Claude Code / ziplock).
+>
+> **ziplock one-time setup:** If running Claude Code under [ziplock](https://github.com/thejefflarson/ziplock), run this once on the host to suppress Xcode's own Package.swift manifest sandbox:
+> ```bash
+> defaults write com.apple.dt.Xcode IDEPackageSupportDisableManifestSandbox -bool YES
+> ```
+> ziplock sets `XBS_DISABLE_SANDBOXED_BUILDS=1` and `SWIFTPM_SANDBOX=0` automatically. The release script already passes `-IDEPackageSupportDisableManifestSandbox=1` to both xcodebuild invocations.
+
+## Project structure
+
+```
+CanvasTerm/
+├── App/                    # Entry point, AppDelegate, menu bar, ScriptingCommands
+├── Canvas/                 # CanvasView (pan/zoom), CanvasViewController, CanvasGeometry
+├── Terminal/               # TerminalController, TerminalWindowView, TitleBarView,
+│                           #   ResizeHandleView, TerminalManager, TerminalSettings
+├── Annotations/            # AnnotationController, AnnotationViews, CanvasTool,
+│                           #   ToolPaletteView
+├── Minimap/                # MinimapView overlay
+├── Theming/                # Theme, ThemeEditorViewController
+├── Persistence/            # WorkspaceSnapshot (Codable), WorkspaceStore, WorkspaceState
+└── Utilities/              # CGRect/CGPoint extensions, SnapEngine, CanvasCursorManager
+```
+
+## Key architecture decisions
+
+**Pan/zoom:** `CanvasView` holds a `FlippedView` (world space). Pan/zoom is applied as a `CGAffineTransform` on `worldView.layer`. All terminal windows are subviews positioned in world coordinates. No per-frame CPU work — CoreAnimation composites via Metal.
+
+**Zoom-to-cursor math** is in `CanvasGeometry.swift` (`Viewport.zoomAround`). The invariant: world point under the cursor stays fixed.
+
+**Viewport culling:** `CanvasView.updateCulling()` hides (`isHidden = true`) any terminal whose world-space frame doesn't intersect the visible rect. PTY process stays alive; only rendering is skipped.
+
+**SwiftTerm integration:** `LocalProcessTerminalView` handles PTY spawn, I/O, and SIGWINCH. Do not override `terminalDelegate` externally — `LocalProcessTerminalView` sets it internally to pipe keystrokes to the PTY. Broadcast interception uses `InterceptingTerminalView` (subclass), which calls `super.send()` first.
+
+**Concurrency:** Swift 6, `targeted` strict concurrency. All AppKit/UI work is `@MainActor`. `LocalProcessTerminalViewDelegate` methods are `nonisolated` and dispatch to main via `Task { @MainActor in }`. `WorkspaceStore` is `Sendable`; snapshots are value types passed to a serial `DispatchQueue`.
+
+**Drag in world space:** Screen-space delta from `mouseDragged` must be divided by `currentZoom` before applying to world-space frame origin. Forgetting this makes windows "run away" at non-100% zoom.
+
+**FlippedView:** `worldView` is a `FlippedView` (isFlipped = true) so Y increases downward, matching screen coordinate conventions for pan math.
+
+**Snap engine:** `SnapEngine.swift` is a pure function (`snapRect`) that tests all 9 edge combinations (minX, midX, maxX × minY, midY, maxY) against reference rects and returns the best snap plus world-space guide line positions. `CanvasViewController.snapPosition()` calls it, converting guide positions to screen space for `SnapGuideOverlay`. During group drag, the bounding box of all selected items is snapped (not the dragged item's frame alone), and the resulting correction delta is applied uniformly to all peers.
+
+**Controller pattern:** `TerminalController` and `AnnotationController` own their respective element sets and are created by `CanvasViewController`. Dependencies (snap, undo, theme) are injected as closures at init time so controllers never hold a back-reference to the VC. Mutations fire an `onChange` closure; the VC wires this to minimap refresh, selection ring update, and the 5-second save debounce.
+
+**Undo model:** Undo actions are registered directly on `NSUndoManager` (via the responder chain) without grouping — each mutation is a single undoable step. Group-drag peer undos are registered in the same `mouseUp` event as the dragged item, so NSUndoManager's event-based coalescing bundles them into one Cmd+Z action automatically.
+
+## Dependency
+
+SwiftTerm via SPM: `https://github.com/migueldeicaza/SwiftTerm.git` (branch: main). Managed through xcodegen `project.yml`, not Package.swift (Package.swift exists only as a fallback compile check).
+
+## Workspace persistence
+
+Saves to `~/Library/Application Support/Mosaic/workspace.json` on a 5-second debounce after any change. Restores layout and working directories on launch. Terminal session content is not persisted (PTYs are always fresh).
+
+**Shell intentionally not persisted:** on restore, Mosaic always reads `$SHELL` from the environment rather than replaying the shell recorded in the snapshot. This respects the user — if they ran `chsh` during a session, the next launch should honour that choice, not silently revert to the old shell. Do not "fix" this by persisting the shell path.
+
+## Before pushing
+
+Always run tests before pushing to avoid breaking CI:
+
+```bash
+xcodebuild test -scheme MosaicTests -destination 'platform=macOS' -IDEPackageSupportDisableManifestSandbox=1
+```
+
+## Release
+
+```bash
+./Scripts/release.sh v0.5.3
+```
+
+The script bumps `CFBundleShortVersionString` in `Info.plist`, commits it, then builds a signed + notarized DMG, pushes the git tag, and creates a GitHub release. The working tree must be clean before running (the plist commit is made by the script itself).
+Apple Developer team ID `2PR729W8E3` is hardcoded as the default. Notarytool credentials
+must be stored in the login keychain under the profile name `MosaicNotarization`:
+
+```bash
+xcrun notarytool store-credentials "MosaicNotarization" \
+  --apple-id "you@example.com" \
+  --team-id "2PR729W8E3" \
+  --password "xxxx-xxxx-xxxx-xxxx"   # app-specific password from appleid.apple.com
+```
+
+## Design decisions and ADRs
+
+ADRs live under `Docs/ADR/`. When a design choice is deliberate but **looks
+wrong to a naive reviewer** — usually because it goes against a generic
+"defense-in-depth" recommendation that an automated scanner or PR bot would
+flag — write it up as a numbered ADR and link the inline comment at the call
+site to that ADR.
+
+Triggers to write a new ADR (not exhaustive):
+
+- You're reverting a change that re-tightens a security control you previously
+  loosened on purpose (allowlist↔denylist flips, containment add/remove,
+  scheme handling, sanitiser strictness).
+- A reviewer (human or bot) would reasonably ask "why isn't this stricter?"
+  and the answer is "we picked the less strict option deliberately, and here's
+  the threat-model argument."
+- A workaround for a third-party library annotation that you've documented
+  inline in one place but is likely to come up in code review repeatedly.
+
+Link the ADR from the inline comment so the next reviewer (or scanner) follows
+the trail. `SECURITY.md`'s Threat Model section is a good index for
+security-relevant ADRs.
+
+## Known workarounds to revisit
+
+**`xcodebuild test` hangs inside the sandbox (added 2026-03-31, root cause corrected 2026-06-14):** `xcodebuild test` hangs for ~340 seconds with "The test runner hung before establishing connection" when run **inside the sandbox** (ziplock / Claude Code default) — the test runner can't establish its connection through the sandbox. This is NOT an Xcode-version regression (it was misattributed to Xcode 26.4 originally). `xcodebuild build` works sandboxed; only `test` hangs. Default to push-and-let-CI-validate. Run tests locally ONLY when explicitly running outside the sandbox, where the full suite passes in ~2s.
+
+**Kitty keyboard arrow key fix (added 2026-03-25, revisit ~2026-04-08):** Claude Code v2.1.83
+introduced a regression ("Fixed mouse tracking escape sequences leaking to shell prompt after exit")
+that causes kitty keyboard mode to be pushed to all terminals, not just kitty-capable ones. SwiftTerm
+honours the push and incorrectly encodes macOS cursor arrow keys as keypad arrows (CSI 57419u/57420u)
+because macOS always sets the `.numericPad` flag on cursor arrow events. Workaround: a local
+`NSEvent` monitor in `TerminalWindowView.setupTerminal()` strips `.numericPad` from the CGEvent
+before SwiftTerm sees it. Once Claude Code fixes the regression, remove the monitor and its `deinit`
+cleanup (`kittyArrowMonitor`).
+
+## Planned features (not yet implemented)
+
+- Minimap click/drag accuracy improvements
+- Resize handle cursors (currently crosshair for all corner/edge handles)
+
+---
+> Source: [thejefflarson/mosaic](https://github.com/thejefflarson/mosaic) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
