@@ -1,73 +1,117 @@
 ## library-go
 
-> library-go is a shared Go helper library consumed by dozens of OpenShift operators and components. It provides reusable building blocks: operator controller framework, certificate management, configuration observers, encryption/KMS integration, manifest-based clients, and more.
+> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-# AI Agent Instructions for library-go
+# Agent Guide for opentelemetry-go
 
-## What This Repo Is
+This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-library-go is a shared Go helper library consumed by dozens of OpenShift operators and components. It provides reusable building blocks: operator controller framework, certificate management, configuration observers, encryption/KMS integration, manifest-based clients, and more.
+Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
+Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
 
-**This is a library, not an application.** There is no main binary. Changes here affect every OpenShift component that vendors this repo.
+## Core expectations
 
-## Critical Rules
+- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
+- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
+- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
+- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
+- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
+- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
+- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
+- Keep dependencies minimal and justified.
+- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
+- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
+- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
 
-1. **Never add imports from `k8s.io/kubernetes` or `openshift/origin`.** This is an absolute constraint — the library must remain independent of those repos.
-2. **Always run `go mod tidy && go mod vendor` after any dependency change.** The vendor directory is checked in and CI validates it.
-3. **Run `make verify` and `make test-unit` before considering any change complete.**
-4. **Do not introduce breaking API changes** to existing public functions or types without explicit direction. Dozens of repos depend on these interfaces.
+## Default workflow
 
-## Repository Structure
+For new features and behavior changes, use this order unless the task explicitly says otherwise:
 
-```text
-pkg/
-├── operator/          # Controller framework (33 subpackages) — the core of the library
-│   ├── certrotation/  # Certificate lifecycle and rotation controllers
-│   ├── configobserver/ # Watches config inputs, produces RawExtension outputs
-│   ├── encryption/    # KMS/encryption state machine (11 subdirs) — very complex
-│   ├── staticpod/     # Static pod management with atomic directory swaps
-│   ├── resourcesynccontroller/ # Cross-namespace secret/configmap sync
-│   └── ...
-├── crypto/            # Low-level TLS, certificates, key generation, cipher suites
-├── pki/               # High-level API-driven PKI profiles (newer)
-├── config/            # Configuration management, serving, leader election
-├── manifestclient/    # Manifest-based client operations (offline-capable)
-├── controller/        # Controller utilities, factory, file observer
-├── assets/            # Asset creation and templating
-└── ...                # 35+ top-level packages total
-test/
-├── e2e-encryption/    # Encryption end-to-end tests
-├── e2e-monitoring/    # Monitoring end-to-end tests
-└── library/           # Shared test helpers
-```
+1. Read the relevant package, its tests, and any package docs or `README.md`.
+2. Add or update a failing unit test that captures the required behavior or regression.
+3. Implement the smallest change that makes the test pass.
+4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
+5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
+6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
+7. Run `make precommit` each time before considering the work complete.
 
-## Key Patterns to Follow
+For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
 
-- **ConfigObserver pattern**: Controllers watch multiple config inputs and produce a single `RawExtension` output. Changes are detected by comparing the merged observer output against the existing observed config. Follow this pattern for any new observer.
-- **Preconditions over defaults**: `StaticResourceController` uses preconditions (feature gates, platform checks) to decide behavior. Do not try to handle all combinations with defaults.
-- **Controller naming**: Controllers follow the pattern `NewXxxController(...)` returning a `factory.Controller`. Follow existing naming and constructor conventions.
+## Verification
 
-## High-Risk Areas — Proceed with Caution
+- Use `make` as the canonical repository verification command. The default target is `precommit`.
+- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
+- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
+- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
 
-- **`pkg/operator/encryption/`** — State machine with complex preconditions, crypto providers, KMS plugin integration, and etcd encryption config management. Do not modify without deep understanding.
-- **`pkg/crypto/`** and **`pkg/operator/certrotation/`** — Certificate rotation triggers at 80% of validity (4/5 of cert lifetime) and handles multi-CA chain support. Subtle bugs here cause cluster outages. Note: CSR handling is in `pkg/operator/csr/`, not in certrotation.
-- **`pkg/operator/staticpod/`** — Atomic directory swaps use `renameat2(RENAME_EXCHANGE)` on Linux; non-Linux platforms are not supported and return an error. Platform-specific code needs careful testing.
+## Documentation and changelog
 
-## Build and Test
+- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
+- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
+- Prefer examples over long code snippets in GoDoc when practical.
+- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
+- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
 
-```bash
-make build       # Compile all packages
-make test-unit   # Run unit tests
-make verify      # Linters, gofmt, vet
-```
+## Repository habits
 
-## What NOT to Do
+- Prefer focused diffs. Avoid drive-by cleanup.
+- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
+- Generated files are checked in. If your change affects generation, keep generated output up to date.
+- Prefer fast local search tools such as `rg` when exploring the repository.
+- When changing behavior, make the invariants explicit in tests.
 
-- Do not add new top-level packages without a strong reason — the bar for inclusion is high.
-- Do not modify OWNERS or OWNERS_ALIASES files.
-- Do not use Kubernetes code generators (deepcopy-gen, client-gen, informer-gen). Some CRD manifests are synced from `openshift/api` via the Makefile, but the Go code is hand-written.
-- Do not add test dependencies on real cloud providers or external services in unit tests. Use fakes and mocks from `k8s.io/client-go/kubernetes/fake`.
+## Personas
+
+### Feature Agent
+
+Use this persona for new behavior, new API surface, or spec-driven feature work.
+
+- Start with a failing unit test.
+- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
+- Implement the smallest viable change.
+- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
+- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
+
+### Refactoring Agent
+
+Use this persona when improving structure without intentionally changing behavior.
+
+- Treat behavior preservation as the default contract.
+- Add or tighten tests before moving code if current behavior is not already pinned down.
+- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
+- If a refactor touches a hot path, benchmark before and after.
+- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
+
+### Test Agent
+
+Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
+
+- Reproduce the bug or missing behavior with the smallest failing test you can.
+- Prefer testing public behavior and externally visible invariants.
+- Add targeted regression tests before changing production code.
+- Only change production code when it is required to make the tested behavior correct or testable.
+- Keep tests deterministic, readable, and aligned with package patterns.
+
+### Performance Agent
+
+Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
+
+- Benchmark first to establish a baseline.
+- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
+- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
+- Add or update benchmarks when performance-sensitive coverage is missing.
+- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
+
+### Review Agent
+
+Use this persona when asked to review code, patches, or pull requests.
+
+- Lead with findings, not summaries.
+- Order findings by severity and include precise file and line references when available.
+- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
+- Call out when a diff is broader than necessary.
+- If you find no issues, say that explicitly and note any residual risks or verification gaps.
 
 ---
 > Source: [openshift/library-go](https://github.com/openshift/library-go) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
