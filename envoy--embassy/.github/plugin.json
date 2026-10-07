@@ -1,0 +1,9 @@
+{
+  "name": "envoy--embassy",
+  "displayName": "Embassy",
+  "description": "Embassy",
+  "version": "1.0.0",
+  "author": "envoy",
+  "homepage": "https://github.com/envoy/Embassy",
+  "skills": []
+}
