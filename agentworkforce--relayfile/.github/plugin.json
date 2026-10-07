@@ -1,0 +1,14 @@
+{
+  "name": "agentworkforce--relayfile",
+  "displayName": "relayfile",
+  "description": "Queue-first virtual filesystem-over-REST that ingests noisy external webhooks, projects a durable file tree, and performs conflict-safe   writeback with retries, dead-lettering, and replay.",
+  "version": "1.0.0",
+  "author": "AgentWorkforce",
+  "homepage": "https://github.com/AgentWorkforce/relayfile",
+  "skills": [
+    {
+      "name": "creating-claude-rules",
+      "description": ""
+    }
+  ]
+}
