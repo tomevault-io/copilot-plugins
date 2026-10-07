@@ -1,0 +1,9 @@
+{
+  "name": "matyushkin--djvu-rs",
+  "displayName": "djvu-rs",
+  "description": "Pure-Rust DjVu codec \u2014 decode and encode DjVu documents. MIT licensed, no GPL dependencies.",
+  "version": "1.0.0",
+  "author": "matyushkin",
+  "homepage": "https://github.com/matyushkin/djvu-rs",
+  "skills": []
+}
