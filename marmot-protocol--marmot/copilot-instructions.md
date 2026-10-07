@@ -1,63 +1,42 @@
 ## marmot
 
-> Agent operating rules for the app-component surface. Read [`README.md`](README.md) for the full human-facing model
+> Agent operating rules for the ideas surface. Read [`README.md`](README.md) for what an idea is; the cross-surface map is
 
-# AGENTS.md - app-components
+# AGENTS.md - ideas
 
-Agent operating rules for the app-component surface. Read [`README.md`](README.md) for the full human-facing model
-(component ids, negotiation, common rules, GroupContext update processing, default GroupContext authorization); the
-cross-surface map is in [`../AGENTS.md`](../AGENTS.md).
+Agent operating rules for the ideas surface. Read [`README.md`](README.md) for what an idea is; the cross-surface map is
+in [`../AGENTS.md`](../AGENTS.md).
 
 ## Scope
 
-App components own the versioned MLS `app_data_dictionary` component bytes at GroupContext, LeafNode, KeyPackage, and
-GroupInfo locations, plus component-owned `AppEphemeral` and SafeAAD bytes. One component id per file. The rules here
-are mechanical and easy to get wrong, so treat this file as the checklist and the README as the model.
-
-## Read order
-
-1. [`README.md`](README.md) (Component IDs, Negotiation, Common Rules, GroupContext Update Processing, Default
-   GroupContext Authorization).
-2. [`../foundation/registries.md`](../foundation/registries.md) to claim the next free id, then
-   [`../foundation/canonical-encoding.md`](../foundation/canonical-encoding.md) for the byte rules.
-3. The component file you are adding or editing.
+Idea documents are non-normative explorations of future protocol work, written for early feedback: user-visible flows,
+trade-offs, and open questions. They are not spec text.
 
 ## Rules
 
-- Component ids are private-use MLS range `0x8000..0xffff`. To add one, pick the next free id and register it in THREE
-  places in the same change: [`../foundation/registries.md`](../foundation/registries.md), the README "Current Marmot
-  Components" list, and the [`../layout.md`](../layout.md) tree. This trio is the most frequently missed step — for
-  example `avatar-url` (`0x8007`) was once absent from the README list.
-- The component id IS the major version. A breaking change gets a NEW component id and a NEW file; do not add a generic
-  version field to the payload. A component-specific constant retained by an inherited schema is not version
-  negotiation.
-- Each component doc MUST define the full required set: component id, name, every valid entry location, bytes and
-  validation per location, negotiation and presence requirements, lifecycle, mutation authorization, replacement or
-  removal rules, and migration.
-- GroupContext components additionally define state bytes, AppDataUpdate bytes, proposal authorization, commit
-  authorization, and removal. LeafNode, KeyPackage, and GroupInfo components change with their containing MLS object
-  and MUST NOT define AppDataUpdate as their mutation mechanism.
-- Commit-scoped component data uses AppEphemeral. SafeAAD is reserved for component contributions to MLS
-  `authenticated_data`; do not enable it merely to attach data to one Commit.
-- Group-level component proposals and commits are admin-gated by default. A component MAY loosen this, but it MUST say
-  so explicitly, against the admin set in `marmot.group.admin-policy.v1`.
-- Unknown non-required component entries MUST be preserved byte-for-byte; never parse, sort inside, partially copy, or
-  re-encode them.
+- Do not use `MUST`, `SHOULD`, or `MAY` as requirement keywords in an idea document. Describe the intended behavior in
+  plain language.
+- Do not assign or reserve ids of any kind (component, extension, proposal, event kind, exporter label), and do not add
+  idea material to [`../foundation/registries.md`](../foundation/registries.md).
+- Do not define wire bytes, structs, or validation rules. Name the surface that will own them instead.
+- Normative spec documents may link to an idea only as non-normative context, never to delegate a rule to it.
+- Keep open questions explicit. When a question is settled and the rule moves into an owning surface, remove it from
+  the idea document in the same change.
+- Figures live in a directory named after the idea document (for example `multi-device/`). Use SVG with light and dark
+  styles and no external fonts or scripts.
 
 ## Verification
 
-- After adding or renaming a component, grep that the id and file appear in
-  [`../foundation/registries.md`](../foundation/registries.md), the README "Current Marmot Components" list, and
-  [`../layout.md`](../layout.md).
-- Confirm the file defines every location-appropriate requirement above.
+- When adding, renaming, or removing an idea document, update [`../layout.md`](../layout.md) and
+  [`README.md`](README.md) in the same change.
+- Grep idea documents for uppercase `MUST`, `SHOULD`, and `MAY`, and for hexadecimal ids; neither belongs here.
+- Confirm every link and image path resolves.
 
 ## Pointers
 
 - Up to the cross-surface map: [`../AGENTS.md`](../AGENTS.md).
-- Features reference components; they do not duplicate them: [`../features/`](../features/README.md).
-- Id source of truth and encodings: [`../foundation/registries.md`](../foundation/registries.md),
-  [`../foundation/canonical-encoding.md`](../foundation/canonical-encoding.md).
+- Where settled rules go: [`../layout.md`](../layout.md).
 
 ---
 > Source: [marmot-protocol/marmot](https://github.com/marmot-protocol/marmot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
