@@ -1,0 +1,9 @@
+{
+  "name": "bang-isme--codexai---skills",
+  "displayName": "CodexAI---Skills",
+  "description": "Instruction-first Codex skill pack for end-to-end developer workflow: intent analysis, workflow routing, domain rules, docs sync, quality gate, and project memory with practical helper scripts.",
+  "version": "1.0.0",
+  "author": "Bang-isme",
+  "homepage": "https://github.com/Bang-isme/CodexAI---Skills",
+  "skills": []
+}
