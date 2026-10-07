@@ -1,0 +1,9 @@
+{
+  "name": "xgreenrx-star--visualgasic",
+  "displayName": "VisualGasic",
+  "description": "VB6-style BASIC for Godot 4.6 \u2014 readable .vg scripts, Narcea AI + live debug capture, 12/12 compute faster than GDScript. Open source.",
+  "version": "1.0.0",
+  "author": "xgreenrx-star",
+  "homepage": "https://github.com/xgreenrx-star/VisualGasic",
+  "skills": []
+}
