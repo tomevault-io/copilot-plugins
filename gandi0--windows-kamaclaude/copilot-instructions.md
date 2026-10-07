@@ -1,10 +1,10 @@
 ## windows-kamaclaude
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to codex when working with code in this repository.
 
-# CLAUDE.md
+# AGENT.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to codex when working with code in this repository.
 
 ## Commands
 
@@ -117,4 +117,4 @@ The planning documents live in `../docs/` (sibling of this repo, not committed h
 
 ---
 > Source: [gandi0/windows-kamaclaude](https://github.com/gandi0/windows-kamaclaude) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
