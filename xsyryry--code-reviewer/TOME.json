@@ -4,7 +4,7 @@
   "repo": "code-reviewer",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/xsyryry/code-reviewer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T16:10:57Z"
+  "distributed_at": "2026-10-07T02:35:47Z"
 }
