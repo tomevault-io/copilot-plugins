@@ -1,32 +1,55 @@
-## registry-and-cli
+## solidcn-monorepo
 
-> Open registry JSON, CLI schemas, and docs public/r parity
+> solidcn monorepo — stack, packages, and where to edit
 
 
-# Registry & CLI
+# solidcn monorepo
 
-## Schema source of truth
+A **[shadcn/ui](https://ui.shadcn.com)** port for **SolidJS** — copy-paste components, not a black-box library.
 
-- `packages/cli/src/schema/json-schemas/registry.json`
-- `packages/cli/src/schema/json-schemas/registry-item.json`
-- `packages/cli/src/schema/json-schemas/config.json` (solidcn.json)
+## Stack
 
-## Example hosted registry (docs site)
+- **SolidJS** + **SolidStart** (`apps/docs`)
+- **@kobalte/core** — headless accessible primitives
+- **corvu** — advanced primitives (Drawer, Resizable, etc.)
+- **Tailwind CSS v4** + **tailwind-variants**
+- **Biome** — lint + format (not Prettier)
+- **pnpm** workspaces
 
-`apps/docs/public/r/` — `registry.json` and per-item `*.json` must stay **consistent**:
+## Package map
 
-- Every entry in `registry.json` has a fetchable JSON file
-- Paths follow CLI / `solidcn add` conventions
+| Path | Package | Notes |
+|------|---------|--------|
+| `packages/core` | `@solidcn/core` | UI components — build before running docs dev |
+| `packages/toast` | `@solidcn/toast` | Standard + Sileo toast |
+| `packages/themes` | `@solidcn/themes` | CSS vars, ThemeProvider |
+| `packages/cli` | `solidcn` | CLI: init, add, registry, mcp |
+| `packages/create-solidcn-app` | `create-solidcn-app` | `npm create solidcn-app` |
+| `packages/mcp-cloudflare` | `@solidcn/mcp-cloudflare` | HTTP MCP Worker |
+| `apps/docs` | `@solidcn/docs` | Documentation (SolidStart) |
+| `apps/storybook` | — | Visual stories |
 
-## After changing core components
+## Before changing docs / Storybook
 
-1. Update or regenerate registry items if needed (`pnpm registry:build` from root when using that workflow)
-2. Keep docs pages under `apps/docs/src/routes/docs/components/` and `apps/docs/src/lib/nav.ts` in sync
+Build workspace packages that are imported:
 
-## CLI
+```bash
+pnpm --filter @solidcn/core build
+pnpm --filter @solidcn/toast build
+pnpm --filter @solidcn/themes build
+```
 
-- Do not hardcode absolute paths; use `cwd` / project config
-- Registry commands (build, create, add) must align with the schemas above
+## Conventions
+
+- TypeScript **strict** + `exactOptionalPropertyTypes`
+- Use **Biome** for formatting; `biome.json` sets `semicolons: "always"`
+- UI icons: **lucide-solid**; avoid emoji in public docs UI
+- Solid: prefer `<Show>`, `<For>`; avoid React patterns (`dangerouslySetInnerHTML` — use Solid’s `innerHTML` prop when needed)
+
+## Docs site (Phase 7/8)
+
+- Follow **`docs-ui-shadcn-like.mdc`** (shadcn-like layout, CodeBlock + Shiki tied to `docsTheme`, TOC, typography).
+- `DocLayout` does not own the mobile sidebar — desktop `Sidebar` only; mobile menu state lives in `app.tsx`.
 
 ---
 > Source: [solidcn-ui/solidcn](https://github.com/solidcn-ui/solidcn) — distributed by [TomeVault](https://tomevault.io).
