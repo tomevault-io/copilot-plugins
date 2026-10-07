@@ -1,0 +1,93 @@
+{
+  "name": "EvoOntology",
+  "owner": "ruc-datalab",
+  "repo": "EvoOntology",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "EvoOntology",
+      "path": "plugins/claude-code/skills/evo-build/SKILL.md",
+      "github_url": "https://github.com/ruc-datalab/EvoOntology/tree/main/plugins/claude-code/skills/evo-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoOntology",
+      "path": "plugins/claude-code/skills/evo-evolve/SKILL.md",
+      "github_url": "https://github.com/ruc-datalab/EvoOntology/tree/main/plugins/claude-code/skills/evo-evolve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoOntology",
+      "path": "plugins/evoontology-codex/skills/build-ontology/SKILL.md",
+      "github_url": "https://github.com/ruc-datalab/EvoOntology/tree/main/plugins/evoontology-codex/skills/build-ontology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoOntology",
+      "path": "plugins/evoontology-codex/skills/evolve-ontology/SKILL.md",
+      "github_url": "https://github.com/ruc-datalab/EvoOntology/tree/main/plugins/evoontology-codex/skills/evolve-ontology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoOntology",
+      "path": "plugins/evoontology-codex/skills/explore-ontology/SKILL.md",
+      "github_url": "https://github.com/ruc-datalab/EvoOntology/tree/main/plugins/evoontology-codex/skills/explore-ontology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoOntology",
+      "path": "plugins/claude-code/skills/build-ontology/SKILL.md",
+      "github_url": "https://github.com/ruc-datalab/EvoOntology/tree/main/plugins/claude-code/skills/build-ontology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoOntology",
+      "path": "plugins/claude-code/skills/evolve-ontology/SKILL.md",
+      "github_url": "https://github.com/ruc-datalab/EvoOntology/tree/main/plugins/claude-code/skills/evolve-ontology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoOntology",
+      "path": "plugins/claude-code/skills/explore-ontology/SKILL.md",
+      "github_url": "https://github.com/ruc-datalab/EvoOntology/tree/main/plugins/claude-code/skills/explore-ontology/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ruc-datalab/EvoOntology",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T00:40:43Z"
+}
