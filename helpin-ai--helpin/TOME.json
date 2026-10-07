@@ -4,7 +4,7 @@
   "repo": "helpin",
   "description": "Open-source alternative to Intercom, Fin and Linear. Support, projects, CRM, meetings, and docs in one workspace\u2014with AI agents that use customer history to answer questions, plan work, and follow up.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/helpin-ai/helpin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T17:35:49Z"
+  "distributed_at": "2026-10-07T17:40:42Z"
 }
