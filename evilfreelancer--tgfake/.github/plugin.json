@@ -1,0 +1,9 @@
+{
+  "name": "evilfreelancer--tgfake",
+  "displayName": "tgfake",
+  "description": "Offline Telegram Bot API for testing bots, Mini Apps and LLM integrations.",
+  "version": "1.0.0",
+  "author": "EvilFreelancer",
+  "homepage": "https://github.com/EvilFreelancer/tgfake",
+  "skills": []
+}
