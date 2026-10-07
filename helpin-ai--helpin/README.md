@@ -7,14 +7,14 @@ Open-source alternative to Intercom, Fin and Linear. Support, projects, CRM, mee
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [helpin-ai/helpin](https://github.com/helpin-ai/helpin).
+Original source: `GEMINI.md` in [helpin-ai/helpin](https://github.com/helpin-ai/helpin).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [helpin-ai/helpin](https://github.com/helpin-ai/helpin) — a repo with 9+ stars on GitHub.
