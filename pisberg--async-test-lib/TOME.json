@@ -4,7 +4,7 @@
   "repo": "async-test-lib",
   "description": "@AsyncTest (async-test-lib) is an enterprise-grade test framework that makes concurrency bugs reproducible and detectable. Rather than hoping random thread scheduling will expose bugs, async-test forces them to happen using synchronized barriers and then diagnoses exactly what went wrong using specialized detectors.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PIsberg/async-test-lib",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T22:27:47Z"
+  "distributed_at": "2026-10-07T23:55:32Z"
 }
