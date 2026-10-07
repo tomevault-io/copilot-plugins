@@ -1,195 +1,129 @@
 ## wemod-enhancer
 
-> This file helps AI assistants (Claude, Cursor, Copilot) understand the project conventions and produce code that matches the repository's standards.
+> C++23. C+CXX. CMake 4.3+. Ninja Multi-Config. CPM. doctest + CTest.
 
-# AI Coding Guidelines for cmake_template
+# cmake_template
 
-This file helps AI assistants (Claude, Cursor, Copilot) understand the project conventions and produce code that matches the repository's standards.
+C++23. C+CXX. CMake 4.3+. Ninja Multi-Config. CPM. doctest + CTest.
+Think first. Minimal diff. Verify with build + tests.
 
-## Project Overview
+## Build
 
-- **Type**: Production-ready C++ project template / skeleton
-- **Standard**: C++23/26
-- **CMake**: 3.31+
-- **Generator**: Ninja Multi-Config (except MSVC preset)
-- **Package Manager**: CPM.cmake (CMake-based, no external package manager like Conan/vcpkg yet)
-- **Test Framework**: doctest + CTest presets
-- **CI**: GitHub Actions (`cmake_multi_platform.yml`)
-- **Docker**: Fedora-based reproducible build images
+cmake --preset dev && cmake --build --preset dev -j && ctest --preset dev
+ln -sf build/dev/compile_commands.json .
 
-## Directory Layout Rules
+## Layout
 
-```
-.
-├── CMakeLists.txt              # Root: project(), CPM init, subdirs
-├── CMakePresets.json           # Single source of truth for all presets
-├── cmake/
-│   ├── warnings.cmake          # Compiler warning flags per toolchain
-│   ├── cpm.cmake               # CPM bootstrap
-│   └── code_quality.cmake      # clang-tidy, IWYU, cppcheck targets
-├── src/                        # Application/library sources
-│   └── CMakeLists.txt
-├── tests/                      # doctest-based tests, CTest-ready
-│   └── CMakeLists.txt
-├── tools/                      # Helper scripts (format, lint, etc.)
-├── docker/
-│   └── fedora.Dockerfile       # Primary reproducible image
-├── android-project/            # Android manifest scaffolding
-├── docs/
-│   └── references.md           # Curated external links (do NOT bloat README)
-├── .clang-format
-├── .clang-tidy
-├── .cmake-format.yaml
-├── .editorconfig
-└── .pre-commit-config.yaml
-```
+- CMakeLists.txt — project(), CT_* cache vars, add_subdirectory(src), top-level only tests + packaging + CPack last
+- CMakePresets.json — includes cmake/presets/*.json
+- cmake/presets/ — base.json dev + build_release/debug + test_base, linux.json, windows.json, android.json, web.json, steam.json
+- cmake/toolchains/ — llvm_mingw.cmake, emscripten.cmake
+- cmake/ct_cpm.cmake — fetch CPM, find_package(doctest, sdl3, gsl, imgui)
+- cmake/cpm/ — package configs
+- cmake/cpack/ct_cpack.cmake — DEB/RPM/NSIS metadata, CPACK_SYSTEM_NAME os_compiler_arch
+- cmake/code_quality/ + cmake/scripts/ + cmake/steampipe/
+- src/ — 01_hello_world 02_sdl3_app 03_unity_build 04_tracy_profiler 05_webassembly 06_modules, one CMakeLists per dir
+- tests/ — doctest_example.cpp, main.cpp, doctest_android_jni.cpp
+- tools/ + scripts/ — python helpers, format/lint scripts
+- docker/ — official-base images, no source COPY
+- android_project/ — manifest + Gradle wrapper
+- nix/ — nix shells
+- docs/references.md — links live here, not readme
 
-**Rule**: Never add ad-hoc `build/` directories to `.gitignore` — the project already ignores common build roots. Always use `build/<preset>/` or out-of-tree.
+## CMake
 
-## Adding a New CMake Preset
+- Targets only. No CMAKE_CXX_FLAGS, include_directories, link_libraries, add_definitions.
+- No file(GLOB). Explicit sources. No CMAKE_BUILD_TYPE in project. Preset owns it + CMAKE_CONFIGURATION_TYPES.
+- CT_* user cache vars/options, ct_* targets/functions/locals. Upstream names untouched.
+- PUBLIC propagates, PRIVATE not, INTERFACE consumers-only.
+- Alias every exported lib. Warnings per-compiler guarded, never PUBLIC.
+- CMAKE_CXX_SCAN_FOR_MODULES OFF unless modules used. CXX_EXTENSIONS OFF.
+- Generated files in binary dir only. Multiline in [[...]], never \n escapes.
+- PROJECT_IS_TOP_LEVEL gates tests/packaging. PROJECT_SOURCE_DIR, never CMAKE_SOURCE_DIR in modules.
+- Static runtime: MSVC frontend -> MSVC_RUNTIME_LIBRARY MT, GNU-like frontend -> $<$<NOT:$<CXX_COMPILER_FRONTEND_VARIANT:MSVC>>:-static-libstdc++;-static-libgcc>, full -static Windows exe only.
 
-1. Edit `CMakePresets.json` only.
-2. Follow existing naming: `<compiler>-<variant>` for configure, `<name>-release/debug` for build, `<name>-package` for CPack, `<name>-full` for workflow.
-3. Every native preset must have matching `build`, `test` (if native), and optionally `package`/`workflow` entries.
-4. Cross-compiled presets (Android, MinGW) disable `test` — packaging or manual device/emulator testing takes over.
-5. Keep `vendor` block minimal; do not add IDE-specific fields unless requested.
+## C++
 
-## Adding Dependencies
+- C++23. Value types copy/move, share nothing.
+- snake_case types/funcs/vars. UPPER_CASE macros only. No m_, no Hungarian.
+- {} over (). Init every var. RAII only, no new/delete.
+- class for invariants, struct for data. final on non-base. Rule of zero. No owning raw ptrs.
+- std::int32_t/uint32_t/int64_t/uint64_t with std::. size_t sizes, ptrdiff_t diffs.
+- span/string_view by value, never stored. [[nodiscard]]. expected<T,E> for fallible, no magic values.
+- gsl::Expects/Ensures for contracts. const default, constexpr free, noexcept honest.
+- New type only if reused twice. No single-use abstraction.
+- Borrowed code links itself: Origin URL + version + license. No link, no borrow.
 
-Use CPM only. Example:
+## Python tools/
 
-```cmake
-CPMAddPackage("gh:fmtlib/fmt#11.1.4")
-```
+- stdlib first: pathlib, dataclasses, subprocess, concurrent.futures, sqlite3.
+- black . && ruff check --fix . Both in CI + pre-commit.
+- Type hints public funcs. dict[str,str], not Dict. pathlib.Path, not strings. with for resources.
+- f-strings. logging, no print in libs. pytest, one behaviour per test.
+- New dep only with stars + recent commit + cause. Never one-facility dep.
 
-- Prefer tagged releases over branches.
-- Keep `FETCHCONTENT_QUIET OFF` for CI visibility (already set globally).
-- If a library needs options, pass `OPTIONS "LIB_BUILD_TESTS OFF"` inside `CPMAddPackage`.
-- Do NOT add `find_package` / `conanfile.txt` / `vcpkg.json` — these are tracked in separate issues (#3, #8).
+## Presets
 
-## Writing Tests
+- Edit cmake/presets/*.json only. dev = zero-pin native iteration. Platform presets pin compilers.
+- Native needs build + test (+package/workflow). Cross disables test, workflow skips test step.
+- linux_clang_x86_64 / linux_gcc_x86_64 + release/debug + TGZ/DEB.
+- windows_msvc_x86_64 (VS17) + windows_llvm_mingw_x86/x86_64/aarch64, cross has no test presets.
+- android_clang_aarch64/armv7/x86_64/x86, NDK + c++_shared + API24, tidy cleared, release (+debug aarch64/x86_64).
+- web_emscripten_wasm32 via Emscripten toolchainFile, Node tests.
+- steam: linux_steamrt4_x86_64 + windows_msvc_steam_x86_64 + windows_llvm_mingw_steam_x86_64, CT_STEAMPIPE ON, IPO ON.
+- No platform hacks in CI. Logic in presets/docker/toolchains.
 
-- Use **doctest** (already fetched via CPM).
-- Place test files under `tests/`.
-- Register with `doctest_discover_tests(...)` in `tests/CMakeLists.txt`.
-- CTest presets mirror build presets: `gcc-release`, `clang-debug`, etc.
-- For Android instrumentation tests, use the Android project scaffolding in `android-project/` and document the emulator/device target in the issue/PR.
+## Deps
 
-## Code Quality (Mandatory Before Commit)
+- CPM only. Tagged releases, not branches. FETCHCONTENT_QUIET OFF for CI.
+- Options inside CPMAddPackage. No conan/vcpkg.json.
+- find_package(CONFIG REQUIRED) via cmake/cpm configs. Cross keeps configs reachable via CMAKE_FIND_ROOT_PATH.
 
-```bash
-cmake --build build/gcc --target format   # clang-format + cmake-format
-cmake --build build/gcc --target tidy     # clang-tidy
-cmake --build build/gcc --target cpplint  # cppcheck/cpplint
-```
+## Tests
 
-- All source files must pass `.clang-format`.
-- CMake files must pass `.cmake-format.yaml`.
-- Pre-commit hooks enforce this; run `pre-commit install` once.
+- doctest + doctest_discover_tests under tests/, CTest mirrors build presets, BUILD_TESTING gate.
+- Android JNI harness in tests/doctest_android_jni.cpp, device/emulator target documented in PR.
 
-## CI / GitHub Actions Rules
+## Quality
 
-- The main workflow is `.github/workflows/cmake_multi_platform.yml`.
-- New matrix entries must use existing presets from `CMakePresets.json`.
-- Do NOT add platform-specific hack scripts in CI — encode logic in presets or Docker.
-- Docker builds must be reproducible: pin Fedora/LLVM/CMake versions in `docker/fedora.Dockerfile`.
+cmake --build build/dev --target format tidy
+- clang-format + cmake-format clean. clang-tidy on native only, never cross. pre-commit install once.
 
-## Cross-Compilation Conventions
+## CI
 
-- **Android**: Use NDK toolchain via CMake `CMAKE_TOOLCHAIN_FILE`. Preset names prefix with `android-`.
-- **Linux → Windows**: Use `llvm-mingw` toolchain. Preset names prefix with `llvm-mingw-`.
-- Toolchain files live under `cmake/toolchains/` if needed (create the dir only when adding custom toolchains).
-- Always document host dependencies (e.g., `llvm-mingw` on `PATH`) in the preset `description` field.
+- Workflows start with yaml-language-server schema line.
+- Matrix in cmake_multi_platform.yml (workflow_call). release.yml pipes it + publish-docker.yml, tags via softprops/action-gh-release, then PR bumps project(VERSION).
+- Docker: matrix row in publish-docker.yml, ghcr.io/${{ github.repository }}/<name>. Pin bases. Dependabot watches /docker.
+- New matrix entries use existing presets only.
 
-## README Maintenance
+## Cross
 
-- Keep `readme.md` under 10 KB.
-- Quick Start must be ≤ 3 commands.
-- Move curated links, deep references, and long essays to `docs/references.md`.
-- Comparison table is the only allowed long table in README.
-- Consulting block stays at the bottom; do not add sponsor badges (region-blocked).
+- Android: ./gradlew :app:assembleRelease --offline. abiFilters decides shipped .so. Keep unstripped .so. Symbolicate: ndk-stack -sym <dir> -dump tombstone.txt.
+- llvm-mingw: cmake/toolchains/llvm_mingw.cmake, CMAKE_SYSTEM_PROCESSOR x86_64/i686/aarch64, auto-download tarball, --sysroot + lld baked in.
+- Web: emsdk toolchain, wasm32 only.
+- Profile with trace (Perfetto), not guesses.
 
-## Commit Message Style
+## Packaging
 
-Follow conventional commits:
+- include(ct_cpack) then include(CPack) last, CPack reads vars at include-time.
+- CPACK_VERBATIM_VARIABLES YES. COMPONENT runtime. File name os_compiler_arch.
 
-```
-feat(ci): add emscripten preset
-fix(docker): pin ninja version
-chore(docs): update comparison table
-deps: bump doctest to 2.4.11
-```
+## README
 
-## Questions?
+- readme.md <10KB. Quick start <=3 cmds. Links in docs/references.md. No sponsor badges.
 
-If unsure, open a Discussion or check existing issue research blocks before writing new code.
+## Commits
 
-# CLAUDE.md core
+feat(ci): ..., fix(docker): ..., chore(docs): ..., deps: bump x to y.
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+## Agent rules
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
-
-## 1. Think Before Coding
-
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
-
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
-
-## 2. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
-
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
-## 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
-
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
-
----
-
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+1. Unclear = ask, not guess. State assumptions.
+2. Simpler wins. Push back on bloat.
+3. Touch only request scope. Match style. Mention unrelated dead code, never delete.
+4. Every changed line traces to request. Remove only orphans your change created.
+5. Failing test first for fix/validation, pass before+after for refactor.
 
 ---
 > Source: [e-gleba/wemod_enhancer](https://github.com/e-gleba/wemod_enhancer) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
