@@ -4,7 +4,7 @@
   "repo": "td27-admin",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -71,5 +71,5 @@
   ],
   "source_url": "https://github.com/pddzl/td27-admin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T02:44:08Z"
+  "distributed_at": "2026-10-07T03:16:20Z"
 }
