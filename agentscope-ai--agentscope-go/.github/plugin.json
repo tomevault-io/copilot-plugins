@@ -1,0 +1,9 @@
+{
+  "name": "agentscope-ai--agentscope-go",
+  "displayName": "agentscope-go",
+  "description": "AgentScope Golang: Agent-Oriented Programming for Building LLM Applications",
+  "version": "1.0.0",
+  "author": "agentscope-ai",
+  "homepage": "https://github.com/agentscope-ai/agentscope-go",
+  "skills": []
+}
