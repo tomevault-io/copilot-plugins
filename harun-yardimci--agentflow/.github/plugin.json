@@ -1,0 +1,9 @@
+{
+  "name": "harun-yardimci--agentflow",
+  "displayName": "agentflow",
+  "description": "AI agent orchestration platform \u2014 pipeline-based task runner for Claude, Codex, and Gemini CLI agents with a visual dashboard and MCP server",
+  "version": "1.0.0",
+  "author": "harun-yardimci",
+  "homepage": "https://github.com/harun-yardimci/agentflow",
+  "skills": []
+}
