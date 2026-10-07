@@ -1,0 +1,9 @@
+{
+  "name": "looted--kibi",
+  "displayName": "kibi",
+  "description": "Kibi is a requirement-conformance layer for AI coding agents that keeps product intent connected to code and tests, and catches when implementations drift from it.",
+  "version": "1.0.0",
+  "author": "Looted",
+  "homepage": "https://github.com/Looted/kibi",
+  "skills": []
+}
