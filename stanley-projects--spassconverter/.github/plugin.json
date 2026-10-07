@@ -1,0 +1,9 @@
+{
+  "name": "stanley-projects--spassconverter",
+  "displayName": "SpassConverter",
+  "description": "Convert Samsung Pass .spass exports to CSV \u2014 import into Google Password Manager, Chrome, Bitwarden, or 1Password. 100% offline, no internet permissions.",
+  "version": "1.0.0",
+  "author": "stanley-projects",
+  "homepage": "https://github.com/stanley-projects/SpassConverter",
+  "skills": []
+}
