@@ -1,32 +1,16 @@
-## vg-no-workarounds
+## vg-porting-source
 
-> VG is a real language — fix bugs, never silently work around them
+> Porting external samples into Visual Gasic — copy source structure, do not rewrite
 
 
-# Visual Gasic: no bug workarounds
+# Porting = transliteration
 
-Visual Gasic is a **real programming language**. Runtime, compiler, and VM bugs are not acceptable to paper over.
+When the user asks to **port** BASIC-256 (`.kbs`), QB64, or other reference programs into `.vg`:
 
-## Required behavior
-
-1. **Do not apply workarounds** in `.vg` game code, Narcea prompts, or docs when the root cause is a VG engine bug (compiler, VM, parser, ByRef, array semantics, etc.).
-2. **Fix the bug** in `src/` (or the relevant engine path) and add or extend a regression test in `test_proj/test_suite/` when practical.
-3. If a fix is deferred or rejected by the user:
-   - **Tell the user explicitly** what the bug is, how to reproduce it, and what behavior is wrong.
-   - **Document it** (e.g. known issue in `.github/copilot-instructions.md` or a tracked note the user chooses) — never leave a silent workaround as if it were normal VG semantics.
-4. **Do not teach Narcea or AI prompts** to avoid broken VG behavior unless the bug is documented as unfixed and temporary.
-
-## Examples
-
-| Situation | Wrong | Right |
-|-----------|-------|-------|
-| `arr(i)` ByRef write-back fails | Copy to scalar before every call | Fix `emit_byref_writebacks` / capture; test `test_byref_array_slot.vg` |
-| Read-only `Func(arr(i))` works | Still add scalar-copy “for safety” | Use `arr(i)` directly; no workaround |
-| Collision helper misnamed in docs | Document “use square hitbox instead” | Fix collision guidance; fix game logic |
-
-## Tests
-
-After C++ / VM changes: rebuild extension and run affected `test_proj/test_suite/test_*.vg` tests (or `run_test_suite.sh` with a filter).
+1. **Copy structure from the source** — same `graphsize`/dimensions, variable names, loop bounds, subroutine names, and algorithm order. Only replace API shims (e.g. `refresh` → `_Display`, `graphsize` → `_NewImage` + `Screen`, `text`/`font` → `_TextAt` + `_TextHeight`).
+2. **Do not rewrite** as a “lite” 320×200 SCREEN 13 demo unless the user explicitly asks for a reduced version.
+3. **Credit** the upstream author in the file header and in `docs/showcase/` when applicable.
+4. If a VG API is missing for faithful ports, **extend the engine** (see `vg-no-workarounds.mdc`) rather than approximating behavior in game code.
 
 ---
 > Source: [xgreenrx-star/VisualGasic](https://github.com/xgreenrx-star/VisualGasic) — distributed by [TomeVault](https://tomevault.io).
