@@ -1,0 +1,44 @@
+{
+  "name": "emergent-matter-sdm",
+  "owner": "EmergentMatter",
+  "repo": "emergent-matter-sdm",
+  "description": "Software Defined Matter (SDM) is an engineering framework designed for agentic AI systems: the entire path from specification to working machine is designed and executed by software, and the final output is a physical, multi-material object, manufactured directly from the optimized design.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/EmergentMatter/emergent-matter-sdm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T23:59:31Z"
+}
