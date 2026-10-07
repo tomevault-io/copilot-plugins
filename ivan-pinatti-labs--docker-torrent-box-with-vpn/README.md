@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ivan-pinatti-labs/docker-torrent-box-with-vpn](https://github.com/ivan-pinatti-labs/docker-torrent-box-with-vpn).
+Original source: `AGENTS.md` in [ivan-pinatti-labs/docker-torrent-box-with-vpn](https://github.com/ivan-pinatti-labs/docker-torrent-box-with-vpn).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
