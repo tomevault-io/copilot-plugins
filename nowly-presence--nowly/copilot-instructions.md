@@ -1,0 +1,27 @@
+## styled-link-buttons
+
+> Style navigation as a Link/anchor with buttonVariants, never Button render={Link}
+
+
+# Button-styled links
+
+When a control navigates (internal `Link` or external `<a>`), do **not** wrap it in a `Button` with `render={<Link />}` / `asChild` / `nativeButton={false}`.
+
+Put `buttonVariants()` on the **real** `Link` or `<a>`. Never call `buttonVariants()` inside a React Server Component: Next treats that function as a client export. Use a small client wrapper that still renders `Link` / `<a>` (for example `ButtonLink` / `ButtonAnchor`), or call `buttonVariants()` only in a Client Component.
+
+```tsx
+import Link from "next/link"
+import { buttonVariants } from "@nowly/ui"
+import { cn } from "@nowly/ui"
+
+// Client Component only:
+<Link href="/library" className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}>
+  Library
+</Link>
+```
+
+Use `<Button>` only for true actions (`type="button"` / `submit`) that do not change the URL.
+
+---
+> Source: [nowly-presence/nowly](https://github.com/nowly-presence/nowly) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
