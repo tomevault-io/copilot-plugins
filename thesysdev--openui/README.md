@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [thesysdev/openui](https://github.com/thesysdev/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [thesysdev/openui](https://github.com/thesysdev/openui) — a repo with 8147+ stars on GitHub.
+From [thesysdev/openui](https://github.com/thesysdev/openui) — a repo with 8200+ stars on GitHub.
 
 ---
 
