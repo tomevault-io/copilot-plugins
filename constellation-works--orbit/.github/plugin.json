@@ -1,0 +1,9 @@
+{
+  "name": "constellation-works--orbit",
+  "displayName": "orbit",
+  "description": "Local-first delivery layer for AI coding agents. Your agent files the work as a task, and Orbit runs it in a sandboxed worktree with file locks and review gates. Every run ends in a pull request, with",
+  "version": "1.0.0",
+  "author": "constellation-works",
+  "homepage": "https://github.com/constellation-works/orbit",
+  "skills": []
+}
