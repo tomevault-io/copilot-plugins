@@ -1,16 +1,16 @@
 ## cc-statistics
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Project
 
-cc-statistics — CLI 工具，用于统计 Claude Code 会话的 AI Coding 工程指标。
+cc-statistics — CLI 工具，用于统计 Codex 会话的 AI Coding 工程指标。
 
-数据源：`~/.claude/projects/` 下的 JSONL 会话文件。
+数据源：`~/.Codex/projects/` 下的 JSONL 会话文件。
 
 ## Setup
 
@@ -72,4 +72,4 @@ cc-stats --last N            # 只看最近 N 个会话
 
 ---
 > Source: [androidZzT/cc-statistics](https://github.com/androidZzT/cc-statistics) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
