@@ -1,0 +1,9 @@
+{
+  "name": "cybertec-postgresql--pgwatch",
+  "displayName": "pgwatch",
+  "description": "pgwatch",
+  "version": "1.0.0",
+  "author": "cybertec-postgresql",
+  "homepage": "https://github.com/cybertec-postgresql/pgwatch",
+  "skills": []
+}
