@@ -1,0 +1,9 @@
+{
+  "name": "netdevpack--security-jwt",
+  "displayName": "Security.Jwt",
+  "description": "Security.Jwt",
+  "version": "1.0.0",
+  "author": "NetDevPack",
+  "homepage": "https://github.com/NetDevPack/Security.Jwt",
+  "skills": []
+}
