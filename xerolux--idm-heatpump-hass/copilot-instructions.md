@@ -1,0 +1,592 @@
+## idm-heatpump-hass
+
+> This file provides guidance for AI assistants working on this codebase.
+
+# AGENTS.md — IDM Heatpump for Home Assistant
+
+This file provides guidance for AI assistants working on this codebase.
+
+## Project Overview
+
+**IDM Heatpump** is a Home Assistant custom integration for controlling and monitoring IDM Navigator 1.0 / 1.7 / 2.0 / 10 / Pro heat pumps via Modbus TCP and an optional local web supplement (the 1.x controllers are served over Modbus coils, the 2.0/10/Pro families over the register map plus the web interface). It is an unofficial community project providing 100% local control (no cloud dependency).
+
+- **Domain**: `idm_heatpump`
+- **Current Version**: `0.20.1` (source-tree manifest; [latest stable release](https://github.com/Xerolux/idm-heatpump-hass/releases/latest))
+- **Quality Scale**: Gold (targets official Home Assistant Core integration standards)
+- **License**: MIT
+- **Min HA Version**: 2026.8.1
+- **Python**: 3.14+ (Home Assistant 2026.8 requires `>=3.14.2`)
+- **Direct Modbus Runtime**: `modbus-connection>=4.12.3`, `tmodbus[async-serial]>=0.6.2`
+- **Device Logic**: `idm-heatpump-api[web]==2.14.0` (owns its own exception hierarchy; pymodbus is no longer a dependency)
+- **Open improvement plan**: `docs/dev/code-audit-2026-09.md` — the reviewed list of defects and
+  cleanups with a work package per fix. Read it before starting unrelated refactoring; pick a
+  package from it instead of inventing one. The 0.20.0 web-first line is documented in
+  `docs/dev/ws-first-roadmap.md`.
+
+---
+
+## Repository Structure
+
+```
+/
+├── custom_components/idm_heatpump/   # Main integration package
+│   ├── __init__.py                   # Domain setup, platform loading, entry lifecycle
+│   ├── manifest.json                 # Integration metadata & HA version requirements
+│   ├── const.py                      # Constants, enums, option keys, defaults
+│   ├── config_flow.py                # UI config flow (user, options, zones, reconfigure, web-only fallback)
+│   ├── connection_entities.py         # Diagnostic entities: effective connection mode + web liveness
+│   ├── coordinator.py                # DataUpdateCoordinator (polling, web supplement, writes)
+│   ├── entity.py                     # Base entity class (IdmEntity)
+│   ├── device_hierarchy.py           # Opt-in sub-device scopes, placement and registry wiring for the entity hierarchy
+│   ├── sensor.py                     # Sensor platform (Modbus + web-only sensors + technician codes)
+│   ├── binary_sensor.py              # Binary sensor platform
+│   ├── number.py                     # Number platform (setpoints, GLT values)
+│   ├── select.py                     # Select platform (mode registers)
+│   ├── switch.py                     # Switch platform (boolean writable registers)
+│   ├── climate.py                    # Climate platform (heating circuits, zone-module rooms)
+│   ├── water_heater.py               # Water heater platform (DHW setpoint)
+│   ├── button.py                     # Button platform (acknowledge errors)
+│   ├── services.py                   # Custom HA services (set_system_mode, acknowledge_errors, write_register)
+│   ├── services.yaml                 # Service schema definitions
+│   ├── diagnostics.py                # HA diagnostics export
+│   ├── repairs.py                    # Repair flows (e.g. missing web PIN)
+│   ├── registers.py                  # Collects entity descriptions from idm-heatpump-api
+│   ├── library_adapter.py            # Adapter between idm-heatpump-api and HA EntityDescriptions
+│   ├── model_resolution.py           # Pure rules deciding the Navigator model and register map from probe/stored/web/override
+│   ├── modbus_client.py              # API client adapter routing raw I/O through the local transport
+│   ├── modbus_transport.py           # Backend-neutral contract + modbus-connection/tmodbus implementation
+│   ├── versions.py                   # Runtime dependency versions for logs, sensors, and diagnostics
+│   ├── ha_compat.py                  # Version-tolerant imports across the supported HA range (vol/probatio, moved enums)
+│   ├── recovery_watchdog.py          # Self-healing reload for entries in setup retry once the endpoint answers again
+│   ├── adapter_descriptions.py       # HA description helpers (icons, device classes)
+│   ├── adapter_enums.py              # Enum slug maps and translation keys
+│   ├── entity_names.py               # Entity translation keys, placeholders and canonical English names
+│   ├── adapter_names.py              # German entity names (source of truth for the de translations)
+│   ├── adapter_registers.py          # Register-map filtering by model
+│   ├── adapter_glt.py                # GLT measurement detection helpers
+│   ├── web_data.py                   # Optional local Navigator web supplement client
+│   ├── web_demand_reason.py          # Demand-reason extraction from the Nav 10 WebSocket home/detail frame
+│   ├── web_demand_reason_entities.py # Entities publishing the controller demand reason / PV flag
+│   ├── room_temp_forwarding.py       # Forward HA room temperatures (per circuit) and humidity (global) to GLT registers
+│   ├── external_power_forwarding.py  # Optional PV, consumption and battery forwarding to IDM GLT registers
+│   ├── knx_catalog.py                # IDM KNX communication objects (from the ETS example project) + group address arithmetic
+│   ├── knx_bridge.py                 # Optional KNX bridge: knx.send / knx.event_register through the HA KNX integration
+│   ├── technician_codes.py           # Time-based Fachmann Ebene code calculation
+│   ├── internal_messages.py          # Human-readable labels for internal message codes
+│   ├── log_filter.py                 # Filters repeated idm-heatpump-api register-failure warnings
+│   ├── error_messages.py             # Classifies communication/write errors into repair issues and translation keys
+│   ├── polling_plan.py               # Entity-aware polling: narrows the poll to what enabled entities and declared consumers need
+│   ├── calculated_sensors.py         # Derived sensors computed from one snapshot (COP, deltas, flow deviation)
+│   ├── differential_circuits.py      # Opt-in differential circuit semantics and description filtering
+│   ├── operation_analysis.py         # Restart-safe cycle, defrost and operating-share analysis
+│   ├── operation_entities.py         # Sensors publishing that analysis
+│   ├── energy_manager.py              # Optional, fail-closed PV surplus DHW automation
+│   ├── energy_statistics.py           # Persistent electrical/thermal energy and COP totals
+│   ├── energy_statistics_entities.py  # Home Assistant entities for energy statistics
+│   ├── health_monitor.py              # Optional read-only health checks and report
+│   ├── service_report.py              # Redacted installer report in diagnostics
+│   ├── ai_cloud.py                   # HA AI Task and opt-in cloud reports with a privacy boundary
+│   ├── ai_learning.py                # Bounded local statistical baselines
+│   ├── ai_advisor.py                # Experimental read-only report generation and bounded history
+│   ├── ai_advisor_entities.py       # AI report sensor and explicit report buttons
+│   ├── comfort_advisory.py            # Optional read-only heating/weather recommendations
+│   ├── comfort_scheduler.py           # Optional exclusive heating comfort schedule
+│   ├── dhw_boost.py                  # Restart-safe domestic hot water boost state machine
+│   ├── dhw_boost_services.py         # start_dhw_boost / cancel_dhw_boost handlers
+│   ├── web_binary_sensors.py         # Binary sensors from the web supplement
+│   ├── web_status_entities.py        # Controller-clock sensor from the web status/overview frame
+│   ├── web_control_entities.py       # Web-only controls: mode select, DHW setpoint, acknowledge (Phase 4)
+│   ├── web_climate_entities.py       # Web-only climate and water-heater cards + register-named write routing
+│   ├── binary_semantics.py           # Maps register semantics onto binary sensor device classes
+│   ├── adapter_metadata.py           # Explicit per-register HA metadata overlay (German names, steps, precision)
+│   ├── controller_stats_reference.py # Reference values for controller statistics
+│   ├── icons.json                    # Entity icon mappings
+│   ├── strings.json                  # UI strings for config flow & services
+│   ├── quality_scale.yaml            # Quality-scale readiness record (every rule of the current scale)
+│   └── translations/
+│       ├── de.json                   # German translations
+│       └── en.json                   # English translations
+│
+├── tests/                            # Pytest test suite
+│   ├── conftest.py                   # Shared fixtures and HA/API/Modbus runtime stubs
+│   ├── test_adapter_helpers.py
+│   ├── test_binary_semantics.py
+│   ├── test_build_pages.py
+│   ├── test_calculated_sensors.py
+│   ├── test_differential_circuits.py
+│   ├── test_changelog_consolidation.py
+│   ├── test_config_flow.py
+│   ├── test_connection_entities.py
+│   ├── test_const.py
+│   ├── test_controller_stats_reference.py
+│   ├── test_coordinator.py
+│   ├── test_cross_repo_contract.py
+│   ├── test_dependency_pins.py
+│   ├── test_device_hierarchy.py
+│   ├── test_device_hierarchy_cleanup.py
+│   ├── test_device_hierarchy_optional_modules.py
+│   ├── test_dhw_boost.py
+│   ├── test_dhw_boost_services.py
+│   ├── test_energy_manager.py
+│   ├── test_energy_statistics.py
+│   ├── test_health_monitor.py
+│   ├── test_service_report.py
+│   ├── test_ai_advisor_extended.py
+│   ├── test_ai_cloud.py
+│   ├── test_ai_report_integrity.py
+│   ├── test_ai_advisor.py
+│   ├── test_comfort_advisory.py
+│   ├── test_comfort_scheduler.py
+│   ├── test_external_power_forwarding.py
+│   ├── test_diagnostics.py
+│   ├── test_diagnostics_privacy.py
+│   ├── test_documentation_language.py
+│   ├── test_documentation_versions.py
+│   ├── test_entity.py
+│   ├── test_entity_metadata_catalog.py
+│   ├── test_entity_naming.py
+│   ├── test_entity_profiles.py
+│   ├── test_entity_translations.py
+│   ├── test_error_messages.py
+│   ├── test_humidity_forwarding.py
+│   ├── test_guided_config_flow.py
+│   ├── test_init.py
+│   ├── test_knx_bridge.py
+│   ├── test_knx_catalog.py
+│   ├── test_knx_evidence.py
+│   ├── test_knx_generator_parity.py
+│   ├── test_knx_group_address_export.py
+│   ├── test_library_client.py
+│   ├── test_log_filter.py
+│   ├── test_modbus_client.py
+│   ├── test_modbus_transport.py
+│   ├── test_model_resolution.py
+│   ├── test_operation_analysis.py
+│   ├── test_operation_entities.py
+│   ├── test_pages_seo.py
+│   ├── test_platforms.py
+│   ├── test_platforms_climate.py
+│   ├── test_platforms_navigator17.py
+│   ├── test_polling_manager.py
+│   ├── test_polling_plan.py
+│   ├── test_registers.py
+│   ├── test_recovery_watchdog.py
+│   ├── test_release_contract.py
+│   ├── test_release_discussion.py
+│   ├── test_repairs.py
+│   ├── test_room_temp_forwarding.py
+│   ├── test_scale_load.py
+│   ├── test_sensitive_data.py
+│   ├── test_services.py
+│   ├── test_versions.py
+│   ├── test_web_binary_sensors.py
+│   ├── test_web_data.py
+│   ├── test_web_demand_reason.py
+│   ├── test_web_status_entities.py
+│   ├── test_web_system_entities.py
+│   ├── test_web_control_entities.py
+│   └── test_web_climate_entities.py
+│
+├── tests_ha/                         # Real-Home-Assistant smoke tests (audit E1)
+│   ├── conftest.py                   # Boots a genuine HA in a temp config dir, fake Modbus client
+│   └── test_smoke_entry_lifecycle.py # Setup, reload, unload, task-leak and entity-registration checks
+│
+├── scripts/                          # Maintenance & generation scripts (python scripts/<name>.py)
+│   ├── check_dependency_pins.py      # Reports/rewrites runtime pins across every PIN_DOCUMENTS file
+│   ├── check_documentation_language.py # Reports German prose outside the exempt German locations
+│   ├── check_sensitive_data.py       # Credential/personal-data scan (run by sensitive-data-guard.yml)
+│   ├── consolidate_changelog.py      # Folds prerelease changelog sections into the stable section
+│   ├── generate_entity_translations.py # Writes the entity blocks in strings.json + translations
+│   └── (further generators)          # Register reference, KNX group addresses/export parity, guided-flow
+│                                      # translations, metadata catalog, social card, pages build, release
+│                                      # discussion publishing — see the scripts/ directory
+│
+├── docs/                             # Documentation & wiki
+│   ├── wiki/                         # Complete wiki (installation, config, entities...)
+│   │   └── de/                       # German wiki mirror (one file per English page)
+│   ├── CONTRIBUTING.md
+│   ├── CHANGELOG.md
+│   ├── SECURITY.md
+│   └── CODE_OF_CONDUCT.md
+│
+├── .github/
+│   ├── workflows/                    # CI/CD workflows
+│   └── ISSUE_TEMPLATE/
+│
+├── hacs.json                         # HACS configuration
+├── mypy.ini                          # Strict mypy config
+├── pytest.ini                        # Pytest config
+└── README.md                         # Main README (German + English)
+```
+
+---
+
+## Architecture
+
+```
+Home Assistant
+    │
+    ├── IdmCoordinator (DataUpdateCoordinator) [coordinator.py]
+    │       │
+    │       ├── IdmModbusConnectionClient (modbus_client.py)
+    │       │       ├── idm-heatpump-api 2.14.0 (device logic)
+    │       │       └── ModbusConnectionTransport (modbus-connection + tmodbus socket)
+    │       │
+    │       ├── Entity Descriptions from registers.py / library_adapter.py
+    │       │
+    │       └── Optional IdmWebSupplement (web_data.py)
+    │
+    ├── Platforms: sensor, binary_sensor, number, select, switch,
+    │              climate, water_heater, button
+    │       ├── sensor/binary_sensor/number/select/switch extend IdmEntity [entity.py]
+    │       │   → CoordinatorEntity (register-backed, unused-register filtering)
+    │       └── climate/water_heater/button extend CoordinatorEntity (+ shared device_info)
+    │           (multi-register or action entities)
+    │
+    ├── Services [services.py]
+    │       ├── set_system_mode
+    │       ├── set_controller_clock
+    │       ├── acknowledge_errors
+    │       ├── write_register
+    │       ├── set_external_climate
+    │       ├── set_external_power
+    │       ├── start_dhw_boost / cancel_dhw_boost
+    │       ├── export_knx_group_addresses
+    │       ├── generate_ai_report
+    │       └── export_ai_dashboard
+    │
+    ├── Repairs [repairs.py]
+    │       └── web_pin_missing
+    │
+    └── Diagnostics [diagnostics.py]
+```
+
+### Key Design Patterns
+
+1. **Entity Inheritance**: All Modbus-backed entities extend `IdmEntity` (from `entity.py`), which extends `CoordinatorEntity`. Web-only sensors extend `CoordinatorEntity` directly.
+
+2. **Library-first Register Definitions**: Register metadata (address, data type, read/write, etc.) is sourced from `idm-heatpump-api`. The integration enriches it with German names, icons, device classes, and translation keys via `library_adapter.py`.
+
+3. **Batch Reading**: The library groups consecutive register addresses into batches for efficient Modbus TCP reads.
+
+4. **Resilient Polling**: `IdmCoordinator._async_read_registers_resilient()` bisects register ranges on Modbus exception code 2 (`Illegal Data Address`) so unsupported optional registers are isolated without breaking the whole poll.
+
+5. **Transport Adapter**: `IdmModbusConnectionClient` subclasses the pinned API client and replaces its raw-I/O hooks. Register metadata, batching, decoding, model detection and write safety remain in `idm-heatpump-api`; FC03/FC04/FC16 socket I/O uses `ModbusConnectionTransport` and tmodbus.
+
+6. **Async I/O**: All Modbus and web communication is async. The adapter keeps the API request lock, and `modbus-connection` serializes physical requests and reconnects on demand.
+
+7. **Private Socket Ownership**: Each config entry owns one tmodbus-backed socket. Home Assistant central cross-entry sharing is not available; `supports_shared_connection` must remain `False` until a real shared provider is integrated.
+
+8. **Optimistic Updates**: Write operations update the coordinator data immediately before the device confirms the change.
+
+9. **Connection Modes**: The `connection_mode` option picks `auto` (default), `modbus_web`, `web_only` or `modbus_only`. `web_only` is the fallback when Modbus is unavailable but a web PIN is configured — since 0.20.0 it is controllable, not just readable (mode select, DHW setpoint, acknowledge, heating-circuit setpoints, climate/water-heater cards). The Navigator 10 supplement speaks a WebSocket on port 61220 while Navigator 2.0 uses plain HTTP, and web values are bridged into the register snapshot so calculated sensors and KNX serving also work from web data.
+
+---
+
+## Modbus Register System
+
+Registers are sourced from `idm-heatpump-api` and support the data types defined there (typically `FLOAT`, `UCHAR`, `INT16`, `UINT16`, `BOOL`, `BITFLAG`).
+
+- **Read input registers**: function code 04 (API chooses the register type; tmodbus performs raw I/O)
+- **Read holding registers**: function code 03 (API chooses the register type; tmodbus performs raw I/O)
+- **Write holding registers**: function code 16 (encoded and safety-checked by the API, transmitted by tmodbus)
+- **Batch size**: configured by the library
+- **Local filtering**: `adapter_registers.py` removes registers known to be unsupported on a specific Navigator family (e.g. Navigator 2.0).
+
+Never hardcode Modbus register addresses in platform files. Service-specific registers that do not exist in the library map should be defined as constants in `const.py` and referenced from there.
+
+---
+
+## Development Commands
+
+### Running Tests
+```bash
+pytest tests/
+```
+The `pytest.ini` disables `homeassistant` and `socket` plugins. Tests use stubs from `conftest.py` for `modbus-connection`, tmodbus and the entire Home Assistant package tree; `idm-heatpump-api` is installed for real.
+
+Coverage is a gate, not a report: CI runs the suite with `--cov-fail-under=95` (quality-scale rule
+`test-coverage`) and adds a second run with `--cov-fail-under=100` for `config_flow.py`
+(`config-flow-test-coverage`). Run them locally the same way before pushing:
+
+```bash
+pytest tests/ --cov=custom_components/idm_heatpump --cov-fail-under=95
+pytest tests/ --cov=custom_components.idm_heatpump.config_flow --cov-fail-under=100
+```
+
+### Type Checking
+```bash
+mypy custom_components/idm_heatpump/
+```
+The project uses **strict mypy**: `mypy.ini` is plain `strict = true`, with no
+disabled error code and no relaxed flag (quality-scale rule `strict-typing`).
+
+Run it with the real runtime installed — Home Assistant plus the pinned
+dependencies, as `python-quality.yml` does. Without them every `homeassistant`
+import resolves to `Any` and mypy reports success without having checked the
+integration against Home Assistant at all.
+
+The real runtime lives in the git-ignored `test_ha/` venv (Python 3.14, Home
+Assistant at the minimum supported version, the manifest requirements and
+mypy). Recreate it and check through it with:
+
+```bash
+py -3.14 -m venv test_ha
+test_ha/Scripts/python -m pip install homeassistant==2026.8.1 \
+    "modbus-connection>=4.12.3" "tmodbus[async-serial]>=0.6.2" \
+    "idm-heatpump-api[web]==2.14.0" mypy
+test_ha/Scripts/python -m mypy custom_components/idm_heatpump/
+```
+
+Move the versions along with the manifest pins and the minimum HA version when
+they change.
+
+### Real-Home-Assistant Smoke Tests
+```bash
+test_ha/Scripts/python -m pytest tests_ha/
+```
+The smoke leg (audit package E1) runs against a genuine Home Assistant —
+the unit suite in `tests/` stubs the whole `homeassistant` package, so
+lifecycle bugs (unload leaks, registry or store misuse) are invisible to it.
+`tests_ha/conftest.py` boots a real HA instance in a temporary config
+directory whose `custom_components` is this repository, replaces the Modbus
+client factory with a fake answering like a Navigator 10, and walks the
+config entry through setup, reload and unload — including a no-leaked-tasks
+assertion. CI runs it as the `smoke` job on every push and pull request.
+It needs the same runtime as the mypy check above (Home Assistant plus the
+manifest requirements installed in `test_ha/`).
+
+### Linting
+```bash
+ruff check custom_components tests
+```
+
+### CI/CD (GitHub Actions)
+- **ci.yml**: Runs the python-quality matrix (pytest, mypy, ruff; manifest-pinned + api-main) plus HACS validation and hassfest
+- **python-quality.yml**: Reusable workflow (workflow_call) with the actual lint/type/test steps
+- **dependency-update.yml**: Reusable pipeline (workflow_call) that re-pins every runtime requirement (the exact API pin and the HA-owned transport minimum floors), regenerates the documents derived from those libraries, runs the quality gate (ruff, mypy, the suite with ci.yml's coverage gates at the minimum Home Assistant, hassfest) and merges the pull request into main. It all happens in one job on the tree it produced — a pull request opened by automation starts no CI of its own, and a job checking out the pushed branch by name would be an untrusted checkout. A major bump is validated but held for review
+- **dependency-freshness.yml**: Runs that pipeline daily at 04:00 UTC against PyPI
+- **api-dependency-update.yml**: Runs the same pipeline when the API repository announces a stable release, before PyPI shows it
+- **dependabot-auto-merge.yml**: Merges Dependabot's GitHub Actions pull requests once their checks are green
+- **release.yml**: Validates tag/manifest/CHANGELOG, creates ZIP release artifacts, announces in Discussions
+- **security.yml**: CodeQL (actions, python) + pip-audit
+- **sensitive-data-guard.yml**: Runs `scripts/check_sensitive_data.py` on every push to keep credentials and personal data out of the repository
+- **stale.yml**: Marks inactive issues/PRs as stale
+- **pages.yml**: Deploys `docs/wiki/` + images to GitHub Pages
+
+---
+
+## Code Conventions
+
+### Language
+- **Write in English.** The changelog, release notes, release evidence, the
+  wiki, developer notes, issue and pull request templates, commit messages, pull
+  request descriptions, code comments and docstrings are English — including
+  when the conversation that produced them was in German.
+- German belongs only where it is a product feature: `README_de.md`, the Home
+  Assistant `de` translations, the "Description (DE)" column of the generated
+  register reference, and the German wiki mirror `docs/wiki/de/` — one German
+  file per English wiki page, same filename, published at `/docs/de/<slug>/` on
+  the website. English stays the source of truth: change the English page
+  first, then carry the change into the German mirror in the same pull request.
+  `scripts/check_documentation_language.py` exempts `docs/wiki/de/`. The
+  GitHub wiki is deprecated — every page there is only a redirect note
+  pointing to the website — and those redirect pages stay English-only.
+- The changelog is kept version-to-version. When a stable version is cut,
+  fold its prerelease sections into the single stable section with
+  `python scripts/consolidate_changelog.py --version <x.y.z>`, then rework the
+  draft: individual betas need not be named, but nothing that changed may be
+  dropped by the fold. `tests/test_changelog_consolidation.py` fails the build
+  while prerelease headings remain after their stable cut. This applies from
+  `0.17.0` on; older history keeps the shape it was published with, and the
+  per-beta record stays available in git and the GitHub prerelease tags.
+- Released changelog sections stay as published; they are history. The rule
+  applies to the unreleased entries and to the section of the version in the
+  manifest.
+- `python scripts/check_documentation_language.py` reports German prose;
+  `tests/test_documentation_language.py` fails the build on it. New documents
+  are covered automatically — declare an exception in `EXEMPT_FILES` only for
+  documentation that is German on purpose.
+- **Text that tooling emits is text this rule covers.** Prose baked into a
+  workflow, a script or a template — release notes, issue bodies, generated
+  reports — is English too, even though the language checker only reads Markdown
+  and cannot see it.
+
+### Python Style
+- `from __future__ import annotations` at the top of every file
+- Full type annotations everywhere (strict mypy)
+- Async functions named `async_<action>()` (e.g. `async_update`, `async_setup_entry`)
+- Private methods/attributes prefixed with `_`
+- Constants in `UPPER_CASE`
+- Enums inherit from `enum.IntEnum` or `enum.IntFlag`
+- Use `math.isnan(x)` instead of `x != x` for NaN checks
+
+### Adding New Entities
+
+1. **Ensure the register exists in `idm-heatpump-api`** or is generated by `library_adapter.py`.
+2. **Add rich metadata** (icon, device class, ranges) in `library_adapter.py` / `adapter_descriptions.py` if needed.
+3. **Name it through the translations**, never through `name=` on the entity description:
+   - add the English name to `ENGLISH_NAMES` in `entity_names.py` (register-backed entities)
+     or to `DERIVED_NAMES` (calculated, operating-analysis and web entities);
+   - add the German name to `adapter_names.py` for a register-backed entity — that table is the
+     German source of truth — or as the second half of the `DERIVED_NAMES` pair;
+   - run `python scripts/generate_entity_translations.py` to write the `entity` blocks in
+     `strings.json`, `translations/en.json` and `translations/de.json`.
+4. **Add icon** to `icons.json` if not using a default.
+5. **Write tests** in `tests/test_platforms.py` or the relevant test file.
+
+`tests/test_entity_translations.py` fails when an entity of the largest possible plant has no
+translated name, when a name template uses a placeholder the entity does not supply, or when the
+generated blocks are out of date. Heating circuits and zone rooms deliberately share one key each:
+`hc_flow_temp` with `{circuit}`, `zone_room_temp` with `{zone}`/`{room}`.
+
+### Adding New Services
+
+1. Define the schema in `services.yaml`.
+2. Implement handler in `services.py`.
+3. Add translations to `strings.json`, `translations/en.json`, `translations/de.json`.
+4. Write tests in `tests/test_services.py`.
+
+### Error Handling
+- Connection failures → `ir.async_create_issue()` with `IssueSeverity.WARNING`
+- Write failures → raise `HomeAssistantError` with a translation key
+- Invalid parameters → raise `ServiceValidationError`
+- Never swallow exceptions silently
+- Catch `Exception`, not `BaseException`, unless there is a very specific reason
+
+### Versioning
+
+- Run `python scripts/check_documentation_versions.py --update` after changing
+  the integration version or dependency pins. CI, releases and Pages reject
+  current documentation that disagrees with the manifest. The dependency
+  workflow synchronizes those claims automatically; historical release notes
+  and evidence keep their original versions. An installed release uses its
+  tagged manifest, not the current development documentation.
+- Version is defined **only** in `custom_components/idm_heatpump/manifest.json`
+- Bump version there before creating a release and update `CHANGELOG.md`
+- Pin the `idm-heatpump-api` requirement for every released integration version to the exact PyPI version that is current at release time or has been explicitly tested for that release. Do not publish a release with an open-ended API lower bound such as `idm-heatpump-api>=x.y.z`; the integration release and API version must remain a reproducible pair.
+- When updating to a newer `idm-heatpump-api`, verify compatibility before widening or changing the pin, then document the tested API version in the changelog/release notes.
+- Never bump a runtime pin by hand without checking PyPI first: `python scripts/check_dependency_pins.py` reports every pin that is behind, `--update` rewrites every updatable pin (`modbus-connection`, `tmodbus`, `idm-heatpump-api`) and every document that states them, and `--set name==version` pins a version the caller names. The daily `dependency-freshness.yml` workflow does exactly this, validates the result and merges it; the release workflow always refuses to publish stale runtime pins (no override). Automation never selects a pre-release for a stable pin — that is how the `4.0.0a3` alpha stayed pinned for two weeks — and it never merges a major bump on its own.
+- A sentence that dates a change (`pymodbus is gone as of idm-heatpump-api 2.0.0`) is history and keeps its version. Those sentences are listed in `HISTORY_STATEMENTS` in `scripts/check_dependency_pins.py`; everything else naming a pin is rewritten. Do not write a document that states the current pin in a spelling the updater does not cover — `tests/test_dependency_pins.py` fails when one appears.
+- A document that states the current pins belongs in `PIN_DOCUMENTS` in `scripts/check_dependency_pins.py`; `tests/test_dependency_pins.py` fails when a new one is missing there.
+- `modbus-connection` and `tmodbus` are Home-Assistant-owned packages (HA's built-in modbus integration adopted them in 2026.10), so hassfest rejects exact pins for them: the manifest states minimum requirements whose floor is the validated transport pair — raise both floors together after a validating run, and never pick up a newer major automatically. `4.12.3` is the `modbus-connection` library version, not the integration version. The `tmodbus[async-serial]` extra is required even though this integration is TCP-only: since `modbus-connection` 4.7.0 the `modbus_connection.tmodbus` backend module imports `serialx` at module level, so importing the backend fails without it. Do not drop the extra to save the dependency.
+- pymodbus is gone as of `idm-heatpump-api` 2.0.0 / integration 0.16.0. Do not reintroduce it: the API owns `IdmModbusError` and its subclasses, and this integration's transport maps `modbus-connection` errors straight onto them.
+
+#### Prerelease naming
+
+- **The integration uses SemVer tags:** `v0.16.0-beta.1`, `v0.16.0-rc.1`. The
+  `manifest.json` version matches the tag without the `v`. This is what HACS and
+  Home Assistant read, so it does not change.
+- **Since 0.17.2 the short prerelease form is the convention:** iteration betas
+  are tagged `-bN` (`v0.17.2-b6` … `v0.17.2-b14`, `v0.19.0-b1`). Both spellings
+  are valid SemVer prereleases and the release workflow accepts either; prefer
+  `-bN` for a numbered beta line and keep the tag, the manifest version and the
+  `## [version]` changelog heading byte-identical.
+- **`idm-heatpump-api` uses PEP 440:** `2.0.0b1`, `2.0.0a1`, `2.0.0rc1` — no
+  hyphen, no dot before the number. PyPI normalises `2.0.0-beta.1` to `2.0.0b1`
+  anyway, so writing the normalised form is the only way the tag, the
+  `pyproject.toml` version, the PyPI filename and the manifest pin all read the
+  same. Tag the API repository with the PEP 440 version (`v2.0.0b1`).
+- **The manifest pins the exact published API version** in PEP 440 form,
+  because that is what pip resolves. The manifest currently pins
+  `idm-heatpump-api[web]==2.14.0`.
+
+#### Release notes
+
+- **Every release carries the support links.** The `Support` section is appended
+  by `.github/workflows/release.yml` to both the generated and the curated
+  release notes, so passing `release_notes` never drops it. The changelog keeps
+  its own support header at the top of `docs/CHANGELOG.md`. Do not remove either
+  when reworking release tooling, and keep the five links (GitHub Sponsors,
+  Ko-Fi, Buy Me A Coffee, PayPal, Tesla referral) in step with
+  `.github/FUNDING.yml`.
+
+---
+
+## Configuration Flow
+
+The config flow (defined in `config_flow.py`) has these steps:
+
+1. **user**: Integration name, host, port, slave ID, optional web PIN, Modbus proxy / web host
+2. **options**: Connection mode (auto / modbus+web / web-only / modbus-only), scan interval, hide unused registers, heating circuits, zone count, cascade, web settings, room temperature forwarding, Modbus timeout/retries
+3. **zones**: Room count per zone (up to `MAX_ZONE_COUNT` zones × `MAX_ROOM_COUNT` rooms)
+4. **modbus_failed**: Fallback step offering web-only mode when Modbus connection fails but a web PIN is configured
+5. **reconfigure**: Update connection settings without removing the integration
+6. **options_flow**: Re-run options after setup
+
+---
+
+## Special Features
+
+| Feature | File | Notes |
+|---------|------|-------|
+| Technician codes | `technician_codes.py` | Time-based Fachmann Ebene L1/L2 codes, refreshed every 60s |
+| Cascade support | `adapter_registers.py`, `coordinator.py` | Optional registers for multi-heatpump setups |
+| Zone management | `config_flow.py`, `library_adapter.py` | Up to 10 zones × 8 rooms |
+| Web supplement | `web_data.py`, `coordinator.py` | Optional local Navigator web data (Nav 2.0 / Nav 10 / Pro) |
+| Web-only fallback | `__init__.py`, `config_flow.py` | Runs without Modbus when only web access is available |
+| Connection entities | `connection_entities.py` | Diagnostic sensor for the effective connection mode plus web liveness; the *Verbindung neu laden* diagnostic button (`connection_reload`) reloads the config entry immediately instead of waiting out HA's setup-retry backoff |
+| Self-healing Modbus outages | `recovery_watchdog.py`, `coordinator.py` | Calm auto-clearing repair notice while web data flows; background watchdog reloads entries stuck in HA's setup-retry backoff once the endpoint answers again (only runs while an entry waits) |
+| tmodbus transport | `modbus_client.py`, `modbus_transport.py` | Default direct socket path; per-entry ownership, no central cross-entry sharing |
+| KNX bridge | `knx_bridge.py`, `knx_catalog.py` | Optional. Serves the 654 IDM KNX communication objects through the **Home Assistant `knx` integration** (`knx.send`, `knx.event_register`, `knx_event`) so the Weinzierl BAOS gateway module is not needed. Never implement a KNX stack here — tunnelling, routing and KNX Secure belong to the `knx` integration. Group addresses are `base + object number`, with per-register overrides |
+| Room temp forwarding | `room_temp_forwarding.py` | Forwards HA room sensor temps (per heating circuit) to GLT registers |
+| Humidity forwarding | `room_temp_forwarding.py` | Forwards one HA humidity sensor (global `ext_humidity`) to the GLT humidity register |
+| Climate entities | `climate.py` | Heating-circuit + zone-module room climates; routes writes through `coordinator.async_write_register` |
+| Water heater entity | `water_heater.py` | DHW target setpoint; only set up when both `dhw_temp_top` and `dhw_setpoint` exist |
+| Action buttons | `button.py` | One-shot buttons writing momentary command coils exactly once: acknowledge errors (c3000) and the Navigator 1.x Vorrangladung request (`dhw_priority_charge`, c3003 via FC05). No switch is offered by design — writing 0 to a momentary command bit is forbidden |
+| Bitflag decoding | `adapter_enums.py`, `sensor.py` | Renders human-readable strings like "Heating\|Water\|Defrosting" |
+| Diagnostics export | `diagnostics.py` | Redacts host/port/slave for privacy |
+| Unused register filtering | `entity.py`, `coordinator.py` | Entities become unavailable when their register indicates "unused" |
+| Repair issues | `repairs.py`, `coordinator.py` | User-fixable issues (e.g. missing web PIN) |
+| Device hierarchy | `device_hierarchy.py` | Opt-in sub-devices. Heating circuits, optional modules and rooms are *child devices* (`parent_device_id`) on HA 2026.9+; zone modules stay ordinary `via_device_id` devices, because a child device can't parent another child. `child_devices_supported()` falls back to `via_device_id` on 2026.8 |
+| API register-failure log filter | `log_filter.py` | Suppresses repeated retry-exhaustion warnings for unsupported registers |
+| PV surplus operation | `calculated_sensors.py`, `web_demand_reason.py`, `web_demand_reason_entities.py` | Derived diagnostic binary sensor (issue #353): `on` when surplus is signalled (`pv_surplus` ≥ 0.05 kW or SG-Ready *Supergreen*) **and** the heat pump draws power (`power_consumption_hp` ≥ 0.05 kW, fallback `hp_operating_mode` ≠ Off). Base profile; only created when both source halves exist. OR-shaped source registers must stay listed in `polling_plan.py`. Navigator 10 web supplement additionally exposes the controller's own demand reason (`web_demand_reason`, `web_demand_reason_pv`) from the WebSocket `home/detail` frame |
+| Smart Energy & Comfort | `energy_statistics.py`, `health_monitor.py`, `comfort_advisory.py`, `comfort_scheduler.py`, `energy_manager.py`, `external_power_forwarding.py` | Opt-in Smart-profile package: persistent energy/COP/CO₂ totals, read-only health checks, comfort advice and scheduling, fail-closed PV-surplus DHW boost (needs exclusive-controller confirmation), optional forwarding of HA PV/house/battery sensors to GLT registers |
+| AI plant adviser | `ai_advisor.py`, `ai_advisor_entities.py`, `ai_learning.py`, `ai_cloud.py` | Experimental, read-only, off by default. Deterministic measured-data reports; optional free-form explanations via local Ollama, an HA AI Task entity or explicitly consented cloud requests — the only authorized cloud exception (fixed endpoints, masked keys, numeric allowlist, persisted daily reservations) |
+
+---
+
+## Testing Infrastructure
+
+- **No real HA installation required**: `conftest.py` stubs the entire `homeassistant` package tree, `modbus-connection` and tmodbus.
+- **Async tests**: `pytest-asyncio` with `asyncio_mode = auto`.
+- **Cross-platform**: Event loop policy supports both Windows and Linux.
+- Tests correspond 1:1 (or close to it) with integration modules.
+
+---
+
+## Important Constraints
+
+- **Do not push to `master` or `main`** — all development happens on feature branches.
+- **Plant control stays local.** The explicitly authorized experimental AI provider module is the only cloud exception: fixed HTTPS endpoints, explicit consent, redacted credentials, numerical allowlist and persisted request limits. Do not add other cloud calls or model tools.
+- **Do not skip type hints** — mypy strict mode will fail CI.
+- **Do not hardcode register addresses** in platform files — reference `const.py` or `registers.py`.
+- **Do not bypass `ModbusConnectionTransport`** with a second direct socket path. The current runtime is tmodbus-backed and deliberately reports `supports_shared_connection=False`.
+- **Do not write to EEPROM-sensitive registers** without proper guards. The Navigator 1.x coil block sits under the controller's EEPROM note (max. ~300 000 write cycles per register): the Vorrangladung button is manual-use only and must never be driven by a schedule or timed automation.
+- **Keep real-hardware transport validation read-only** unless the owner explicitly authorizes a specific write.
+- **Keep entity names consistent** with `strings.json` and `translations/`.
+- **Test new functionality** — untested code will not pass CI on the main branch.
+- **Do not write German prose into repository documents** — English is the contract for everything except `README_de.md` and the `de` translations.
+
+---
+
+## File Relationships Quick Reference
+
+| If you change... | Also update... |
+|-----------------|----------------|
+| `registers.py` / `library_adapter.py` | Platform files, tests, `icons.json` |
+| `entity_names.py` (names) | Run `scripts/generate_entity_translations.py`; `test_entity_translations.py` must stay green |
+| `calculated_sensors.py` / `operation_entities.py` (new derived entity) | `polling_plan.py` dependencies, `test_calculated_sensors.py` / `test_operation_entities.py`, wiki *Entities* |
+| `config_flow.py` | `strings.json`, translations, `test_config_flow.py` |
+| `services.py` | `services.yaml`, `strings.json`, translations, `test_services.py` |
+| `web_data.py` | `test_web_data.py`, `repairs.py` |
+| `coordinator.py` | `test_coordinator.py` |
+| Any entity | `icons.json`, translations, `test_platforms.py` |
+| `manifest.json` (version) | `CHANGELOG.md`, release notes |
+| `AGENTS.md` (this file) | Keep it in sync with the actual codebase |
+| Any wiki page (`docs/wiki/<Page>.md`) | Update the German mirror `docs/wiki/de/<Page>.md` in the same pull request; `tests/test_pages_seo.py` fails when a German page is missing |
+| Any Markdown document | Keep it English (`scripts/check_documentation_language.py`; `docs/wiki/de/` is exempt German) |
+
+---
+> Source: [Xerolux/idm-heatpump-hass](https://github.com/Xerolux/idm-heatpump-hass) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
