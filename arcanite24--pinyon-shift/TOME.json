@@ -4,7 +4,7 @@
   "repo": "pinyon-shift",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arcanite24/pinyon-shift",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T23:24:06Z"
+  "distributed_at": "2026-10-07T02:01:01Z"
 }
