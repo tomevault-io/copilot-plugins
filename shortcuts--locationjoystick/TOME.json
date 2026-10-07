@@ -1,0 +1,99 @@
+{
+  "name": "locationjoystick",
+  "owner": "shortcuts",
+  "repo": "locationjoystick",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "locationjoystick",
+      "path": ".agents/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/shortcuts/locationjoystick/tree/main/.agents/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "locationjoystick",
+      "path": ".agents/skills/cavecrew/SKILL.md",
+      "github_url": "https://github.com/shortcuts/locationjoystick/tree/main/.agents/skills/cavecrew/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "locationjoystick",
+      "path": ".claude/skills/screenshots/SKILL.md",
+      "github_url": "https://github.com/shortcuts/locationjoystick/tree/main/.claude/skills/screenshots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "locationjoystick",
+      "path": ".agents/skills/caveman-help/SKILL.md",
+      "github_url": "https://github.com/shortcuts/locationjoystick/tree/main/.agents/skills/caveman-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "locationjoystick",
+      "path": ".agents/skills/caveman-stats/SKILL.md",
+      "github_url": "https://github.com/shortcuts/locationjoystick/tree/main/.agents/skills/caveman-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "locationjoystick",
+      "path": ".agents/skills/caveman-commit/SKILL.md",
+      "github_url": "https://github.com/shortcuts/locationjoystick/tree/main/.agents/skills/caveman-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "locationjoystick",
+      "path": ".agents/skills/caveman-review/SKILL.md",
+      "github_url": "https://github.com/shortcuts/locationjoystick/tree/main/.agents/skills/caveman-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "locationjoystick",
+      "path": ".agents/skills/caveman-compress/SKILL.md",
+      "github_url": "https://github.com/shortcuts/locationjoystick/tree/main/.agents/skills/caveman-compress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "locationjoystick",
+      "path": ".claude/skills/release-candidate/SKILL.md",
+      "github_url": "https://github.com/shortcuts/locationjoystick/tree/main/.claude/skills/release-candidate/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/shortcuts/locationjoystick",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T20:39:11Z"
+}
