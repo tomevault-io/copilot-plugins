@@ -1,0 +1,447 @@
+{
+  "name": "healthcare-equity",
+  "owner": "hh-health-AI",
+  "repo": "healthcare-equity",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "healthcare-equity",
+      "path": "skills/thesis/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/skills/thesis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "skills/initiate/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/skills/initiate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "skills/earnings/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/skills/earnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "skills/portfolio/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/skills/portfolio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "skills/international/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/skills/international/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "skills/screen-themes/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/skills/screen-themes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "skills/esg-stewardship/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/skills/esg-stewardship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "skills/sell-discipline/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/skills/sell-discipline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "skills/model-valuation/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/skills/model-valuation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "skills/investable-view/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/skills/investable-view/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "skills/comms-compliance/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/skills/comms-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "skills/meetings-experts/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/skills/meetings-experts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "research-suite/skills/journal-club-agent/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/research-suite/skills/journal-club-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/global-access/skills/ema-nice-hta/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/global-access/skills/ema-nice-hta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "research-suite/skills/biotech-rnpv-modeler/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/research-suite/skills/biotech-rnpv-modeler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/epi-demand/skills/epi-demand-funnel/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/epi-demand/skills/epi-demand-funnel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/rx-utilization/skills/sdud-trx-proxy/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/rx-utilization/skills/sdud-trx-proxy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/sec-forensics/skills/edgar-forensics/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/sec-forensics/skills/edgar-forensics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "research-suite/skills/biotech-catalyst-radar/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/research-suite/skills/biotech-catalyst-radar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "research-suite/skills/healthcare-public-data/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/research-suite/skills/healthcare-public-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "research-suite/skills/clinical-trial-analyst/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/research-suite/skills/clinical-trial-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/global-access/skills/japan-nhi-cycle/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/global-access/skills/japan-nhi-cycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/clinical-catalysts/skills/adcom-label/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/clinical-catalysts/skills/adcom-label/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/fda-safety-signals/skills/crl-tracker/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/fda-safety-signals/skills/crl-tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "research-suite/skills/medical-evidence-skills/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/research-suite/skills/medical-evidence-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/ip-exclusivity/skills/orange-book-loe/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/ip-exclusivity/skills/orange-book-loe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/cms-reimbursement/skills/ma-bid-cycle/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/cms-reimbursement/skills/ma-bid-cycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/provider-adoption/skills/kol-site-map/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/provider-adoption/skills/kol-site-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/ip-exclusivity/skills/ptab-ipr-monitor/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/ip-exclusivity/skills/ptab-ipr-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "research-suite/skills/biomedical-claim-checker/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/research-suite/skills/biomedical-claim-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/global-access/skills/nmpa-nrdl-tracker/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/global-access/skills/nmpa-nrdl-tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/procedure-exposure/skills/exposure-map/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/procedure-exposure/skills/exposure-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/sec-forensics/skills/ownership-crowding/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/sec-forensics/skills/ownership-crowding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "research-suite/skills/conference-evidence-agent/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/research-suite/skills/conference-evidence-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/cms-reimbursement/skills/coverage-check/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/cms-reimbursement/skills/coverage-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/clinical-catalysts/skills/literature-kol/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/clinical-catalysts/skills/literature-kol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/clinical-catalysts/skills/precedent-pack/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/clinical-catalysts/skills/precedent-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/epi-demand/skills/nih-reporter-endmarket/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/epi-demand/skills/nih-reporter-endmarket/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/ip-exclusivity/skills/biosimilar-erosion/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/ip-exclusivity/skills/biosimilar-erosion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/rx-utilization/skills/gross-to-net-bridge/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/rx-utilization/skills/gross-to-net-bridge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "research-suite/skills/literature-review-assistant/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/research-suite/skills/literature-review-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/clinical-catalysts/skills/quality-signals/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/clinical-catalysts/skills/quality-signals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/cms-reimbursement/skills/drug-pricing-ira/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/cms-reimbursement/skills/drug-pricing-ira/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/rx-utilization/skills/open-payments-launch/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/rx-utilization/skills/open-payments-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/epi-demand/skills/respiratory-surveillance/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/epi-demand/skills/respiratory-surveillance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/clinical-catalysts/skills/device-diligence/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/clinical-catalysts/skills/device-diligence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/clinical-catalysts/skills/readout-handicap/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/clinical-catalysts/skills/readout-handicap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/procedure-exposure/skills/epi-funnel-input/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/procedure-exposure/skills/epi-funnel-input/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/fda-safety-signals/skills/maude-recall-risk/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/fda-safety-signals/skills/maude-recall-risk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/fda-safety-signals/skills/faers-safety-scan/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/fda-safety-signals/skills/faers-safety-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/provider-adoption/skills/provider-footprint/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/provider-adoption/skills/provider-footprint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/provider-adoption/skills/channel-check-prep/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/provider-adoption/skills/channel-check-prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/clinical-catalysts/skills/catalyst-calendar/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/clinical-catalysts/skills/catalyst-calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/rx-utilization/skills/partd-prescriber-share/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/rx-utilization/skills/partd-prescriber-share/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/provider-economics/skills/nonprofit-990-scan/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/provider-economics/skills/nonprofit-990-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/procedure-exposure/skills/code-shift-monitor/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/procedure-exposure/skills/code-shift-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/cms-reimbursement/skills/rule-cycle-calendar/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/cms-reimbursement/skills/rule-cycle-calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/clinical-catalysts/skills/pipeline-landscape/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/clinical-catalysts/skills/pipeline-landscape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/cms-reimbursement/skills/reimbursement-impact/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/cms-reimbursement/skills/reimbursement-impact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/evidence-catalysts/skills/guideline-inclusion/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/evidence-catalysts/skills/guideline-inclusion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/sec-forensics/skills/insider-catalyst-patterns/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/sec-forensics/skills/insider-catalyst-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/provider-adoption/skills/site-adoption-tracker/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/provider-adoption/skills/site-adoption-tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/evidence-catalysts/skills/kol-citation-velocity/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/evidence-catalysts/skills/kol-citation-velocity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/provider-economics/skills/ma-margin-normalization/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/provider-economics/skills/ma-margin-normalization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/procedure-exposure/skills/procedure-volume-tracker/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/procedure-exposure/skills/procedure-volume-tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/provider-economics/skills/hospital-margin-forensics/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/provider-economics/skills/hospital-margin-forensics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "healthcare-equity",
+      "path": "modules/evidence-catalysts/skills/conference-abstract-handicap/SKILL.md",
+      "github_url": "https://github.com/hh-health-AI/healthcare-equity/tree/main/modules/evidence-catalysts/skills/conference-abstract-handicap/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hh-health-AI/healthcare-equity",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T04:40:31Z"
+}
