@@ -1,0 +1,18 @@
+{
+  "name": "node-ts--bus",
+  "displayName": "bus",
+  "description": "bus",
+  "version": "1.0.0",
+  "author": "node-ts",
+  "homepage": "https://github.com/node-ts/bus",
+  "skills": [
+    {
+      "name": "bus",
+      "description": ""
+    },
+    {
+      "name": "bus",
+      "description": ""
+    }
+  ]
+}
