@@ -1,8 +1,6 @@
 # AI instruction files for thunderbird-cli
 
-> Sourced from [vitalio-sh/thunderbird-cli](https://github.com/vitalio-sh/thunderbird-cli) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Give Claude full access to your email through Mozilla Thunderbird. CLI + MCP server for AI agents.
+> Sourced from [vitalio-sh/thunderbird-cli](https://github.com/vitalio-sh/thunderbird-cli), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-p -->
