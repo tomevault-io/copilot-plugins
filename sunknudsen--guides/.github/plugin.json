@@ -1,0 +1,14 @@
+{
+  "name": "sunknudsen--guides",
+  "displayName": "guides",
+  "description": "guides",
+  "version": "1.0.0",
+  "author": "sunknudsen",
+  "homepage": "https://github.com/sunknudsen/guides",
+  "skills": [
+    {
+      "name": "guides",
+      "description": ""
+    }
+  ]
+}
