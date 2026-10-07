@@ -1,7 +1,7 @@
 {
   "name": "cbomkit--sonar-cryptography",
   "displayName": "sonar-cryptography",
-  "description": "This repository contains a SonarQube Plugin that detects cryptographic assets in source code and generates CBOM.",
+  "description": "sonar-cryptography",
   "version": "1.0.0",
   "author": "cbomkit",
   "homepage": "https://github.com/cbomkit/sonar-cryptography",
