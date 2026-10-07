@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Lolia-FRP/lolia-frp](https://github.com/Lolia-FRP/lolia-frp).
+Original source: `CLAUDE.md` in [Lolia-FRP/lolia-frp](https://github.com/Lolia-FRP/lolia-frp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Lolia-FRP/lolia-frp](https://github.com/Lolia-FRP/lolia-frp) — a repo with 169+ stars on GitHub.
+From [Lolia-FRP/lolia-frp](https://github.com/Lolia-FRP/lolia-frp) — a repo with 170+ stars on GitHub.
 
 ---
 
