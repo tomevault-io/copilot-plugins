@@ -1,0 +1,41 @@
+## changelog
+
+> CHANGELOG.txt の追記とバージョン更新の手順
+
+
+# 更新履歴（CHANGELOG.txt）
+
+利用者に見える変更（バグ修正・機能追加・機能削除・仕様変更）をしたら、同じ作業の中で `CHANGELOG.txt` に追記する。
+内部のリファクタリング・テストだけ・ドキュメントだけの変更は書かない。
+
+## 追記のしかた
+
+- 先頭（ヘッダーの直後）に「未リリース」の節が無ければ作り、そこへ追記する。
+- 日本語を先、英語を後に、同じ内容を 1 行ずつ書く。利用者向けの言葉で、実装の詳細やファイル名は書かない。
+- 行頭は `- `。修正は「〜を修正」/ "Fixed ..."、追加は「〜を追加」/ "Added ..." の形にそろえる。
+
+```text
+■ 未リリース / Unreleased
+
+[日本語]
+- トラッキング中に腕が跳ねることがある問題を修正
+- 背景に画像を指定できる機能を追加
+
+[English]
+- Fixed arms occasionally jumping during tracking
+- Added an option to use an image as the background
+```
+
+## リリースするとき（ユーザーが指示したときだけ）
+
+1. 「■ 未リリース / Unreleased」を「■ x.y.z (YYYY-MM-DD)」に書き換える。
+2. 同じバージョンに合わせる: `VRCast/Assets/VRCast/Editor/Build/VRCastBuild.cs` の `AppVersion`、
+   `Packages/com.vrcast.converter/package.json` の `version`。
+3. 修正だけなら z、機能追加なら y、互換性が壊れる変更なら x を上げる。
+4. 配布 zip は `Tools\Package\package.bat`（`CHANGELOG.txt` は自動で同梱される）。
+5. 配布 zip を公開したら、`webpage` ブランチ（作業フォルダ `../VRCast-webpage`）の `version.json` の `version` を同じバージョンにする
+ （アプリの更新通知に使う。zip の公開より先に変えない）。
+
+---
+> Source: [coffin299/VRCast](https://github.com/coffin299/VRCast) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
