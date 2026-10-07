@@ -1,0 +1,9 @@
+{
+  "name": "edwinweber--dbt-duckdb-demo-public",
+  "displayName": "dbt_duckdb_demo_public",
+  "description": "dbt_duckdb_demo_public",
+  "version": "1.0.0",
+  "author": "edwinweber",
+  "homepage": "https://github.com/edwinweber/dbt_duckdb_demo_public",
+  "skills": []
+}
