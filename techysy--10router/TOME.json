@@ -2,9 +2,9 @@
   "name": "10router",
   "owner": "techysy",
   "repo": "10router",
-  "description": "9Router fork: local optimizations and fixes",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/techysy/10router",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T04:34:16Z"
+  "distributed_at": "2026-10-07T16:42:51Z"
 }
