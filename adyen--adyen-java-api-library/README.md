@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [Adyen/adyen-java-api-library](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Adyen/adyen-java-api-library](https://github.com/Adyen/adyen-java-api-library) — a repo with 143+ stars on GitHub.
+From [Adyen/adyen-java-api-library](https://github.com/Adyen/adyen-java-api-library) — a repo with 148+ stars on GitHub.
 
 ---
 
