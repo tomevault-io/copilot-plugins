@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Kaddo-kdd/kaddo](https://github.com/Kaddo-kdd/kaddo).
+Original source: `CLAUDE.md` in [Kaddo-kdd/kaddo](https://github.com/Kaddo-kdd/kaddo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (15)
+## Bundled Skills (18)
 
 - [kaddo](https://github.com/Kaddo-kdd/kaddo/tree/main/knowledge/skills/adr-writing/skill.md)
 - [kaddo](https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/adr-writing/SKILL.md)
@@ -32,6 +32,9 @@ Original source: `AGENTS.md` in [Kaddo-kdd/kaddo](https://github.com/Kaddo-kdd/k
 - [kaddo](https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/implementation-planning/SKILL.md)
 - [kaddo](https://github.com/Kaddo-kdd/kaddo/tree/main/knowledge/skills/module-context-refinement/skill.md)
 - [kaddo](https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/module-context-refinement/SKILL.md)
+- [kaddo](https://github.com/Kaddo-kdd/kaddo/tree/main/knowledge/skills/evidence-verification/skill.md)
+- [kaddo](https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/evidence-verification/SKILL.md)
+- [kaddo](https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/legacy-risk-assessment/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Kaddo-kdd/kaddo](https://github.com/Kaddo-kdd/kaddo)
 
