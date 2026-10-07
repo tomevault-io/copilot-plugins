@@ -1,0 +1,9 @@
+{
+  "name": "snowflake-labs--dbt-constraints",
+  "displayName": "dbt_constraints",
+  "description": "dbt_constraints",
+  "version": "1.0.0",
+  "author": "Snowflake-Labs",
+  "homepage": "https://github.com/Snowflake-Labs/dbt_constraints",
+  "skills": []
+}
