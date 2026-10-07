@@ -1,46 +1,57 @@
 ## helix
 
-> - Report to me using ASD-STE100 Simplified Technical English.
+> - Do not run broad workspace or whole-crate `cargo test` sweeps. If you think a test
 
 # Working in this repo
 
-## Communication
-
-- Report to me using ASD-STE100 Simplified Technical English.
-- Be concise and direct.
-- Use short sentences and the active voice.
-- Give one instruction in each sentence.
-- Use the same term for the same item.
-- Do not change commands, code, identifiers, or quotations to meet these language rules.
-
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full workflow. Operational
-rules for you specifically:
-
-- Tests define correctness. When starting a step with no tests yet, draft
-  the tests (and the issue, if it needs updating) first. Get explicit
-  human approval before writing implementation code — use plan mode, or
-  ask directly and wait for an answer.
-- If a nontrivial change has no GitHub issue yet, draft one using the
-  matching template under
-  [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/) (`feature`, `bug`,
-  `refactor`, `perf`) for review. Don't put specs or plans in `docs/`.
-- Scope each PR to one step of one issue. Use
-  [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md),
-  including a "what this deliberately does not do" note when scope could
-  be mistaken for an oversight.
-- Before declaring a step done, run:
-
+## Verification
+- Do not run broad workspace or whole-crate `cargo test` sweeps. If you think a test
+  will genuinely help then just run or write tests that test behavior changed, filtered narrowly.
+- Agents often leave tests that are useful for the PR, but have essentially no reusability.
+  Before committing changes, make sure each test holds its place for the long term, delete any
+  temporary tests you added.
+- Right at the end before final changes e.g., before pushing the PR, 
+  run `just fmt`, then `just clippy`, unless the user
+  specifies otherwise.
   ```
   just fmt-check
   cargo clippy --all-features --no-deps -- -D warnings
   just test
   ```
-
   Use the plain `cargo clippy` command above, not `just clippy` — that
-  recipe passes `--fix --allow-dirty` and rewrites files in place. `just
-  test` requires a local Postgres (`just local-postgres`) for
-  `helix-database`'s tests.
+  recipe passes `--fix --allow-dirty` and rewrites files in place.
+
+## Git and pull requests
+
+- Do not commit directly on `develop` unless explicitly requested.
+- When refactoring code, split the work into two commits: first move or
+  reorganize code without logic changes, then make any logic changes in a
+  separate commit.
+- Create worktrees as siblings of the checkout. Use `{initials}/{topic}`
+  branches and `<repo>-<branch-with-slashes-replaced-by-hyphens>` directories.
+- Write PR descriptions for engineers without the code open: explain the
+  problem, resulting behavior, necessary implementation details, and evidence
+  for measurable claims. Do not include `Validation`/`Testing` sections or
+  lists of commands run. Read [PR guidance](docs/pull-requests.md) before drafting
+  or updating a description.
+
+## Coding constraints
+- This is a high performance project based around the core principles of the Flux library. 
+  Do not add async code or runtimes to executables that do not already use async. 
+  Always look for a solution using Flux tiles and Flux libraries first.
+- Process items where they are produced; avoid transient collections built only
+  to iterate immediately. Preserve the documented durable-state and borrow
+  exceptions. Prefer stack storage and preallocated long-lived heap storage.
+- Put type-specific behavior on the type. Extract a function only when it is
+  longer than ten lines and called from more than one place.
+- Never destructure `self` (`let Self { .. } = self`); use direct field
+  access unless splitting borrows for the borrow checker.
+- Comments explain hidden invariants and non-obvious reasons. Use them to
+  clarify tricky code. Do not narrate code, edits, review fixes, or prior
+  implementations.
+- Always verify comments against the actual code. Build understanding by
+  reading the implementation and tracing its control and data flow.
 
 ---
 > Source: [gattaca-com/helix](https://github.com/gattaca-com/helix) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
