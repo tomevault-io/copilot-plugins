@@ -4,7 +4,7 @@
   "repo": "coven",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenCoven/coven",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T20:51:14Z"
+  "distributed_at": "2026-10-07T23:52:43Z"
 }
