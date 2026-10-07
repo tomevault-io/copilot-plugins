@@ -1,0 +1,81 @@
+{
+  "name": "java-on-aws",
+  "owner": "aws-samples",
+  "repo": "java-on-aws",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "java-on-aws",
+      "path": "samples/kiro-spring-boot-template/.kiro/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/aws-samples/java-on-aws/tree/main/samples/kiro-spring-boot-template/.kiro/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "java-on-aws",
+      "path": "samples/kiro-spring-boot-template/.kiro/skills/write-tests/SKILL.md",
+      "github_url": "https://github.com/aws-samples/java-on-aws/tree/main/samples/kiro-spring-boot-template/.kiro/skills/write-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "java-on-aws",
+      "path": "samples/kiro-spring-boot-template/.kiro/skills/refactor-service/SKILL.md",
+      "github_url": "https://github.com/aws-samples/java-on-aws/tree/main/samples/kiro-spring-boot-template/.kiro/skills/refactor-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "java-on-aws",
+      "path": "samples/kiro-spring-boot-template/.kiro/skills/implement-endpoint/SKILL.md",
+      "github_url": "https://github.com/aws-samples/java-on-aws/tree/main/samples/kiro-spring-boot-template/.kiro/skills/implement-endpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "java-on-aws",
+      "path": "apps/perf-sensor/skills/java-on-eks-checklist/SKILL.md",
+      "github_url": "https://github.com/aws-samples/java-on-aws/tree/main/apps/perf-sensor/skills/java-on-eks-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "java-on-aws",
+      "path": "apps/perf-sensor/skills/java-on-eks-optimization/SKILL.md",
+      "github_url": "https://github.com/aws-samples/java-on-aws/tree/main/apps/perf-sensor/skills/java-on-eks-optimization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aws-samples/java-on-aws",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T04:30:20Z"
+}
