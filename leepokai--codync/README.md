@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [leepokai/Codync](https://github.com/leepokai/Codync).
+Original source: `CLAUDE.md` in [leepokai/Codync](https://github.com/leepokai/Codync).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -30,7 +30,7 @@ Original source: `AGENTS.md` in [leepokai/Codync](https://github.com/leepokai/Co
 - [Codync](https://github.com/leepokai/Codync/tree/main/.claude/skills/product-launch-film/SKILL.md)
 - [Codync](https://github.com/leepokai/Codync/tree/main/.claude/skills/animation-vocabulary/SKILL.md)
 
-From [leepokai/Codync](https://github.com/leepokai/Codync) — a repo with 179+ stars on GitHub.
+From [leepokai/Codync](https://github.com/leepokai/Codync) — a repo with 183+ stars on GitHub.
 
 ---
 
