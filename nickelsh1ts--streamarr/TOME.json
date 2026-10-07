@@ -4,7 +4,7 @@
   "repo": "streamarr",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nickelsh1ts/streamarr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T17:44:01Z"
+  "distributed_at": "2026-10-07T11:24:10Z"
 }
