@@ -1,30 +1,44 @@
 ## discogs-xml2db
 
-> This repository contains a Python-based exporter for Discogs XML dumps, plus an experimental .NET implementation under `alternatives/dotnet`.
+> `discogs-xml2db` converts Discogs XML dumps into CSV for database import. The primary implementation is Python; there is an experimental .NET parser under `alternatives/dotnet`.
 
-# Copilot Instructions
+# Agent Instructions for .NET Version
 
-## Scope
-This repository contains a Python-based exporter for Discogs XML dumps, plus an experimental .NET implementation under `alternatives/dotnet`.
+## Project summary
+`discogs-xml2db` converts Discogs XML dumps into CSV for database import. The primary implementation is Python; there is an experimental .NET parser under `alternatives/dotnet`.
 
-## General guidance
-- Keep diffs minimal and targeted; avoid large refactors unless explicitly requested.
-- Follow existing patterns and naming conventions in the touched module.
-- Respect the 120-character line limit from `setup.cfg`.
-- Do not add or modify large binary/sample data in the repo.
+## Key paths
+- `discogsxml2db/`: core Python exporter code
+- `run.py`: CLI entrypoint (docopt)
+- `tests/`: pytest suite and fixtures
+- `mysql/`, `postgresql/`: import scripts
+- `alternatives/dotnet/`: experimental C# parser/exporter
+- `tmp/`: typical location for downloaded dump files (do not commit large dumps)
 
-## Python specifics
-- CLI is defined in `run.py` via `docopt`; preserve argument semantics and help text.
-- Prefer standard library usage consistent with the codebase (e.g., `os`, `pathlib`, `csv`).
-- Tests are run with `python -m pytest` (deps in `requirements-dev.txt`).
+## Common commands
+- TBD
+- Tests can be run from the command line with `dotnet test`.
 
-### Code Review
-- Ensure tests pass before merging.
-- Require type annotations for new code.
+## .NET Coding guidelines and instructions
 
-## .NET specifics (if editing)
-- Changes should stay within `alternatives/dotnet` and follow its README.
+- Focus on readability and consistency with existing code.
+- Be cautious with performance-sensitive paths; these dumps are large in real usage.
+- Use `logger.BeginScope` when a method logs multiple lines or chained calls.
+- Unit tests:
+  - Use a Given/When/Then style for tests; label each section of the test with `// Given`, `// When`, and `// Then`.
+  - Use `NSubstitute` for mocking dependencies and `AwesomeAssertions` (fork of `FluentAssertions`) for assertions.
+  - Tests can be run from the command line with `dotnet test`.
+- Follow `.editorconfig` style rules.
+- Additional style guidance:
+    - Avoid nested ternary operators.
+    - Favor primary constructors and early returns.
+    - Favor pattern matching over multiple boolean checks (e.g., `if(x is { Length: > 0 })` over `if(x != null && x.Length > 0)`)
+    - Prefer new collection initializer style `List<T> items = []`.
+    - Require target-typed `new` (e.g., `SomeType x = new(...)`).
+    - Prefer explicit variable types for method return values (especially when used multiple times).
+    - Avoid reimplementing framework helpers (e.g., use `Trim()`).
+    - String comparisons must use `StringComparison.OrdinalIgnoreCase` (or similar).
 
 ---
 > Source: [philipmat/discogs-xml2db](https://github.com/philipmat/discogs-xml2db) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
