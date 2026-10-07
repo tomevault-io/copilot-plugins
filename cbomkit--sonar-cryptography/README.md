@@ -1,17 +1,15 @@
 # sonar-cryptography
 
-> Source: [cbomkit/sonar-cryptography](https://github.com/cbomkit/sonar-cryptography) — distributed by [TomeVault](https://tomevault.io)
-
-This repository contains a SonarQube Plugin that detects cryptographic assets in source code and generates CBOM.
+> Source: [cbomkit/sonar-cryptography](https://github.com/cbomkit/sonar-cryptography). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cbomkit/sonar-cryptography](https://github.com/cbomkit/sonar-cryptography).
+Original source: `AGENTS.md` in [cbomkit/sonar-cryptography](https://github.com/cbomkit/sonar-cryptography).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
