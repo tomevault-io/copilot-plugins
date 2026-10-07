@@ -1,0 +1,9 @@
+{
+  "name": "pangolinsec--baobab",
+  "displayName": "baobab",
+  "description": "Tree-based conversation UI for LLM APIs. Branch from any assistant response to explore multiple threads, with full linear context   preserved root-to-leaf. Supports Anthropic, OpenAI, Azure, Gemini, O",
+  "version": "1.0.0",
+  "author": "pangolinsec",
+  "homepage": "https://github.com/pangolinsec/baobab",
+  "skills": []
+}
