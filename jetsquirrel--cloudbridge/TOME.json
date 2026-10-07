@@ -3,8 +3,8 @@
   "owner": "JetSquirrel",
   "repo": "cloudbridge",
   "description": "",
-  "type": "config",
-  "source_format": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "cloudbridge",
+      "path": ".claude/skills/gpui-kit/SKILL.md",
+      "github_url": "https://github.com/JetSquirrel/cloudbridge/tree/main/.claude/skills/gpui-kit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloudbridge",
+      "path": ".claude/skills/gpui-kit-design-guides/SKILL.md",
+      "github_url": "https://github.com/JetSquirrel/cloudbridge/tree/main/.claude/skills/gpui-kit-design-guides/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/JetSquirrel/cloudbridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-27T10:50:32Z"
+  "distributed_at": "2026-10-07T00:56:38Z"
 }
