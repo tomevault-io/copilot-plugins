@@ -1,0 +1,14 @@
+{
+  "name": "psmux--deskvnc",
+  "displayName": "DeskVNC",
+  "description": "DeskVNC",
+  "version": "1.0.0",
+  "author": "psmux",
+  "homepage": "https://github.com/psmux/DeskVNC",
+  "skills": [
+    {
+      "name": "DeskVNC",
+      "description": ""
+    }
+  ]
+}
