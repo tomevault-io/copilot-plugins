@@ -2,7 +2,7 @@
   "name": "jev-kit",
   "owner": "jonathanavis96",
   "repo": "jev-kit",
-  "description": "Everything you need to run TypeSafe's Jev with Claude Code: a tool-call guard, tier guard, file search, browser agent, review, belay, compaction and installers.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jonathanavis96/jev-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-27T22:46:26Z"
+  "distributed_at": "2026-10-07T16:48:51Z"
 }
