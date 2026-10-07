@@ -1,0 +1,9 @@
+{
+  "name": "cooklang--cooklang-skills",
+  "displayName": "cooklang-skills",
+  "description": "Cooklang plugin for AI agents: 14 skills + the Cook MCP server. Claude Code plugin, Codex, Cursor, VS Code, Gemini CLI extension.",
+  "version": "1.0.0",
+  "author": "cooklang",
+  "homepage": "https://github.com/cooklang/cooklang-skills",
+  "skills": []
+}
