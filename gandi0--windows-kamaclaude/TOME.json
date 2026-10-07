@@ -4,7 +4,7 @@
   "repo": "windows-kamaclaude",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gandi0/windows-kamaclaude",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T09:39:30Z"
+  "distributed_at": "2026-10-07T08:36:35Z"
 }
