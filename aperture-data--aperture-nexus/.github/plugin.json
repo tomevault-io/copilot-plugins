@@ -1,0 +1,9 @@
+{
+  "name": "aperture-data--aperture-nexus",
+  "displayName": "aperture-nexus",
+  "description": "The Cognition Engine for Enterprise AI.",
+  "version": "1.0.0",
+  "author": "aperture-data",
+  "homepage": "https://github.com/aperture-data/aperture-nexus",
+  "skills": []
+}
