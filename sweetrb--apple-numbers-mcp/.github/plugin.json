@@ -1,0 +1,9 @@
+{
+  "name": "sweetrb--apple-numbers-mcp",
+  "displayName": "apple-numbers-mcp",
+  "description": "MCP server for Apple Numbers - read, write, search, and format .numbers spreadsheets via Claude and other AI assistants",
+  "version": "1.0.0",
+  "author": "sweetrb",
+  "homepage": "https://github.com/sweetrb/apple-numbers-mcp",
+  "skills": []
+}
