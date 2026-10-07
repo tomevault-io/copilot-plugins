@@ -1,0 +1,9 @@
+{
+  "name": "cyanheads--secedgar-mcp-server",
+  "displayName": "secedgar-mcp-server",
+  "description": "Query SEC EDGAR filings, XBRL financials, and company data via MCP. STDIO or Streamable HTTP.",
+  "version": "1.0.0",
+  "author": "cyanheads",
+  "homepage": "https://github.com/cyanheads/secedgar-mcp-server",
+  "skills": []
+}
