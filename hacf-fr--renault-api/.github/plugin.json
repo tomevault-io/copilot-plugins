@@ -1,0 +1,14 @@
+{
+  "name": "hacf-fr--renault-api",
+  "displayName": "renault-api",
+  "description": "renault-api",
+  "version": "1.0.0",
+  "author": "hacf-fr",
+  "homepage": "https://github.com/hacf-fr/renault-api",
+  "skills": [
+    {
+      "name": "renault-api",
+      "description": ""
+    }
+  ]
+}
