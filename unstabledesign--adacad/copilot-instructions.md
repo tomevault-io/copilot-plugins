@@ -1,17 +1,8 @@
-## html-and-css
+## reactive-forms
 
-> When embedding variables within the HTML files, always include as variables (never functions). For example, if you need to display a name that requires formatting, include {{formatted_name}} rather than {{formatName(unformatted_name)}}.
+> Always use Angular's Reactive Forms Module, linking form fields to FormControl elements.
 
-
-When embedding variables within the HTML files, always include as variables (never functions). For example, if you need to display a name that requires formatting, include {{formatted_name}} rather than {{formatName(unformatted_name)}}. 
-
-Prefer to use Angular's @for syntax rather than *ngFor. 
-
-Do not use 'id' fields unless that id will be explicitly referenced within the code.
-
-Use snake-case for CSS class and style names
-
-When styling elements that are drawn from the Angular Material library, we angular materials default styling as much as possible. Do not use ::ng-deep to override styles. 
+Always use Angular's Reactive Forms Module, linking form fields to FormControl elements. 
 
 ---
 > Source: [UnstableDesign/AdaCAD](https://github.com/UnstableDesign/AdaCAD) — distributed by [TomeVault](https://tomevault.io).
