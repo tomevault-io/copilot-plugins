@@ -1,49 +1,42 @@
-## public-api
+## release
 
-> The exported API of pkg/, the command flags and the sim API are a versioned contract with known consumers
+> Tags are module versions, release asset names are coupled across GoReleaser, the installer, the action and the docs
 
 
-# Public API
+# Release
 
-`pkg/` is imported by other modules and the command is started by other
-projects' scripts and CI. Both are a contract versioned by the module's tags.
+A release is a tag `vX.Y.Z` on `main`. The tag is at once the Go module version
+(`go install ...@vX.Y.Z`, a `require` line), the name of the GitHub release
+with the binaries, and the ref of the GitHub Action (`uses:
+EvilFreelancer/tgfake@vX.Y.Z` installs that same version).
 
-## What is public
+## Coupled names
 
-- Every exported identifier of `pkg/server`, `pkg/botapi`, `pkg/webapp` and
-  `pkg/llmstub`, including struct fields and their JSON names (the simulation API
-  serialises `ChatView`, `MessageView`, `Call`, `Fault`, `IncomingMessage` and the
-  rest as they are).
-- The command's flags, their defaults, the banner's lines (scripts read the
-  origin from it) and its exit codes.
-- The simulation API routes, bodies and status codes.
-- Release asset names (see the release rule).
+`.goreleaser.yaml` names the archives `tgfake_<version without v>_<os>_<arch>`
+(`.tar.gz`, `.zip` on Windows) with `checksums.txt` beside them, for linux,
+darwin and windows on amd64 and arm64. `scripts/install.sh` builds the same
+names, `action.yml` calls the installer, and `docs/ci.md` documents them. A
+change to one is a change to all four. The first three are exercised before a
+tag can exist: the `Release snapshot` job of `ci.yaml` builds every archive,
+and the `Install` job runs `scripts/test-install.sh` and the action from a
+local mirror of them on Linux, macOS and Windows. `docs/ci.md` is kept in step
+by review.
 
-`internal/` is for what nobody else may import (the chat page).
+## Cutting one
 
-## Changing it
+1. `main` is green (the `CI` gate job).
+2. `git tag vX.Y.Z && git push origin vX.Y.Z`.
+3. `release.yaml` runs the race-detector suite, publishes with GoReleaser, then
+   installs the release with the action on Linux, macOS and Windows and talks to
+   it.
 
-- Releases follow semantic versioning from v1.0.0 on. A patch release (vX.Y.Z+1)
-  fixes behaviour, a minor release (vX.Y+1.0) only adds, and nothing in v1 breaks
-  a caller: a breaking change is v2, which for a Go module means the module path
-  `github.com/EvilFreelancer/tgfake/v2`, so it is a decision for the owner, not a
-  side effect of a change. Mark one in its commit message (`feat!:` or a
-  `BREAKING CHANGE:` footer) so the release notes carry it.
-- Prefer adding over changing: a new option field with a zero value that keeps
-  the old behaviour, a new flag, a new route.
-- Removing or renaming an exported identifier, a flag, a JSON field or a route is
-  breaking. So is changing a default the documentation names (`@tgfake_bot`,
-  `tgfake`, `tgfake-demo`, port 18790, user 4242 `alice`).
-- Keep the packages free of non-test dependencies and buildable with the Go
-  version in `go.mod`; CI runs the oldest one.
+## Never
 
-## Known consumers
-
-Coddy (`github.com/coddy-project/coddy-agent`) pins this module in its `go.mod`:
-its Telegram gateway tests run `pkg/server` in-process, several tests use
-`pkg/llmstub`, and its end-to-end scripts and CI start the release binary of the
-same version (the action of this repository). A release that changes what Coddy
-uses is followed by a version bump there.
+- Move, delete or re-push a tag: the Go module proxy has already cached it. Fix a
+  bad release with the next patch version.
+- Tag a commit that is not on `main` (`release.yaml` refuses it).
+- Publish an asset under a name the installer does not build.
+- Interpolate an action input into a `run:` script; pass it through `env:`.
 
 ---
 > Source: [EvilFreelancer/tgfake](https://github.com/EvilFreelancer/tgfake) — distributed by [TomeVault](https://tomevault.io).
