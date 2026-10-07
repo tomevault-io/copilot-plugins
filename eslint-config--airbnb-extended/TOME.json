@@ -1,0 +1,63 @@
+{
+  "name": "airbnb-extended",
+  "owner": "eslint-config",
+  "repo": "airbnb-extended",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "airbnb-extended",
+      "path": ".claude/skills/sync-docs/SKILL.md",
+      "github_url": "https://github.com/eslint-config/airbnb-extended/tree/main/.claude/skills/sync-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "airbnb-extended",
+      "path": ".claude/skills/write-changelog/SKILL.md",
+      "github_url": "https://github.com/eslint-config/airbnb-extended/tree/main/.claude/skills/write-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "airbnb-extended",
+      "path": ".claude/skills/add-plugin-rule/SKILL.md",
+      "github_url": "https://github.com/eslint-config/airbnb-extended/tree/main/.claude/skills/add-plugin-rule/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/eslint-config/airbnb-extended",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T04:38:01Z"
+}
