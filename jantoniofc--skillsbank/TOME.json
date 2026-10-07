@@ -2,9 +2,9 @@
   "name": "skillsbank",
   "owner": "JantonioFC",
   "repo": "skillsbank",
-  "description": "",
-  "type": "config",
-  "source_format": "",
+  "description": "archivo de skills",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,447 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "m365-agents-py",
+      "path": "skills/m365-agents-py",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/m365-agents-py",
+      "description": ""
+    },
+    {
+      "name": "backend-dev-guidelines",
+      "path": "skills/backend-dev-guidelines",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/backend-dev-guidelines",
+      "description": ""
+    },
+    {
+      "name": "security-best-practices",
+      "path": "skills/security-best-practices",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "database-migrations-sql-migrations",
+      "path": "skills/database-migrations-sql-migrations",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/database-migrations-sql-migrations",
+      "description": ""
+    },
+    {
+      "name": "sql-database-assistant",
+      "path": "skills/sql-database-assistant",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/sql-database-assistant",
+      "description": ""
+    },
+    {
+      "name": "machine-learning-ops-ml-pipeline",
+      "path": "skills/machine-learning-ops-ml-pipeline",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/machine-learning-ops-ml-pipeline",
+      "description": ""
+    },
+    {
+      "name": "terraform-patterns",
+      "path": "skills/terraform-patterns",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/terraform-patterns",
+      "description": ""
+    },
+    {
+      "name": "terraform-patterns",
+      "path": "skills/engineering/terraform-patterns",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/engineering/terraform-patterns",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-development",
+      "path": "skills/ai-agent-development",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/ai-agent-development",
+      "description": ""
+    },
+    {
+      "name": "agent-eval",
+      "path": "skills/agent-eval",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/agent-eval",
+      "description": ""
+    },
+    {
+      "name": "django-perf-review",
+      "path": "skills/django-perf-review",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/django-perf-review",
+      "description": ""
+    },
+    {
+      "name": "django-access-review",
+      "path": "skills/django-access-review",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/django-access-review",
+      "description": ""
+    },
+    {
+      "name": "django-drf",
+      "path": "skills/django-drf",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/django-drf",
+      "description": ""
+    },
+    {
+      "name": "django-security",
+      "path": "skills/django-security",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/django-security",
+      "description": ""
+    },
+    {
+      "name": "django-celery",
+      "path": "skills/django-celery",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/django-celery",
+      "description": ""
+    },
+    {
+      "name": "django-pro",
+      "path": "skills/django-pro",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/django-pro",
+      "description": ""
+    },
+    {
+      "name": "django-patterns",
+      "path": "skills/django-patterns",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/django-patterns",
+      "description": ""
+    },
+    {
+      "name": "fastapi-templates",
+      "path": "skills/fastapi-templates",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/fastapi-templates",
+      "description": ""
+    },
+    {
+      "name": "fastapi-pro",
+      "path": "skills/fastapi-pro",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/fastapi-pro",
+      "description": ""
+    },
+    {
+      "name": "fastapi-router-py",
+      "path": "skills/fastapi-router-py",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/fastapi-router-py",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-deployment",
+      "path": "skills/kubernetes-deployment",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/kubernetes-deployment",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-architect",
+      "path": "skills/kubernetes-architect",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/kubernetes-architect",
+      "description": ""
+    },
+    {
+      "name": "terraform-infrastructure",
+      "path": "skills/terraform-infrastructure",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/terraform-infrastructure",
+      "description": ""
+    },
+    {
+      "name": "terraform-skill",
+      "path": "skills/terraform-skill",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/terraform-skill",
+      "description": ""
+    },
+    {
+      "name": "terraform-specialist",
+      "path": "skills/terraform-specialist",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/terraform-specialist",
+      "description": ""
+    },
+    {
+      "name": "terraform-module-library",
+      "path": "skills/terraform-module-library",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/terraform-module-library",
+      "description": ""
+    },
+    {
+      "name": "terraform-aws-modules",
+      "path": "skills/terraform-aws-modules",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/terraform-aws-modules",
+      "description": ""
+    },
+    {
+      "name": "pytest",
+      "path": "skills/pytest",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/pytest",
+      "description": ""
+    },
+    {
+      "name": "flutter-dart-code-review",
+      "path": "skills/flutter-dart-code-review",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/flutter-dart-code-review",
+      "description": ""
+    },
+    {
+      "name": "flutter-expert",
+      "path": "skills/flutter-expert",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/flutter-expert",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "skills/git-workflow",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": "skills/documentation",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "documentation-templates",
+      "path": "skills/documentation-templates",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/documentation-templates",
+      "description": ""
+    },
+    {
+      "name": "documentation-generation-doc-generate",
+      "path": "skills/documentation-generation-doc-generate",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/documentation-generation-doc-generate",
+      "description": ""
+    },
+    {
+      "name": "documentation-lookup",
+      "path": "skills/documentation-lookup",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/documentation-lookup",
+      "description": ""
+    },
+    {
+      "name": "golang-pro",
+      "path": "skills/golang-pro",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/golang-pro",
+      "description": ""
+    },
+    {
+      "name": "golang-testing",
+      "path": "skills/golang-testing",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/golang-testing",
+      "description": ""
+    },
+    {
+      "name": "langchain-architecture",
+      "path": "skills/langchain-architecture",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/langchain-architecture",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "path": "skills/django-verification",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/django-verification",
+      "description": ""
+    },
+    {
+      "name": "nodejs-backend-patterns",
+      "path": "skills/nodejs-backend-patterns",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/nodejs-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "graphql",
+      "path": "skills/graphql",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/graphql",
+      "description": ""
+    },
+    {
+      "name": "graphql-schema",
+      "path": "skills/graphql-schema",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/graphql-schema",
+      "description": ""
+    },
+    {
+      "name": "graphql-architect",
+      "path": "skills/graphql-architect",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/graphql-architect",
+      "description": ""
+    },
+    {
+      "name": "microsoft-foundry",
+      "path": "skills/microsoft-foundry",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/microsoft-foundry",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-pipeline-builder",
+      "path": "skills/ci-cd-pipeline-builder",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/ci-cd-pipeline-builder",
+      "description": ""
+    },
+    {
+      "name": "javascript-testing-patterns",
+      "path": "skills/javascript-testing-patterns",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/javascript-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "security-bluebook-builder",
+      "path": "skills/security-bluebook-builder",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/security-bluebook-builder",
+      "description": ""
+    },
+    {
+      "name": "scikit-learn",
+      "path": "skills/scikit-learn",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/scikit-learn",
+      "description": ""
+    },
+    {
+      "name": "mle-workflow",
+      "path": "skills/mle-workflow",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/mle-workflow",
+      "description": ""
+    },
+    {
+      "name": "azure-ai-ml-py",
+      "path": "skills/azure-ai-ml-py",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/azure-ai-ml-py",
+      "description": ""
+    },
+    {
+      "name": "ai-ml",
+      "path": "skills/ai-ml",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/ai-ml",
+      "description": ""
+    },
+    {
+      "name": "react-native",
+      "path": "skills/react-native",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/react-native",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-native-skills",
+      "path": "skills/vercel-react-native-skills/AGENTS.md",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/vercel-react-native-skills/AGENTS.md",
+      "description": ""
+    },
+    {
+      "name": "react-native-skills",
+      "path": "skills/react-native-skills/AGENTS.md",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/react-native-skills/AGENTS.md",
+      "description": ""
+    },
+    {
+      "name": "react-native-design",
+      "path": "skills/react-native-design",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/react-native-design",
+      "description": ""
+    },
+    {
+      "name": "react-native-architecture",
+      "path": "skills/react-native-architecture",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/react-native-architecture",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review-excellence",
+      "path": "skills/code-review-excellence",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/code-review-excellence",
+      "description": ""
+    },
+    {
+      "name": "code-review-graph",
+      "path": "skills/code-review-graph",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/code-review-graph",
+      "description": ""
+    },
+    {
+      "name": "code-review-ai-ai-review",
+      "path": "skills/code-review-ai-ai-review",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/code-review-ai-ai-review",
+      "description": ""
+    },
+    {
+      "name": "marketing-demand-acquisition",
+      "path": "skills/marketing-demand-acquisition",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/marketing-demand-acquisition",
+      "description": ""
+    },
+    {
+      "name": "marketing-ops",
+      "path": "skills/marketing-skill/marketing-ops",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/marketing-skill/marketing-ops",
+      "description": ""
+    },
+    {
+      "name": "marketing-skill",
+      "path": "skills/marketing-skill/CLAUDE.md",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/marketing-skill/CLAUDE.md",
+      "description": ""
+    },
+    {
+      "name": "marketing-skills",
+      "path": "skills/marketing-skills",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/marketing-skills",
+      "description": ""
+    },
+    {
+      "name": "rust",
+      "path": "skills/rust",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/rust",
+      "description": ""
+    },
+    {
+      "name": "rust-async-patterns",
+      "path": "skills/rust-async-patterns",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/rust-async-patterns",
+      "description": ""
+    },
+    {
+      "name": "rust-testing",
+      "path": "skills/rust-testing",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/rust-testing",
+      "description": ""
+    },
+    {
+      "name": "rust-patterns",
+      "path": "skills/rust-patterns",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/rust-patterns",
+      "description": ""
+    },
+    {
+      "name": "rust-pro",
+      "path": "skills/rust-pro",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/rust-pro",
+      "description": ""
+    },
+    {
+      "name": "ios-developer",
+      "path": "skills/ios-developer",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/ios-developer",
+      "description": ""
+    },
+    {
+      "name": "github-ecosystem",
+      "path": "skills/github-ecosystem",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/github-ecosystem",
+      "description": ""
+    },
+    {
+      "name": "gemini-interactions-api",
+      "path": "skills/gemini-interactions-api",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/gemini-interactions-api",
+      "description": ""
+    },
+    {
+      "name": "golang-patterns",
+      "path": "skills/golang-patterns",
+      "github_url": "https://github.com/JantonioFC/skillsbank/tree/main/skills/golang-patterns",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/JantonioFC/skillsbank",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T15:03:08Z"
+  "distributed_at": "2026-10-07T19:30:23Z"
 }
