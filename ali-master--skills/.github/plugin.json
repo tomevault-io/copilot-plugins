@@ -1,0 +1,14 @@
+{
+  "name": "ali-master--skills",
+  "displayName": "skills",
+  "description": "AI Skills to enhance working with internal projects related to the oRPC, ... frameworks",
+  "version": "1.0.0",
+  "author": "ali-master",
+  "homepage": "https://github.com/ali-master/skills",
+  "skills": [
+    {
+      "name": "orpc-next-js-adapter",
+      "description": ""
+    }
+  ]
+}
