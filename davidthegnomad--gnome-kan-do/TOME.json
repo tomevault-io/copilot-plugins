@@ -1,0 +1,44 @@
+{
+  "name": "Gnome-Kan-Do",
+  "owner": "davidthegnomad",
+  "repo": "Gnome-Kan-Do",
+  "description": "Gnome-Kan-Do transforms your dull task management into a vibrant, pixel-art garden. Designed for developers, designers, and digital nomads who need to stay on track without distractions, this extension brings fun and accountability to your workflow.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/davidthegnomad/Gnome-Kan-Do",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-07T21:37:39Z"
+}
