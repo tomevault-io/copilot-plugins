@@ -1,0 +1,9 @@
+{
+  "name": "grey8-io--learn-ai-with-grey8",
+  "displayName": "learn-ai-with-grey8",
+  "description": "Free, self-driving AI bootcamp powered by a local LLM tutor. 15 projects across 12 phases \u2014 from Python basics to deploying AI agents. No cloud API keys required.",
+  "version": "1.0.0",
+  "author": "grey8-io",
+  "homepage": "https://github.com/grey8-io/learn-ai-with-grey8",
+  "skills": []
+}
