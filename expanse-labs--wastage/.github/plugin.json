@@ -1,0 +1,9 @@
+{
+  "name": "expanse-labs--wastage",
+  "displayName": "wastage",
+  "description": "One command to see how much compute your cluster wastes. SLURM & Kubernetes.",
+  "version": "1.0.0",
+  "author": "expanse-labs",
+  "homepage": "https://github.com/expanse-labs/wastage",
+  "skills": []
+}
