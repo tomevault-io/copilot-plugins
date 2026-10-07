@@ -1,21 +1,18 @@
-## choice-controls
+## split-panels
 
-> Question rows are a wash, not a checkbox; pickers that still need a mark use ChoiceMark
+> Tile-opened dock panels stay inside that split pane
 
 
-# Choice controls
+# Split panels stay in the tile
 
-Ask-user option rows are the wash only. No `ChoiceMark`, no trailing check, no index.
+A terminal, browser, files, or git panel opened from a tiled conversation's header (or its shortcut while tiled) lands in **that tile's** dock. It is never a window-level column or row beside the whole conversation grid.
 
-Do not ship `<input type="checkbox">` or `<input type="radio">` as the visible control. Native chrome follows the OS (Aqua, Fluent) and does not match Lyra's ink/accent cards.
-
-Keep a visually hidden native input (`sr-only`) when a real form control is needed so tests and assistive tech still see `input:checked`.
-
-Selected rows use `bg-accent/[0.08]`. Idle rows use the bubble wash `bg-card`, not `bg-elevated`. No hairline between rows.
-
-The recommended chip sits as a sibling of the title-and-description stack and stays vertically centered on that block.
-
-`ChoiceMark` stays for pickers that are actually on/off controls (model fetch, and the like).
+- Tile open → `usePaneDock` for that session. Window open (before split, or the undivided window menu) → `useDock`.
+- Do not "fix" an empty title strip by moving the panel out of the tile. The tile title bar lives in the conversation slot only; the panel keeps its own header and grip.
+- After split, a tile panel stays draggable **inside that tile**. A panel that was already on the window dock stays on the window dock and stays draggable there.
+- **Compute room before insert or move.** `placePanel` / `viableDrops` ask whether the tile's pixel span still clears every floor. A landing that would crush the conversation is refused; the pane opens in a new window instead. Drag preview treats a non-viable `at` as no drop.
+- Browser, terminal, files, git and the other panels can leave for a real window from their header, and restore to the remembered dock slot. Restore stays on that tile's dock. If the tile is gone, the floating window stays; it does not jump onto the window dock.
+- E2E must keep both assertions: in-tile (`windowLevel === 0`, nested inside `[data-ly-split-pane]`) and no split chrome overlapping that panel. Also: a 2×2 tile that opens a second panel must not produce a conversation sliver.
 
 ---
 > Source: [kittors/Lyra](https://github.com/kittors/Lyra) — distributed by [TomeVault](https://tomevault.io).
