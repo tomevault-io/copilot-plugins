@@ -1,0 +1,89 @@
+## sdk-development
+
+> Core development guidelines for Typecast SDK development
+
+
+# Typecast SDK Development Rules
+
+## Backward Compatibility (CRITICAL)
+
+All SDKs must maintain backward compatibility. Breaking changes are strongly discouraged.
+
+- Do NOT remove or rename existing public APIs
+- Do NOT change method signatures in ways that break existing code
+- Use deprecation warnings before removing features
+- Add new parameters as optional with sensible defaults
+- When in doubt, maintain compatibility over introducing new patterns
+
+## Cross-SDK Consistency
+
+SDKs should maintain similar structure and API patterns across languages where feasible.
+
+**However**, language-specific idioms and runtime characteristics take precedence:
+- Follow each language's conventions and best practices
+- Respect language-specific patterns (e.g., async/await in JS, goroutines in Go)
+- Use native error handling mechanisms
+
+## OpenAPI Specification
+
+If an `openapi.json` file exists at the project root, use it as the **source of truth** for:
+- API endpoint definitions
+- Request/response schemas
+- Model definitions
+- Error codes and messages
+
+## Code Quality Standards
+
+### File Length Limit
+Keep all source files under 450 lines. If a file exceeds this limit:
+- Split into logical modules/classes
+- Extract helper functions to separate files
+
+### Comments and Documentation
+**All comments must be written in English.** This includes:
+- Inline code comments
+- Function/method documentation
+- README files and guides
+
+### Security Requirements (CRITICAL)
+
+- NO private keys, secrets, or credentials in code
+- NO API keys committed to the repository
+- Use `.env.example` files to document required environment variables
+- Validate and sanitize all user inputs
+- Use secure HTTP connections (HTTPS only)
+
+## Pre-Commit Security Checklist (MUST CHECK ON EVERY COMMIT)
+
+**This checklist MUST be reviewed before every commit. Failure to comply may result in security incidents.**
+
+### 1. Security & Sensitive Information (HIGHEST PRIORITY)
+
+Checking for hidden credentials in code is the top priority.
+
+- [ ] **Secrets & API Keys**: Verify no AWS keys, DB credentials, API tokens, or other secrets are hardcoded
+- [ ] **Configuration Files**: Ensure `.env`, `config.yaml`, `credentials.json`, and similar files are properly listed in `.gitignore`
+- [ ] **Internal IPs & Domains**: Remove or generalize internal network IP addresses and private domain names that are not accessible externally
+
+### 2. Commit History (Past Records Matter)
+
+Remember that ALL past commits will be public, not just the current code.
+
+- [ ] **Past Mistakes**: If security information was ever committed in the past, simply removing it from current files is NOT enough
+- [ ] **History Cleanup**: Use tools like `git filter-repo` or `BFG Repo-Cleaner` to completely remove commits containing sensitive data, or create a new repository with only the current state as an 'Initial Commit'
+
+### 3. Legal Review & Licensing
+
+Legal basis is required when publishing corporate code assets.
+
+- [ ] **Open Source License**: Decide on a license (MIT, Apache 2.0, etc.) and add a LICENSE file. Without a license, others cannot legally use the code
+- [ ] **Third-Party Libraries**: Verify that all libraries used in the project have licenses compatible with public release
+- [ ] **Intellectual Property (IP)**: Ensure no core company technology or patent-related logic is included. Consult with legal team if available
+
+## Additional Context
+
+For complete guidelines, refer to [CLAUDE.md](mdc:CLAUDE.md) in the project root.
+
+---
+> Source: [neosapience/typecast-sdk](https://github.com/neosapience/typecast-sdk) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
