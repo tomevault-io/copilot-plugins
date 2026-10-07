@@ -1,23 +1,21 @@
 # agent-skills
 
-> Tome by [PaulRBerg](https://github.com/PaulRBerg/agent-skills) — distributed by [TomeVault](https://tomevault.io)
-
-PRB's collection of agent skills
+> Tome by [PaulRBerg](https://github.com/PaulRBerg/agent-skills), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [PaulRBerg/agent-skills](https://github.com/PaulRBerg/agent-skills).
+Original source: `AGENTS.md` in [PaulRBerg/agent-skills](https://github.com/PaulRBerg/agent-skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/PaulRBerg/agent-skills](https://github.com/PaulRBerg/agent-skills)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/PaulRBerg/agent-skills](https://github.com/PaulRBerg/agent-skills)
 
 ---
 
