@@ -1,0 +1,9 @@
+{
+  "name": "adityonugrohoid--gpu-autoscale-inference",
+  "displayName": "gpu-autoscale-inference",
+  "description": "Scale-to-zero GPU inference on Kubernetes with KEDA pod autoscaling and Cluster Autoscaler node provisioning",
+  "version": "1.0.0",
+  "author": "adityonugrohoid",
+  "homepage": "https://github.com/adityonugrohoid/gpu-autoscale-inference",
+  "skills": []
+}
