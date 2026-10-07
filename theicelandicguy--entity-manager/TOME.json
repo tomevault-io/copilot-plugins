@@ -2,9 +2,9 @@
   "name": "entity-manager",
   "owner": "TheIcelandicguy",
   "repo": "entity-manager",
-  "description": "Home Assistant integration for managing disabled and enabled entities",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TheIcelandicguy/entity-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T00:15:21Z"
+  "distributed_at": "2026-10-07T16:23:38Z"
 }
