@@ -2,9 +2,9 @@
   "name": "sx",
   "owner": "sleuth-io",
   "repo": "sx",
-  "description": "sx is a package manager for AI coding assistants",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sleuth-io/sx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T17:36:07Z"
+  "distributed_at": "2026-10-07T11:31:03Z"
 }
