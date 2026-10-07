@@ -4,7 +4,7 @@
   "repo": "omnistack-agent",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,33 @@
       "path": "adapters/claude/SKILL.md",
       "github_url": "https://github.com/Ricar66/omnistack-agent/tree/main/adapters/claude/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "omnistack-agent",
+      "path": "packages/skills/omnistack-agent/SKILL.md",
+      "github_url": "https://github.com/Ricar66/omnistack-agent/tree/main/packages/skills/omnistack-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnistack-agent",
+      "path": "packages/skills/omnistack-debug/SKILL.md",
+      "github_url": "https://github.com/Ricar66/omnistack-agent/tree/main/packages/skills/omnistack-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnistack-agent",
+      "path": "packages/skills/omnistack-code-review/SKILL.md",
+      "github_url": "https://github.com/Ricar66/omnistack-agent/tree/main/packages/skills/omnistack-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnistack-agent",
+      "path": "packages/skills/omnistack-security-review/SKILL.md",
+      "github_url": "https://github.com/Ricar66/omnistack-agent/tree/main/packages/skills/omnistack-security-review/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/Ricar66/omnistack-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T11:50:22Z"
+  "distributed_at": "2026-10-07T04:32:49Z"
 }
