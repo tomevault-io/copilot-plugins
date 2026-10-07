@@ -1,0 +1,9 @@
+{
+  "name": "namojo--gemini-harness",
+  "displayName": "gemini-harness",
+  "description": "Team-architecture factory for Gemini CLI \u2014 port of revfactory/harness v1.2.0 to LangGraph + Gemini 3.1 Pro",
+  "version": "1.0.0",
+  "author": "namojo",
+  "homepage": "https://github.com/namojo/gemini-harness",
+  "skills": []
+}
