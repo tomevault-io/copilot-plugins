@@ -1,0 +1,22 @@
+{
+  "name": "veelenga--preview-skills",
+  "displayName": "preview-skills",
+  "description": "Reduce cognitive load when reviewing AI agent work",
+  "version": "1.0.0",
+  "author": "veelenga",
+  "homepage": "https://github.com/veelenga/preview-skills",
+  "skills": [
+    {
+      "name": "preview-diff",
+      "description": ""
+    },
+    {
+      "name": "preview-markdown",
+      "description": ""
+    },
+    {
+      "name": "preview-plan",
+      "description": ""
+    }
+  ]
+}
