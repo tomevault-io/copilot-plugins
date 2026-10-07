@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [Flowm/satvis](https://github.com/Flowm/satvis).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Flowm/satvis](https://github.com/Flowm/satvis) — a repo with 396+ stars on GitHub.
+From [Flowm/satvis](https://github.com/Flowm/satvis) — a repo with 409+ stars on GitHub.
 
 ---
 
