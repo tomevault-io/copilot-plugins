@@ -1,0 +1,9 @@
+{
+  "name": "embeddedos-org--ebuild",
+  "displayName": "ebuild",
+  "description": "Next-gen embedded OS build tool",
+  "version": "1.0.0",
+  "author": "embeddedos-org",
+  "homepage": "https://github.com/embeddedos-org/ebuild",
+  "skills": []
+}
