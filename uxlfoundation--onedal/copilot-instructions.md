@@ -1,25 +1,25 @@
 ## onedal
 
-> > Purpose: rules for AI agents that edit CI and workflow files in `.github/`.
+> Fragments included by the root `makefile`, which drives the production build (see `INSTALL.md`).
 
-# .github Directory: AI Agent Context Guide
+# AGENTS.md - Make Build Fragments (dev/make/)
 
-> Purpose: rules for AI agents that edit CI and workflow files in `.github/`.
+## Purpose
+Fragments included by the root `makefile`, which drives the production build (see `INSTALL.md`).
 
-## Do not change `nightly-build.yml`
+## Layout
+- `common.mk`: compile, link and packaging commands shared by all platforms
+- `deps.mk`, `deps.mkl.mk`, `deps.ref.mk`: third-party dependencies per backend (`BACKEND_CONFIG=mkl|ref`)
+- `compiler_definitions/<compiler>[.<backend>].<arch>.mk`: per-compiler flags
+- `function_definitions/<plat>.mk`: per-platform helpers (`lnx32e`, `win32e`, `mac32e`, `lnxarm`, `winarm`, `lnxriscv64`)
+- `identify_os.sh`: host OS detection
 
-The `scikit-learn-intelex` repository depends on `nightly-build.yml`. Its CI queries `gh run --workflow "Nightly-build" --status success`. It then downloads these artifacts:
-
-- `__release_lnx`
-- `oneDAL_env`
-- `__release_win`
-- `intel_oneapi_basekit`
-- `opencl_rt_installer`
-
-Do not add steps to `nightly-build.yml`. Do not add jobs to `nightly-build.yml`. Do not rename its artifacts. Put all new test steps in `nightly-test.yml`. This includes Bazel steps, comparison steps, CVE scans, and CMake example tests.
-
-If you must rename or remove one of the artifacts above, you must also change `scikit-learn-intelex/.github/workflows/ci.yml` in the same release. Link the `scikit-learn-intelex` repository at https://github.com/uxlfoundation/scikit-learn-intelex.
+## Rules for Changes
+- Compile flags go in `COPT`, link flags in `LOPT`.
+- Library binary versions come from `MAJORBINARY` / `MINORBINARY` in `makefile.ver`. The Bazel build mirrors them in `dev/bazel/repos.bzl`; change both together.
+- Export and symbol-visibility changes here need the matching change in the Bazel build (`dev/bazel/`), and vice versa.
+- Shell and batch script rules are in the root `AGENTS.md`.
 
 ---
 > Source: [uxlfoundation/oneDAL](https://github.com/uxlfoundation/oneDAL) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
