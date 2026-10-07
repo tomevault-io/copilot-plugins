@@ -1,191 +1,268 @@
 ## karbonized
 
-> This file summarizes how `karbonized` is organized so an agent or contributor can work on it quickly and safely.
+> **Agent** is the design assistant built into Karbonized. You describe what you want and it edits the canvas with the same actions you use: it adds and updates blocks, aligns them, changes the background and exports images. It works with the model provider you choose.
 
-# AGENTS.md
+# Agent and the MCP server
 
-## Purpose
+**Agent** is the design assistant built into Karbonized. You describe what you want and it edits the canvas with the same actions you use: it adds and updates blocks, aligns them, changes the background and exports images. It works with the model provider you choose.
 
-This file summarizes how `karbonized` is organized so an agent or contributor can work on it quickly and safely.
+The desktop app can also expose those actions as a local **MCP server**, so Claude Desktop, Claude Code, Cursor and other MCP clients can control Karbonized.
 
-## What This Project Is
+- [Using Agent](#using-agent)
+- [Model providers](#model-providers)
+- [API keys](#api-keys)
+- [Undo](#undo)
+- [Tools](#tools)
+- [MCP server (desktop app)](#mcp-server-desktop-app)
+- [Troubleshooting](#troubleshooting)
+- [For contributors](#for-contributors)
 
-Karbonized is a visual image/mockup editor built with React + Vite + TypeScript. The core app allows users to:
+## Using Agent
 
-- create and edit visual workspaces
-- add blocks such as text, code, images, shapes, QR codes, and custom components
-- move, resize, rotate, crop, and warp blocks
-- export the result as `png`, `jpeg`, or `svg`
-- load packaged extensions as `.kext`
+Open the panel with <kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>L</kbd>, the **Agent** button in the status bar, the **AI** menu in the menu bar or **Show Agent** in the command palette. It docks on the left edge of the window, opposite the properties panel. The layout button at the left of the status bar switches between the canvas alone, the properties panel, the agent, or both.
 
-There is no in-app agent system in this project. The closest thing to an extensible architecture is the plugin/extension system.
+- Type a request and press <kbd>Enter</kbd> (<kbd>Shift</kbd> + <kbd>Enter</kbd> for a new line).
+- Answers stream in. Every action shows up as a card; open it to see its arguments, its result and how long it took.
+- **Stop** ends the response at any point. **Retry** asks again from your last message.
+- The model picker under the message box switches between your providers.
+- **New chat** starts over; the history button reopens the last 30 chats. Chats are stored on your device.
 
-## Main Stack
+When the model accepts images, Agent can look at a snapshot of the canvas to check its work.
 
-- Frontend: React 18, TypeScript, Vite
-- Global state: Easy Peasy
-- UI: Tailwind CSS v4, DaisyUI, Radix UI, shadcn/ui
-- Canvas interaction: `react-moveable`, `react-infinite-viewer`
-- Lightweight persistence: `localforage`
-- Desktop: Electron, plus signs of Tauri/Capacitor integration
-- Exporting: `html-to-image`
+## Model providers
 
-## Key Folders
+Open **Agent settings** (gear in the panel, or the command palette) and add a provider:
 
-- `src/`: main web/editor app
-- `src/pages/`: main screens such as `Editor` and `ProjectWizard`
-- `src/components/`: canvas, blocks, panels, modals, and reusable controls
-- `src/stores/AppStore.ts`: global state, history, workspaces, controls, and main actions
-- `src/utils/`: exporting, platform utilities, helper lists, and static data
-- `src/models/Extension.ts`: TypeScript contract for extensions
-- `docs/plugin_system.md`: functional documentation for the plugin system
-- `src-electron/`: main process/preload for the Vite-based Electron variant
-- `electron/`: additional/legacy Electron implementation based on Capacitor; do not assume both runtime paths are equally active without checking
+| Provider          | Base URL                                    | Key      | Notes                                           |
+| ----------------- | ------------------------------------------- | -------- | ----------------------------------------------- |
+| Anthropic         | `https://api.anthropic.com`                 | Required |                                                 |
+| OpenAI            | `https://api.openai.com/v1`                 | Required |                                                 |
+| Google Gemini     | `https://generativelanguage.googleapis.com` | Required |                                                 |
+| OpenRouter        | `https://openrouter.ai/api/v1`              | Required | Any model on OpenRouter                         |
+| Ollama            | `http://localhost:11434/v1`                 | No       | Local models                                    |
+| LM Studio         | `http://localhost:1234/v1`                  | No       | Local models                                    |
+| OpenAI-compatible | your server                                 | Optional | Any server that speaks the Chat Completions API |
 
-## App Flow
+**Browse** lists the models of the provider, and **Test connection** checks the base URL and key. Pick a model that supports tool calling; small local models may struggle with multi-step edits.
 
-1. `src/main.tsx` mounts `App` inside `StoreProvider`.
-2. `src/App.tsx` initializes theme/context and lazy-loads `Editor`.
-3. `src/pages/Editor.tsx` composes the main layout:
-   - infinite viewer
-   - workspace
-   - left/right panels
-   - status bar
-4. `src/components/Workspace.tsx` renders the active canvas and connects `Moveable`.
-5. Actual blocks are materialized through `ControlHandler` and the components in `src/components/Blocks/`.
+### Web version and CORS
 
-## State Source of Truth
+The web app calls providers straight from the browser. Anthropic, OpenAI, Gemini and OpenRouter allow it. For local servers:
 
-The source of truth is `src/stores/AppStore.ts`.
+- **Ollama**: allow the site with the `OLLAMA_ORIGINS` environment variable (set it to the address of the site, for example `OLLAMA_ORIGINS=https://example.github.io`) and restart Ollama.
+- **LM Studio**: turn on **Enable CORS** in the server settings.
+- **Other servers**: enable CORS on the server, or use the desktop app.
 
-It contains:
+The desktop app sends provider requests from its main process, so CORS never applies there.
 
-- `workspaces`
-- `currentWorkspaceID`
-- `ControlProperties` and `initialProperties`
-- selected control `currentControlID`
-- history via `pastHistory` / `futureHistory`
-- editing flags such as `drag`, `crop`, `warp`, `isDrawing`, `isErasing`
+## API keys
 
-When changing editor behavior, check first whether the change should go through a store action instead of only using local React state.
+Keys never leave your device except in requests to their provider, and they are never logged.
 
-## How the Editor Models Elements
+- **Desktop app**: keys are encrypted with the system keychain and only decrypted by the main process when it sends a request. The page cannot read them back, and a key only works with the base URL it was saved for. If you change the base URL, save the key again.
+- **Web app**: keys are stored in this browser (IndexedDB).
 
-- Each control has an id like `<type>-<random>`
-- Many properties are stored as `History` entries with ids like `<controlId>-<property>`
-- The active workspace holds the list of controls, but their properties live separately in `ControlProperties`
+## Undo
 
-That means duplicating, importing, or deleting controls usually requires touching both layers:
+Everything Agent does in one response is **one undo step**: press <kbd>Ctrl</kbd> + <kbd>Z</kbd> on the canvas, or **Undo changes** under the response. Changes made by MCP clients undo one tool call at a time. Your own edits made while Agent works are never merged into its step.
 
-- the controls list
-- the associated properties
+## Tools
 
-## Extension System
+Agent and the MCP server share the same tools:
 
-Extensions are not compiled into the repo; they are loaded at runtime through Electron.
+| Tool                                   | What it does                                                                                                                         |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `get_design_guide`                     | The design standards (sizes per platform, layout, type, color, HTML block rules, final checklist)                                    |
+| `search_icons`                         | Icon names (Font Awesome and installed icon packs) for icon blocks and `@type:icon` variables                                        |
+| `search_fonts`                         | Google Fonts families by name, kind and weights, with the weights each one has                                                       |
+| `get_brand_kit`                        | The brand kit: named colors, fonts, logos (without the images) and guidelines                                                        |
+| `update_brand_kit`                     | Create or change the brand kit: name, palette, fonts by role (checked against Google Fonts), logo names and uses, guidelines         |
+| `save_brand_logo`                      | Add a logo to the brand kit from SVG markup (cleaned of scripts), a `data:image/…` URL or an image block of the canvas                |
+| `add_brand_logo`                       | Place a logo of the brand kit as an image block, by id or variant, keeping its proportions                                           |
+| `get_workspace`                        | Canvas size, background, selection and every block with its position, size and properties                                            |
+| `create_workspace`                     | New project with a canvas size, opened in the editor                                                                                 |
+| `set_canvas_background`                | Color, gradient, texture, wallpaper or dynamic background, blur and noise                                                            |
+| `set_canvas_size`                      | Resize the canvas                                                                                                                    |
+| `set_guides`                           | Place the guides blocks snap to, in canvas pixels                                                                                    |
+| `set_variables`                        | Create, fill or remove project variables (template slots that blocks show as `{{name}}`)                                             |
+| `list_block_types`                     | Block types, their properties and size limits, code themes                                                                           |
+| `add_block`                            | Add a block (code, text, image, window, phone, shape, icon, QR, freehand stroke, HTML)                                               |
+| `update_block`                         | Name, position, size, rotation, crop, visibility, lock and properties                                                                |
+| `delete_blocks`                        | Delete blocks                                                                                                                        |
+| `select_blocks`                        | Select blocks in the editor                                                                                                          |
+| `align_blocks` / `distribute_blocks`   | Align or space blocks; one block aligns to the canvas                                                                                |
+| `reorder_block`                        | Bring to front, forward, backward, send to back                                                                                      |
+| `get_html_block` / `update_html_block` | Read or replace the HTML, CSS and JavaScript of an HTML block                                                                        |
+| `list_components`                      | The component library: imported `.kcomponent` files and the starter pack                                                             |
+| `import_component`                     | Add a `.kcomponent` file (YAML) to the library                                                                                       |
+| `add_component`                        | Put a component from the library on the canvas, at its manifest size                                                                 |
+| `export_component`                     | The `.kcomponent` file of a library component or of an HTML block                                                                    |
+| `load_starter_pack`                    | Import the components that ship with Karbonized                                                                                      |
+| `get_canvas_snapshot`                  | PNG of the canvas (models with image input)                                                                                          |
+| `export_image`                         | Export PNG, JPEG or SVG without a dialog: to the export folder (desktop), as a download (web) or back to the caller                  |
+| `list_commands` / `run_command`        | Editor commands: undo, duplicate, zoom, snapping, rulers, and the tools the user draws with (shape, brush, nodes, eraser, crop, pan) |
 
-Important touchpoints:
+### Design standards
 
-- `src/components/Panels/ExtensionsPanel.tsx` listens for IPC events and displays extensions
-- `src/models/Extension.ts` defines the expected shape
-- `docs/plugin_system.md` documents packaging
-- `src-electron/main.ts` reads `.kext` files from `%APPDATA%/karbonized/extensions`
+Both Agent and MCP clients design against one guide,
+`src/lib/agent/core/design-guide.ts`: canvas sizes per platform (and safe
+zones for stories), margins and an 8 px grid, a type scale for images seen on a
+phone, contrast and palette rules, when and how to use HTML blocks, and a
+checklist to run against `get_canvas_snapshot` before finishing. It is part of
+the Agent system prompt and of the MCP server instructions, and
+`get_design_guide` returns it for clients that ignore server instructions.
+Change the guide there; the prompt, the instructions and the tool follow.
 
-Expected extension structure:
+The guide asks models to build a design block by block: the background with
+`set_canvas_background`, every headline and paragraph as a text block, and one
+HTML block per component (a stat tile, a card, a badge row, a chart), sized to
+its content.
 
-```text
-my-plugin/
-  components/
-    component1.jsx
-    component1.json
-    component1.png
-  info.json
-```
+Every HTML block a model writes has html, css and js
+(`src/lib/agent/tools/html-contract.ts`): the look as annotated `:root`
+variables in the CSS and the content (labels, values, list items, chart data)
+as `// @var` JS variables that the script writes into the markup, so the user
+edits both from the panel. `add_block`, `update_block` and `update_html_block`
+refuse code without them, with a script that declares a `// @var` again, or
+with an array or object value that is not JSON (an array must be a list of
+strings, which is what the panel edits), and say what to fix; they turn
+`allow-scripts` on for the block. They also answer with `hints`
+(`src/lib/agent/tools/html-hints.ts`) when an HTML block has too few
+variables, covers most of the canvas or holds paragraphs of text, so the model
+fixes it in the same turn.
 
-At runtime, the app consumes objects shaped like:
+Fonts: the guide sends models to `search_fonts` (the whole Google Fonts
+catalog, with the weights of each family), gives pairings by tone and asks for
+`fontSource: "google"`. `add_block`, `update_block` and `update_html_block`
+answer with `hints` when a family is not in Google Fonts, is not set to load or
+lacks the weight (`src/lib/agent/tools/font-hints.ts`).
 
-```ts
-interface Extension {
-  logo: string;
-  info: {
-    name: string;
-    author: string;
-    description: string;
-    version: string;
-  };
-  components: Array<{
-    properties: { name: string };
-    code: string;
-    image: string;
-  }>;
+Models are asked to look at the canvas while they build, not only at the end.
+After a few changes without a `get_canvas_snapshot` call, the result of the next
+change carries a `reminder` to look (`CHANGES_BEFORE_LOOK` in
+`src/lib/agent/tools/registry.ts`); callers without image input never get it.
+The snapshot waits for pending fonts so it does not show the fallback.
+
+### Brand kit
+
+The **Brand kit** tab of the properties panel (also File → **Brand kit…** or
+the command palette, which open it; outside the editor it opens in a dialog)
+holds the colors, fonts, logos and guidelines of the user's brand. The color
+picker shows the brand colors first and the font picker the brand fonts. Agent
+and MCP clients are told to call `get_brand_kit` before a new design and to
+follow it over the palettes of the design guide; `add_brand_logo` places a
+logo without sending the image through the model. When the user gives them
+their brand or asks for one, they save it with `update_brand_kit` and
+`save_brand_logo` (`src/lib/agent/tools/brand.ts`); those changes are saved at
+once, show in the tab, and are not part of the canvas undo. A kit can be exported and imported as a
+`.kbrand` file (JSON). It is stored in IndexedDB (`src/stores/brand-store.ts`,
+model in `src/lib/brand/brand-kit.ts`).
+
+### Templates and project variables
+
+A project can hold variables (the **Variables** tab of the properties panel): named texts,
+long texts and dates. Any text, code, window, QR or HTML block that contains
+`{{name}}` shows the value instead; the block keeps the placeholder, so the
+same design becomes a template. Changing a value is one undo step.
+
+That is how a model makes the next post without redesigning: `get_workspace`
+lists the variables, `set_variables` fills them, `export_image` saves the
+result. Unknown names stay visible as `{{name}}`; `set_variables` reports
+variables no block uses and references with no variable. Values in HTML
+blocks are escaped, and a date can be `today`. The code lives in
+`src/lib/variables/variables.ts`; blocks read it through `useResolvedText`.
+
+### What tools cannot do
+
+`run_command` runs the commands that are safe without a person watching:
+`edit.*` and `arrange.*` (undoable document changes), `view.*` (viewport and
+editor chrome), `tools.*` (pick a tool, insert a block) and `file.copy-image`.
+The rest is left out on purpose:
+
+- **Dialogs, saving and leaving the editor** (`file.*`, `help.*`, `block.*`,
+  and the gallery behind `tools.components`) need a person.
+  `export_image`, `export_component` and `list_components` cover what a model
+  needs from them.
+- **Clearing the workspace** has no undo step; `delete_blocks` does.
+
+Picking a tool changes what the _user's_ next drag does — a model cannot draw
+by itself. To put something on the canvas, `add_block` and `add_component` are
+the direct route: they take a position, a size and properties.
+
+## MCP server (desktop app)
+
+1. Turn on **AI → MCP server** in the menu bar, or open **Agent settings → MCP server** and turn on **Allow other apps to control Karbonized**. While it is on, the **MCP** indicator in the status bar shows its state and opens these settings.
+2. Pick your client and copy its configuration. It already contains the URL and your token.
+3. That's it: Karbonized does not have to be open. The bridge in the configuration starts it in the background (no window, a tray icon) when a client needs it; the app has to have run once with the server turned on, which is when it records how to start itself.
+
+**Running without a window.** While the server is on, closing the window hides Karbonized in the tray instead of quitting, so clients keep working (**Keep running when the window is closed**, on by default). The tray icon opens the window again or quits. **Start in the background when you log in** (Windows and macOS) starts it hidden at login. Launching Karbonized again shows the running instance: only one runs at a time. Tool calls that arrive while the hidden window is still loading wait for it instead of failing.
+
+**Exports.** `export_image` saves to the export folder (`Pictures/Karbonized` unless you pick another one in these settings or in the export dialog) under a free name and returns the path, without a dialog. `destination: "return"` sends the image back to the client instead, and `"ask"` opens a save dialog.
+
+### Claude Desktop
+
+Claude Desktop starts MCP servers as local processes, so Karbonized ships a small bridge (`mcp-stdio.cjs`) that runs with the Karbonized executable itself; Node.js is not needed. The same bridge serves Claude Code and Cursor, and starts Karbonized when it is not running. Paste the configuration in **Settings → Developer → Edit Config** and restart Claude Desktop. It looks like this:
+
+```json
+{
+	"mcpServers": {
+		"karbonized": {
+			"command": "C:\\Users\\you\\AppData\\Local\\Programs\\Karbonized\\Karbonized.exe",
+			"args": [
+				"C:\\Users\\you\\AppData\\Local\\Programs\\Karbonized\\resources\\app.asar.unpacked\\dist-electron\\mcp-stdio.cjs"
+			],
+			"env": {
+				"ELECTRON_RUN_AS_NODE": "1",
+				"KARBONIZED_MCP_URL": "http://127.0.0.1:7824/mcp",
+				"KARBONIZED_MCP_TOKEN": "<your token>"
+			}
+		}
+	}
 }
 ```
 
-## Exporting and Platforms
+### Claude Code
 
-- `src/utils/Exporter.ts` exports `png`, `jpeg`, and `svg`
-- On web, it downloads through a temporary `a` element
-- On native environments, it uses Tauri APIs
+```bash
+claude mcp add karbonized -e ELECTRON_RUN_AS_NODE=1 -e KARBONIZED_MCP_URL=http://127.0.0.1:7824/mcp -e KARBONIZED_MCP_TOKEN=<your token> -- <Karbonized executable> <path to mcp-stdio.cjs>
+```
 
-The codebase contains mixed support for multiple targets:
+Copy the exact command from the settings, which fills in both paths. Clients that only speak HTTP can still use `http://127.0.0.1:7824/mcp` with the header `Authorization: Bearer <your token>`, but then Karbonized has to be running (turn on **Start in the background when you log in**).
 
-- web/PWA
-- Electron
-- Tauri/Capacitor
+### Cursor
 
-Before refactoring platform integration, verify which runtime path is actually used by the target user flow.
+Add to `~/.cursor/mcp.json` (or `.cursor/mcp.json` in a project):
 
-## Useful Commands
+The same `command`, `args` and `env` as for Claude Desktop (copy them from the settings).
 
-- `yarn dev`: web development
-- `yarn electron:dev`: desktop development with Electron
-- `yarn build`: web build
-- `yarn electron:build`: desktop build
-- `yarn lint`: lint `src`
-- `yarn format`: run Prettier on `src`
+### Security
 
-## Practical Editing Conventions
+- The server is off by default and only listens on `127.0.0.1`.
+- Every request needs the token. Requests that come from web pages (a foreign `Origin` or `Host`) are refused.
+- Anyone with the token can edit your canvas: keep it private, and regenerate it in settings if it leaks (then update your clients).
 
-- Prefer small, localized changes; editor state is fairly coupled.
-- Review `AppStore.ts` before changing selection, duplication, undo/redo, or workspaces.
-- For new block types, inspect `src/components/Blocks/` and `ControlHandler` first.
-- For UI work, try to preserve consistency between legacy DaisyUI components and `src/components/ui/` components.
-- Use the `@/` alias when the surrounding file already follows that pattern; the repo mixes relative imports and alias-based imports.
-- Do not assume commented-out code is dead; some features are in transition, especially templates and desktop runtimes.
+## Troubleshooting
 
-## Visible Risks and Technical Debt
+- **"Add your API key"**: the active provider needs a key. On desktop, save it again after changing the base URL.
+- **"Could not reach the provider"**: check the base URL and that local servers are running. On the web, see [CORS](#web-version-and-cors).
+- **The model answers but does nothing**: choose a model with tool calling.
+- **MCP client: "Could not reach Karbonized"**: open the app and turn the server on. **"rejected the token"**: copy the configuration again.
+- **MCP client: "No workspace is open"**: open a project, or let the client call `create_workspace`.
+- **Port already in use**: choose another port in settings and update your clients.
 
-- Two Electron areas coexist: `electron/` and `src-electron/`
-- There is a mix of legacy UI components and newer UI primitives
-- Part of the templates/community system is commented out or incomplete
-- The central store is large and mixes many responsibilities
-- There does not appear to be an automated test suite in the repo
+## For contributors
 
-If you make deep changes, manually validate at least:
+- `src/lib/editor/actions.ts`: editor actions with arguments (blocks, canvas, workspaces), all undoable.
+- `src/lib/blocks/catalog.ts`: block types, properties, defaults and size limits. Keep it in sync with the `useControlState` calls of each block.
+- `src/lib/agent/tools/`: tool definitions (zod schemas) and `executeTool`, shared by Agent and the MCP server.
+- `src/lib/agent/core/`: provider-neutral chat types, SSE parser, agent loop, errors and key redaction.
+- `src/lib/agent/providers/`: Anthropic, OpenAI Chat Completions and Gemini adapters, and the provider presets.
+- `src/lib/agent/transport/`: browser `fetch` and Electron main-process transports.
+- `src-electron/agent/`: key storage and provider requests in the main process.
+- `src-electron/mcp/`: MCP server and stdio bridge; the renderer side is `src/lib/agent/mcp/renderer.ts`.
 
-- block selection
-- drag/resize/rotate
-- undo/redo
-- workspace switching
-- exporting
-- extension loading if the change touches desktop/IPC behavior
-
-## Recommendation for Future Agents
-
-Before implementing a feature or fixing a bug:
-
-1. identify whether the problem lives in layout, block rendering, workspace logic, or store logic
-2. confirm whether it affects web, Electron, or both
-3. check whether a store action or similar pattern already exists
-4. then edit the UI
-
-Most of the fragile bugs in this repo are likely not in the visible JSX itself, but in synchronization between:
-
-- `workspaces`
-- `ControlProperties`
-- `currentControlID`
-- editing history
+To add a tool, define it with `defineTool` in `src/lib/agent/tools/`, add it to `editorTools` and write a test. Mutating tools must change the document synchronously in `execute` (it runs inside a history transaction) and can wait in `settle`.
 
 ---
 > Source: [yossdotpro/karbonized](https://github.com/yossdotpro/karbonized) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
