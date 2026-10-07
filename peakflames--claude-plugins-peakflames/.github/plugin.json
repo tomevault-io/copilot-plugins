@@ -1,0 +1,9 @@
+{
+  "name": "peakflames--claude-plugins-peakflames",
+  "displayName": "claude-plugins-peakflames",
+  "description": "Claude Code plugins by PeakFlames \u2014 epic-workflow lifecycle skills",
+  "version": "1.0.0",
+  "author": "peakflames",
+  "homepage": "https://github.com/peakflames/claude-plugins-peakflames",
+  "skills": []
+}
