@@ -1,23 +1,17 @@
-## code-structure
+## html-and-css
 
-> Directory Logic: The top level of the app should include five major components organized by the three modes of interaction in AdaCAD:
+> When embedding variables within the HTML files, always include as variables (never functions). For example, if you need to display a name that requires formatting, include {{formatted_name}} rather than {{formatName(unformatted_name)}}.
 
 
-Directory Logic: The top level of the app should include five major components organized by the three modes of interaction in AdaCAD: 
+When embedding variables within the HTML files, always include as variables (never functions). For example, if you need to display a name that requires formatting, include {{formatted_name}} rather than {{formatName(unformatted_name)}}. 
 
-- Mixer: all of the components and services that are specific to and only used to render and manage the mixer component. 
-- Editor: all of the components and services that are specific to and only used to render and manage the editor component. 
-- Library: all of the components and services that are specific to and only used to render and manage the library component. 
-- Viewer: all of the components and services that are specific to and only used to render and manage the viewer component. 
-- Core: components and services that are accessed or used across multiple modes. 
+Prefer to use Angular's @for syntax rather than *ngFor. 
 
-All data structures and core computation should occur in adacad-drafting-lib. This library avoid classes and, instead, attempt to create objects that represent an immutable state of a given type.
+Do not use 'id' fields unless that id will be explicitly referenced within the code.
 
-Types: 
-All types specific to the AdaCAD application should be defined in core/model/datatypes.ts. Aggressively create new types rather than passing objects with different variables. 
+Use snake-case for CSS class and style names
 
-Streamlining Functions
-Function that perform the same task should never be implemented in multiple places within the code. If you need a function that can be accessible in multiple locations, consider adding it in core/model/helper.ts or to the adacad-drafting-lib. If you need to create an object that somehow manages and makes state accessible across multiple components, add it as a service in core/model/provider/.  If you need a UI component in multiple places (e.g. the download menu), created it within core/ui. 
+When styling elements that are drawn from the Angular Material library, we angular materials default styling as much as possible. Do not use ::ng-deep to override styles. 
 
 ---
 > Source: [UnstableDesign/AdaCAD](https://github.com/UnstableDesign/AdaCAD) — distributed by [TomeVault](https://tomevault.io).
