@@ -1,198 +1,297 @@
 ## optimalportfolios
 
-> Guidance for AI coding agents working in the **OptimalPortfolios** repository.
+> >-
 
-# AGENTS.md
 
-Guidance for AI coding agents working in the **OptimalPortfolios** repository.
+# Conventions, notation and glossary
 
-## Project overview
+*Author: [Artur Sepp](https://github.com/ArturSepp)*
 
-`optimalportfolios` implements the production pipeline for multi-asset portfolio construction and backtesting: alpha signals -> covariance estimation (EWMA or the HCGL factor model from `factorlasso`) -> constrained optimisation (risk budgeting, maximum diversification, maximum Sharpe, alpha over tracking error, and others) -> rolling backtest and reporting through `qis`.
+This page defines, once, the conventions that every page of the
+[OptimalPortfolios](https://github.com/ArturSepp/OptimalPortfolios) documentation relies on.
+Articles link here instead of restating them, and each methodology article summarises the ones
+it uses in a convention card at the start of its inputs section. The conventions of the qis
+analytics and of FactorLasso estimation are linked, not repeated.
 
-It is the reference implementation of the ROSAA framework published in *The Journal of Portfolio Management* (Sepp, Ossa and Kastenholz, 2026). Distribution and import name `optimalportfolios`. Licensed MIT (`LICENSE.txt`).
+Software citation: [CITATION.cff](https://github.com/ArturSepp/OptimalPortfolios/blob/main/CITATION.cff).
 
-## Ecosystem position
+## Notation
 
-This package is one of eight open-source Python libraries maintained at [github.com/ArturSepp](https://github.com/ArturSepp). Before implementing anything non-trivial, check whether it already exists in one of these:
+The symbols below keep one meaning on every page. A page declares any further symbol in its own
+notation table and does not reuse a reserved one. Pages revised from 27 September 2026 onwards
+use this notation; some earlier pages still write the benchmark as $w_b$ or $b$ and the
+annualisation factor as $a$, and they are brought in line when they are revised.
 
-| Package | Repository | Purpose |
+| Symbol | Meaning |
+|---|---|
+| $N$, $M$ | Number of assets and of factors |
+| $t$, $t_k$ | A date; the $k$-th rebalancing (decision) date |
+| $r$ | Returns; each page states whether they are simple or log returns |
+| $w$ | Target weights, as fractions of net asset value |
+| $w_0$ | Pre-trade weights: the previous targets drifted to the decision date |
+| $w^{\mathrm{bm}}$ | Benchmark weights |
+| $d = w - w^{\mathrm{bm}}$ | Active weights |
+| $\mu$ | Expected returns |
+| $\alpha$ | Alphas or signal scores used as expected active returns |
+| $\Sigma$, $\sigma_i$ | Asset covariance matrix; asset volatility $\sigma_i = \sqrt{\Sigma_{ii}}$ |
+| $\beta$, $\Sigma_F$, $D$ | Factor loadings ($N \times M$), factor covariance and residual covariance |
+| $\sigma(w)$ | Portfolio volatility $\sqrt{w^{\top} \Sigma w}$ |
+| $\mathrm{RC}_i$ | Risk contribution $w_i (\Sigma w)_i / \sigma(w)$ of asset $i$ |
+| $b$ | Risk budgets, non-negative and summing to one |
+| $\mathrm{TE}(w)$ | Ex-ante tracking error $\sqrt{d^{\top} \Sigma d}$ |
+| $s$, $\lambda$ | EWMA span and the decay it implies |
+| $\mathrm{af}$ | Annualisation factor, set upright as one symbol and named after the `af` argument of qis |
+| $\gamma$ | Risk aversion |
+
+The transpose is written $x^{\top}$. Covariance matrices are $N \times N$ and indexed by asset
+labels; loadings are indexed by asset and then by factor, as in
+[FactorLasso's conventions](https://factorlasso.readthedocs.io/en/latest/conventions.html).
+
+## Returns, grids and estimation dates
+
+Estimation samples prices on a return grid and produces estimates on a rebalancing grid. The
+defaults are:
+
+| Setting | Default | Used by |
 |---|---|---|
-| `qis` | QuantInvestStrats | Performance analytics, factsheets, visualisation |
-| `optimalportfolios` | OptimalPortfolios | Portfolio construction and backtesting |
-| `factorlasso` | factorlasso | Sparse factor models and factor covariance estimation |
-| `bbg-fetch` | BloombergFetch | Bloomberg data fetching |
-| `trendfollowing` | TrendFollowingSystems | Trend-following systems: closed-form theory and replication |
-| `goal-based-allocation` | GoalBasedAllocation | Dynamic MV allocation under regime-switching jump-diffusions |
-| `stochvolmodels` | StochVolModels | Stochastic volatility pricing analytics |
-| `vanilla-option-pricers` | VanillaOptionPricers | Vanilla option pricers and implied volatility fitters |
+| `returns_freq` | `'W-WED'` (weekly, Wednesday close) | `EwmaCovarEstimator`, and the dispatcher's expected returns and CARA mixture |
+| `factor_returns_freq` | `'W-WED'` | `FactorCovarEstimator` |
+| `rebalancing_freq` | `'QE'` (quarter ends) | Both estimators, which key their estimates by these dates |
+| `span`, `factor_covar_span` | `52` observations | EWMA covariance and EWMA means |
 
-Actual package dependencies within the stack: `optimalportfolios` depends on `qis` and `factorlasso`; `trendfollowing` depends on `qis`; `stochvolmodels` has an optional `research` extra that pulls in `qis`. The others are independent.
+The rebalancing frequency only selects which dates carry an estimate; it does not change the
+return frequency. Assets observed at different cadences are handled as in
+[mixed-frequency data](mixed_frequency_data.md).
 
-Do not vendor or copy code between these packages. If functionality belongs in a sibling package, say so rather than reimplementing it here.
+**Return basis.** Estimation uses log returns: `compute_returns_from_prices` defaults to
+`is_log_returns=True`, subtracts an EWMA mean and drops the first row, and the factor model and
+the dispatcher's expected returns also use log returns. Weight drift and the qis backtest use
+simple price ratios, and qis's own `to_returns` defaults to simple returns. Each page states the
+basis of every return it shows.
 
-### `rosaa` dependency floors
+**Estimation date.** An estimate dated $t$ uses information available at $t$: the EWMA estimate
+keyed by $t$ includes the sampled return ending at $t$, and factor-model inputs are sliced
+through $t$ inclusive. The weights decided at $t$ are executed afterwards, as described under
+[timing](#decision-execution-and-drift). Nothing in a rolling path looks ahead.
 
-`rosaa/` is gitignored and carries no `pyproject.toml`, so its floors have nowhere else to live and are recorded here. They are not advisory: each names a symbol or keyword `rosaa` calls that does not exist below the floor.
+## EWMA spans
 
-| Package | Floor | What `rosaa` needs at it |
-|---|---|---|
-| `qis` | **>= 5.5.0** | `load_df_from_csv` / `load_df_dict_from_csv` take `float_precision`; the inputs store cannot round-trip a float exactly without it |
-| `factorlasso` | **>= 0.11.0** | `RollingFactorCovarData.get_alphas` forwards `asset_frequencies` / `default_freq`; below it a per-frequency `alpha_span` silently applies the `'ME'` entry to every quarterly asset |
-| `optimalportfolios` | **>= 6.8.0** | signal spans accept a per-cadence `Mapping[str, int]`; below it `product_config.SIGNALS` raises, since it passes dicts |
+A span $s$ sets the decay
 
-`optimalportfolios 6.7.0` was tagged in `CITATION.cff` but never published — its `pyproject.toml` stayed at 6.6.0 — so a fresh `pip install optimalportfolios` before 6.8.0 gives a package `rosaa` cannot run on. Verified with `pip index versions optimalportfolios`, not from the changelog.
+$$
+\lambda = 1 - \frac{2}{s + 1},
+$$
 
-## Repository layout
+and the half-life $h$ with $\lambda^{h} = 1/2$ is $h = \ln(1/2) / \ln(\lambda)$. The default span
+of 52 weekly observations gives $\lambda = 51/53 \approx 0.962$ and a half-life of about 18
+weeks. This is the convention of
+[qis](https://quantinveststrats.readthedocs.io/en/stable/ewm_estimators.html) and FactorLasso.
 
+> **Pitfall.** A span is neither a half-life nor a hard look-back window. `span=52` weights
+> the most recent 18 weeks as heavily as all earlier observations together. Some example scripts
+> and the ROSAA replication folder still call the span a half-life; they are wrong on this point.
+
+## Units
+
+**Covariance.** The estimators return annualised covariance. `EwmaCovarEstimator` multiplies the
+per-observation estimate by the annualisation factor $\mathrm{af}$ inferred from the sampled
+index: 52 for weekly, 12 for monthly and 4 for quarterly returns, with a fallback of 252 and a
+warning when the frequency cannot be inferred. `estimate_current_ewma_covar` with
+`apply_an_factor=False` keeps per-observation units. `FactorCovarEstimator` annualises the
+factor covariance and the residual variances; loadings are not scaled. The optimisers never
+annualise or resample: they use the covariance in the units they receive.
+
+**Limits.** Tracking-error and volatility limits are in the units of the square root of the
+supplied covariance, so they are annual when the covariance is annual.
+
+> **Pitfall.** Despite its suffix, `Constraints.max_target_portfolio_vol_an` applies no
+> annualisation to either the covariance or the limit. Supply both in the same units.
+
+**Returns and targets.** `target_return` and `asset_returns` must share one horizon and scaling.
+The dispatcher's expected returns are annualised EWMA means of log returns.
+
+**Weights.** Weights, exposures and turnover are fractions of net asset value. Exposure is the
+signed net sum of the weights; the defaults `min_exposure = max_exposure = 1.0` make a portfolio
+fully invested. Turnover is the full L1 change $\sum_i \lvert w_i - w_{0,i} \rvert$, without a
+factor of one half, measured per decision and not annualised. Risk budgets are positive and
+normalised over the assets that survive filtering; no budget means equal budgets.
+
+The detailed contract, including every field of `Constraints`, is in
+[portfolio constraints](constraints.md).
+
+## Decision, execution and drift
+
+A target weight is a decision; an executed holding is its result in the backtest. The two are
+different states, and a page always says which one it shows.
+
+```mermaid
+flowchart TB
+    subgraph decide ["At the decision date t_k"]
+        direction LR
+        A["Estimates use data<br/>available at t_k"] --> B["Target<br/>weights w"] --> C["qis executes at the first<br/>price on or after t_k,<br/>plus the lag"]
+    end
+    subgraph hold ["Until the next decision"]
+        direction LR
+        D["Units are held;<br/>weights drift with prices"] --> E["The next decision starts<br/>from the drifted weights w_0"]
+    end
+    decide --> hold
 ```
-optimalportfolios/
-  alphas/            alpha signal construction
-  covar_estimation/  covariance estimators (EWMA, factor/HCGL via factorlasso)
-  optimization/      optimisers, constraints, solvers
-  universe/          instrument universes
-  reports/           reporting built on qis
-  tests/             cross-cutting tests (release metadata agreement)
-  utils/, examples/, docs/, config.py, local_path.py, settings.yaml
-papers/              code accompanying the published papers (excluded from ruff)
-```
 
-Tests live inside the package as `optimalportfolios/<subpackage>/tests/*_test.py`; there is no top-level `tests/` directory. Not every `*_test.py` is a pytest module: sixteen of them are `run_local_test` diagnostic scripts that print and plot, contribute no collected tests, and need the author's local price data. They are still imported during collection, so they must stay importable on a core install — put an optional import inside the function that needs it and raise `ImportError` naming the extra.
+In words: estimates and weights are dated at the decision date; qis executes each decision at
+the first price observation on or after it, moved forward by `weight_implementation_lag`
+observations (none by default); the previous units earn the return into the execution
+observation; and the next solve starts from the drifted weights $w_0$.
 
-## Commands
+- **Pre-trade weights.** With `OptimiserConfig.use_drifted_weights_0=True`, the default, the
+  rolling solvers set $w_0$ to the previous returned weights, including any fallback, drifted
+  with simple returns between the two decision dates:
+  $w_{0,i} = w_i (1 + r_i) / (1 + \sum_j w_j r_j)$. The drift is anchored at decision dates, not
+  at qis executions.
+- **Costs.** qis charges proportional costs on the traded notional, sized on the pre-cost net
+  asset value. `backtest_rolling_optimal_portfolio` defaults to 10 basis points
+  (`rebalancing_costs=0.0010`). Turnover limits and penalties shape the targets; costs are paid
+  on executed trades. See [turnover and transaction costs](turnover_and_transaction_costs.md).
 
-```bash
-pip install -e ".[dev]"                                  # editable install with dev tools
-pytest                                                   # run the test suite (180 tests, ~9 s)
-pytest optimalportfolios/optimization/tests/constraints_test.py -v
-ruff check optimalportfolios/                            # lint (papers/ is excluded)
-```
+The full timing model, with examples, is in [rolling backtests](rolling_backtests.md).
 
-*Note: Terminal execution should be compatible with Windows PowerShell within PyCharm.*
+## Missing data and eligibility
 
-Optional extras: `data`, `reports`, `visualization`, `jupyter`, `dev`, `all`. Supported Python is >= 3.10; CI runs 3.10 – 3.12 on a `[dev]` install and 3.12 again on a core install, which must be green: no test may need data, network or a Bloomberg terminal.
+Eligibility decides whether an asset may enter a solve; freezing restricts the change of an
+existing position. A frozen asset has its weight pinned by setting both box bounds to its
+pre-trade weight.
 
-## Conventions
+- `filter_covar_and_vectors_for_nans` drops assets whose variance is zero, negative or missing,
+  and applies no variance floor unless one is given. The risk-budgeting wrapper floors variances
+  at $0.001^2$ before solving.
+- The EWMA estimator imposes no minimum history; the caller checks warmup. The factor estimator
+  raises when a return bucket has fewer rows than its warmup period, and gives assets without a
+  fit zero loadings and zero residual variance.
+- The backtest layer is NaN-aware; how qis treats a missing price on a rebalancing date is
+  described with its limitations on the page below.
 
-- Test files are named `*_test.py` and live in a `tests/` directory inside the subpackage under test.
-- Line length 100 (`ruff`, rules `E`, `F`, `W`); `papers/` is excluded from linting on purpose. `I` is deliberately not selected anywhere in the stack: imports group the scientific stack before project packages, which isort's ordering contradicts.
-- **Three stack invariants are enforced by ruff rather than written down.** Unlike `E`/`F`/`W`, which report ~780 legacy findings, these are green on the whole package, so a violation is always something you just introduced:
-  - `TID251` fails an import of `trendfollowing`, `privateassets`, `stochvolmodels`, `goal_based_allocation` or `vanilla_option_pricers`. This package depends on `qis` and `factorlasso` and on nothing else in the stack; subject packages never import each other. `qis` and `factorlasso` are of course not banned — they are declared dependencies, and importing them is the point.
-  - `TID253` fails a **module-level** import of an optional extra (`yfinance`, `pandas_datareader`, `pybloqs`, `plotly`, `pyarrow`, `psycopg2`, `sqlalchemy`); the same import inside a function passes, which is the pattern the collection note above requires. `optimalportfolios/examples/**` and `reports/portfolio_result_pybloqs.py` are named in `per-file-ignores` — add to that list only for a module `optimalportfolios/__init__.py` cannot reach.
-  - `ICN` pins `import numpy as np` and `import pandas as pd`. Ruff's default alias map is replaced rather than extended, so `matplotlib` stays free to be both `mpl` and `plt`.
-- Optimisation problems are expressed with `cvxpy`; `quadprog` is used where a dedicated QP solver is faster. Do not introduce a third optimisation backend.
-- Enums and dataclasses carry configuration (optimiser type, constraint sets, estimation settings) — extend the existing enum rather than passing raw strings.
-- Time series are pandas objects with a `DatetimeIndex`; the backtest layer is NaN-aware by design, so preserve NaN handling when refactoring.
-- Reporting and plotting go through `qis`; do not add a parallel plotting layer here.
+The rules for each solver family are in
+[incomplete histories and frozen positions](incomplete_histories.md).
 
-## Implementation Directives
+## Solvers and outcomes
 
-- **Preserve Core Logic:** Maintain the existing optimiser defaults, constraint semantics, and rebalancing conventions, as published results heavily depend on them.
-- **Respect Linting Exclusions:** Leave `papers/` exactly as-is; it is deliberately excluded from linting to preserve published code.
-- **Ensure Offline Execution:** Ensure all examples run on free data. Never add a hard dependency on Bloomberg data.
-- **Maintain Clean Commits:** Prevent backtest outputs, factsheets, or generated figures from being committed to version control.
+| Objective | Backend |
+|---|---|
+| Minimum variance, quadratic utility, minimum tracking error, strategic and tactical solvers | CVXPY, default solver `'CLARABEL'` |
+| Maximum Sharpe ratio | CVXPY through the Charnes–Cooper transformation when `min_exposure == max_exposure`; SciPy SLSQP otherwise |
+| Maximum diversification, CARA utility under Gaussian mixtures | SciPy SLSQP |
+| Risk budgeting | Cyclical coordinate descent or ADMM with a quadprog projection |
+| Hierarchical risk parity | Recursive bisection over a supplied linkage |
 
-<!-- ===== SHARED AGENT CORE (consumer variant) — begin =====
-     Generated from SHARED_AGENT_CORE.md in the maintainer's project knowledge. Do not hand-edit
-     between these markers — propose the change to the maintainer instead. Variants: builder
-     (qis) / consumer / standalone. Last synced 2026-08-08, agent core v1.1. -->
+The single-date CVXPY-family wrappers, maximum Sharpe included, return an
+`OptimizationOutcome`; the SciPy wrappers (maximum diversification, CARA utility) and risk
+budgeting return a weight Series. An outcome is `accepted` when the solver's own weights are
+used; a solution reported as `optimal_inaccurate` is accepted if it is feasible. A rejected solve
+falls back to the drifted pre-trade weights $w_0$, then to the benchmark weights, then to zeros.
+The fallback is not equal weights, and it is not projected onto the constraints.
+[Solver numerics and outcomes](solver_numerics_and_outcomes.md) states the acceptance rules, the
+covariance factorisation and the numerical fields of `OptimiserConfig`; the others are described
+in [choosing an objective](optimization_module_readme.md).
 
-## Domain invariants
+> **Pitfall.** `OptimiserConfig.apply_total_to_good_ratio`, which rescales the turnover limit
+> and per-asset maxima when assets are excluded, is `False` on the dataclass. The dispatcher, the
+> backtest adapter and the quadratic, maximum-Sharpe, maximum-diversification, CARA,
+> risk-budgeting and alpha-with-target-return wrappers default it to `True`; the
+> minimum-tracking-error, strategic and alpha-over-tracking-error wrappers default it to `False`.
 
-Not inferable from any single file, and the source of numerically wrong code that runs clean:
+## Objectives and their inputs
 
-- **No look-ahead, anywhere in a backtest path.** A weight decided at *t* is applied over
-  *[t, t+1]*. Estimation is point-in-time: `MeanAdjType.INSAMPLE` subtracts a full-sample mean
-  and is therefore forward-looking — correct for a descriptive exhibit, wrong inside a backtest.
-- **Return convention is stated, never implied** — `qis.to_returns(..., is_log_returns=...)`.
-  Annualisation follows from the frequency; never silently switch convention, frequency, or
-  annualisation factor.
-- **Sharpe has three explicitly labelled conventions** in `qis`; excess variants need
-  `PerfParams.rates_data`. State which one a number uses.
-- **`qis.BootstrapType.STATIONARY` wraps circularly from qis 5.1.0.** Any result resampled under
-  an earlier version does not reproduce.
-- One convention per concept across the stack. If two packages disagree, that is a bug to
-  report, not a difference to accommodate.
+| Objective | Needs |
+|---|---|
+| Minimum variance, maximum diversification | Covariance |
+| Risk budgeting, including equal risk contributions | Covariance and optional risk budgets |
+| Hierarchical risk parity | Covariance and a linkage; no `Constraints` |
+| [Quadratic utility, maximum Sharpe ratio](mean_variance_objectives.md) | Covariance and expected returns, which the dispatcher estimates from prices |
+| [CARA utility under Gaussian mixtures](cara_gaussian_mixture.md) | Prices only; it fits its own mixture and ignores the covariance |
+| [Strategic target return or target volatility](strategic_allocation_targets.md) | Covariance, expected returns and targets; optional benchmark |
+| Minimum tracking error | Covariance and a benchmark |
+| [Tactical alpha over tracking error](alpha_over_tracking_error.md) | Covariance, alphas, a benchmark and a tracking-error limit |
+| [Tactical alpha with a target return](alpha_over_tracking_error.md#the-yield-target-variant) | Covariance, alphas, yields and targets; optional benchmark |
+| [Overlay with a tail floor](overlay_tail_floor.md) | Covariance, excess means, a fixed core and a linear floor, a named `LinearConstraints` row, through the maximum-Sharpe solver |
 
-## Use the stack before you write it
+[Choosing an objective](optimization_module_readme.md) maps each objective to its rolling,
+single-date and numerical entry points.
 
-This package consumes `qis` (analytics, backtesting, reporting) and `factorlasso` (factor
-covariance). Reimplementing a capability they export is a defect, not a convenience.
-Triggers — stop and check the export list before writing: backtest, rebalance, turnover,
-drawdown, Sharpe, volatility target, bootstrap, resample, unsmooth, covariance, correlation,
-regime, hedge ratio, factsheet, tracking error, risk contribution.
+## What belongs to qis and FactorLasso
 
-- **The hard stop:** a `for` loop over dates accumulating a position, a weight or a P&L is
-  `qis.backtest_model_portfolio`. The hand-rolled version gets drift adjustment wrong — `qis`
-  holds *units* between rebalancings, not weights.
-- **Never invent a symbol.** If a function, class, or keyword argument is not in the export
-  list, it does not exist. Check in one line —
-  `python -c "import qis; print([n for n in dir(qis) if 'unsmooth' in n.lower()])"`;
-  `qis.api.CORE_API` is the documented core and `help(qis.<symbol>)` gives the arguments. Say a
-  symbol is missing rather than producing code that calls it.
-- **If you genuinely must reimplement**, name the rejected stack symbol and why, in a comment on
-  the line above the definition — that turns a silent divergence into a reviewable decision.
-- Never introduce `quantstats`, `pyfolio`, `empyrical`, `ffn`, `bt`, or an ad-hoc statistics
-  layer.
+- **qis** computes returns, realised performance statistics, including its labelled Sharpe
+  conventions, drawdowns, the holdings simulation, factsheets, the ex-ante risk model
+  (`qis.RiskModel`) and the unsmoothing of appraisal-based prices. See its
+  [performance and Sharpe conventions](https://quantinveststrats.readthedocs.io/en/stable/performance_analytics_and_sharpe.html).
+  A Sharpe ratio inside an objective is a model quantity, not a realised statistic.
+- **FactorLasso** estimates sparse factor loadings, discovers and smooths clusters, and holds the
+  factor-covariance containers. See its
+  [conventions](https://factorlasso.readthedocs.io/en/latest/conventions.html).
 
-## Verification loop
+## Glossary
 
-- Plan → patch → verify. Name the verification command and its result when proposing a patch.
-- A second pass is mandatory where a plausible patch can be numerically wrong and still run
-  clean: estimation windows, weight normalisation, annualisation, constraint construction,
-  anything resampled. Verify against a reference computed a different way, and say which.
-- Prove a new test fails before trusting that it passes: reintroduce the defect, watch it fail,
-  restore.
+- **Active weights.** $d = w - w^{\mathrm{bm}}$, the difference from the benchmark.
+- **Bear regime.** The periods in which the core's or benchmark's return lies below its own 16%
+  quantile; the Normal and Bull regimes are the middle 68% and the top 16%. qis classifies them;
+  see its [regime-conditional performance](https://quantinveststrats.readthedocs.io/en/latest/regime_conditional_performance.html).
+- **Bear-regime contribution.** The part of an asset's Sharpe ratio, or in return units of its
+  annual excess return, earned in the Bear regime; the three regime contributions add up to the
+  total.
+- **CARA utility.** Constant absolute risk aversion, $-\exp(-\gamma W)$ for wealth $W$; its
+  expectation has a closed form under a Gaussian mixture.
+- **CMA.** Capital market assumption: a forward-looking expected return, volatility or
+  correlation used as a strategic input; see the [MATF-CMA case study](app_cma_strategic_allocation.md).
+- **Convexity premium.** An overlay's Bear-regime Sharpe contribution beyond the value its Sharpe
+  ratio and benchmark correlation imply under joint normality; defined by Sepp and Kastenholz
+  (2026) and computed by qis, see its
+  [convexity premium page](https://quantinveststrats.readthedocs.io/en/latest/convexity_premium.html).
+- **Coverage floor.** A floor on a fixed-core portfolio's Bear-regime contribution, stated as the
+  fraction of the core's Bear-regime loss that the overlays must offset; see the
+  [overlay page](overlay_tail_floor.md#the-coverage-floor).
+- **Diversification ratio.** $\sum_i w_i \sigma_i / \sigma(w)$, the weighted average asset
+  volatility over the portfolio volatility.
+- **Drift.** The change of weights between decisions caused by relative price moves.
+- **Eligibility.** Whether an asset may enter a solve at a date.
+- **ERC.** Equal risk contributions: risk budgeting with equal budgets.
+- **Fallback.** The weights used when a solve is rejected; see
+  [solvers and outcomes](#solvers-and-outcomes).
+- **FCGL, HCGL.** Factor-cluster and hierarchical-cluster group LASSO, the sparse factor models
+  that FactorLasso estimates for the factor covariance.
+- **Freezing.** Pinning an existing position so that a solve cannot change it.
+- **GMM.** Gaussian mixture model, fitted to returns for the CARA objective.
+- **HRP.** [Hierarchical risk parity](hierarchical_risk_parity_and_cluster_budgets.md): recursive bisection of a cluster tree with
+  inverse-variance splits.
+- **MDP.** Maximum diversification portfolio: the weights that maximise the diversification
+  ratio.
+- **Overlay.** A sleeve optimised on top of a fixed core exposure.
+- **Risk budget.** A target share $b_i$ of total risk for asset or group $i$; it does not fix a
+  capital weight.
+- **Risk contribution.** $\mathrm{RC}_i$; the contributions sum to $\sigma(w)$.
+- **SAA, TAA.** Strategic and tactical asset allocation. SAA maps expected returns and return
+  or volatility targets to a long-run allocation; TAA takes alpha-driven active positions
+  against a benchmark under a tracking-error budget; see
+  [tactical allocation](alpha_over_tracking_error.md).
+- **Smart diversifier.** An overlay whose addition raises both the portfolio's Sharpe ratio and
+  its Bear-regime contribution.
+- **Stacked portfolio.** A core held at full capital with an overlay sleeve on top, so that the
+  exposures sum to more than one; the weights are not normalised.
+- **Tail floor.** A minimum on a supplied linear characteristic of the overlay, used as a proxy
+  for downside protection; it is not an expected shortfall. The coverage floor is the tail floor
+  whose characteristic is the Bear-regime contribution.
+- **TE, TRE.** Ex-ante tracking error $\mathrm{TE}(w)$; function names write it `tre`.
+- **Turnover.** The full L1 change of weights between the pre-trade and the target weights.
 
-## Escalation and scope
+## See also
 
-- Stop and propose before proceeding when a change would exceed roughly five files, alter a
-  public signature, or touch a numerical path.
-- Never change numerical results, random seeds, or computed values unless the change is the
-  request.
-- A public-signature change carries a `CHANGELOG.md` entry and a version bump in the same
-  change. Removing a keyword argument from a function taking `**kwargs` is a silent break — the
-  caller's keyword is swallowed and nothing raises. Treat it as breaking.
-- Do not refactor beyond the requested scope. Propose the wider change; do not perform it.
-
-## Concurrent sessions
-
-More than one agent or session may work on this checkout at the same time, so a file can change
-between your read of it and your write.
-
-- Re-read a file from disk immediately before editing it. Never write a file from an earlier
-  read: a whole-file write from a stale copy silently reverts another session's work.
-- Prefer minimal anchored edits over whole-file replacement. If the on-disk content is not what
-  you expected, stop and reconcile your change onto the current content rather than overwrite.
-
-## Roadmap execution
-
-Feature roadmaps live at the repository root as `ROADMAP_<feature>.md`. An execution request
-names the file and the stage. A stage is complete when its stated verification command passes;
-its out-of-scope list is binding.
-
-<!-- ===== SHARED AGENT CORE — end ===== -->
-
-## Replication contract
-
-`papers/` reproduces results from the published papers. If a change alters optimiser behaviour, covariance estimation, or backtest mechanics, re-run the relevant scripts in `papers/` and confirm the outputs still match the published tables before proposing the change.
-
-## Release checklist
-
-A release touches three version locations. All three must agree, and `optimalportfolios/tests/version_metadata_test.py` fails when they do not:
-
-1. `version` in `pyproject.toml`
-2. `version` and `date-released` in `CITATION.cff`
-3. the `@software` BibTeX entry in `README.md`
-
-Then: commit, tag `v<version>`, build and publish to PyPI, and cut a GitHub Release with the same tag. Do not bump versions as part of an unrelated change, and do not publish without the maintainer explicitly asking for a release.
-
-## Known issues
-
-- The previous `CLAUDE.md` described version 4.1.1 and a black/isort/flake8/mypy toolchain; the project has since moved to `ruff` and this file supersedes it.
-- `ruff check optimalportfolios/` reports around 780 findings, almost all `E501` line-length in the older modules. CI does not gate on lint. Fix only the lines your specific change touches; a repository-wide reflow is not wanted.
-- **Offline Fixture Anomaly:** The 6.2.0 changelog mentions a 69-test suite and an offline fixture (`examples/data/multiasset_returns.csv` with `examples.data.multiasset.load_multiasset_data`). This fixture is committed but unused. Ignore it completely and do not attempt to integrate it into the current 180-test suite.
+- [Choosing an objective](optimization_module_readme.md)
+- [Portfolio constraints](constraints.md)
+- [Rolling backtests](rolling_backtests.md)
+- [Covariance estimators](covariance_estimators.md) and [factor covariance with HCGL](factor_covariance_hcgl.md)
+- [Ex-ante risk contributions and betas](portfolio_risk_analytics.md)
+- [Solver numerics and outcomes](solver_numerics_and_outcomes.md)
+- [Universe data and appraisal unsmoothing](universe_data_and_unsmoothing.md)
+- [Implied risk budgets](implied_risk_budgets.md) and [hierarchical risk parity and cluster risk budgets](hierarchical_risk_parity_and_cluster_budgets.md)
+- [qis notation and conventions](https://quantinveststrats.readthedocs.io/en/stable/notation_and_conventions.html)
 
 ---
 > Source: [ArturSepp/OptimalPortfolios](https://github.com/ArturSepp/OptimalPortfolios) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
