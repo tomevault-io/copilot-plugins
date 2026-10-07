@@ -1,70 +1,67 @@
 ## sms
 
-> - Flutter SDK lives at `~/flutter/bin`, **not** on PATH. Prefix every Flutter/Dart
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md — Sms (Flutter Android SMS cleaner)
+# CLAUDE.md
 
-## Toolchain (do not exceed Flutter template bounds)
-- Flutter SDK lives at `~/flutter/bin`, **not** on PATH. Prefix every Flutter/Dart
-  command: `export PATH="$HOME/flutter/bin:$PATH"`.
-- Pinned working set (Flutter 3.47 template): Flutter 3.47.2 / Dart 3.13.2 /
-  AGP 9.1.0 / Gradle 9.3.1 / KGP 2.4.10 / JDK 17. Do not bump AGP/Gradle beyond
-  what the installed Flutter template supports (`gradle_utils.dart` in the SDK
-  is the source of truth).
-- Verify, in order: `flutter analyze` → `flutter test` → `flutter build apk --debug`.
-  `flutter test` needs no device (platform channels are mocked in
-  `test/widget_test.dart`).
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Android gotchas (all verified the hard way)
-- `android/app/build.gradle.kts` hardcodes `compileSdk = 37` (permission_handler
-  v13 requirement; Flutter template still 36). Never revert to
-  `flutter.compileSdkVersion` or plugin builds fail.
-- The SDK only ships versioned platforms (`android-37.1`, …), but AGP looks up
-  `android-37`. If a build fails with `Failed to find target 'android-37'`,
-  symlink it: `ln -sfn <sdk>/platforms/android-37.1 <sdk>/platforms/android-37`.
-  CI does this automatically in the "Setup Android SDK Platform 37" step.
-- Root `android/build.gradle.kts` backfills `namespace` and raises legacy
-  library modules to compileSdk 37, and disables lint tasks (old `sms_advanced`
-  buildscripts crash the lint worker under AGP 9). Touch this file only if you
-  understand why each hack exists.
-- `sms_advanced 1.1.0` is an AGP-4.1-era plugin that applies KGP itself; future
-  Flutter will refuse to build it. Replacement means writing our own platform
-  channel (query/delete SMS) — out of scope for routine changes.
-- `android/key.properties` + `android/app/key/sms.keystore` are tracked in git
-  (owner's explicit decision). Never rotate, delete, or "clean" them without asking.
+## Project
 
-## Dart code rules
-- App is essentially one file: `lib/main.dart` (~900 lines). `test/widget_test.dart`
-  mocks `flutter.baseflow.com/permissions/methods` (granted=1) and
-  `plugins.elyudde.com/querySMS` (JSON codec, `[]`). Any startup channel call
-  added to the app must get a mock there or `flutter test` breaks.
-- permission_handler v13 (Android): `status` **never** returns
-  `permanentlyDenied`. Only branch on the `request()` result; never derive
-  permanent-denial from `status`. See `_requestPermission()` for the pattern.
-- `flutter_smart_dialog` usage is limited to `observer/init/show/showToast/dismiss`
-  — none of the v5-removed APIs (`backDismiss`, `replaceBuilder`, `checkExist`).
-- L10n: source of truth is `lib/l10n/*.arb`; generated code in
-  `lib/l10n/generated/` is produced via `l10n.yaml`. Don't hand-edit generated files.
-- The three READMEs (`README.md`, `README_zh.md`, `README_zh_TW.md`) document the
-  toolchain versions and CI table — update all three together.
+SMS Cleaner（短信清理）— local-first Android SMS/MMS browse / filter / export / delete tool. Flutter 3.47+ (Dart 3.13+) UI over a Kotlin MethodChannel bridge. minSdk 29 (Android 10). No network upload; everything stays on device.
 
-## Build & release
-- Release APK: `dart pub global activate fastforge` then
-  `fastforge release --name apk` (config: `distribute_options.yaml`).
-  `flutter_distributor` is discontinued — do not switch back.
-- Release signing needs local `android/key.properties`; debug builds don't.
-- CI (`.github/workflows/`): build.yml = analyze+test+APK on push/PR;
-  manual.yml = same, channel-selectable (default stable); publish.yml = draft
-  Release on version tags. All run stable + install Android Platform 37.
+## Commands
 
-## Git
-- No git identity is configured on this machine and global config must not be
-  changed. Commit with one-shot flags:
-  `git -c user.name="davidche" -c user.email="davidche@kiloview.com" commit …`
-- Commit style is conventional: `fix(android): …`, `build(deps): …`,
-  `ci(workflows): …`, `docs(readme): …`, `test(widget): …`. Split unrelated
-  areas into separate commits. Only commit/push when explicitly asked.
+```bash
+flutter pub get
+flutter gen-l10n                       # must run after pub get (generated files are not in git)
+flutter analyze                        # must be clean (flutter_lints 6)
+flutter test                           # all Dart tests
+flutter test test/sms_repository_test.dart            # single file
+flutter test --plain-name "test name"  # single test
+flutter run                            # needs a device/emulator
+flutter build apk --debug
+flutter build apk --release            # signed via android/key.properties + android/app/key/sms.keystore; falls back to debug signature if key.properties missing
+cd android && ./gradlew :app:testDebugUnitTest   # Kotlin/JUnit native tests
+dart run flutter_launcher_icons        # regenerate launcher icons
+```
+
+CI (`.github/workflows/ci.yml`) runs exactly: gen-l10n → analyze → `flutter test` → `:app:testDebugUnitTest` → debug APK, with Java 17 + Flutter stable.
+
+## Architecture
+
+**Flutter ↔ native boundary (the core of the app).** All SMS/MMS access goes through a single `MethodChannel('com.dc16.sms/smsApp')`:
+
+- Dart side: `lib/services/sms_repository.dart` (thin wrapper `SmsRepository`) + `lib/services/channel_codes.dart` (protocol literals).
+- Kotlin side: `android/app/src/main/kotlin/com/dc16/sms/MainActivity.kt` (dispatch) + `SmsAccess.kt` (query/delete/permission/MIUI).
+- **Protocol literals must stay in sync** between `channel_codes.dart` and Kotlin `ChannelCodes.kt`. Never scatter raw protocol strings in business code — reference the constants. Comment in `channel_codes.dart` says: 协议字符串保持不变 (wire format, do not change values).
+
+**Unified SMS/MMS data plane.** `lib/models/sms_item.dart` is one model for both; items are keyed by a composite `uid` so SMS and MMS ids never collide — selection, deletion, and export all align on `uid`, and deletes route by `is_mms` (never cross-table). Queries are paged (`queryPage` → `SmsQueryPage`) and may return `partial: true` with `warnings` when one sub-query (SMS URI, MMS URI, addr/part enrichment) failed — the UI must show a light retry hint rather than treating it as total failure.
+
+**Permissions are tiered**, and the app works without all of them:
+- `READ_SMS` — list/search/export.
+- Default SMS app (`ROLE_SMS` via RoleManager, Android 10+) — required for delete, write, import.
+- MIUI has a private "Notification SMS" toggle with **no public API**; the app detects it (`miuiNotificationSmsState` → allow/likely_off/…) and shows a one-tap guide to MIUI's permission editor. See `lib/features/settings/miui_notif_guide.dart`.
+- No permission dialog on cold start; requests happen from Settings or the empty state.
+- `requestReadSms` returns a tri-state `RequestReadSmsResult` (granted / denied / timeout) — a system dialog that never answers (timeout, activity destroyed) must be distinguished from an actual denial. `SmsRepository` wraps system calls with a 2-minute `systemResponseTimeout` and re-checks state on timeout.
+
+**Batch channel ops are chunked** because a single platform message is limited by Binder (~1MB): `insertChunkSize` / `deleteChunkSize` = 200 rows per `invokeMethod`, with Kotlin-side `INSERT_CHUNK` matching. Keep these paired.
+
+**Native MethodChannel.Results are one-shot** (`OnceResult` wrapper in MainActivity.kt) — system-dialog callback + activity-destroy cleanup can both try to answer the same call; double-answering throws. `pendingRead` / `pendingRole` results are held across the system dialog and completed exactly once.
+
+**New-message receivers** (`SmsReceiver.kt`, `MmsReceiver.kt`, `HeadlessSmsSendService.kt`) are mandatory parts of being a default SMS app. `MmsReceiver` stores only a metadata skeleton into `content://mms/inbox` (no smil/media download — that needs non-public `PduPersister`).
+
+**CSV import/export** (`lib/services/csv_exporter.dart`, `csv_importer.dart`): RFC 4180 + BOM, includes `is_mms` column. Import is **insert-only** (no overwrite/delete) and **skips MMS rows**; requires default-SMS-app role. Import results flow through the single `importMessage()` toast formatter in `sms_data_service.dart`.
+
+**UI layering**: `lib/features/` (list / filter / delete / settings) is plain Flutter + Material 3, theme palette in `lib/theme/tokens.dart`. "Hide from list" (`hidden_store.dart`) is local-only in SharedPreferences and never touches system data.
+
+**i18n**: `l10n.yaml` + `lib/l10n/*.arb` (zh, zh_TW, en) → generated into `lib/generated/app_localizations.dart` (`generate: true` in pubspec). Import localizations from `../generated/app_localizations.dart`, not a hand-written class.
+
+## Conventions
+
+- Code comments and docs are primarily in Chinese; README is trilingual (en/zh/zh_TW — keep all three in sync when editing).
+- Release signing material (`android/key.properties`, `android/app/key/sms.keystore`) is **not** committed to the repo (security). Local developers create these files manually; CI injects them from GitHub Secrets (`STORE_PASSWORD`, `KEY_PASSWORD`, `KEY_ALIAS`, `KEYSTORE_BASE64`). Without `key.properties`, release builds fall back to debug signing (local testing only).
 
 ---
 > Source: [davidche1116/Sms](https://github.com/davidche1116/Sms) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
