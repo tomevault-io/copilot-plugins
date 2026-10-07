@@ -1,33 +1,39 @@
-## docs-sync-required
+## named-constants
 
-> Require docs updates for API and behavior changes across the monorepo
+> Named constants over repeated literals compared at more than one site
 
 
-# Docs sync required
+# Named constants over repeated literals
 
-Documentation is part of the implementation, not a follow-up step, in every package of this monorepo.
+A string or numeric literal that is **compared** - `===`, `switch`, a discriminant check, an `includes()` membership
+test - at more than one comparison site gets one named constant, or in TypeScript one literal-union type constraining
+every use. Never re-type the literal.
 
-- Behavior, API, or workflow changes: update the affected docs (guides, README, API reference) in the same change that
-  makes the change, not a later cleanup pass.
-- Public API changes in a published library (`packages/blit386`, `@blit386/kit`): update the relevant reference docs and
-  examples; a new or changed public symbol needs the versioning discipline described in that package's own rules.
-- Adding, removing, or renaming a published doc page: update whatever manifest or navigation config governs that
-  package's docs site or README in the same change.
-- Architecture or structural changes: update that package's own architecture notes or rule files and the "Where to Find
-  Information" table in its `CLAUDE.md`.
-- Script, hook, or preflight changes: update the matching `.claude/skills/*/SKILL.md`.
-- Onboarding surface changes (a `README.md` Quick Start, a scaffolder default, a minimal example shape): check every
-  downstream package that documents or generates from that surface - `packages/create-blit386` templates, `packages/kit`
-  docs, and any pinned version range.
-- Update a package's `README.md` only when its quick start, prerequisites, features list, or compatibility claims are
-  affected.
-- If no docs update is needed, state why explicitly in the final response.
+Scope the constant to its consumers. Repeats inside a single file stay a module-local `const`; the moment a second file
+or a second package needs the value, export it once and import it everywhere. Do not export a constant nothing outside
+its own file reads.
 
-Each package's own `CLAUDE.md` and `.claude/rules/` describe the concrete documentation mechanics for that package
-(doc-site sync scripts, MDX conventions, versioning tags, kit-content drift) - follow those for the how; this file is
-the shared why.
+## Reach for the existing type first
 
-Claude: `.claude/rules/docs-sync-required.md` (same content, `paths:` frontmatter instead of `globs:`).
+Before adding a constant, check whether a literal-union type already describes the domain. Widening that union is better
+than standing a parallel constant next to it.
+
+## When it applies
+
+| Situation | Applies |
+| --- | --- |
+| The same literal compared in two or more files | yes |
+| The same literal compared twice in one file | yes - as a module-local `const`, not an export |
+| A literal that names something in another package | yes |
+| A literal that also has to appear in a shader source, a JSON config, or a generated project file | yes - thread it through, or document the duplication as a manual-sync hazard at both sites |
+| A literal used exactly once | no |
+| Structural values (`0`, `1`, `-1`) as an index, a length, or a bound | no |
+| A test that deliberately hardcodes the expected wire value | no |
+| The constant's own definition site | no |
+
+Full policy, per-package notes, and worked examples: `CLAUDE.md`.
+
+Claude: `.claude/rules/named-constants.md` (same content, `paths:` frontmatter instead of `globs:`).
 
 ---
 > Source: [blit386/blit386](https://github.com/blit386/blit386) — distributed by [TomeVault](https://tomevault.io).
