@@ -1,75 +1,214 @@
 ## bram
 
-> You are running in the terminal of a Tauri desktop shell that puts a real terminal next to an XMLUI surface. The user can see the target app while talking to you, so use it.
+> You are running in the **terminal** of a Tauri desktop shell. The shell
 
 # Bram
 
-You are running in the terminal of a Tauri desktop shell that puts a real terminal next to an XMLUI surface. The user can see the target app while talking to you, so use it.
+You are running in the **terminal** of a Tauri desktop shell. The shell
+puts a real terminal (where you run) next to an agent pane the user can
+SEE while talking to you. It can *optionally* also show a right-pane
+target-app iframe, but that pane is **off by default** and often absent —
+most users run their app in their own browser. Detect before you assume an
+iframe is there; when one is present, use it.
 
-## Target app
+Keep two distinct surfaces straight — they are not the same, and the rules
+differ:
 
-When the user asks for something that benefits from structured output or structured input, edit `Main.xmlui` or files under `components/` so the target app renders it. A filesystem watcher reloads the iframe automatically when you save, so you do not need to ask the user to refresh.
+- **The agent pane** — Bram's own UI (the Worklist / Transcript / Sessions /
+  Context / Status tabs). **Always XMLUI** — that's how Bram
+  is built. Editing it means `app/tools/Main.xmlui`,
+  `app/tools/components/*.xmlui`, `app/__shell/helpers.js`,
+  `app/tools/Globals.xs`.
+- **The target app** — whatever project the user is developing with Bram's
+  help, shown in the **optional** target-app iframe *when that pane is
+  enabled* (off by default, often absent). Per `app/__shell/conventions.md`,
+  Bram "works with any project that serves a web UI (vanilla HTML/JS, a
+  React or other Node app, a Python web app, an XMLUI app, etc.)." It **may
+  or may not be XMLUI** — detect before you assume, and don't assume the
+  pane is even present.
+
+The XMLUI-specific guidance below is **unconditional when working on Bram
+itself**, and applies to the target app **only when the target is XMLUI**.
+
+## Working on Bram itself (the agent pane is XMLUI)
+
+Most edits to Bram land in `.xmlui` files. Rules the xmlui-standalone
+evaluator enforces hard:
+
+- **No raw browser JS in event handlers** — `setTimeout`, `setInterval`,
+  `fetch` outside DataSource, `async` / `await`, etc. are rejected at
+  evaluation time with an unhandled rejection. Stay within App
+  abstractions: `delay(ms)`, `debounce(ms, fn, ...args)`, the `Timer`
+  component, `DataSource` for HTTP, `ChangeListener` for derived
+  reactivity.
+- **Lead with the xmlui-mcp tools** before reaching for a JS solution.
+  The `xmlui_search_howto` tool is the fastest way to find the
+  XMLUI-native pattern for a feature (e.g. "delay function", "debounce
+  input", "wrap text in table cell"); `xmlui_component_docs` is for
+  component-prop lookups; `xmlui_get_prompt` re-injects the server's
+  framing guidance mid-session when you suspect you've drifted.
+- **Cite a doc URL** for any non-obvious markup decision —
+  `https://www.xmlui.org/docs/reference/components/<Name>` or
+  `https://www.xmlui.org/docs/howto/<slug>`. If you can't cite one,
+  search again.
+
+The `xmlui-mcp` server is loaded for this conversation. Use it.
+
+The helpers.js / Globals.xs / window code-organization discipline (where
+each kind of code lives, when delegators are warranted, the `__bram*`
+prefix, the xs failure modes, and the post-edit error grep) is in
+`@docs/developing-bram.md`, `@`-imported below. That file is
+source-repo-only; `@app/__shell/conventions.md` (also imported below) is
+the cross-target half that Setup seeds into every managed project.
+
+### Files you'll edit most (Bram)
+
+- `app/tools/Main.xmlui` — the agent-pane surface
+- `app/tools/components/*.xmlui` — Worklist (the primary gate, route
+  `/worklist2`), Sessions, Toolbar, Architecture, etc. (the legacy
+  `Workspace.xmlui` tab was retired in the 0.5.3 run)
+- `app/tools/config.json` — XMLUI app config (resources, appGlobals)
+- `app/tools/resources/*.svg` — custom icons; register in `config.json`
+  under `resources` with the `icon.<name>` prefix
+- `app/__shell/helpers.js` — window helpers loaded by `index.html` via
+  `xmlui://localhost/__shell/helpers.js`
+
+Reload boundary (settled 2026-08-26): under the documented `./bram`
+symlink launch, ALL of `app/**` is served from disk per request —
+`tools/**`, `helpers.js`, and `vendor/**` go live on a pane reload
+(no rebuild); parent-shell files (`main.js`, `index.html`,
+`styles.css`) need an app relaunch to re-execute but no rebuild.
+Only `src-tauri/**` (Rust) is rebuild + relaunch territory. Launched
+any other way (raw binary, installed bundle), everything serves from
+the embedded tree and the old rebuild-everything rule applies — full
+table, proofs, and launch discipline in `@docs/developing-bram.md`.
+
+## Working on the target app
+
+The embedded target app is **optional and off by default** — most sessions
+won't have one (the user previews their app in their own browser). This
+section applies only when the user has enabled the target-app pane and asks
+for something in it.
+
+When the user asks for something in the target app, **first detect what the
+target is**, then render output its native way:
+
+- **Vanilla HTML/JS** — `index.html` + plain `.js`, no framework manifest.
+  Edit the HTML/JS directly.
+- **React / other Node** — `package.json` (look for `react`, `vue`, `next`,
+  etc.). Edit components in the project's own framework.
+- **Python web app** — `requirements.txt` / `pyproject.toml` / `*.py`
+  serving templates. Edit templates / handlers.
+- **XMLUI** — `config.json` + `.xmlui` files. See *When the target app is
+  XMLUI* below.
+
+When the target-app pane is enabled, a filesystem watcher reloads that
+iframe automatically when you save — you do not need to ask the user to
+reload. This auto-reload is purely for the embedded pane; it is irrelevant
+when the user views their app in their own browser.
+
+## When the target app is XMLUI
+
+Only when the target is an XMLUI app: when the user asks for something that
+benefits from structured output (tables, lists, charts, multi-line text) or
+structured input (selectors, forms, multi-step flows), **edit the target's
+`Main.xmlui`** (or one of its `components/` files) so it renders. The XMLUI
+rules from "Working on Bram itself" apply here too.
 
 Examples:
 
-- Show tables, lists, charts, or other structured results in the target app.
-- Use selectors, forms, step flows, or other structured input when the user needs to choose or confirm something.
-- Prefer XMLUI-native interaction patterns instead of pushing everything through chat.
+- *"Show me my recent commits"* → write a `<Table>` or `<List>` bound to
+  data you fetched, then continue the conversation pointing at it.
+- *"Pick a target branch"* → render a `<Select>` whose `onDidChange`
+  calls `toShell('selected: ' + value)`. The user clicks; their pick
+  arrives as user input on your next turn.
+- *"Walk me through this in steps"* → render a `<Stepper>` or tabbed
+  `<Pages>` and let the user navigate.
 
-## Working In XMLUI Surfaces
+## The host helpers (cross-target)
 
-Both panes here are XMLUI, and most edits land in `.xmlui` files.
+The shell exposes helpers as window globals that post messages to the parent
+shell. They are available in the **agent pane** unconditionally. To use them
+from the **target app** (XMLUI or not), the target's `index.html` must
+include `<script src="/__shell/helpers.js"></script>`. If it doesn't, drive
+these from the agent pane instead.
 
-- Avoid raw browser JS in event handlers.
-- Prefer XMLUI-native abstractions such as `delay`, `debounce`, `Timer`, `DataSource`, and `ChangeListener`.
-- Read `app/__shell/conventions.md` for the authoritative Bram-specific workflow, including the worklist lifecycle and approval flow.
-- When editing Bram itself (this repo), also read `docs/developing-bram.md` — code organization (helpers.js / Globals.xs / window), the xs-engine failure modes, the post-edit error grep, push-over-polling, and the build vs. hot-reload boundary.
-- When a markup choice is non-obvious, cite the XMLUI docs URL for the component or howto you are using.
+> **Since C1 (target-pane origin isolation).** The target pane is served at a
+> distinct `bramapp://localhost` origin, so cross-origin `getTauriInvoke()`
+> returns `null` and the PTY-driving helpers (`toShell` / `toTurn` /
+> `sendKeys` / `openExternal`) **no-op inside an embedded target app** — the
+> pane is **display-only**. `helpers.js` is still served there (so XMLUI apps
+> boot) but its host-driving functions are inert. Render agent-facing controls
+> (`Select` / `Button` → `toTurn`) in the **agent pane**, which stays
+> same-origin and where the helpers work.
 
-## Worklist Coordination
+| intent | call | what the host does |
+|---|---|---|
+| inject text the user can edit | `toShell(text)` | text + `\n` appears in your stdin; user must press Enter |
+| submit a complete user turn | `toTurn(text)` | bracketed-paste + carriage return; auto-submits as a fresh turn |
+| send raw key bytes to PTY (no newline) | `sendKeys(text)` | bytes go straight to PTY stdin — for Esc, arrows, single-key menus |
+| open an external URL | `openExternal(url)` | host opens the URL in the system browser |
+| capture screenshot of right pane | `captureScreenshot()` | host captures + injects the file path as a `toTurn` |
+| log without bothering you | `logToHost(payload)` | recorded in cargo run stderr only — invisible to you |
 
-`resources/worklist.json` is the canonical surface for coordinating multi-step work between you and the user. Use it whenever you would otherwise enumerate a small set of independently approvable changes in prose.
+Use `toTurn` for one-shot form submissions (Approve buttons, Confirm
+buttons, single-pick selectors). Use `toShell` only when you want to
+inject text the user can edit before sending.
 
-The full proposed -> applied -> committed flow, authorization payloads, mutate/resolve behavior, and edge cases live in `app/__shell/conventions.md`. Do not duplicate that whole policy here; treat it as the source of truth.
+```xml
+<Select onDidChange="(v) => toTurn('branch: ' + v)">
+  <Option value="main" label="main" />
+  <Option value="dev"  label="dev" />
+</Select>
 
-## Files You Will Edit Most
+<Button label="Confirm" onClick="toTurn('confirmed')" />
+```
 
-- `Main.xmlui` - the main XMLUI surface.
-- `components/*.xmlui` - workspace panels and supporting UI.
-- `config.json` - XMLUI app configuration.
-- `resources/*.svg` - custom icons registered in `config.json`.
-- `app/__shell/helpers.js` - window helpers loaded by `index.html`.
+The user types or clicks; you receive `branch: dev` (or whatever you
+chose) as a fresh user message.
 
-## Files To Leave Alone Unless Asked
+## Coordinating via worklist.json (canonical worklist)
 
-- `src-tauri/src/lib.rs` - Rust backend.
-- `app/main.js` and `app/index.html` - parent shell wiring.
-- `app/vendor/*` - vendored libraries.
+`resources/worklist.json` is the canonical surface for coordinating
+multi-step work between you and the user. The Worklist tab in the
+agent pane renders it under the heading "Worklist". Use it
+whenever you'd otherwise enumerate small, independently-approvable
+changes in prose. This is framework-agnostic — it applies whatever the
+target is.
 
-## Inspector And Debugging
+The full lifecycle (proposed → applied → committed), payload shapes,
+authorization flow (`/__worklist/resolve`, `/__worklist/mutate`), and
+edge cases live in `@app/__shell/conventions.md`, which is `@`-imported
+below — read that for the authoritative description. Don't duplicate
+conventions guidance here; this file points at the source of truth.
 
-The target app mounts an Inspector in the AppHeader profile menu slot. Use it when you are debugging interactions before assuming the markup is wrong.
+## Files to leave alone unless asked
 
-When a UI issue needs deeper inspection, ask the user to reproduce it with the Inspector open and export a trace, then analyze the trace instead of guessing from the markup.
+- `src-tauri/src/lib.rs` — Rust backend (PTY, custom URI scheme,
+  filesystem watcher, IPC command handlers)
+- `app/main.js`, `app/index.html` — parent shell wiring
+- `app/vendor/*` — vendored libraries (xmlui-standalone, xterm.js, etc.)
 
-## Architectural Background
+## Inspector
 
-The deeper background for Bram's shell architecture, runtime behavior, and gotchas lives in `~/.agents/scout/projects/claude-code-desktop.md`. Read it if a mechanism here surprises you.
+When editing Bram or an XMLUI target: `<Inspector />` is mounted in the
+AppHeader's profile menu slot — the magnifying-glass icon top-right. It
+shows semantic traces of XMLUI events. Open it when you're debugging
+interactions before assuming the markup is wrong.
+
+## Architectural background
+
+The deeper narrative — why Tauri, why a static frontend, the gotchas
+we hit (Tauri's SPA fallback, XMLUI's hidden `config.json` requirement,
+cross-origin iframe reload) — lives at
+`~/.agents/scout/projects/claude-code-desktop.md`. Read it if a
+mechanism here surprises you.
 
 <!-- bram:start -->
-This repo is driven through Bram. The canonical worklist gate is carried by codex's `developer_instructions` (top-level in `~/.codex/config.toml`, installed by Bram Setup) and enforced at runtime by a `PreToolUse` hook installed under `~/.bram`. Read `app/__shell/conventions.md` for the full conventions, including opt-out phrases, the two-stage proposed → applied → committed flow, approval payload shape, loopback lifecycle calls, and edge cases.
-
-Quick summary so you can act in this turn:
-
-- First response to a change request must be **(a)** a clarifying question, **(b)** a write to `resources/worklist.json` proposing items (each with non-empty `id`, `file` or `files`, `before`, and `after`), or **(c)** read-only investigation explicitly prefaced *"I don't yet have enough context to propose; I need to check X first"* — and the very next action after that check must be a worklist write, not narration of a plan.
-- Mutations (`apply_patch`, `Bash`, `mcp__filesystem__write/edit/create/move`, etc.) on paths not covered by a proposed/applied worklist item are blocked at runtime. Following the convention avoids hitting that wall.
-- Approval is structured only: `approved: {"items":[...]}` for applying, a second `approved:` to authorize commit. Don't infer authorization from free-text replies.
-- For Bram lifecycle calls (`approved:` / `drop:` turns) use the **filesystem channel**, not loopback curl — Codex's sandbox refuses loopback connections (#130). Write `resources/.worklist-intent.json` as `{"nonce":"<unique>","route":"<r>","body":{...}}` where `<r>` is `worklist-resolve` or `worklist-mutate`; then read `resources/.worklist-result.json` and act on the entry whose `nonce` matches yours. Do **not** continue silently if the result is missing or `ok` is `false`. `body` mirrors the old HTTP bodies (mutate: `{"op":"advance","ids":[...],"status":"applied"}` or `{"op":"prune","ids":[...]}`; resolve needs no body). `iterate:` turns no longer need a bracket — the host detects the `iterate:` prefix on the `toTurn` write path and sets the inflight sentinel automatically; the legacy `iterate-begin` / `iterate-end` routes still work for back-compat but are no longer required. Full lifecycle is canonical in `app/__shell/conventions.md`.
-- **Always send a `worklist-resolve` intent before `worklist-mutate`, including for drops.** Resolve delivers the hash-verified item bodies, consumes `approved` auth, and writes the inflight sentinel the Worklist spinner depends on. Reading `.worklist-authorization.json` directly and jumping straight to mutate skips that write and orphans the spinner until a tab switch (#133).
-- **`skip-worklist:` prefix.** If your incoming turn begins literally with `skip-worklist: ` followed by the request, the user has explicitly authorized a direct edit for this turn. Bram's host has already written a fresh `direct-edit` record to `resources/.worklist-authorization.json` covering all paths. Act on the rest of the message as a direct edit — do **not** write a worklist item, do **not** propose, just edit the requested files inline. The PreToolUse hook will allow the edits. Same wire-format family as `approved:` / `drop:` / `iterate:`, but for one-turn direct-edit authorization.
-- **`worklist.json` carries a `version: N` integer.** Every write must set `version: N+1` where `N` is the value on disk at read time. The PreToolUse hook denies stale writes with `reason=stale-worklist-version`; re-read the file, rebase, retry. `/__worklist/mutate` bumps the version on its own writes. Files without a `version` field are treated as 0; first write at `version: 1` is the migration path.
+@docs/developing-bram.md
+@app/__shell/conventions.md
 <!-- bram:end -->
 
 ---
 > Source: [judell/bram](https://github.com/judell/bram) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
