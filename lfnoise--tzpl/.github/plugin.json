@@ -1,0 +1,9 @@
+{
+  "name": "lfnoise--tzpl",
+  "displayName": "tzpl",
+  "description": "Audio coding platform: a statically typed real-time language (Tzopilotl), a signal-graph-to-native-plugin compiler, and a real-time audio engine for composing and performing music",
+  "version": "1.0.0",
+  "author": "lfnoise",
+  "homepage": "https://github.com/lfnoise/tzpl",
+  "skills": []
+}
