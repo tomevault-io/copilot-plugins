@@ -1,0 +1,44 @@
+{
+  "name": "agentic-marketing-os",
+  "owner": "MahmoudHalat",
+  "repo": "agentic-marketing-os",
+  "description": "How marketing actually works in 2026, when one operator does most of the work with help from a fleet of AI agents. Eight workstreams, six agent shapes, the cross-cutting plumbing underneath. CC-BY 4.0.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MahmoudHalat/agentic-marketing-os",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T06:56:30Z"
+}
