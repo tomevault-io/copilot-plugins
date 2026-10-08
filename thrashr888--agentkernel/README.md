@@ -1,8 +1,6 @@
 # agentkernel
 
-> Tome by [thrashr888](https://github.com/thrashr888/agentkernel) — distributed by [TomeVault](https://tomevault.io)
-
-Run AI coding agents in secure, isolated microVMs. Sub-125ms boot times, real hardware isolation.
+> Tome by [thrashr888](https://github.com/thrashr888/agentkernel), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,14 +15,10 @@ Original source: `CLAUDE.md` in [thrashr888/agentkernel](https://github.com/thra
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [agentkernel](https://github.com/thrashr888/agentkernel/tree/main/claude-plugin/.claude/skills/agentkernel)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/thrashr888/agentkernel](https://github.com/thrashr888/agentkernel)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-p -->
