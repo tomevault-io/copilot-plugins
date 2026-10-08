@@ -1,0 +1,9 @@
+{
+  "name": "andrewkoltsov--librus-sdk",
+  "displayName": "librus-sdk",
+  "description": "Unofficial TypeScript SDK and CLI for Librus Synergia.",
+  "version": "1.0.0",
+  "author": "andrewkoltsov",
+  "homepage": "https://github.com/andrewkoltsov/librus-sdk",
+  "skills": []
+}
