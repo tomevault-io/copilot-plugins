@@ -1,0 +1,9 @@
+{
+  "name": "fclairamb--solidping",
+  "displayName": "solidping",
+  "description": "Distributed, self-hostable uptime monitoring: 40 check types, multi-region workers, private agents, status pages, incidents and on-call escalation \u2014 in a single Go binary.",
+  "version": "1.0.0",
+  "author": "fclairamb",
+  "homepage": "https://github.com/fclairamb/solidping",
+  "skills": []
+}
