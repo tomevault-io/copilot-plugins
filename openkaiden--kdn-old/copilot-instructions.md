@@ -1,0 +1,615 @@
+## kdn-old
+
+> This file provides guidance to AI agents when working with code in this repository.
+
+# AGENTS.md
+
+This file provides guidance to AI agents when working with code in this repository.
+
+## Project Overview
+
+kdn is a command-line interface for launching and managing AI agents (Claude Code, Goose, Cursor, OpenCode, OpenClaw) with custom configurations. It provides a unified way to start different agents with specific settings including skills, MCP server connections, and LLM integrations.
+
+## Build and Test Commands
+
+All build and test commands are available through the Makefile. Run `make help` to see all available commands.
+
+### Build
+```bash
+make build
+```
+
+### Execute
+After building, the `kdn` binary will be created in the current directory:
+
+```bash
+# Display help and available commands
+./kdn --help
+
+# Execute a specific command
+./kdn <command> [flags]
+```
+
+### Run Tests
+```bash
+# Run all tests
+make test
+
+# Run tests with coverage report
+make test-coverage
+```
+
+For more granular testing (specific packages or tests), use Go directly:
+```bash
+# Run tests in a specific package
+go test ./pkg/cmd
+
+# Run a specific test
+go test -run TestName ./pkg/cmd
+```
+
+### Format Code
+```bash
+# Format all Go files in the project
+make fmt
+
+# Check if code is formatted (without modifying files)
+make check-fmt
+```
+
+Code should be formatted before committing. Run `make fmt` to ensure consistent style across the codebase.
+
+### Git Hooks
+
+The project includes pre-commit and commit-msg hooks in `.githooks/` that enforce formatting checks (`make check-fmt`) and signed-off commits. Activate them once after cloning:
+
+```bash
+make setup-hooks
+```
+
+### Integration Tests
+```bash
+# Run integration tests (requires Podman)
+make test-integration
+```
+
+### Additional Commands
+```bash
+# Run go vet
+make vet
+
+# Run all CI checks (format check, vet, tests)
+make ci-checks
+
+# Clean build artifacts
+make clean
+
+# Install binary to GOPATH/bin
+make install
+```
+
+## Architecture
+
+### Command Structure (Cobra-based)
+- Entry point: `cmd/kdn/main.go` → calls `cmd.NewRootCmd().Execute()` and handles errors with `os.Exit(1)`
+- Root command: `pkg/cmd/root.go` exports `NewRootCmd()` which creates and configures the root command
+- Subcommands: Each command is in `pkg/cmd/<command>.go` with a `New<Command>Cmd()` factory function
+- Commands use a factory pattern: each command exports a `New<Command>Cmd()` function that returns `*cobra.Command`
+- Command registration: `NewRootCmd()` calls `rootCmd.AddCommand(New<Command>Cmd())` for each subcommand
+- No global variables or `init()` functions - all configuration is explicit through factory functions
+
+### Global Flags
+Global flags are defined as persistent flags in `pkg/cmd/root.go` and are available to all commands.
+
+#### Accessing the --storage Flag
+
+The `--storage` flag specifies the directory where kdn stores all its files. The default path is computed at runtime using `os.UserHomeDir()` and `filepath.Join()` to ensure cross-platform compatibility (Linux, macOS, Windows). The default is `$HOME/.kdn` with a fallback to `.kdn` in the current directory if the home directory cannot be determined.
+
+**Environment Variable**: The `KDN_STORAGE` environment variable can be used to set the storage directory path. The flag `--storage` will override the environment variable if both are specified.
+
+**Priority order** (highest to lowest):
+1. `--storage` flag (if specified)
+2. `KDN_STORAGE` environment variable (if set)
+3. Default: `$HOME/.kdn`
+
+To access this value in any command:
+
+```go
+func NewExampleCmd() *cobra.Command {
+    return &cobra.Command{
+        Use:   "example",
+        Short: "An example command",
+        Run: func(cmd *cobra.Command, args []string) {
+            storagePath, _ := cmd.Flags().GetString("storage")
+            // Use storagePath...
+        },
+    }
+}
+```
+
+**Important**: Never hardcode paths with `~` as it's not cross-platform. Always use `os.UserHomeDir()` and `filepath.Join()` for path construction.
+
+### Module Design Pattern
+
+All modules (packages outside of `cmd/`) MUST follow the interface-based design pattern to ensure proper encapsulation, testability, and API safety.
+
+**Required Pattern:**
+1. **Public types are interfaces** - All public types must be declared as interfaces
+2. **Implementations are unexported** - Concrete struct implementations must be unexported (lowercase names)
+3. **Compile-time interface checks** - Add unnamed variable declarations to verify interface implementation at compile time
+4. **Factory functions** - Provide `New*()` functions that return the interface type
+
+**Benefits:**
+- Prevents direct struct instantiation (compile-time enforcement)
+- Forces usage of factory functions for proper validation and initialization
+- Enables easy mocking in tests
+- Clear API boundaries
+- Better encapsulation
+
+**This pattern is MANDATORY for all new modules in `pkg/`.**
+
+### JSON Storage Structure
+
+When designing JSON storage structures for persistent data, use **nested objects with subfields** instead of flat structures with naming conventions.
+
+**Preferred Pattern (nested structure):**
+```json
+{
+  "id": "dc610bffa75f21b5b043f98aff12b157fb16fae6c0ac3139c28f85d6defbe017",
+  "paths": {
+    "source": "/Users/user/project",
+    "configuration": "/Users/user/project/.kaiden"
+  }
+}
+```
+
+**Benefits:**
+- **Better organization** - Related fields are grouped together
+- **Clarity** - Field relationships are explicit through nesting
+- **Extensibility** - Easy to add new subfields without polluting the top level
+- **No naming conflicts** - Avoids debates about snake_case vs camelCase
+- **Self-documenting** - Structure communicates intent
+
+### Runtime System
+
+The runtime system provides a pluggable architecture for managing workspaces on different container/VM platforms (Podman, MicroVM, Kubernetes, etc.).
+
+**Key Components:**
+- **Runtime Interface** (`pkg/runtime/runtime.go`): Contract all runtimes must implement
+- **Registry** (`pkg/runtime/registry.go`): Manages runtime registration and discovery
+- **Runtime Implementations** (`pkg/runtime/<runtime-name>/`): Platform-specific packages (e.g., `fake`, `podman`, `openshell`)
+- **Centralized Registration** (`pkg/runtimesetup/register.go`): Automatically registers all available runtimes
+
+**Optional Interfaces:**
+- **StorageAware**: Enables runtimes to persist data in a dedicated storage directory
+- **AgentLister**: Enables runtimes to report which agents they support
+- **Terminal**: Enables interactive terminal sessions with instances (auto-starts if needed)
+- **Dashboard**: Enables runtimes to expose a web dashboard URL (`GetURL(ctx, instanceID) (string, error)`)
+- **FlagProvider**: Enables runtimes to declare runtime-specific CLI flags (`Flags() []FlagDef`). Flag values flow through `AddOptions.RuntimeOptions` and `CreateParams.RuntimeOptions` as `map[string]string`, keeping the command layer runtime-agnostic. The `runtimesetup.ListFlags()` bridge discovers flags from all available runtimes for registration on cobra commands.
+- **HostResolver**: Declares the container hostname used to reach the host machine from inside the workspace. Runtimes that do not use `host.containers.internal` (e.g., OpenShell uses `host.openshell.internal`) implement `ContainerHostname() string`. The manager passes this value to `agent.SetModel()` so that localhost URLs are rewritten to the correct hostname. When absent, `containerurl.ContainerHost` (`host.containers.internal`) is used.
+- **ConfigTransformer**: Allows a runtime to transform the merged `WorkspaceConfiguration` before it is applied. The method `TransformConfig(cfg *workspace.WorkspaceConfiguration) error` is called after config merging. OpenShell implements this to rewrite MCP command args to `host.openshell.internal`.
+- **Experimental**: Signals that a runtime's support is experimental. The `init` command detects this interface via `manager.GetRuntime()` and prints `⚠️  <DisplayName> runtime support is experimental` to stderr using the runtime's `DisplayName()` (suppressed in JSON output mode). No return value — presence of the interface is the signal. Currently implemented by: `openshell`.
+
+**For detailed runtime implementation guidance, use:** `/working-with-runtime-system`
+
+**To add a new runtime, use:** `/add-runtime`
+
+### OpenShell Runtime — Version Management
+
+The OpenShell runtime downloads three binaries (`openshell`, `openshell-gateway`, `openshell-driver-vm`) from official GitHub releases at `https://github.com/NVIDIA/OpenShell/releases`.
+
+**Default version constant:** `pkg/runtime/openshell/version.go` defines `DefaultVersion` (currently `v0.0.39`). To bump the default, update **both** files:
+1. `pkg/runtime/openshell/version.go` — change the `DefaultVersion` constant
+2. `AGENTS.md` — update the version mentioned in this section (the "currently `vX.Y.Z`" parenthetical above)
+
+**`--openshell-version` flag:** Users can override the version at `kdn init` time (e.g., `kdn init --openshell-version v0.1.0`). The flag value flows through `RuntimeOptions["openshell-version"]` and is read in `Create()` before binaries are downloaded.
+
+**Binary caching:** Binaries are cached per version at `<storageDir>/bin/<version>/`. Different versions coexist without conflict.
+
+### Podman Runtime — Deny-mode Networking
+
+When a workspace has `network.mode = deny`, the Podman runtime enforces outbound traffic filtering on every `Start()` using two layers. Allowed hosts come from `network.hosts` and are automatically augmented by host patterns derived from configured secrets. With no allowed hosts at all, the approval-handler denies every request (fully-isolated workspace).
+
+1. **nftables firewall (kernel level)**: A `network-guard` sidecar with `CAP_NET_ADMIN` runs nftables rules that DROP outbound traffic from the agent's UID. Loopback and `host.containers.internal` are always allowed. This prevents bypassing the proxy by unsetting `HTTP_PROXY`.
+2. **OneCLI proxy (application level)**: All existing OneCLI rules are deleted, a single `manual_approval` rule for `*` is created (**`"allow"` is not a valid OneCLI action**), and the `approval-handler` sidecar approves/denies intercepted requests by hostname pattern.
+
+**Secret host auto-injection:** When secrets are configured, `collectSecretHosts()` (in `network.go`) reads their host patterns from the secret service registry (known types) or stored metadata (`other` type) and merges them with the explicit `network.hosts` list. The `podmanRuntime` receives the `secretservice.Registry` via `SetSecretServiceRegistry()`, called by `manager.RegisterRuntime()` for runtimes that implement the `secretServiceRegistryAware` interface.
+
+**Key files:**
+- `pkg/runtime/podman/network.go` — `configureNetworking` / `clearNetworkingRules` / `setupFirewallRules` / `clearFirewallRules` / `buildNftScript` / `collectSecretHosts` / `mergeHosts`
+- `pkg/runtime/podman/pods/approval-handler.ts` — Node.js sidecar (TypeScript, runs via `tsx`)
+- `pkg/runtime/podman/pods/onecli-pod.yaml` — pod manifest with the approval-handler, network-guard, and OneCLI containers
+- `pkg/runtime/podman/system/path.go` / `path_windows.go` — `HostPathToMachinePath` / `MachinePathToHostPath` for translating host paths to Podman Machine (WSL2) paths on Windows; no-ops on Linux/macOS
+
+**Per-workspace temporary directories:** The Podman runtime writes files into subdirectories of `<storage-dir>/<dir>/<workspace-name>/` for each workspace it creates. These directories are cleaned up when the workspace is removed. The authoritative list is the `workspaceTempDirs` variable in `pkg/runtime/podman/remove.go`. **If you add a new per-workspace directory under `storageDir`, add its name to that slice** so `Remove()` cleans it up automatically.
+
+**For the full design, use:** `/working-with-onecli`
+
+### Secret Service System
+
+The secret service system provides a pluggable architecture for managing secret service definitions that describe how secrets are applied to workspace requests.
+
+**Key Components:**
+- **SecretService Interface** (`pkg/secretservice/secretservice.go`): Contract all secret services must implement (`Name()`, `Description()`, `HostsPatterns()`, `Path()`, `EnvVars()`, `HeaderName()`, `HeaderTemplate()`)
+- **Registry** (`pkg/secretservice/registry.go`): Manages secret service registration and discovery
+- **Centralized Registration** (`pkg/secretservicesetup/register.go`): Automatically registers all available secret services; `ListAvailable()` returns the names of all registered services (used by commands to derive valid `--type` values dynamically); `ListServices()` returns fully-constructed service instances (used by `autoconf` to iterate env vars)
+
+**For detailed guidance on the full secrets abstraction (Store, registry, adding new types), use:** `/working-with-secrets`
+
+### Credential System
+
+The credential system provides a pluggable architecture for intercepting sensitive credential files that users mount into workspace containers. When a declared mount targets a known credential file (e.g., `$HOME/.config/gcloud/application_default_credentials.json`), kdn replaces the real file with a placeholder and configures OneCLI to inject the real credential at request time.
+
+**Key Components:**
+- **`Credential` interface** (`pkg/credential/credential.go`): Contract all credentials must implement:
+  - `Name() string` — unique identifier
+  - `ContainerFilePath() string` — absolute path inside the container where the credential file lives
+  - `Detect(mounts []workspace.Mount, homeDir string) (hostFilePath string, intercepted *workspace.Mount)` — returns the real host path and the mount to intercept, or `("", nil)` if not applicable
+  - `FakeFile(hostFilePath string) ([]byte, error)` — returns placeholder file content (no real credentials)
+  - `Configure(ctx, client onecli.Client, hostFilePath string) error` — reads the real file and registers the credential with OneCLI
+  - `HostPatterns(hostFilePath string) []string` — hostnames OneCLI must be allowed to reach for this credential
+- **Registry** (`pkg/credential/registry.go`): Thread-safe ordered list; `NewRegistry() Registry`; `Register()` rejects nil, empty name, and duplicates
+- **Centralized Registration** (`pkg/credentialsetup/register.go`): `RegisterAll(registrar)` registers all built-in credentials (currently `gcloud`)
+- **`CredentialRegistryAware`** optional runtime interface (`pkg/runtime/runtime.go`): Runtimes that implement `SetCredentialRegistry(credential.Registry)` receive the registry automatically when `manager.RegisterRuntime()` is called
+
+**Podman runtime integration:**
+- `detectCredentials()` in `create.go` iterates the registry at `Create` time, writes fake files to `<storageDir>/credentials/<workspaceName>/<credName>/credential` (mode `0600`), and returns `[]activeCredential`
+- Fake credential mounts are added to the container; intercepted original mounts are suppressed via an `interceptedMounts map[mountKey]bool`
+- `setupOnecli` calls `cred.Configure()` for each active credential to register it with OneCLI
+- `collectCredentialHosts()` in `start.go` merges credential host patterns into the network allow-list
+- Credential directories are cleaned up on workspace removal via the `"credentials"` entry in `workspaceTempDirs` (`pkg/runtime/podman/remove.go`)
+
+**Per-workspace credential directory layout:**
+
+```text
+<storageDir>/
+  credentials/
+    <workspaceName>/
+      <credName>/
+        credential    ← fake placeholder file (mode 0600)
+```
+
+**Implementations:**
+- `pkg/credential/gcloud/` — Google Cloud ADC (`application_default_credentials.json`); configures OneCLI Vertex AI via `ConnectApp`
+- `pkg/credential/kubeconfig/` — Kubernetes token-based auth (`~/.kube/config`); detects by mount target (`$HOME/.kube/config` or `$HOME/.kube`), activates only when the current context uses token auth (not client certs), writes a pruned single-context kubeconfig with a placeholder token, and registers an OneCLI `Authorization: Bearer` secret for the cluster API server host
+
+### Dev Container Features
+
+The `pkg/devcontainers/features` package models, downloads, and orders Dev Container Features (OCI registry artifacts or local file trees) prior to container image generation.
+
+**Key Components:**
+- **`Feature` interface** (`pkg/devcontainers/features/features.go`): `ID()` + `Download(ctx, destDir) (FeatureMetadata, error)`
+- **`FeatureMetadata` interface**: exposes `ContainerEnv()`, `Options()`, `InstallsAfter()` parsed from `devcontainer-feature.json`
+- **`FeatureOptions` interface**: `Merge(userOptions) (map[string]string, error)` — normalises keys (uppercase, non-alphanumeric → `_`), applies defaults, validates types and enums
+- **`FromMap`**: classifies IDs (`./…` → local, `https?://` → error, otherwise → OCI), returns a sorted `[]Feature` slice plus the user-options map — no I/O
+- **`Order`**: topological sort (Kahn's algorithm) on `installsAfter` fields; matches versionless `installsAfter` IDs against versioned registered IDs by stripping the tag
+
+**Typical call sequence:** `FromMap` → `Feature.Download` (parallel) → `Order` → `FeatureOptions.Merge` per feature.
+
+**Podman runtime integration** (`pkg/runtime/podman/create.go`):
+- `prepareFeatures()` drives the full sequence when `WorkspaceConfig.Features` is non-empty
+- Features are downloaded into `<instanceDir>/features/feature-{i}/` (stable names based on `FromMap`'s sorted output)
+- Each feature becomes a `featureInstallInfo{dirName, options, envVars}` passed to `generateContainerfile()`
+- `WorkspaceConfigDir` is required in `CreateParams` so `FromMap` can resolve `./local-feature` paths
+- In the Containerfile, feature `COPY`/`RUN`/`ENV` instructions are placed after user creation (`useradd -m agent`) but before `USER agent:agent` — features still run as root so they can install system-wide tools, but `/home/agent` and the `agent` account exist so install scripts can `chown`, write dotfiles, and `su` to the target user. `_REMOTE_USER` and `_REMOTE_USER_HOME` are exported as `ENV` immediately before the feature block
+
+**Config merger requirement:** The `pkg/config/merger.go` `Merge()` and `copyConfig()` functions must explicitly handle every field of `WorkspaceConfiguration`. Fields not wired in are silently dropped. `Features` is handled via `mergeFeatures()` / `copyFeatures()`; `Ports` is handled via `mergePorts()` / inline copy.
+
+**For full implementation details, use:** `/working-with-devcontainers`
+
+### StepLogger System
+
+The StepLogger system provides user-facing progress feedback during runtime operations with spinners and completion messages.
+
+**Key Points:**
+- Commands inject StepLogger into context based on output mode (text with spinners vs JSON silent)
+- Runtime methods retrieve logger from context and report progress steps
+- Automatic behavior: animated spinners in text mode, silent in JSON mode
+
+**For detailed StepLogger integration guidance, use:** `/working-with-steplogger`
+
+### Logger System
+
+The Logger system (`pkg/logger`) routes stdout and stderr from runtime CLI commands (e.g., `podman build`) to the user. It is controlled by the `--show-logs` flag.
+
+**Key Points:**
+- Commands inject a `logger.Logger` into context based on the `--show-logs` flag
+- Runtime methods retrieve it from context and pass its writers to CLI command execution
+- When `--show-logs` is set, output is written to the command's stdout/stderr; otherwise it is discarded
+- `--show-logs` cannot be combined with `--output json` (enforced in `preRun`)
+
+**Interface** (`pkg/logger/logger.go`):
+```go
+type Logger interface {
+    Stdout() io.Writer
+    Stderr() io.Writer
+}
+```
+
+**Context integration** (`pkg/logger/context.go`): `WithLogger()` / `FromContext()` — mirrors the StepLogger pattern.
+
+### Environment Variable Utilities
+
+The `pkg/envvars` package provides shared helpers for reading environment variables.
+
+**`IsTruthy(key string) bool`** — returns `true` if the environment variable named by `key` is set to a recognised truthy string (`1`, `true`, `True`, `TRUE`, `yes`, `Yes`, `YES`). Use this instead of inlining a `switch` whenever a boolean env var controls behaviour.
+
+### OneCLI System
+
+The OneCLI system (`pkg/onecli`) provides a typed HTTP client and higher-level abstractions for interacting with the OneCLI API, which proxies outbound HTTP requests and injects secrets as headers inside workspace containers.
+
+**Key Points:**
+- `Client` — raw CRUD for secrets and networking rules against the OneCLI API
+- `CredentialProvider` — retrieves the `oc_` API key from `/api/user/api-key` (bootstraps local user on first call)
+- `SecretMapper` — converts `workspace.Secret` values to `CreateSecretInput` for the API; handles known types via the secret service registry and the `other` type via explicit fields
+- `SecretProvisioner` — idempotently creates or updates secrets; handles 409 conflicts by patching the existing secret
+
+**For detailed OneCLI integration guidance, use:** `/working-with-onecli`
+
+### Config System
+
+The config system manages workspace configuration for **injecting environment variables, mounting directories, providing skills, configuring MCP servers, managing secrets and controlling network access** into workspaces (different from runtime-specific configuration).
+
+**Multi-Level Configuration:**
+- **Workspace-level** (`.kaiden/workspace.json`) - Project configuration, set via `--workspace-configuration` flag
+- **Project-specific** (`~/.kdn/config/projects.json`) - User's custom config for specific projects
+- **Global** (empty string `""` key in `projects.json`) - Settings applied to all projects
+- **Agent-specific** (`~/.kdn/config/agents.json`) - Per-agent overrides
+
+**Configuration Precedence:** Agent > Project > Global > Workspace (highest to lowest)
+
+**Key config interfaces in `pkg/config/`:**
+
+- **`WorkspaceConfigUpdater`** (`workspaceupdater.go`): Reads/writes `.kaiden/workspace.json`. Methods: `AddSecret(name)`, `AddEnvVar(name, value)`, `AddMount(host, target, ro)`.
+- **`ProjectConfigUpdater`** (`projectsupdater.go`): Reads/writes `~/.kdn/config/projects.json`. Methods: `AddSecret(projectID, secretName)`, `AddMount(projectID, host, target string, ro bool)`. Pass `""` as `projectID` for the global entry. Both methods are idempotent.
+- **`AgentConfigUpdater`** (`agents.go`): Reads/writes `~/.kdn/config/agents.json` per agent. Methods: `AddEnvVar(agentName, name, value)`, `AddMount(agentName, host, target, ro)`. Used by `kdn autoconf` to record Vertex AI config for the `claude` agent.
+- **`AgentConfigLoader`** (`agents.go`): Loads a `WorkspaceConfiguration` for a named agent from `agents.json`. Returns an empty config (not an error) when the file or agent key is absent.
+
+### Agent Default Settings Files
+
+A separate mechanism (distinct from env/mount config) allows default dotfiles to be baked into the workspace image:
+
+- **Location:** `~/.kdn/config/<agent>/` (e.g., `~/.kdn/config/claude/`)
+- Files are read by `manager.readAgentSettings()` into a `map[string]agent.SettingsFile` and passed to the runtime via `runtime.CreateParams.AgentSettings`
+- After reading, the manager calls `agent.SkipOnboarding()`, `agent.SetModel()` (if a model is set), and `agent.SetMCPServers()` (if MCP is configured) to further modify the settings map
+- The Podman runtime writes these files into the build context as `agent-settings/` and adds `COPY --chown=agent:agent agent-settings/. /home/agent/` to the Containerfile
+- Result: every file under `config/<agent>/` lands at the corresponding path under `/home/agent/` inside the image
+
+**For detailed guidance, use:** `/working-with-config-system`
+
+**For detailed configuration guidance, use:** `/working-with-config-system`
+
+### Podman Runtime Configuration
+
+The Podman runtime supports runtime-specific configuration for **building and configuring containers** (base image, packages, sudo permissions, agent setup).
+
+**Configuration Files:**
+- `<storage-dir>/runtimes/podman/config/image.json` - Base image configuration
+- `<storage-dir>/runtimes/podman/config/claude.json` - Claude agent configuration
+- `<storage-dir>/runtimes/podman/config/goose.json` - Goose agent configuration
+- `<storage-dir>/runtimes/podman/config/opencode.json` - OpenCode agent configuration
+- `<storage-dir>/runtimes/podman/config/openclaw.json` - OpenClaw agent configuration
+
+**For Podman runtime configuration details, use:** `/working-with-podman-runtime-config`
+
+### OpenClaw on Podman
+
+The OpenClaw agent runs a local gateway on port 18789 inside the container. The terminal command starts the gateway in the background, waits for it to be ready, then launches the `openclaw` CLI. Type `talk to agent` in the CLI to start a chatbot conversation.
+
+To access the OpenClaw web UI, first start the workspace terminal and wait for the CLI to become ready:
+
+```bash
+kdn terminal <workspace-name>
+```
+
+Then, in a separate session, open the web UI:
+
+```bash
+kdn workspace open <workspace-name>
+```
+
+This opens the browser to the gateway's control UI. Enter `openclaw123` as the gateway token to authenticate.
+
+The gateway token and other defaults are configured via `SkipOnboarding()` in `pkg/agent/openclaw.go`, which writes to `.openclaw/openclaw.json` inside the container.
+
+### Skills System
+
+Skills are reusable capabilities that can be discovered and executed by AI agents:
+
+- **Location**: `.agents/skills/<skill-name>/SKILL.md`
+- **Claude support**: `.claude/skills` is a symlink to `../.agents/skills`, so Claude Code discovers skills automatically
+- **Format**: Each SKILL.md contains:
+  - YAML frontmatter with `name`, `description`, `argument-hint`
+  - Detailed instructions for execution
+  - Usage examples
+
+Skills can be provided to workspaces via the `skills` field in `workspace.json` (or any other config level). Each entry is the path to a single skill directory on the host. kdn mounts it read-only into the agent's skills directory inside the container using the directory's basename as the skill name:
+
+| Agent | Container skills directory |
+|-------|--------------------------|
+| Claude Code | `$HOME/.claude/skills/` |
+| Goose | `$HOME/.agents/skills/` |
+| Cursor | `$HOME/.cursor/skills/` |
+| OpenCode | `$HOME/.opencode/skills/` |
+| OpenClaw | `$HOME/.openclaw/skills/` |
+
+The `Agent` interface (`pkg/agent/agent.go`) exposes `SkillsDir() string` which returns the container path (using the `$HOME` variable) where skill directories should be mounted. The manager calls this during `Add()` to convert `WorkspaceConfig.Skills` entries into `workspace.Mount` entries before passing the config to the runtime.
+
+### Adding a New Skill
+1. Create directory: `.agents/skills/<skill-name>/`
+2. Create SKILL.md with frontmatter and instructions
+3. No symlink step needed — `.claude/skills` already symlinks to `.agents/skills/`
+
+### Adding a New Command
+
+**Available Skills:**
+- `/add-command-simple` - For commands without JSON output support
+- `/add-command-with-json` - For commands with JSON output support
+- `/add-alias-command` - For alias commands that delegate to existing commands
+- `/add-parent-command` - For parent commands with subcommands
+
+**All commands MUST:**
+- Define the `Args` field for argument validation (`cobra.NoArgs`, `cobra.ExactArgs(n)`, etc.)
+- Include an `Example` field with usage examples
+- Have a corresponding `Test<Command>Cmd_Examples` test function to validate examples
+
+**For advanced command patterns, use:** `/implementing-command-patterns`
+
+**For JSON output types (where they are defined and how to use them), use:** `/working-with-json-output-types`
+
+**For testing commands, use:** `/testing-commands`
+
+### Working with the Instances Manager
+
+The instances manager provides the API for managing workspace instances:
+
+```go
+// Create manager
+manager, err := instances.NewManager(storageDir)
+
+// Register runtimes
+runtimesetup.RegisterAll(manager)
+
+// Register agents
+agentsetup.RegisterAll(manager)
+
+// Register secret services
+secretservicesetup.RegisterAll(manager)
+
+// Add instance
+manager.Add(ctx, instances.AddOptions{...})
+
+// List, Get, Delete instances
+manager.List()
+manager.Get(id)
+manager.Delete(id)
+
+// Start, Stop instances
+manager.Start(ctx, id)
+manager.Stop(ctx, id)
+
+// Dashboard URL (returns ErrDashboardNotSupported if runtime does not implement Dashboard)
+manager.GetDashboardURL(ctx, id)
+
+// Interactive terminal
+manager.Terminal(ctx, id, []string{"bash"})
+
+// Retrieve a registered runtime by type (e.g. to check optional interfaces like Experimental)
+manager.GetRuntime(runtimeType)
+```
+
+**Workspace Name Sanitization:** The manager automatically sanitizes workspace names — whether auto-generated from the source directory basename or provided via `--name`. Names are lowercased and any run of invalid characters (spaces, `@`, etc.) is collapsed into a single hyphen. This ensures compatibility with runtimes like Podman that require lowercase image names.
+
+**For detailed manager API and project detection, use:** `/working-with-instances-manager`
+
+### Project Identifier Detection
+
+The `pkg/project` package provides a single shared implementation for computing stable project identifiers from a source directory. Both the instances manager and the `autoconf` command use it so the identifier is always derived the same way.
+
+**Key Components:**
+- **`Detector` interface** (`pkg/project/project.go`): Single method `DetectProject(ctx, dir) string`
+- **`NewDetector(git.Detector) Detector`**: Factory — wraps a `git.Detector` to resolve repository info
+
+**Detection rules (in priority order):**
+1. Git repo with remote URL → `<remoteURL>/` or `<remoteURL>/<relPath>`
+2. Git repo without remote → `filepath.Join(rootDir, relPath)` (or just `rootDir`)
+3. Not a git repo → `dir` as-is
+
+**Usage:**
+```go
+detector := project.NewDetector(git.NewDetector())
+projectID := detector.DetectProject(ctx, sourceDir)
+```
+
+**Integration points:**
+- `instances.NewManager` wraps `project.NewDetector(git.NewDetector())` internally; `newManagerWithFactory` accepts a `project.Detector` for test injection
+- `autoconfCmd` stores a `project.Detector` field with a nil guard in `preRun`; inject a fake in tests
+
+### Cross-Platform Path Handling
+
+⚠️ **CRITICAL**: All path operations and tests MUST be cross-platform compatible (Linux, macOS, Windows).
+
+**Core Rules:**
+- **Host paths** (files on disk): Use `filepath.Join()` - works on Windows, macOS, Linux
+- **Container paths** (inside Podman): Use `path.Join()` - containers are always Unix/Linux
+- Convert relative paths to absolute with `filepath.Abs()`
+- Never hardcode paths with `~` - use `os.UserHomeDir()` instead
+- **Use `t.TempDir()` for ALL temporary directories in tests**
+
+**Example:**
+```go
+import (
+    "path"           // For container paths
+    "path/filepath"  // For host paths
+)
+
+// Host path (cross-platform)
+configDir := filepath.Join(storageDir, ".kaiden")
+
+// Container path (always Unix)
+workspacePath := path.Join("/workspace", "sources")
+```
+
+**For detailed cross-platform patterns, use:** `/cross-platform-development`
+
+## Documentation Standards
+
+### Markdown Best Practices
+
+All markdown files (*.md) in this repository must follow these standards:
+
+**Fenced Code Blocks:**
+- **ALWAYS** include a language tag in fenced code blocks
+- Use the appropriate language identifier (`bash`, `go`, `json`, `yaml`, `text`, etc.)
+- For output examples or plain text content, use `text` as the language tag
+- This ensures markdown linters (markdownlint MD040) pass and improves syntax highlighting
+
+**Common Language Tags:**
+- `bash` - Shell commands and scripts
+- `go` - Go source code
+- `json` - JSON data structures
+- `yaml` - YAML configuration files
+- `text` - Plain text output, error messages, or generic content
+- `markdown` - Markdown examples
+
+## Copyright Headers
+
+All source files must include Apache License 2.0 copyright headers with Red Hat copyright. Use the `/copyright-headers` skill to add or update headers automatically. The current year is 2026.
+
+## Dependencies
+
+- Cobra (github.com/spf13/cobra): CLI framework
+- Go 1.26+
+
+## Testing
+
+Tests follow Go conventions with `*_test.go` files alongside source files. Tests use the standard `testing` package and should cover command initialization, execution, and error cases.
+
+### Parallel Test Execution
+
+**All tests MUST call `t.Parallel()` as the first line of the test function.**
+
+**Exception:** Tests using `t.Setenv()` cannot use `t.Parallel()` on the parent test function.
+
+**For general testing best practices, use:** `/testing-best-practices`
+
+**For command testing patterns, use:** `/testing-commands`
+
+**For cross-platform testing, use:** `/cross-platform-development`
+
+**Before submitting a PR (code, tests, docs checklist), use:** `/complete-pr`
+
+## GitHub Actions
+
+GitHub Actions workflows are stored in `.github/workflows/`. All workflows must use commit SHA1 hashes instead of version tags for security reasons (to prevent supply chain attacks from tag manipulation).
+
+Example:
+```yaml
+- uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+```
+
+Always include the version as a comment for readability.
+
+---
+> Source: [openkaiden/kdn-old](https://github.com/openkaiden/kdn-old) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
