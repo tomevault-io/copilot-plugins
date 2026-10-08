@@ -20,7 +20,7 @@ Original source: `AGENTS.md` in [sankeyangshu/lemon-admin](https://github.com/sa
 - [lemon-admin](https://github.com/sankeyangshu/lemon-admin/tree/main/.agents/skills/committing-with-commitlint/SKILL.md)
 - [lemon-admin](https://github.com/sankeyangshu/lemon-admin/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md)
 
-From [sankeyangshu/lemon-admin](https://github.com/sankeyangshu/lemon-admin) — a repo with 317+ stars on GitHub.
+From [sankeyangshu/lemon-admin](https://github.com/sankeyangshu/lemon-admin) — a repo with 0+ stars on GitHub.
 
 ---
 
