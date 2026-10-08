@@ -1,0 +1,9 @@
+{
+  "name": "nbardy--buddies",
+  "displayName": "buddies",
+  "description": "A local, git-worktree multi-agent swarm orchestrator for Codex, Claude, Gemini, and OpenCode",
+  "version": "1.0.0",
+  "author": "nbardy",
+  "homepage": "https://github.com/nbardy/buddies",
+  "skills": []
+}
