@@ -1,0 +1,64 @@
+## ticks
+
+> This project uses **tick** (`tk`) for issue tracking.
+
+# Agent Instructions
+
+This project uses **tick** (`tk`) for issue tracking.
+
+## Quick Reference (tk)
+
+```bash
+tk ready --json | head -1
+tk create "Found edge case" --discovered-from <current-tick> -p 3
+tk update <id> --status in_progress
+tk note <id> "Investigating auth flow"
+tk close <id> --reason "Fixed in this session"
+```
+
+## Building tk
+
+Dev builds go to **`./bin/tk`** (gitignored):
+
+```bash
+make build && ./bin/tk --help
+```
+
+**Never build over `~/.local/bin/tk`.** That binary is shared by every other
+agent running on this machine and may carry a hand-applied local patch; a
+build from a clean tree silently reverts it and breaks them mid-task.
+Replacing it is a release action and needs an explicit
+`TK_ALLOW_MACHINE_INSTALL=1 make install`.
+
+## Ticks Skill
+
+The distributable skill lives in `skills/ticks/` and is the source of truth. It covers tracker use and authoring (planning, good ticks, epics, gates); running epics is ticfac's (github.com/pengelbrecht/ticfac), so execution guidance does not belong in this skill. Keep handoff based on git and `.tick/` state, never a harness-private session ID.
+
+## Landing the Plane (Session Completion)
+
+**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+
+**MANDATORY WORKFLOW:**
+
+1. **File issues for remaining work** - Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Update issue status** - Close finished work, update in-progress items
+4. **PUSH TO REMOTE** - This is MANDATORY:
+   ```bash
+   git pull --rebase
+   git push
+   git status  # MUST show "up to date with origin"
+   ```
+5. **Clean up** - Clear stashes, prune remote branches
+6. **Verify** - All changes committed AND pushed
+7. **Hand off** - Provide context for next session
+
+**CRITICAL RULES:**
+- Work is NOT complete until `git push` succeeds
+- NEVER stop before pushing - that leaves work stranded locally
+- NEVER say "ready to push when you are" - YOU must push
+- If push fails, resolve and retry until it succeeds
+
+---
+> Source: [pengelbrecht/ticks](https://github.com/pengelbrecht/ticks) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-07 -->
