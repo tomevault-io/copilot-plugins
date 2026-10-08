@@ -1,0 +1,9 @@
+{
+  "name": "tinyhumansai--tinymemory",
+  "displayName": "tinymemory",
+  "description": "Agent friendly memory system. Route any memory system into a standardized interface",
+  "version": "1.0.0",
+  "author": "tinyhumansai",
+  "homepage": "https://github.com/tinyhumansai/tinymemory",
+  "skills": []
+}
