@@ -4,7 +4,7 @@
   "repo": "codexctl",
   "description": "Manage multiple OpenAI Codex CLI accounts \u2014 profile switching, rate limit dashboard, shell completions",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sawmills/codexctl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T02:21:22Z"
+  "distributed_at": "2026-10-08T03:47:10Z"
 }
