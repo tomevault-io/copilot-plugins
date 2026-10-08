@@ -1,0 +1,9 @@
+{
+  "name": "isorensen--hyprflow",
+  "displayName": "hyprflow",
+  "description": "Save and restore Hyprland window sessions",
+  "version": "1.0.0",
+  "author": "isorensen",
+  "homepage": "https://github.com/isorensen/hyprflow",
+  "skills": []
+}
