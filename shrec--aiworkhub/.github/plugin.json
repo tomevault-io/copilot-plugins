@@ -1,0 +1,9 @@
+{
+  "name": "shrec--aiworkhub",
+  "displayName": "AIWorkHub",
+  "description": "Open-source, local-first control plane for multi-model AI coding agents in VS Code and MCP: task DAGs, source intelligence, durable context and evidence-based review.",
+  "version": "1.0.0",
+  "author": "shrec",
+  "homepage": "https://github.com/shrec/AIWorkHub",
+  "skills": []
+}
