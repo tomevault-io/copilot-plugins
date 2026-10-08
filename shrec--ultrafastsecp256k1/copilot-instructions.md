@@ -3,7 +3,7 @@
 > <!-- AIWORKHUB_TOOL_USE_POLICY_START -->
 
 <!-- AIWORKHUB_TOOL_USE_POLICY_START -->
-Target: .github/copilot-instructions.md
+Target: AGENTS.md
 # AIWorkHub MCP tool-use policy
 Manager role:
 - The manager does not write code: it runs the project with the owner, distributes work to workers by difficulty and cost, and reviews what returns; small precise corrections are allowed, building features is the workers' job.
@@ -73,4 +73,4 @@ Stop at Codex review.
 
 ---
 > Source: [shrec/UltrafastSecp256k1](https://github.com/shrec/UltrafastSecp256k1) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
