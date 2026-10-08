@@ -1,0 +1,44 @@
+{
+  "name": "Aspose.Slides-FOSS-for-Java",
+  "owner": "aspose-slides-foss",
+  "repo": "Aspose.Slides-FOSS-for-Java",
+  "description": "Open-source Java library for creating, reading and editing PowerPoint (.pptx) presentations \u2014 slides, shapes, text, tables, fills, effects, notes and comments. MIT licensed.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T06:11:11Z"
+}
