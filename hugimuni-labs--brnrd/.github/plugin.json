@@ -1,0 +1,9 @@
+{
+  "name": "hugimuni-labs--brnrd",
+  "displayName": "brnrd",
+  "description": "A persistent, reachable resident behind Claude Code and Codex (and Vibe), steer it from Telegram/GitHub/WhatsApp, it keeps working while you're away. It opened >1K PRs on this repo. Self-hosted, $7 ho",
+  "version": "1.0.0",
+  "author": "hugimuni-labs",
+  "homepage": "https://github.com/hugimuni-labs/brnrd",
+  "skills": []
+}
