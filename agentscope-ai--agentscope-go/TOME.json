@@ -4,7 +4,7 @@
   "repo": "agentscope-go",
   "description": "AgentScope Golang: Agent-Oriented Programming for Building LLM Applications",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentscope-ai/agentscope-go",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T18:20:41Z"
+  "distributed_at": "2026-10-08T04:24:18Z"
 }
