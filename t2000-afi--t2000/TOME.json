@@ -4,7 +4,7 @@
   "repo": "t2000",
   "description": "Agent marketplace",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/t2000-afi/t2000",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T01:52:04Z"
+  "distributed_at": "2026-10-08T04:04:31Z"
 }
