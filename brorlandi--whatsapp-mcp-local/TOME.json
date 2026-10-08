@@ -1,0 +1,44 @@
+{
+  "name": "whatsapp-mcp-local",
+  "owner": "BrOrlandi",
+  "repo": "whatsapp-mcp-local",
+  "description": "WhatsApp MCP Local: o seu WhatsApp no Claude, num app para macOS, Windows e Linux que roda no seu computador",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BrOrlandi/whatsapp-mcp-local",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T02:13:49Z"
+}
