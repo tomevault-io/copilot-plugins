@@ -1,194 +1,53 @@
 ## intunecommander
 
-> Intune Commander is a .NET 10 / React 19 / WPF+WebView2 Windows desktop app **and CLI** for managing Microsoft Intune configurations across Commercial, GCC, GCC-High, and DoD clouds. It's a ground-up remake of a PowerShell/WPF tool — the migration to compiled .NET specifically targets UI deadlocks and threading issues.
+> Use this file as the default operating guide for work in this repository. Keep changes minimal, respect the Rust/.NET seam, and prefer existing docs over re-explaining project context.
 
-# Copilot Instructions
+# cmProjectX Agent Guide
 
-## Project Overview
-Intune Commander is a .NET 10 / React 19 / WPF+WebView2 Windows desktop app **and CLI** for managing Microsoft Intune configurations across Commercial, GCC, GCC-High, and DoD clouds. It's a ground-up remake of a PowerShell/WPF tool — the migration to compiled .NET specifically targets UI deadlocks and threading issues.
+Use this file as the default operating guide for work in this repository. Keep changes minimal, respect the Rust/.NET seam, and prefer existing docs over re-explaining project context.
 
-## External Documentation
-- Use Context7 first for external frameworks, libraries, SDKs, GitHub Actions, and APIs whenever current behavior matters.
-- Prefer Context7 for .NET, React, Zustand, Microsoft.Graph.Beta, Azure.Identity, LiteDB, PowerShell modules, and GitHub Actions before relying on memory.
-- Skip Context7 only for purely repository-local code or when no relevant library entry exists.
+## Start Here
 
-## Critical: Async-First Rule
-- **No `.GetAwaiter().GetResult()`, `.Wait()`, or `.Result` calls — ever.** Always `await`.
-- All async methods must accept `CancellationToken`.
+- Product and architecture overview: [README.md](./README.md)
+- MVP scope and design decisions: [docs/MVP-PLAN.md](./docs/MVP-PLAN.md)
+- API contract and codegen direction: [contract/README.md](./contract/README.md)
+- .NET Core fork guidance: [service/Core/README.md](./service/Core/README.md)
+- Parser dependency rules: [crates/parser/README.md](./crates/parser/README.md)
 
-## Technology Stack
-| Component | Technology |
-|-----------|-----------|
-| Runtime | .NET 10, C# 12 |
-| Desktop Host | WPF + WebView2 (Windows-only) |
-| Frontend | React 19, TypeScript, Vite |
-| State Management | Zustand |
-| .NET ↔ React Bridge | `ic/1` protocol via `window.chrome.webview.postMessage` |
-| Authentication | Azure.Identity 1.17.x |
-| Graph API | **Microsoft.Graph.Beta** 5.130.x-preview |
-| Cache | LiteDB 5.0.x (encrypted via DataProtection) |
-| Profile storage | `Microsoft.AspNetCore.DataProtection` |
-| DI | `Microsoft.Extensions.DependencyInjection` 10.0.x |
-| Testing | xUnit, NSubstitute 5.3.x |
+## Repository Shape
 
-**Important:** Uses `Microsoft.Graph.Beta` (not the stable `Microsoft.Graph`). All models and `GraphServiceClient` come from `Microsoft.Graph.Beta.*`.
+- `app/`: Rust desktop client. Today it is a thin client that pings the local service.
+- `crates/api-types/`: Rust DTOs that currently mirror the API contract by hand.
+- `contract/`: OpenAPI schema. This is the source of truth for shared DTOs and endpoints.
+- `service/Api/`: ASP.NET API host.
+- `service/Core/`: hard-forked Intune Commander core seam. Reuse it; do not re-implement Graph coverage in Rust.
+- `service/Store/`: append-only storage seam.
+- `service/Sync/`: Graph delta sync seam.
 
-## Architecture
+## Commands
 
-### Projects
-- `Intune.Commander.Core` — class library: auth, 30+ Graph services, models, export/import
-- `Intune.Commander.DesktopReact` — WPF + WebView2 host; bridge services and `BridgeRouter`
-- `Intune.Commander.CLI` — `System.CommandLine`-based CLI: `export`, `import`, `list`, `profile`, `diff`, `alert`, `completion`
-- `Intune.Commander.Installer` — Master Packager Dev package (`package.json`) producing MSI + MSIX
-- `intune-commander-react/` — React 19 + TypeScript frontend (Vite)
+- Rust build: `cargo build`
+- Rust app: `cargo run -p app`
+- .NET build from repo root: `dotnet build service/CmProjectX.slnx`
+- .NET API run from repo root: `dotnet run --project service/Api/Api.csproj`
 
-### DI and service lifetimes
-`App.xaml.cs` calls `services.AddIntuneCommanderCore()` which registers:
-- **Singleton:** `IAuthenticationProvider`, `IntuneGraphClientFactory`, `ProfileService`, `IProfileEncryptionService`, `ICacheService`
-- **Transient:** `IExportService`
+## Project-Specific Rules
 
-**Graph API services are NOT registered in DI.** After authentication, the WPF host (and CLI) creates them using `new XxxService(graphClient)`. Bridge services implement `IBridgeService` and are dispatched via `BridgeRouter`.
+- Treat [contract/openapi.yaml](./contract/openapi.yaml) as canonical. Prefer generating C# and Rust types from it instead of expanding hand-written DTOs in parallel.
+- Keep the parser as an external upstream dependency. Parser fixes belong upstream first; this repo should normally only change the dependency pin or integration code.
+- Do not rewrite the Intune/Graph engine in Rust. The intended architecture is a Rust client talking to a local .NET sidecar.
+- `service/Store/` is append-only by design. Preserve that model when implementing storage behavior.
+- Avoid editing build artifacts and local state in `target/`, `bin/`, `obj/`, `.vs/`, or local database files unless the task is explicitly about generated output.
+- The Rust client currently depends on a sibling `cmtraceopen` checkout via a path dependency. If you need parser-related builds to work outside that environment, switch to a pinned git dependency rather than vendoring code here.
+- Windows Reactor in [app/Cargo.toml](./app/Cargo.toml) is an **active git dependency pinned to a commit** (`windows-reactor` / `windows-reactor-setup` from `microsoft/windows-rs`; not on crates.io). A `[patch]` in the root [Cargo.toml](./Cargo.toml) redirects both to a sibling `../windows-rs/` fork carrying a nested-dirty reconcile fix — keep that patch; without it state-driven Reactor children under a stable ancestor (e.g. `NavigationView`) never re-render. Don't bump the rev or drop the patch casually.
 
-### Bridge pattern (Desktop UI)
-React communicates with .NET via the `ic/1` protocol:
-- **Production**: `window.chrome.webview.postMessage(msg)` → `BridgeRouter` → `IBridgeService`
-- **Dev mode**: `bridgeClient.ts` falls back to a WebSocket at `ws://localhost:5100/ws/` when WebView2 is unavailable
-- Messages: `{ protocol: 'ic/1', id, command, payload }` — responses keyed by `id`, push events by `event` name
-- Auth commands use a 120s timeout; all others 10s
+## Working Norms
 
-### State management
-Zustand stores in `intune-commander-react/src/store/` — one store per domain (e.g., `settingsCatalogStore.ts`, `detectionRemediationStore.ts`). Each workspace has its own store.
-
-### Caching
-`CacheService` uses LiteDB at `%LocalAppData%\Intune.Commander\cache.db` (AES-encrypted). Cache key = tenant ID + data-type string. Default TTL: 24 hours.
-
-### Profile storage
-`ProfileService` stores encrypted JSON at `%LocalAppData%\Intune.Commander\profiles.json`. The file is prefixed with `INTUNEMANAGER_ENC:` when encrypted via DataProtection.
-
-### Multi-cloud
-`CloudEndpoints.GetEndpoints(cloud)` returns `(graphBaseUrl, authorityHost)`:
-- Commercial & GCC → `https://graph.microsoft.com`
-- GCC-High → `https://graph.microsoft.us`
-- DoD → `https://dod-graph.microsoft.us`
-
-## Service-per-Type Pattern
-Each Intune object type gets its own interface + implementation. All services take `GraphServiceClient` in constructor, use manual `@odata.nextLink` pagination, accept `CancellationToken`, and return `List<T>`.
-
-## Graph API Pagination — Manual `@odata.nextLink` (REQUIRED)
-**Do NOT use `PageIterator`** — it silently truncates results on some tenants. All Graph list operations must use manual `while` loop pagination:
-```csharp
-var response = await _graphClient.DeviceAppManagement.MobileApps
-    .GetAsync(req =>
-    {
-        req.QueryParameters.Top = 999;
-        // other query params...
-    }, cancellationToken);
-
-var result = new List<MobileApp>();
-while (response != null)
-{
-    if (response.Value != null)
-        result.AddRange(response.Value);
-
-    if (!string.IsNullOrEmpty(response.OdataNextLink))
-    {
-        response = await _graphClient.DeviceAppManagement.MobileApps
-            .WithUrl(response.OdataNextLink)
-            .GetAsync(cancellationToken: cancellationToken);
-    }
-    else
-    {
-        break;
-    }
-}
-```
-- Always set `$top=999` on the initial request.
-- Use `.WithUrl(response.OdataNextLink)` (requires `using Microsoft.Kiota.Abstractions;`).
-- Apply this pattern to **every** service method that lists Graph objects, including `GroupService`.
-
-## Key Conventions
-
-### C# Coding Style
-- **C# 12:** primary constructors, collection expressions (`[]`), required members, file-scoped namespaces
-- **Nullable reference types enabled** everywhere
-- **Private fields:** `_camelCase`; public members: `PascalCase`
-- **Namespaces:** `Intune.Commander.Core.*`, `Intune.Commander.DesktopReact.*`, `Intune.Commander.CLI.*`
-- **Graph client factory class name:** `IntuneGraphClientFactory` (not `GraphClientFactory`) to avoid collision with `Microsoft.Graph.GraphClientFactory`
-
-### Models and exports
-- **Graph SDK models used directly** — no wrapper DTOs. Types like `DeviceConfiguration`, `MobileApp` come from `Microsoft.Graph.Beta.Models`.
-- **Export wrappers** for types with assignments (e.g., `CompliancePolicyExport`, `ApplicationExport`) bundle the object + its assignments list.
-- **Export format**: Subfolder-per-type (`DeviceConfigurations/`, `CompliancePolicies/`, etc.) with files named `{DisplayName}.json`. A `migration-table.json` at the root maps original IDs to new IDs. Must maintain read compatibility with the original PowerShell tool's JSON format.
-
-### Legacy compatibility constants — DO NOT CHANGE
-- `INTUNEMANAGER_ENC:` — file marker prefix for encrypted profiles
-- `IntuneManager.Profiles.v1` — DataProtection purpose (fallback decryptor)
-- `SetApplicationName("IntuneManager")` in `ServiceCollectionExtensions` — changing this makes all existing encrypted data unreadable
-- MSI `UpgradeCode` GUID `29E042C7-F159-466C-9F23-D2695288319A` in `package.json` (`msi.upgradeCode`) — changing this breaks upgrade detection for all installed copies
-
-### DebugLogService (WPF host)
-`DebugLogService.Instance` is a singleton with `ObservableCollection<string> Entries` (capped at 2000). Use `DebugLog.Log(category, message)` / `DebugLog.LogError(...)` throughout WPF host code. All logging dispatches to the UI thread.
-
-### PowerShell scripts
-- Use **ASCII-only characters** — no Unicode decorations (`━─→✓✗○—`) as they break PowerShell 5.1 parsing
-- Save `.ps1` files with ASCII encoding; target PowerShell 5.1+ compatibility
-
-## Build & Test
-```bash
-# Build all projects
-dotnet build
-
-# Run unit tests (excludes integration tests)
-dotnet test --filter "Category!=Integration"
-
-# Run a single test class
-dotnet test --filter "FullyQualifiedName~ProfileServiceTests"
-
-# Run unit tests with coverage threshold (40% line coverage enforced)
-dotnet test /p:CollectCoverage=true /p:Threshold=40 /p:ThresholdType=line /p:ThresholdStat=total
-
-# Run integration tests (requires AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET env vars)
-dotnet test --filter "Category=Integration"
-
-# Launch the desktop app
-dotnet run --project src/Intune.Commander.DesktopReact
-
-# Run the React frontend dev server
-cd intune-commander-react && npm run dev
-```
-
-## Testing Conventions
-- xUnit with `[Fact]`/`[Theory]`, NSubstitute 5.x for mocking (`Substitute.For<IMyInterface>()`)
-- File I/O tests use temp directories with `IDisposable` cleanup
-- **`GraphServiceClient` is NOT mockable** (sealed SDK) — services that directly call Graph keep their reflection-based contract tests; NSubstitute is used only for project-owned interfaces
-- **NSubstitute patterns:**
-  - Return values: `svc.MethodAsync(Arg.Any<T>(), Arg.Any<CancellationToken>()).Returns(Task.FromResult(result))`
-  - Argument capture: `svc.MethodAsync(Arg.Do<T>(x => captured = x), Arg.Any<CancellationToken>()).Returns(...)`
-  - Call verification: `await svc.Received(1).MethodAsync(expectedArg, Arg.Any<CancellationToken>())`
-  - No-call assertion: `svc.DidNotReceive().Method(Arg.Any<string>())`
-- **CLI tests** that redirect `Console.Out`/`Console.Error` use `[Collection("Console")]` with `DisableParallelization` to prevent concurrent capture conflicts
-- **Integration tests** are tagged `[Trait("Category", "Integration")]`. Base class `GraphIntegrationTestBase` provides `GraphServiceClient` from env vars. CRUD tests use `IntTest_AutoCleanup_` prefix and clean up in `finally` blocks.
-
-**Unit tests are required for all new or changed code.** Every new service, model, or behavioral change must include corresponding tests. 40% line coverage threshold is enforced in CI.
-
-## Git Workflow
-- **Never commit directly to `main`.** All changes must go through a feature branch and pull request.
-- Branch naming: `feature/`, `fix/`, `docs/` prefixes (e.g. `feature/wave7-scripts`, `fix/lazy-load-guard`).
-- PRs should be created with `gh pr create` and submitted for Copilot / human review before merging.
-
-## Adding a New Intune Object Type
-1. Create `I{Type}Service` interface in `Core/Services/` following the CRUD + `GetAssignmentsAsync` pattern.
-2. Create `{Type}Service` implementation taking `GraphServiceClient`, using manual `@odata.nextLink` pagination for listing.
-3. If assignments are needed, create `{Type}Export` model in `Core/Models/` bundling object + assignments.
-4. Add export/import methods to `ExportService`/`ImportService`.
-5. Add tests in `tests/Intune.Commander.Core.Tests/`.
-
-## Adding a New Desktop UI Workspace
-1. **React side**: Create a component in `intune-commander-react/src/components/workspace/`, a Zustand store in `src/store/`, and TypeScript types.
-2. **Bridge side**: Add a bridge service in `src/Intune.Commander.DesktopReact/Services/` implementing `IBridgeService`.
-3. **Register**: Wire the bridge service into `BridgeRouter` and add navigation in the React shell.
-See existing workspaces (Settings Catalog, Detection & Remediation) for the full pattern.
+- Prefer narrow validation for the stack you touched: `cargo build` for Rust-only changes, `dotnet build service/CmProjectX.slnx` for service-only changes.
+- If a task touches the API surface, update the OpenAPI contract first or confirm the contract already matches the intended behavior.
+- Link to the docs above when explaining architecture or product intent instead of copying long sections into new files.
+- Ignore checked-in stubs unless the task explicitly asks to flesh them out; this repo still contains planned seams that are intentionally incomplete.
 
 ---
 > Source: [adamgell/IntuneCommander](https://github.com/adamgell/IntuneCommander) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
