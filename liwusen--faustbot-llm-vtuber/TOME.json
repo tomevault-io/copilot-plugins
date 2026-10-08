@@ -1,0 +1,44 @@
+{
+  "name": "FaustBot-llm-vtuber",
+  "owner": "liwusen",
+  "repo": "FaustBot-llm-vtuber",
+  "description": "FaustBot \u662f\u4e00\u4e2a AI \u9a71\u52a8\u7684 Vtuber / \u684c\u9762\u4f19\u4f34\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liwusen/FaustBot-llm-vtuber",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T04:56:22Z"
+}
