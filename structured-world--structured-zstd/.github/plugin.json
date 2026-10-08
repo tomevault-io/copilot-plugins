@@ -1,0 +1,9 @@
+{
+  "name": "structured-world--structured-zstd",
+  "displayName": "structured-zstd",
+  "description": "Pure-Rust Zstandard (zstd) compression and decompression: all levels, streaming, dictionaries, no_std and WebAssembly \u2014 no FFI, no cmake. Fork of ruzstd.",
+  "version": "1.0.0",
+  "author": "structured-world",
+  "homepage": "https://github.com/structured-world/structured-zstd",
+  "skills": []
+}
