@@ -1,0 +1,9 @@
+{
+  "name": "vgrichina--berrry-wine",
+  "displayName": "berrry-wine",
+  "description": "Run real Windows 98 apps and games in your browser. An x86 emulator and Win32 layer written directly in WebAssembly Text, no OS image, no source ports.",
+  "version": "1.0.0",
+  "author": "vgrichina",
+  "homepage": "https://github.com/vgrichina/berrry-wine",
+  "skills": []
+}
