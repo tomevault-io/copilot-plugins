@@ -1,44 +1,31 @@
-## changelog
+## model-lock
 
-> Keep CHANGELOG.md Unreleased current; do not cut a versioned release unless asked
+> Frozen model-lock tests must not be retargeted to fit other-model code
 
 
-# Changelog policy
+# Model lock tests
 
-Follow [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Keep `## [Unreleased]` as the first version heading (immediately under the intro).
+`tests/model_lock/` holds frozen **driver-path** oracles per hardware-validated model:
 
-## Unreleased (default)
+- `tests/model_lock/opticfilm_8200i_se/`
+- `tests/model_lock/opticfilm_8100_v2/`
 
-When completing **notable** work (user-facing features, fixes, behaviour changes, docs that users would notice, new examples/tools), **update `CHANGELOG.md` in the same change**:
+## Never without an explicit user request
 
-- Add or extend bullets under `### Added`, `### Fixed`, `### Changed`, `### Removed`, or `### Notes for integrators` as they already appear in this file.
-- Create a subsection only when it has at least one bullet; drop empty subsections.
-- Merge into an existing bullet when it is the same change; do not duplicate.
-- Skip trivial noise: formatting-only, ruff/lint, test-only internals, comment-only, or chore commits with no user-visible effect.
-- **Do not** invent a versioned release (`## [x.y.z]`), dates, or version-bump prose while working under Unreleased.
-- **Do not** bump `src/pyopticfilm/_version.py` unless the user asks for a version or release prep.
+Do **not** edit, delete, skip, xfail, loosen, parametrize, or move files under `tests/model_lock/` unless the user **explicitly** asks to update **that model's** lock tests.
 
-## Versioned releases (only when asked)
+Do **not** copy lock tests into `tests/` with weaker asserts to get a green run.
 
-When the user **explicitly** asks to cut a release or write release notes:
+Do **not** add a lock folder for another model unless the user asks.
 
-- Move Unreleased items into a new `## [x.y.z] - YYYY-MM-DD` block **above** older versions.
-- Leave `## [Unreleased]` in place (empty, no leftover subsections).
-- Match existing heading names and Keep a Changelog style.
+## When lock tests fail
 
-## Contributor credits
+- Change is for a **different** model: specialize that model (flags, leaf class, session branch). Leave other lock oracles unchanged.
+- User is working on the **lock model's** driver: **stop and ask** before changing expected values. A failure may be a real regression.
 
-Credit **external** contributors where it is appropriate (merged PRs, hardware enablement, substantial patches).
+## Allowed without asking
 
-- **Do not** credit the maintainer **jboneng**.
-- Put credits under `### Contributors` in that **release** block (not Unreleased, unless the user asks).
-- Format each name as a markdown link to that person’s GitHub profile: `[@username](https://github.com/username)`.
-
-```markdown
-### Contributors
-
-- [@TobbyTravel](https://github.com/TobbyTravel) for OpticFilm 8100 (V2) support.
-```
+Read lock tests. Run `uv run pytest -m model_lock`. Change production code so lock tests keep passing.
 
 ---
 > Source: [jboneng/pyopticfilm](https://github.com/jboneng/pyopticfilm) — distributed by [TomeVault](https://tomevault.io).
