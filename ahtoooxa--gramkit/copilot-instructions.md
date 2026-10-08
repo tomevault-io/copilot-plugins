@@ -1,118 +1,55 @@
-## 09-api-and-store-conventions
+## 10-typescript-and-schema
 
-> Conventions for implementing API clients and Pinia stores, including patterns for handling API requests, state management best practices, error handling, and common pitfalls to avoid.
+> Guidelines for using TypeScript with auto-generated OpenAPI schema types, including proper type imports, API client typing, and common mistakes to avoid when working with the schema.
 
-description: Conventions for implementing API clients and Pinia stores, including patterns for handling API requests, state management best practices, error handling, and common pitfalls to avoid.
+description: Guidelines for using TypeScript with auto-generated OpenAPI schema types, including proper type imports, API client typing, and common mistakes to avoid when working with the schema.
 
-# API and Store Implementation Conventions
+# TypeScript and OpenAPI Schema Conventions
 
-## API Client
+## Auto-Generated Schema
 
-- The project uses `openapi-fetch` for API calls
-- [frontend/src/api/client.ts](mdc:frontend/src/api/client.ts) defines the central API client
-- API client is initialized with the Telegram Web App init data
-- All API calls should use this imported client with proper typing
+The TypeScript schema types are AUTOMATICALLY GENERATED from the OpenAPI specification:
+- Do NOT manually edit schema files
+- These types are regenerated during the build process
+- Always use the generated types instead of creating custom ones
 
-```typescript
-// API client implementation
-import createClient from 'openapi-fetch';
-import type { paths } from '../types/schema';
-import useTelegram from '@/services/useTelegram';
+## Type Imports
 
-const { webAppInitData } = useTelegram();
+- Import types from the OpenAPI schema like this:
+  ```typescript
+  import type { components, paths } from '@/types/schema';
+  ```
 
-const API_HOST = import.meta.env.VITE_API_HOST || 'http://localhost:3779';
-const apiClient = createClient<paths>({
-  baseUrl: API_HOST,
-  headers: {
-    initData: webAppInitData,
-  },
-});
+- Use specific schema component types:
+  ```typescript
+  type TarotCard = components['schemas']['TarotCardSchema'];
+  type SpreadType = components['schemas']['SpreadType'];
+  type Reading = components['schemas']['ReadingSchema'];
+  ```
 
-export default apiClient;
-```
+- For API endpoint parameters and responses:
+  ```typescript
+  type StreamParams = paths['/tarot/reading/stream']['get']['parameters']['query'];
+  type ResponseType = paths['/some/endpoint']['get']['responses']['200']['content']['application/json'];
+  ```
 
-## Store Implementation
+## API Client Usage with Types
 
-- API calls are made directly in the store actions, NOT in components
-- Stores follow the Pinia pattern with state, actions, and getters
-- Each domain feature has its own dedicated store:
-  - [frontend/src/store/tarot.ts](mdc:frontend/src/store/tarot.ts) - Tarot card operations
-  - [frontend/src/store/user.ts](mdc:frontend/src/store/user.ts) - User data and settings
-  - [frontend/src/store/readings.ts](mdc:frontend/src/store/readings.ts) - Reading history
-  - [frontend/src/store/payments.ts](mdc:frontend/src/store/payments.ts) - Payment processing
-  - [frontend/src/store/subscription.ts](mdc:frontend/src/store/subscription.ts) - Subscription status
+- The API client uses the generated paths:
+  ```typescript
+  const apiClient = createClient<paths>({
+    baseUrl: API_HOST,
+    headers: { /* ... */ },
+  });
+  ```
 
-## Typical Store Pattern
+## Common Type Mistakes to Avoid
 
-```typescript
-// Store with API calls pattern
-import { defineStore } from 'pinia';
-import apiClient from '@/api/client';
-import type { components, paths } from '@/types/schema';
-
-export const useSomeStore = defineStore('storeName', {
-  state: () => ({
-    // Type your state properly
-    items: [] as SomeType[],
-    loading: false,
-    error: null as string | null,
-  }),
-
-  actions: {
-    async fetchData() {
-      this.loading = true;
-      this.error = null;
-
-      try {
-        const { data, error } = await apiClient.GET('/some/endpoint', {
-          params: { query: { param1: 'value' } },
-        });
-
-        if (error) {
-          this.error = 'Error message';
-          console.error('Failed to fetch data:', error);
-          return null;
-        }
-
-        this.items = data;
-        return data;
-      } catch (e) {
-        this.error = e instanceof Error ? e.message : 'Unknown error';
-        throw e;
-      } finally {
-        this.loading = false;
-      }
-    }
-  }
-});
-```
-
-## Common LLM Mistakes to Avoid
-
-1. ❌ DO NOT create fetch/axios calls in components - all API calls go through the store
-2. ❌ DO NOT create local component state for API data - use the appropriate store
-3. ❌ DO NOT use standard fetch or axios - always use the typed openapi-fetch client
-4. ❌ DO NOT bypass the store layer for API access
-5. ✅ DO use proper typing from the OpenAPI schema via `type { components, paths }`
-6. ✅ DO handle loading and error states in the store
-7. ✅ DO use PostHog for analytics when appropriate
-8. ✅ DO ensure proper error handling in all API calls
-
-## Best Practices
-
-- Always use typed API responses from OpenAPI schema
-- Handle loading and error states at the store level
-- Keep UI components free from direct API calls
-- Use composables for reusable API-related logic
-- Cache API responses in stores when appropriate
-
-## Anti-patterns to Avoid
-
-- DO NOT create new API clients in components
-- DO NOT make direct fetch/axios calls bypassing the apiClient
-- DO NOT store API response data directly in components
-- DO NOT duplicate API call logic across different stores
+1. ❌ DO NOT manually edit any schema files - they are auto-generated
+2. ❌ DO NOT use `any` types when schema types are available
+3. ❌ DO NOT create redundant interface definitions when schema already defines them
+4. ❌ DO NOT use string literals for API endpoints
+5. ✅ DO use the generated schema types for complete type safety
 
 ---
 > Source: [AHTOOOXA/gramkit](https://github.com/AHTOOOXA/gramkit) — distributed by [TomeVault](https://tomevault.io).
