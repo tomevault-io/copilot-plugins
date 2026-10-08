@@ -1,0 +1,9 @@
+{
+  "name": "beartype--bearshape",
+  "displayName": "bearshape",
+  "description": "Runtime shape and dtype checking for NumPy, JAX, PyTorch, and CuPy arrays, powered by beartype.",
+  "version": "1.0.0",
+  "author": "beartype",
+  "homepage": "https://github.com/beartype/bearshape",
+  "skills": []
+}
