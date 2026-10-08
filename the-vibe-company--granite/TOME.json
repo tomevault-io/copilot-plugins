@@ -4,7 +4,7 @@
   "repo": "granite",
   "description": "Local-first knowledge compiler for humans and agents. Inspired by Karpathy's vision. Plain markdown, CLI + MCP server.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/The-Vibe-Company/granite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T20:12:31Z"
+  "distributed_at": "2026-10-08T01:51:32Z"
 }
