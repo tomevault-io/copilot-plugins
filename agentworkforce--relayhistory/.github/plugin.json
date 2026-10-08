@@ -1,0 +1,9 @@
+{
+  "name": "agentworkforce--relayhistory",
+  "displayName": "relayhistory",
+  "description": "Sync & search Claude Code + Codex CLI conversation history in SQLite. Zero dependencies.",
+  "version": "1.0.0",
+  "author": "AgentWorkforce",
+  "homepage": "https://github.com/AgentWorkforce/relayhistory",
+  "skills": []
+}
