@@ -2,22 +2,52 @@
 
 > Source: [rexleimo/aios](https://github.com/rexleimo/aios). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-Local-first AI agent bootstrap: Playwright Browser MCP + ContextDB for Codex CLI, Claude     Code, Gemini CLI, and OpenCode.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rexleimo/aios](https://github.com/rexleimo/aios).
+Original source: `AGENTS.md` in [rexleimo/aios](https://github.com/rexleimo/aios).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [rexleimo/aios](https://github.com/rexleimo/aios) — a repo with 50+ stars on GitHub.
+## Bundled Skills (29)
+
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/memo/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/debug-hub/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/find-skills/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/model-router/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/search-first/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/security-scan/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/skill-opt-lite/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/cap-commit-push/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/frontend-design/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/aios-codemap-ops/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/skill-constraints/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/verification-loop/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/awesome-design-md/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/aios-work-dispatch/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/contextdb-autopilot/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/harness-init-runner/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/aios-project-system/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/aios-offload-recall/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/aios-workflow-router/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/versioning-by-impact/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/pre-edit-safety-gate/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/.system/skill-creator/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/.system/skill-installer/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/aios-interception-runtime/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/aios-long-running-harness/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/seo-geo-page-optimization/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/typesafe-ai/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/portrait-916/SKILL.md)
+- [aios](https://github.com/rexleimo/aios/tree/main/skill-sources/grill/SKILL.md)
+
+From [rexleimo/aios](https://github.com/rexleimo/aios) — a repo with 0+ stars on GitHub.
 
 ---
 
