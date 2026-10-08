@@ -1,0 +1,9 @@
+{
+  "name": "hermes-labs-ai--hermeneutic",
+  "displayName": "hermeneutic",
+  "description": "Turn corrections from AI agent logs into guidance for similar tasks. Local memory with semantic retrieval, prompt-context hooks, and response checks.",
+  "version": "1.0.0",
+  "author": "hermes-labs-ai",
+  "homepage": "https://github.com/hermes-labs-ai/hermeneutic",
+  "skills": []
+}
