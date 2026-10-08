@@ -1,15 +1,16 @@
 ## harness-cli
 
-> - Load repo-local skills only when the current Rex Capability Command selects one as its Provider.
+> - Prefer repo-local `.grok/skills` and `.grok/agents` for AIOS-enhanced surfaces.
 
-## AIOS Native Hermes Layer
+## AIOS Native Grok Build Layer
 
-- Load repo-local skills only when the current Rex Capability Command selects one as its Provider.
-- Evaluate the shared workflow policy before Hermes built-in memory/delegate loops for task work. `direct` and `guarded` work stay local; only `planned` work creates or reuses an AIOS plan.
-- For `planned` work, persist one work-item artifact under `docs/plans/`, run only the Provider returned by Rex, and return fresh evidence before finishing.
-- Do **not** replace AIOS workflow policy with Hermes-only session_search/memory for engineering tasks.
-- AIOS MCP bridge: `scripts/aios-mcp-server.mjs` — plan tools, context-pack, doctor, skill validate/install.
+- Prefer repo-local `.grok/skills` and `.grok/agents` for AIOS-enhanced surfaces.
+- Keep work grounded in the AIOS runtime and verification flow.
+- Native sync writes `.grok/hooks/aios-workflow.json` (`aios plan hook-user-prompt --client grok`). Absent until `aios internal native update`. Enable those project hooks with `/hooks-trust` once.
+- Follow the shared workflow policy before selecting a plan, skill, team, or harness route.
+- Grok Build also loads shared `.agents/skills` and Claude-compat paths; prefer AIOS-managed roots for project-shared skills.
+- Token compression is handled by community tools RTK + Caveman (installed via `aios init`).
 
 ---
 > Source: [rexleimo/harness-cli](https://github.com/rexleimo/harness-cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
