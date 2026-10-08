@@ -1,0 +1,9 @@
+{
+  "name": "foysal50x--tashil",
+  "displayName": "tashil",
+  "description": "A comprehensive subscription management package for Laravel with built-in Redis caching, feature-gated access, usage tracking, billing, and analytics",
+  "version": "1.0.0",
+  "author": "Foysal50x",
+  "homepage": "https://github.com/Foysal50x/tashil",
+  "skills": []
+}
