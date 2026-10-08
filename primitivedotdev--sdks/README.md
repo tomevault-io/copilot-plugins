@@ -7,11 +7,11 @@ Official Node.js, Python, and Go SDKs plus the primitive CLI for Primitive — e
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [primitivedotdev/sdks](https://github.com/primitivedotdev/sdks).
+Original source: `AGENTS.md` in [primitivedotdev/sdks](https://github.com/primitivedotdev/sdks).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
