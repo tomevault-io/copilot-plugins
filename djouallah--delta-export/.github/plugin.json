@@ -1,0 +1,9 @@
+{
+  "name": "djouallah--delta-export",
+  "displayName": "delta_export",
+  "description": "DuckDB extension to export Delta Lake metadata from DuckLake",
+  "version": "1.0.0",
+  "author": "djouallah",
+  "homepage": "https://github.com/djouallah/delta_export",
+  "skills": []
+}
