@@ -1,0 +1,9 @@
+{
+  "name": "tingkuanpei--dtorch",
+  "displayName": "dtorch",
+  "description": "Easy-to-Use Distributed Inference API for PyTorch",
+  "version": "1.0.0",
+  "author": "tingkuanpei",
+  "homepage": "https://github.com/tingkuanpei/dtorch",
+  "skills": []
+}
