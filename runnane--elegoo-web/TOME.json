@@ -4,7 +4,7 @@
   "repo": "elegoo-web",
   "description": "A web frontend + backend service for Elegoo Centauri Carbon 2 (CC2) FDM printers. The Node.js service maintains a single MQTT connection to the printer and exposes state to browsers via WebSocket, REST API, and Prometheus metrics.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/runnane/elegoo-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T23:24:15Z"
+  "distributed_at": "2026-10-08T03:01:33Z"
 }
