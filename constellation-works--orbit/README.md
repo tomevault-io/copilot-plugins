@@ -7,11 +7,11 @@ Local-first delivery layer for AI coding agents. Your agent files the work as a 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [constellation-works/orbit](https://github.com/constellation-works/orbit).
+Original source: `AGENTS.md` in [constellation-works/orbit](https://github.com/constellation-works/orbit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
