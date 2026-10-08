@@ -1,0 +1,94 @@
+## valcraft
+
+> - `plugins/valcraft/` — the shipped plugin. Everything under it is copied into a consumer's plugin cache on install; everything outside it is development scaffold.
+
+# Agent instructions
+
+## Orientation
+
+- `plugins/valcraft/` — the shipped plugin. Everything under it is copied into a consumer's plugin cache on install; everything outside it is development scaffold.
+- `plugins/valcraft/skills/<skill>/SKILL.md` — one directory per skill, with its own `references/`, `templates/`, or `evals/` beside it.
+- `plugins/valcraft/scripts/` — executables that ship with the plugin. `controller-stop.sh` is the Claude Code Stop hook.
+- `docs/` — repository documentation.
+
+Read the docs relevant to your change before modifying a skill or a manifest. Do not invent missing requirements — ask, or record the assumption in the change.
+
+## Writing standard
+
+Use these rules for documentation, plans, skill instructions, code comments, reviews, issues, commit messages, and PR text.
+
+- Write for quick and unambiguous reading.
+- Preserve precise terms, necessary qualifiers, and natural English.
+- Prefer active voice when the actor matters.
+- Keep each sentence focused. Split sentences that contain unrelated ideas or multiple instructions.
+- Use one consistent term for each project concept. Do not change terms only for variety.
+- Keep each paragraph focused on one topic.
+- Use lists when prose would hide steps, options, or conditions.
+- Define unfamiliar domain terms once. Keep established technical terms and necessary jargon.
+- Avoid long noun chains, vague pronouns, and missing subjects.
+- Preserve facts, conditions, exceptions, and scope. Never remove meaning only to make text shorter.
+- Treat sentence length as a clarity signal, not a hard limit.
+- Do not hard-wrap prose paragraphs, list items, or blockquotes. Keep each on one physical line and rely on soft wrapping. Preserve line breaks only when Markdown syntax or embedded content requires them, such as headings, tables, code blocks, frontmatter, HTML blocks, and explicit hard breaks.
+
+For instructions, prompts, safety rules, and error messages:
+
+- Put one action in each instruction.
+- Name the actor when it is not clear.
+- Prefer direct commands and simple sentence structures.
+
+## Skill interaction design
+
+- Minimize operator questions. Resolve a value from existing configuration, repository state, or history when one authoritative source exists, and apply it without asking. Ask only when the choice is genuinely open or authoritative sources conflict.
+- Do not ask the operator to confirm answers they just gave. An interactive answer authorizes the write it configures; show the exact result in the report instead of a confirmation question.
+
+## Commands
+
+There is no application build or dependency install. The shipped plugin is Markdown, JSON, and YAML; standard-library Python scripts validate repository contracts and generated metadata.
+
+- Develop a skill live: `claude --plugin-dir /path/to/valcraft/plugins/valcraft`, then `/reload-plugins` after each edit.
+- Exercise the Cursor local-load path: `agent --plugin-dir /path/to/valcraft/plugins/valcraft`. The CLI has no plugin-reload command; reload the IDE window when a `--plugin-dir` session is not in use. Use a disposable Teams or Enterprise marketplace for install-path checks. Never mutate the operator's live Cursor configuration or team marketplace without explicit approval.
+- Exercise the Codex packaging path: add the repository as a local marketplace with `codex plugin marketplace add /path/to/valcraft`, then install the cached copy with `codex plugin add valcraft@valcraft`. Use an isolated Codex profile for verification; never mutate the operator's live configuration without explicit approval.
+- Validate the Codex plugin: Codex ships no standalone plugin validator, so the isolated-profile install above is the Codex manifest check. It must succeed and place the plugin in a cache directory named for the manifest version. Validate `plugins/valcraft/plugin.json` against `https://agent-plugins.org/schemas/1.0.0/plugin.schema.json` with any JSON Schema validator.
+- Run a skill's evals (`plugins/valcraft/skills/<skill>/evals/evals.json`): invoke the skill-creator skill with "run the evals for plugins/valcraft/skills/<skill>". Direct its workspace to `.local/` (gitignored) — never to the default sibling location inside `plugins/valcraft/`.
+- Regenerate the OpenCode skills index after any change under `plugins/valcraft/skills/` outside `evals/`: `python3 scripts/build-skills-index.py` (CI runs it with `--check`). OpenCode consumes the skills through that index over raw GitHub; there is no OpenCode manifest.
+- Check the federated worker-report registry, routing codes, backend returns, and active transport-deviation eval references: `python3 scripts/check-coordination-contracts.py`. Run its discriminating static tests with `python3 scripts/tests/test_check_coordination_contracts.py`. These checks detect declaration drift; behavioral evals prove behavior.
+- Audit a graded eval batch: `python3 scripts/jev-grade.py --runs <dir>`, `jev-compare.py`, `jev-review.py`, and `jev-apply.py`, all under `scripts/` and all taking `--runs <dir>`. Only `jev-grade.py` calls out, with `OPENROUTER_API_KEY` from the environment. Static tests: `python3 scripts/tests/test_jev_audit.py`. Protocol: `docs/evals.md`.
+- Test the shipped controller Stop hook: `python3 scripts/tests/test_controller_stop_hook.py` (CI runs it in the lint workflow). The tests feed Stop payloads to `plugins/valcraft/scripts/controller-stop.sh` in temporary repositories.
+- Check every shipped `SKILL.md` against the 8,000-byte Codex ceiling: `python3 scripts/check-skill-sizes.py` (CI runs it in the lint workflow).
+- Check that the migration ledger's newest release equals the manifest versions and every entry carries its three labels: `python3 scripts/check-migrations.py` (CI runs it in the lint workflow).
+- Check that the Cursor team-marketplace catalog resolves to `plugins/valcraft/.cursor-plugin/plugin.json`: `python3 scripts/check-cursor-marketplace.py` (CI runs it in the lint workflow after schema validation).
+
+## Architecture constraints
+
+- The plugin subtree ships; the repository root does not. Never place development-only material under `plugins/valcraft/`. `plugins/valcraft/skills/index.json` is a consumer artifact (OpenCode's remote skills index), generated — never hand-edited.
+- The Claude Code, Codex, and Cursor marketplace catalogs, their native plugin manifests, the portable plugin manifest, and the marketplace key in a Claude Code consumer's `plugins.toml` use the single name `valcraft`. A mismatch causes sync churn or failed installs.
+- The Claude Code manifest carries no `version` field. Claude Code version resolution falls through to the repository's commit SHA, so every push is a new version. Codex 0.149.1 takes the installation version from the portable manifest when both Codex manifest paths exist. The native Codex manifest remains the compatibility fallback. Keep the portable, Codex, and Cursor release versions synchronized with the newest heading of Tune's migration ledger; a version does not control cache refresh.
+- Update shared metadata across the native Claude Code, native Codex, native Cursor, and portable manifests. Codex 0.149.1 reads `interface`, including `defaultPrompt`, from the native manifest while using the portable manifest's version, and it discovers this plugin's default `skills/` tree automatically. Do not assume other native-only fields merge. Add a separate native manifest when a future harness requires one. The Cursor native `author` object may include `name` and optional `email` only.
+- The controller Stop hook is Claude Code only. Declare it inline in `plugins/valcraft/.claude-plugin/plugin.json`, never in a `hooks/` directory at the plugin root: Cursor's plugin format has its own `hooks` component with a different schema. Keep the script POSIX `sh` with no `jq`, Python, or other runtime dependency, because it runs at the end of every turn of every Claude Code session that enables the plugin. It must allow the stop in every state it cannot read. Codex and Cursor controllers rely on the turn-end line in Foreman's `loop.md` alone.
+- The portable manifest allows no unknown top-level fields. Adding a Claude Code field or Codex field there breaks schema validation.
+- No `~/.claude/skills` symlink may ever point into this repository. A bare skills directory auto-registers as an unmanaged `@skills-dir` plugin and breaks Claude Code config sync. Consumption is plugin-only.
+- No secrets and no machine-local state. Machine-specific wiring lives in the operator's config repository.
+
+## Change discipline
+
+- Non-trivial work starts with a plan; working plans live in `.local/plans/` (gitignored), not in the repository.
+- Keep tracked Valcraft content consumer-neutral. Do not name consumer projects, products, organizations, or brands. Keep consumer-specific evidence in the consumer repository or under gitignored `.local/`. Use a generic role, a neutral fictional identity, or an incident label instead. Valcraft and required third-party technology or platform names are exempt.
+- Apply the MSW deletion test to commit messages and PR bodies: state only what the change does and why it matters, then delete every sentence whose removal loses none of that. No process narration, no restated diff, no filler.
+- Update affected docs in the same change as the skill edit.
+- A change that alters what an existing consumer repository must contain — configuration keys, artifact sections, branch or ref conventions, tracker markers — gets an entry under the release heading in `plugins/valcraft/skills/valcraft-tune/references/migrations.md` in the same change, in that file's entry shape. Bump the three manifest versions in the same change so the ledger's newest heading matches them.
+- Renaming a skill directory changes its invocation string. Update the skill's `name:` field, every self-reference in its description and body, and the README table together.
+
+## Completion criteria
+
+Before marking work complete:
+
+1. Load each changed skill in every supported harness affected by the change. For Claude Code, use a `--plugin-dir` session and confirm the `/valcraft:valcraft-<skill>` namespace triggers. For Codex, install from the repository marketplace in an isolated profile and confirm the `$valcraft:valcraft-<skill>` namespace triggers. For Cursor, use an isolated `agent --plugin-dir plugins/valcraft` session and confirm `/valcraft-<skill>` loads the shipped `SKILL.md`; for Review, confirm `/valcraft-review` loads `plugins/valcraft/skills/valcraft-review/SKILL.md` and not Cursor's built-in `/review`. If an isolated profile or disposable Cursor marketplace is unavailable, do not mutate the operator's live profile or team marketplace; report the skipped runtime check explicitly.
+2. Validate each changed manifest with its native validator or schema. For Codex, confirm that the isolated-profile install from step 1 places the plugin in a cache directory named for the manifest version. Validate `plugins/valcraft/plugin.json` against the published portable schema if it changed. Run `python3 scripts/check-cursor-marketplace.py` to confirm `.cursor-plugin/marketplace.json` `owner.name` and `metadata.pluginRoot` plus each `source` resolve to `plugins/valcraft/.cursor-plugin/plugin.json` with a matching `name`, and validate both Cursor files against the schemas published in `cursor/plugins` when those files changed.
+3. Parse every changed JSON or YAML file and confirm all skill-relative paths resolve. Run `python3 scripts/build-skills-index.py --check` when a shipped skill file changed.
+4. Run `python3 scripts/check-coordination-contracts.py` and `python3 scripts/tests/test_check_coordination_contracts.py` when a report producer, Foreman coordination contract, backend, or Foreman eval changed.
+5. Update affected docs.
+6. Confirm no secret material was added.
+
+---
+> Source: [valzav/valcraft](https://github.com/valzav/valcraft) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
