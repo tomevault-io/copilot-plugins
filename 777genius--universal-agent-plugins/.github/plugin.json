@@ -1,0 +1,9 @@
+{
+  "name": "777genius--universal-agent-plugins",
+  "displayName": "universal-agent-plugins",
+  "description": "Multi-agent CLI to install, update, repair, and remove Agent Plugins 1.0 across Codex/ChatGPT, Claude Code, Cursor, Gemini CLI, Copilot, OpenCode, and more. 2,500+ plugins. SDK for universal plugins (",
+  "version": "1.0.0",
+  "author": "777genius",
+  "homepage": "https://github.com/777genius/universal-agent-plugins",
+  "skills": []
+}
