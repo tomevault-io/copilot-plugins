@@ -1,0 +1,9 @@
+{
+  "name": "starhaven-io--macosdb",
+  "displayName": "macOSdb",
+  "description": "A catalog of open-source components across macOS and Xcode releases for Apple silicon",
+  "version": "1.0.0",
+  "author": "starhaven-io",
+  "homepage": "https://github.com/starhaven-io/macOSdb",
+  "skills": []
+}
