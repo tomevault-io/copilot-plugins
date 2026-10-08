@@ -1,0 +1,34 @@
+{
+  "name": "windschord--claude-skils",
+  "displayName": "claude_skils",
+  "description": "claude_skils",
+  "version": "1.0.0",
+  "author": "windschord",
+  "homepage": "https://github.com/windschord/claude_skils",
+  "skills": [
+    {
+      "name": "operations-design",
+      "description": ""
+    },
+    {
+      "name": "report-summarizing",
+      "description": ""
+    },
+    {
+      "name": "sdd-document-management",
+      "description": ""
+    },
+    {
+      "name": "sdd-documentation",
+      "description": ""
+    },
+    {
+      "name": "software-designing",
+      "description": ""
+    },
+    {
+      "name": "task-planning",
+      "description": ""
+    }
+  ]
+}
