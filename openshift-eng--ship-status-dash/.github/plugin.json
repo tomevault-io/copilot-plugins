@@ -1,0 +1,9 @@
+{
+  "name": "openshift-eng--ship-status-dash",
+  "displayName": "ship-status-dash",
+  "description": "Status dashboard and monitor for SHIP components",
+  "version": "1.0.0",
+  "author": "openshift-eng",
+  "homepage": "https://github.com/openshift-eng/ship-status-dash",
+  "skills": []
+}
