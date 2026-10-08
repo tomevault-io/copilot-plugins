@@ -1,23 +1,42 @@
 # IntuneCommander
 
-> Source: [adamgell/IntuneCommander](https://github.com/adamgell/IntuneCommander) — distributed by [TomeVault](https://tomevault.io)
-
-A .NET 10 desktop application and CLI for managing Microsoft Intune configurations across Commercial, GCC, GCC-High, and DoD clouds. Features a React UI, drift detection, export/import, and baseline comparison.
+> Source: [adamgell/IntuneCommander](https://github.com/adamgell/IntuneCommander). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [adamgell/IntuneCommander](https://github.com/adamgell/IntuneCommander).
+Original source: `AGENTS.md` in [adamgell/IntuneCommander](https://github.com/adamgell/IntuneCommander).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/adamgell/IntuneCommander](https://github.com/adamgell/IntuneCommander)
+## Bundled Skills (18)
+
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.agents/skills/frontend-design/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/frontend-design/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/docs/design-system/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/batch-issue-prs/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.agents/skills/cmtraceopen/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/cmtraceopen-agent/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/coderabbit-review-loop/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/cmtraceopen-code-review/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.omp/skills/cmtraceopen-dev/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/cmtraceopen/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/windows-lab-workers/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/systematic-debugging/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/contract-scoped-review/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/test-driven-development/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/branch-lane-verification/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/windows-remote-validation/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/semantic-reducer-framework/SKILL.md)
+- [cmtraceopen](https://github.com/adamgell/IntuneCommander/tree/main/.claude/skills/semantic-reducer-development/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/adamgell/IntuneCommander](https://github.com/adamgell/IntuneCommander)
 
 ---
 
