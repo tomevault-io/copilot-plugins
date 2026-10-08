@@ -1,0 +1,9 @@
+{
+  "name": "ryanfren--agentcloak",
+  "displayName": "AgentCloak",
+  "description": "Secure email proxy for AI agents \u2014 content filtering, PII redaction, and prompt injection detection over MCP",
+  "version": "1.0.0",
+  "author": "ryanfren",
+  "homepage": "https://github.com/ryanfren/AgentCloak",
+  "skills": []
+}
