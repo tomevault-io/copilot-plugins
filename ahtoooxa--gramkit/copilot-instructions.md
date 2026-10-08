@@ -1,43 +1,50 @@
-## 07-development-workflow
+## 08-common-issues
 
-> Development workflow guidelines covering local setup, code standards, version control practices, and tarot app-specific conventions for maintaining code quality.
+> Solutions for common problems encountered during development, including Docker setup issues, frontend/backend troubleshooting, testing problems, and environment configuration.
 
-description: Development workflow guidelines covering local setup, code standards, version control practices, and tarot app-specific conventions for maintaining code quality.
+description: Solutions for common problems encountered during development, including Docker setup issues, frontend/backend troubleshooting, testing problems, and environment configuration.
 
-# Development Workflow
+# Common Issues and Solutions
 
-This project follows specific development practices to ensure code quality.
+## Docker Issues
 
-## Local Development
+- **Problem**: Docker containers failing to start
+  **Solution**: Check logs with `docker-compose logs` and ensure all required environment variables are set
 
-1. Use the local Docker setup with: `docker-compose -f docker-compose.local.yml up`
-2. Hot reload is enabled in development mode
-3. For frontend-only development, you can run: `cd frontend && yarn dev`
-4. For backend-only development:
-   - Set up Python virtual environment
-   - Install dependencies: `cd backend && pip install -e .`
-   - Run the development server
+- **Problem**: Frontend hot reload not working
+  **Solution**: Ensure volumes are correctly mounted in docker-compose.local.yml
 
-## Code Standards
+- **Problem**: Backend database connection issues
+  **Solution**: Verify database container is running and credentials are correct
 
-- Frontend follows ESLint and Prettier configurations
-  - [frontend/.eslintrc.cjs](mdc:frontend/.eslintrc.cjs)
-  - [frontend/.prettierrc.json](mdc:frontend/.prettierrc.json)
-- Backend follows PEP 8 with additional project-specific rules
-- Pre-commit hooks enforce code standards
-  - [.pre-commit-config.yaml](mdc:.pre-commit-config.yaml)
+## Frontend Development
 
-## Version Control
+- **Problem**: TypeScript errors in the frontend
+  **Solution**: Run `cd frontend && yarn type-check` to identify and fix type issues
 
-- Use feature branches for new work
-- Create pull requests for code reviews
-- Version bumping is handled by the script: [bump_version.py](mdc:bump_version.py)
+- **Problem**: ESLint/Prettier conflicts
+  **Solution**: Use `cd frontend && yarn lint --fix` to apply automatic fixes
 
-## Tarot App-Specific Conventions
+## Backend Development
 
-- Keep tarot-specific logic isolated in dedicated services
-- Use consistent naming for tarot card entities
-- Follow the established data models for readings and interpretations
+- **Problem**: Database migrations failing
+  **Solution**: Check migration history and ensure proper sequencing
+
+- **Problem**: API endpoint returning 500 errors
+  **Solution**: Check backend logs for exceptions and verify input validation
+
+## Testing
+
+- **Problem**: Tests failing in CI/CD pipeline
+  **Solution**: Run tests locally with the same environment variables as CI to reproduce and fix
+
+## Environment Setup
+
+- **Problem**: Missing environment variables
+  **Solution**: Check example .env files in the repository and ensure all required variables are set
+
+- **Problem**: ngrok configuration issues
+  **Solution**: Verify [ngrok.yml](mdc:ngrok.yml) configuration matches the expected setup
 
 ---
 > Source: [AHTOOOXA/gramkit](https://github.com/AHTOOOXA/gramkit) — distributed by [TomeVault](https://tomevault.io).
