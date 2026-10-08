@@ -1,0 +1,9 @@
+{
+  "name": "paritytech--trinity-user-agents",
+  "displayName": "trinity-user-agents",
+  "description": "Interactive reference documentation for the TrUAPI Protocol \u2014 explore methods, data types, and usage examples for host-product communication.",
+  "version": "1.0.0",
+  "author": "paritytech",
+  "homepage": "https://github.com/paritytech/trinity-user-agents",
+  "skills": []
+}
