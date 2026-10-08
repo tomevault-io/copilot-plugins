@@ -1,0 +1,9 @@
+{
+  "name": "rebasepro--rebase",
+  "displayName": "rebase",
+  "description": "Open-source backend-as-a-service for Postgres \u2014 REST, typed SDK, auth, storage, realtime and row-level security over your own database, with a schema-driven admin panel when you want one.",
+  "version": "1.0.0",
+  "author": "rebasepro",
+  "homepage": "https://github.com/rebasepro/rebase",
+  "skills": []
+}
