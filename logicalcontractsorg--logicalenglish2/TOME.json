@@ -1,0 +1,44 @@
+{
+  "name": "LogicalEnglish2",
+  "owner": "LogicalContractsOrg",
+  "repo": "LogicalEnglish2",
+  "description": "Logical English 2: rules, contracts and regulations written in English that a computer runs and explains. Every answer with its reasons, tests inside the program, citations, views, five languages. Reads twelve other rule languages (LegalRuleML, s(CASP), Blawx, L4, Drools, Solidity, Daml, Miniscript\u2026). Try it in your browser.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LogicalContractsOrg/LogicalEnglish2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T02:32:15Z"
+}
