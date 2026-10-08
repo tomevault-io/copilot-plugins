@@ -1,0 +1,34 @@
+{
+  "name": "tomique34--claude-skill-creator",
+  "displayName": "claude-skill-creator",
+  "description": "A comprehensive collection of Claude Agent Skills for automating development   workflows. Includes meta-skill for creating new skills,   changelog-to-newsletter converter, Terraform documentation gene",
+  "version": "1.0.0",
+  "author": "tomique34",
+  "homepage": "https://github.com/tomique34/claude-skill-creator",
+  "skills": [
+    {
+      "name": "claude-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "api-docs-generator",
+      "description": ""
+    },
+    {
+      "name": "changelog-newsletter",
+      "description": ""
+    },
+    {
+      "name": "terraform-docs",
+      "description": ""
+    },
+    {
+      "name": "tmq-markdown2anything",
+      "description": ""
+    },
+    {
+      "name": "tomique-linkedin-copywriter",
+      "description": ""
+    }
+  ]
+}
