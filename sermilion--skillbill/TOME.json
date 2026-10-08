@@ -4,7 +4,7 @@
   "repo": "SkillBill",
   "description": "SkillBill packages your engineering judgment into governed skills, then uses a durable Kotlin runtime to ensure agents actually execute that process consistently, resumably, and with bounded context.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sermilion/SkillBill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T20:13:43Z"
+  "distributed_at": "2026-10-08T04:54:31Z"
 }
