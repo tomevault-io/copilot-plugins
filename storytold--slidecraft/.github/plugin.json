@@ -1,0 +1,9 @@
+{
+  "name": "storytold--slidecraft",
+  "displayName": "slidecraft",
+  "description": "Presentations and slide shows: an open-source, clean-room reimplementation of Microsoft PowerPoint in pure Rust. Part of the ArtCraft Crafting Apps.",
+  "version": "1.0.0",
+  "author": "storytold",
+  "homepage": "https://github.com/storytold/slidecraft",
+  "skills": []
+}
