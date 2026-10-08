@@ -1,0 +1,44 @@
+{
+  "name": "mcp-git-commit-generator",
+  "owner": "theoklitosBam7",
+  "repo": "mcp-git-commit-generator",
+  "description": "Generate conventional commit messages from your staged git changes using Model Context Protocol (MCP)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/theoklitosBam7/mcp-git-commit-generator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T04:20:41Z"
+}
