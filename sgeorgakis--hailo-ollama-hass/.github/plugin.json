@@ -1,0 +1,9 @@
+{
+  "name": "sgeorgakis--hailo-ollama-hass",
+  "displayName": "hailo-ollama-hass",
+  "description": "Home Assistant Addon to Connect to a Hailo Ollama Server",
+  "version": "1.0.0",
+  "author": "sgeorgakis",
+  "homepage": "https://github.com/sgeorgakis/hailo-ollama-hass",
+  "skills": []
+}
