@@ -1,0 +1,9 @@
+{
+  "name": "iwaide--clawd-heartbeat",
+  "displayName": "clawd-heartbeat",
+  "description": "Physical heartbeat monitor for Claude Code - a Clawd figure whose heart glows with session status",
+  "version": "1.0.0",
+  "author": "Iwaide",
+  "homepage": "https://github.com/Iwaide/clawd-heartbeat",
+  "skills": []
+}
