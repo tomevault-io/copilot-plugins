@@ -1,0 +1,9 @@
+{
+  "name": "yueli-devtools--flightdeck",
+  "displayName": "flightdeck",
+  "description": "AI \u7a33\u5b9a\u7684\u5de5\u4f5c\u53f0skill \u5305\u542b\u4e0a\u4e0b\u6587 \u4efb\u52a1, \u7528\u4e8e\u5927\u578b\u9879\u76ee\u7684\u5de5\u4f5c\u4e0e\u7ef4\u62a4",
+  "version": "1.0.0",
+  "author": "yueli-devtools",
+  "homepage": "https://github.com/yueli-devtools/flightdeck",
+  "skills": []
+}
