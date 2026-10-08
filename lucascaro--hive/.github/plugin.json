@@ -1,0 +1,9 @@
+{
+  "name": "lucascaro--hive",
+  "displayName": "hive",
+  "description": "A GUI for managing multiple AI coding agent sessions across projects \u2014 Pi, Claude, Codex, Gemini, GitHub Copilot, Aider, OpenCode, and more.",
+  "version": "1.0.0",
+  "author": "lucascaro",
+  "homepage": "https://github.com/lucascaro/hive",
+  "skills": []
+}
