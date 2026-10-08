@@ -1,0 +1,81 @@
+{
+  "name": "claude_skils",
+  "owner": "windschord",
+  "repo": "claude_skils",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "operations-design",
+      "path": "operations-design",
+      "github_url": "https://github.com/windschord/claude_skils/tree/main/operations-design",
+      "description": ""
+    },
+    {
+      "name": "report-summarizing",
+      "path": "report-summarizing",
+      "github_url": "https://github.com/windschord/claude_skils/tree/main/report-summarizing",
+      "description": ""
+    },
+    {
+      "name": "sdd-document-management",
+      "path": "sdd-document-management",
+      "github_url": "https://github.com/windschord/claude_skils/tree/main/sdd-document-management",
+      "description": ""
+    },
+    {
+      "name": "sdd-documentation",
+      "path": "sdd-documentation",
+      "github_url": "https://github.com/windschord/claude_skils/tree/main/sdd-documentation",
+      "description": ""
+    },
+    {
+      "name": "software-designing",
+      "path": "software-designing",
+      "github_url": "https://github.com/windschord/claude_skils/tree/main/software-designing",
+      "description": ""
+    },
+    {
+      "name": "task-planning",
+      "path": "task-planning",
+      "github_url": "https://github.com/windschord/claude_skils/tree/main/task-planning",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/windschord/claude_skils",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T05:31:42Z"
+}
