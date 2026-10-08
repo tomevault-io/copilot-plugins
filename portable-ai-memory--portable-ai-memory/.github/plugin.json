@@ -1,0 +1,9 @@
+{
+  "name": "portable-ai-memory--portable-ai-memory",
+  "displayName": "portable-ai-memory",
+  "description": "PAM: Portable AI Memory \u2014 A universal JSON interchange format for AI user memories across providers. Think vCard for AI memories.",
+  "version": "1.0.0",
+  "author": "portable-ai-memory",
+  "homepage": "https://github.com/portable-ai-memory/portable-ai-memory",
+  "skills": []
+}
