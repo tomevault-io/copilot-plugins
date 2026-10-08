@@ -1,0 +1,9 @@
+{
+  "name": "mateocerquetella--bb-plugins",
+  "displayName": "bb-plugins",
+  "description": "An extensible workspace for BB plugins, starting with Taskboard for GitHub, Linear, and Jira.",
+  "version": "1.0.0",
+  "author": "MateoCerquetella",
+  "homepage": "https://github.com/MateoCerquetella/bb-plugins",
+  "skills": []
+}
