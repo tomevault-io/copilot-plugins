@@ -1,0 +1,9 @@
+{
+  "name": "valzav--valcraft",
+  "displayName": "valcraft",
+  "description": "Agent skills for spec-driven development. An automated agentic delivery loop coordinates planning, implementation, and cross-agent code reviews. Requirements, plans, and decisions live in ordinary pro",
+  "version": "1.0.0",
+  "author": "valzav",
+  "homepage": "https://github.com/valzav/valcraft",
+  "skills": []
+}
