@@ -7,13 +7,13 @@ SkillBill packages your engineering judgment into governed skills, then uses a d
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Sermilion/SkillBill](https://github.com/Sermilion/SkillBill).
+Original source: `AGENTS.md` in [Sermilion/SkillBill](https://github.com/Sermilion/SkillBill).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
