@@ -1,0 +1,9 @@
+{
+  "name": "robertoecf--adversarial-review",
+  "displayName": "adversarial-review",
+  "description": "Review triad plugin for Claude Code: prompt optimization, adversarial red-team review, plan validation, and intelligent orchestration.",
+  "version": "1.0.0",
+  "author": "robertoecf",
+  "homepage": "https://github.com/robertoecf/adversarial-review",
+  "skills": []
+}
