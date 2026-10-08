@@ -4,7 +4,7 @@
   "repo": "LIVA",
   "description": "Advanced Agentic AI Assistant & Desktop Cognitive Architecture (5-tier memory, SQLite-Vec, 91 MCP tools, Llama.cpp)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DuongNAD/LIVA",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T21:47:24Z"
+  "distributed_at": "2026-10-08T04:44:28Z"
 }
