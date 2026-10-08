@@ -1,0 +1,9 @@
+{
+  "name": "jdiamond--pi-guard",
+  "displayName": "pi-guard",
+  "description": "General-purpose permission system for pi tools",
+  "version": "1.0.0",
+  "author": "jdiamond",
+  "homepage": "https://github.com/jdiamond/pi-guard",
+  "skills": []
+}
