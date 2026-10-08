@@ -1,0 +1,9 @@
+{
+  "name": "krishbhimani--argus-code",
+  "displayName": "argus-code",
+  "description": "See what Claude Code and Codex actually did. Local-first observability for every session: which tools ran, what each sub-agent was told, which turn blew the budget. Cost, tokens, error alerts, full-te",
+  "version": "1.0.0",
+  "author": "KrishBhimani",
+  "homepage": "https://github.com/KrishBhimani/argus-code",
+  "skills": []
+}
