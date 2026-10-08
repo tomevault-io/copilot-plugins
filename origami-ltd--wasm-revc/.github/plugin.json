@@ -1,0 +1,9 @@
+{
+  "name": "origami-ltd--wasm-revc",
+  "displayName": "wasm-revc",
+  "description": "Grand Theft Auto: Vice City running in the browser \u2014 WebAssembly + WebGPU, streaming your own game files. Part of the wasm.com.br preservation initiative.",
+  "version": "1.0.0",
+  "author": "origami-ltd",
+  "homepage": "https://github.com/origami-ltd/wasm-revc",
+  "skills": []
+}
