@@ -4,7 +4,7 @@
   "repo": "agentkernel",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thrashr888/agentkernel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-08T05:34:34Z"
+  "distributed_at": "2026-10-08T05:35:34Z"
 }
