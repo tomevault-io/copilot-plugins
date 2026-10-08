@@ -1,0 +1,9 @@
+{
+  "name": "sendx--email-skills",
+  "displayName": "email-skills",
+  "description": "SendX's best practices for message performance, email sending deliverability and compliance. ",
+  "version": "1.0.0",
+  "author": "sendx",
+  "homepage": "https://github.com/sendx/email-skills",
+  "skills": []
+}
