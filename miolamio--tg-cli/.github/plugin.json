@@ -1,0 +1,9 @@
+{
+  "name": "miolamio--tg-cli",
+  "displayName": "tg-cli",
+  "description": "Agent-first Telegram CLI client built on MTProto. Designed for Claude Code agents and power users who need structured, scriptable access to Telegram.",
+  "version": "1.0.0",
+  "author": "miolamio",
+  "homepage": "https://github.com/miolamio/tg-cli",
+  "skills": []
+}
