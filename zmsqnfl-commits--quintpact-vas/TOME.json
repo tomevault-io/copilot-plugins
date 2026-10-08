@@ -4,7 +4,7 @@
   "repo": "quintpact-vas",
   "description": "VAS 2.7.0 \u2014 Local design studio and AI handoff toolkit with 14 curated visual choices, interactive sample websites, and a working proof app.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zmsqnfl-commits/quintpact-vas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T05:09:12Z"
+  "distributed_at": "2026-10-08T06:10:30Z"
 }
