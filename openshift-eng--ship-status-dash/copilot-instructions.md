@@ -1,26 +1,60 @@
-## frontend
+## general
 
-> React/Vite/Material-UI frontend guidelines for Ship Status Dashboard
+> Ship Status Dashboard repository overview and general coding guidelines
 
 
-* After making changes, always run formatting and linting to maintain consistency:
+### APM context generation
 
-```bash
-cd frontend && npx eslint . --fix && npx prettier --write .
-```
+Sources under **`.apm/`** (instructions, prompts, `apm.yml`, etc.) drive generated agent context. After editing those files, run **`make apm`** to regenerate **AGENTS.md**, **CLAUDE.md**, **GEMINI.md**, and the integrated copies under **`.claude/`**, **`.cursor/`**, **`.gemini/`**, and **`.opencode/`**. CI enforces freshness with **`make verify-apm`**.
 
-* Prefer functional components and React hooks over class components.
-* Keep UI elements consistent with Material-UI standards.
-* Use MUI's `styled()` for custom component styling — never use inline `sx` for non-trivial styles. Follow these patterns:
-  - Import from `@mui/material`: `import { styled } from '@mui/material'`
-  - Wrap MUI components: `const StyledCard = styled(Card)(({ theme }) => ({ ... }))`
-  - Wrap HTML elements: `const Logo = styled('img')(({ theme }) => ({ ... }))`
-  - Custom props with TypeScript generics: `const StatusChip = styled(Chip)<{ status: string }>(({ theme, status }) => ({ ... }))`
-  - Always use theme values (`theme.palette`, `theme.spacing()`, `theme.breakpoints`) instead of hardcoded colors or sizes.
-* The frontend uses `npm`. If you must install or update any dependencies, always use the `--ignore-scripts` flag.
-* Environment variables use the `VITE_` prefix (e.g. `VITE_PUBLIC_DOMAIN`, `VITE_PROTECTED_DOMAIN`).
-* When adding or changing a React Router route, also update the `metaRoutes` patterns in `cmd/dashboard/meta.go` so the server-side Open Graph metadata injection stays in sync. This drives link previews in Slack and other clients that read OG tags.
-* Team SLO workspace UI is selected in `frontend/src/components/team/slo/registry.tsx`. Versioned renderers live under `frontend/src/components/team/slo/{team}/v{n}/` (TRT `payload_streams` v1 is `trt/v1/`). Unknown `(kind, schema_version)` pairs use `UnknownSLOWorkspace`. Add and edit controls render only when `isTeamSLOAdmin(team)` is true.
+**Slash / agent commands:** content under **`.apm/prompts/*.prompt.md`** is the single source of truth. **`apm install`** (part of **`make apm`**) copies each prompt into editor command targets (e.g. **`.claude/commands/`**, **`.opencode/commands/`**, **`.gemini/commands/`**). Do not add those generated paths by hand or installs will skip them as unmanaged duplicates.
+
+### Overview
+
+**Ship Status Dashboard** is a status monitoring and availability tracking system for OpenShift CI components. It provides:
+
+* Real-time component status and outage tracking
+* Automated monitoring via HTTP probes, Prometheus queries, and systemd checks
+* Slack integration for outage notifications
+* Audit logging for all outage modifications
+
+The system consists of:
+
+* A **Go-based API backend** with dual-ingress auth (public + OAuth-protected routes)
+* A **React/Vite/Material-UI frontend** (located in `frontend/`)
+* **Component-monitor** services that probe infrastructure components and report to the dashboard
+* **MCP servers** that expose dashboard API tools to AI agents (a public read-only instance and an authenticated write instance behind oauth-proxy)
+* **PostgreSQL** for data storage
+
+### Deployment topology
+
+Deployment manifests live in the [openshift/release](https://github.com/openshift/release) repository under `clusters/`. Configuration files (component definitions, monitor configs) live in `core-services/ship-status/` in that same repo.
+
+**app.ci cluster** (`clusters/app.ci/ship-status-dash/`):
+
+* **Dashboard pod** -- runs in the `ship-status` namespace with six containers:
+  - `dashboard` (port 8080) -- Go API backend, reads config from openshift/release via git-sync
+  - `oauth-proxy` (port 8443) -- authenticates requests to the dashboard via OpenShift OAuth / Kubernetes TokenReview, signs with HMAC
+  - `oauth-proxy-mcp` (port 9443) -- authenticates requests to the write MCP via the same mechanism
+  - `ship-status-mcp` (port 8090) -- public read-only MCP server for AI agents
+  - `ship-status-mcp-auth` (port 8091) -- authenticated write MCP server, behind oauth-proxy-mcp
+  - `git-sync` -- continuously syncs the openshift/release repo for config
+* **Component-monitor pod** (`app-ci-component-monitor`) -- probes Prow services (deck, crier, sinker, tide, gangway), Boskos pools, and build farm clusters (build01-11). Reports results to the dashboard's protected API using its own service account token.
+* **Ingress routes:**
+  - `ship-status.ci.openshift.org` -- public read-only API (port 8080)
+  - `protected.ship-status.ci.openshift.org` -- OAuth-protected dashboard API (port 8443)
+  - `mcp.ship-status.ci.openshift.org` -- public read-only MCP server (port 8090)
+  - `protected-mcp.ship-status.ci.openshift.org` -- OAuth-protected write MCP (port 9443)
+
+**DPCR cluster:**
+
+* **Component-monitor instance** (`dpcr-component-monitor`) -- monitors Sippy components (Sippy, Sippy-Auth, Sippy Chat). Runs on the DPCR cluster but reports back to the same dashboard on app.ci. Has its own service account and non-expiring token for cross-cluster auth.
+
+**Build clusters** (`clusters/build-clusters/build-shared/ship-status/`):
+
+* **Service account and RBAC** for component-monitor to access Prometheus and routes on build farm clusters. The app.ci component-monitor uses kubeconfigs for these clusters to run remote probes.
+
+Favor clarity and maintainability over cleverness. Comments should be minimal, helpful, and explain the "why" not the "what".
 
 ---
 > Source: [openshift-eng/ship-status-dash](https://github.com/openshift-eng/ship-status-dash) — distributed by [TomeVault](https://tomevault.io).
