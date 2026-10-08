@@ -1,0 +1,9 @@
+{
+  "name": "lalantony--comfyui-ai-studio",
+  "displayName": "comfyui-ai-studio",
+  "description": "Local-first creative studio workspace for chaining ComfyUI workflows. Multi-stage execution, plugin runtime, asset pool",
+  "version": "1.0.0",
+  "author": "lalantony",
+  "homepage": "https://github.com/lalantony/comfyui-ai-studio",
+  "skills": []
+}
