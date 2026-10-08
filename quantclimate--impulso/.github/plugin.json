@@ -1,0 +1,9 @@
+{
+  "name": "quantclimate--impulso",
+  "displayName": "Impulso",
+  "description": "Bayesian VAR and SVAR models in Python.",
+  "version": "1.0.0",
+  "author": "QuantClimate",
+  "homepage": "https://github.com/QuantClimate/Impulso",
+  "skills": []
+}
