@@ -1,0 +1,44 @@
+{
+  "name": "xmmusic",
+  "owner": "rosesmall2010",
+  "repo": "xmmusic",
+  "description": "\u4e00\u4e2a\u514d\u8d39\uff0c\u5f00\u6e90\u7684\u65f6\u5c1a\u7684\u672c\u5730\u97f3\u4e50\u64ad\u653e\u5668",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rosesmall2010/xmmusic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T03:32:22Z"
+}
