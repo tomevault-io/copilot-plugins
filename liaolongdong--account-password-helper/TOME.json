@@ -1,0 +1,44 @@
+{
+  "name": "account-password-helper",
+  "owner": "liaolongdong",
+  "repo": "account-password-helper",
+  "description": "\ud83d\udd10 Free open-source password manager Chrome extension (MV3). Local AES-256-GCM encryption, zero cloud - passwords never leave your browser. One-click autofill & auto-login, auto-save credentials, TOTP 2FA authenticator, password generator & health check, encrypted backup, CSV/JSON import-export, side panel quick fill, idle auto-lock. \u672c\u5730\u8d26\u53f7\u5bc6\u7801\u7ba1\u7406\u52a9\u624b",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liaolongdong/account-password-helper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T03:00:41Z"
+}
