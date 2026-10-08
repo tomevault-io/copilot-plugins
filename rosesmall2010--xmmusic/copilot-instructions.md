@@ -1,17 +1,131 @@
-## git-author
+## xmmusic
 
-> Git 提交作者只用 GitHub 用户名，禁止 Cursor 联名
+> - **使用中文** - 所有交流、注释、文档、提交信息都使用中文
 
+# XMMusic 项目 AI 协作规则
 
-# Git 提交作者规范
+## 语言规范
+- **使用中文** - 所有交流、注释、文档、提交信息都使用中文
+- 代码变量名使用英文，但注释必须用中文
 
-- 提交作者使用本地 `git config` 中的 GitHub 用户名与邮箱（本仓库为 `rosesmall2010` / `rosesmall2010@gmail.com`）
-- **禁止**在 commit message 中追加以下任一内容：
-  - `Co-authored-by: Cursor <cursoragent@cursor.com>`
-  - 任何含 `Cursor` / `cursoragent` 的作者、联名、trailer 行
-- **禁止**修改 `git config`（包括 user.name / user.email）
-- 提交信息正文只用 Conventional Commits 中文说明，不要附带 IDE/Agent 署名
-- 若环境在 `git commit` / `git commit --amend` 后仍自动插入 `Co-authored-by: Cursor`：用 `git commit-tree` 按当前 tree 与父提交重建同内容提交，再 `git reset --soft` 指向新提交，以去掉联名行（仅限刚由本会话创建、且未推送的 HEAD）
+## 版本管理规范
+
+### CHANGELOG 更新规则
+- **重要**: 更新 CHANGELOG.md 时，新版本的内容必须放在 `package.json` 中当前版本号的下面
+- 版本号格式: `## [x.y.z] - YYYY-MM-DD`
+- 如果 package.json 版本是 1.0.4，则 CHANGELOG 中应该有 `## [1.0.4]` 章节
+- 保持版本号同步：package.json、CHANGELOG.md、README.md 的版本号必须一致
+- AI不要去改package.json里面的版本号
+- 如果ChangeLog里面已经有了这个版本的记录，则把新的修改记录追加到改版本下
+
+### Git 提交规范
+- **自动提交** - 完成代码修改后自动执行 git add 和 git commit
+- **不推送** - 提交到本地仓库，但不执行 git push
+- **不需要确认** - 所有 git 命令设置 `SafeToAutoRun: true`，直接执行不提示用户
+- **提交作者** - 使用本地 git config 中的 GitHub 用户名（当前为 `rosesmall2010`），**禁止**在提交信息中追加 `Co-authored-by: Cursor` 或任何含 Cursor 的联名/作者行；不要改 git config。若 `git commit` 仍被环境自动插入联名行，用 `git commit-tree` + `git reset --soft` 重建当前 HEAD 去掉之（仅限本会话刚创建且未推送）
+- **提交信息内容** - msg 信息必须包含从上次提交到现在的具体修改内容，清晰描述做了什么
+- **提交信息格式** - 遵循 Conventional Commits 规范:
+  - `feat:` - 新功能
+  - `fix:` - Bug 修复
+  - `docs:` - 文档更新
+  - `style:` - 代码格式调整
+  - `refactor:` - 重构
+  - `perf:` - 性能优化
+  - `test:` - 测试相关
+  - `chore:` - 构建/工具相关
+
+## 代码规范
+
+### 文件结构
+- Vue 组件使用 `<script setup lang="ts">` 语法
+- 样式使用 `<style scoped>` 避免全局污染
+- 导入顺序：第三方库 → Vue相关 → 项目内部文件 → 类型定义
+
+### 命名规范
+- 组件文件名: PascalCase (例: `EditTagModal.vue`)
+- 普通文件名: camelCase (例: `parseFilename.ts`)
+- 常量: UPPER_SNAKE_CASE
+- 变量/函数: camelCase
+
+### TypeScript
+- 优先使用类型推导，避免过度类型标注
+- 接口定义放在 `src/shared/types/` 目录
+- 使用 `type` 定义联合类型，使用 `interface` 定义对象结构
+
+## 功能开发规范
+
+### 构建验证（重要）
+- **代码改完后必须执行 `npm run build`**，确认渲染进程（Vite）与主进程（tsc）都能通过编译
+- 构建失败时先修复再提交；不要只依赖 `npm run dev`（开发模式可能漏掉生产构建错误）
+- 纯文档改动（仅 Markdown 等）可不跑完整 build
+
+### 添加新功能时
+1. 更新相关的 Vue 组件
+2. 更新必要的类型定义
+3. 执行 `npm run build` 验证编译通过
+4. 更新 CHANGELOG.md（在当前版本下添加）
+5. 必要时更新 README.md 和 TODO.md
+6. 自动提交代码（git add + git commit）
+
+### 修复 Bug 时
+1. 修复代码问题
+2. 执行 `npm run build` 验证编译通过
+3. 在 CHANGELOG.md 的"修复"部分记录
+4. 自动提交代码
+
+### 文档更新
+- README.md: 用户面向的功能说明
+- CHANGELOG.md: 版本变更历史
+- TODO.md: 开发任务清单
+- 技术文档放在 `docs/` 目录
+
+## 特定功能注意事项
+
+### 音乐播放相关
+- 使用 Howler.js 或原生 Audio API
+- 文件路径使用 `local-file://` 协议
+- 处理中文文件名时避免过度编码
+
+### 数据库操作
+- 使用 IPC 通信调用主进程数据库方法
+- 开发环境使用 `xmmusic-dev.db`
+- 生产环境使用 `xmmusic.db`
+
+### UI 组件
+- 遵循仿 QQ 音乐的设计风格
+- 使用 Lucide Icons 图标库
+- 主题支持：浅色/深色/跟随系统
+
+## 自动化执行规则
+
+### Git 命令自动化
+```typescript
+// ✅ 正确 - 设置 SafeToAutoRun: true
+run_command({
+  CommandLine: "git add .",
+  SafeToAutoRun: true,  // 自动执行，不提示
+  WaitMsBeforeAsync: 2000
+})
+
+// ❌ 错误 - 不要设置为 false
+run_command({
+  CommandLine: "git commit -m 'xxx'",
+  SafeToAutoRun: false,  // 不要这样做
+})
+```
+
+### 禁止的操作
+- ❌ 不要执行 `git push` 命令
+- ❌ 不要修改 `.git/` 目录
+- ❌ 不要删除 `node_modules/` (除非明确要求)
+
+## 总结
+遵循这些规则可以确保：
+1. 所有内容都使用中文，便于理解
+2. CHANGELOG 保持正确的版本顺序
+3. 代码自动提交到本地，提高效率
+4. 项目风格统一，维护性好
+5. git 提交的注释也要用中文
 
 ---
 > Source: [rosesmall2010/xmmusic](https://github.com/rosesmall2010/xmmusic) — distributed by [TomeVault](https://tomevault.io).
