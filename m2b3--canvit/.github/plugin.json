@@ -1,0 +1,9 @@
+{
+  "name": "m2b3--canvit",
+  "displayName": "CanViT",
+  "description": "CanViT: Toward Active-Vision Foundation Models (NeurIPS 2026). Model, pretraining, task specialization and evaluation code.",
+  "version": "1.0.0",
+  "author": "m2b3",
+  "homepage": "https://github.com/m2b3/CanViT",
+  "skills": []
+}
