@@ -4,7 +4,7 @@
   "repo": "sdks",
   "description": "Official Node.js, Python, and Go SDKs plus the primitive CLI for Primitive \u2014 email infrastructure for AI agents. Generated from the OpenAPI spec.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/primitivedotdev/sdks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T21:52:54Z"
+  "distributed_at": "2026-10-08T04:46:00Z"
 }
