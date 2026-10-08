@@ -1,0 +1,9 @@
+{
+  "name": "anis-marrouchi--agentx",
+  "displayName": "agentx",
+  "description": "Self-hosted AI agents for small teams. Route Telegram, WhatsApp, GitHub, GitLab, crons, webhooks and mesh tasks to agents on Claude Code, Codex, OpenCode or any LLM API. Web dashboard + CLI. MIT.",
+  "version": "1.0.0",
+  "author": "anis-marrouchi",
+  "homepage": "https://github.com/anis-marrouchi/agentx",
+  "skills": []
+}
