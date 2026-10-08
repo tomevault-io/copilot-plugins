@@ -1,0 +1,9 @@
+{
+  "name": "towardsthecloud--aws-toolbox",
+  "displayName": "aws-toolbox",
+  "description": "Blazing fast aws cli tool that helps you automate routine tasks on AWS Cloud.",
+  "version": "1.0.0",
+  "author": "towardsthecloud",
+  "homepage": "https://github.com/towardsthecloud/aws-toolbox",
+  "skills": []
+}
