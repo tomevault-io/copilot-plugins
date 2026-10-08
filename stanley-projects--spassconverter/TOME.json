@@ -4,7 +4,7 @@
   "repo": "SpassConverter",
   "description": "Convert Samsung Pass .spass exports to CSV \u2014 import into Google Password Manager, Chrome, Bitwarden, or 1Password. 100% offline, no internet permissions.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stanley-projects/SpassConverter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T01:54:20Z"
+  "distributed_at": "2026-10-08T04:19:48Z"
 }
