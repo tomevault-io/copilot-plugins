@@ -1,0 +1,104 @@
+## webfpvsimulator
+
+> Project conventions. Read fully before any turn. These are decisions already made, not options.
+
+# CLAUDE.md
+
+Project conventions. Read fully before any turn. These are decisions already made, not options.
+
+## What this is
+
+A browser FPV racing simulator whose only current goal is flight feel indistinguishable from a real quad. Stage 1 is physics only. There is no game here yet.
+
+## Decisions already made
+
+**Controller is ported, not written.** Betaflight is vendored under `vendor/betaflight` and compiled to WASM. Do not reimplement rates curves, the PID controller, the D-term filter chain, feedforward, TPA, iterm relax, airmode or anti-gravity in JavaScript. If a Betaflight behaviour is missing, the fix is to compile more of Betaflight, not to approximate it.
+
+**Betaflight sources are read-only.** Every change is a patch file in `patches/`, applied at build time. `git diff --stat vendor/betaflight` must be empty after a build. This keeps upstream merges possible and keeps the port honest.
+
+**Licence is GPLv3.** Compiling Betaflight's control loop in makes this a derivative work. Every file gets a GPLv3 header. Do not add a dependency with an incompatible licence.
+
+**Coordinate convention.** Physics is right-handed, Z-up, body frame, matching Betaflight and the flight dynamics literature. Three.js is Y-up. Convert exactly once, at the render boundary, in `src/render/frame.js`. Nowhere else. Sign errors in yaw two months from now all trace back to breaking this.
+
+**Units are SI throughout.** Metres, kilograms, seconds, radians, newtons, volts, amps. Degrees appear only in user-facing display strings and in Betaflight config values, converted at the boundary.
+
+**Physics never reads frame time.** Fixed timestep, 1000 Hz, driven by an accumulator. `requestAnimationFrame` may drive the accumulator but its delta never reaches the integrator. Render interpolates between the two most recent physics states. A dropped frame must change nothing about the trajectory.
+
+**Stage 1 runs on the main thread.** No Web Worker, no SharedArrayBuffer yet. They arrive in Stage 2 when there is geometry to compete with. Fewer parts now.
+
+**Determinism is a requirement, not a nice-to-have.** No `relaxed_simd`. No JS `Math.sin`, `Math.cos` or `Math.pow` anywhere in the physics path, because they are not specified to bit precision and vary between engines. Compile a fixed libm into the WASM module and use it. The same input stream must produce a bit-identical state trace in Node and in the browser, on any machine.
+
+## Style
+
+- Plain JavaScript for the shell. No framework, no bundler beyond what Emscripten needs, no TypeScript, no state library. If a dependency is being added, justify it in PROGRESS.md first.
+- Three.js from a CDN import map for rendering. Nothing else on the render side.
+- No physics engine. Cannon, Ammo and Rapier are all wrong for a quad.
+- Prefer one file doing an obvious thing over three files doing a clever thing.
+- No em dashes or en dashes in prose, comments, commit messages or documentation. Use a comma, colon or full stop.
+
+## Working rules
+
+- **Do not run `npm run verify` unless asked.** It is expensive: it drives headless Chromium through the whole shell and takes minutes of wall clock. Run it when the change is to physics, the plant, the module ABI or the build, or when the request says to.
+- **Always ask, before the turn ends, whether to run a verification pass and at what scale.** The pilot can fly the
+  build and learn in one minute what no headless check can see, so whether to spend that minute is their call and not an
+  assumption. Ask on every turn that changed code, including the turns where the cheap checks already came back green,
+  because a green check is evidence about the thing it can see and nothing else. Offer the scale plainly and let them
+  pick one:
+  - **none.** The change is documentation, a comment, or a rename with a lint behind it, and there is nothing to fly.
+  - **cheap.** The targeted lints named below, seconds of wall clock, no browser.
+  - **shots.** `node scripts/shots.js` drives headless Chromium through the real flow and leaves pictures. Minutes.
+    This is the right answer for anything the pilot would notice on screen.
+  - **verify.** `npm run verify`, the whole suite. Physics, the plant, the module ABI or the build.
+  - **fly it.** Hand it over and let the pilot fly. Say what to look for and what would count as wrong.
+  The point of asking is that the last one is a real option, and it is often the best one. Do not run the expensive
+  scales on a guess, and do not skip the question because the answer seems obvious.
+- Never report a check as passing without having run it in the same turn. That rule is unchanged by the one above: if verify was not run, say so, say why, and say what was done instead. A check that was not run is not evidence, and neither is a green check that cannot see the thing that changed. Check 13 loads only `tests/browser/harness.html`, so it says nothing about any other page.
+- Prefer the cheap targeted check to the full suite: `npm run lint:fc`, `npm run lint:presets`, `npm run lint:catalog`, `node scripts/shots.js` for anything visual, and a direct fetch for anything about a served file.
+- Never change a threshold to make a check pass. Argue in PROGRESS.md instead.
+- Every turn that changes code appends to PROGRESS.md, including what went wrong.
+- **The advisor is the owner.** Not an advisor model, not a tool, and not a review workflow: the owner of this repository, in the conversation. Before any change that alters the physics model's shape, the module ABI or the build, put it to the owner: what changes, why, and what it could break, then wait for the answer. Not for filling in the next line. Record the answer in PROGRESS.md with the date and what it covered, because an approval nobody wrote down is one the next session cannot see.
+- **Coverage lands before the physics model changes.** The owner's condition, set on 2026-09-24 when approving the move of obstacle contact into the plant: before the model's shape changes, the tests that pin the core's current behaviour are in place and green, so a regression arrives as a failing check and not as a pilot's report. "The core" is free flight, the control loop, ground contact and determinism. A physics change that has no check able to see it is not ready to start.
+
+## Git
+
+This section exists because the repository's history was destroyed once. On
+2026-08-26 an agent committed a fresh root and force pushed it over `main`,
+so the 60 commits from 17 to 22 August stopped being reachable from any
+branch. No code was lost, because the new root was taken from a working tree
+that already held it all, and the one file that differed, `configs/crapshack.diff`,
+had been deliberately replaced by `configs/precision.diff`. What was lost was
+the record: who wrote what, when, and why. It was noticed four days later only
+because a fetch printed `forced update` and a `git merge-base` came back empty.
+
+- **`main` is append only.** Never force push it, never rewrite it, never
+  reset it backwards. If a push is rejected, merge or rebase your own work
+  onto the remote and push again. A rejected push is git protecting somebody,
+  and the answer is never `--force`.
+- **Never `git init` or create a new root in a repository that has one.** If
+  the history looks wrong, stop and say so.
+- **If `git merge-base` between two refs returns nothing, STOP.** Unrelated
+  histories mean somebody replaced the history rather than adding to it. Do
+  not merge, because merging an unrelated line drags every file it touches
+  back to that line's versions. Report it and let the owner decide.
+- **Fetch before you reason about a branch.** A remote tracking ref from a
+  container's first clone can be hours stale, and a stale ref is how a
+  destroyed history looks normal.
+- **Do not commit screenshots.** `.gitignore` drops `.loop/**/*.png` because
+  175 of them had reached 77 MB of an 79 MB directory. The loops' RECORDS are
+  the point and stay tracked: the disputes, the handovers, the state, the
+  probe JSON, and `.loop/evidence`, which `src/game/track.js` and
+  `src/render/scene.js` cite as the provenance for numbers that are in the
+  code. A picture is evidence for one round; a number in a file is evidence
+  forever.
+- Anything worth keeping is committed and pushed before the turn ends. A
+  container is reclaimed without warning and takes everything uncommitted
+  with it.
+
+## Review
+
+- **Do not run adversarial review, multi agent review or a review workflow unless directed.** Read your own diff, run the cheap checks, and hand the work over. Fan out only when the request asks for it.
+- When a review does run, its findings go in PROGRESS.md whether or not they were acted on, and a finding that was declined is written down with the reason.
+
+---
+> Source: [Mathew-Harvey/WebFPVSimulator](https://github.com/Mathew-Harvey/WebFPVSimulator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
