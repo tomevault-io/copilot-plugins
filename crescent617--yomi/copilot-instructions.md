@@ -1,0 +1,104 @@
+## yomi
+
+> > **The stream is reality.**
+
+# AGENTS.md
+
+## Design Philosophy
+
+> **The stream is reality.**
+
+1. **Everything is stream** — in as messages, out as events, borne by
+   sessions; nothing lives off-stream.
+2. **State is cache** — discarded at will, restored at a fold.
+3. **Model is suspect** — bounded by design, not by hope.
+4. **One data dir, one cron kernel** — `daemon_lock`（flock on `<data_dir>/daemon.lock`，仅 enable_cron 的 kernel 获取，`Kernel::stop()` 释放）；环境隔离靠不同 `YOMI_DATA_DIR` 天然并行。`daemon.lock(.meta)` 是运行时文件，勿手删。取消与归属语义见 `docs/ARCH.md`「取消与归属」。
+
+### Extension: four ports, no fifth
+
+| Port | Chokepoint | Examples (in-proc / out-of-proc) |
+|---|---|---|
+| Source (messages in) | input bus | cron, channels / webhook bridge, RPC clients |
+| Sink (events out) | event bus | obs cards, persistence / events followers |
+| Gate (veto) | conductor | permission checker, interceptors / hook scripts |
+| Capability (tools) | ToolRegistry | built-in tools / MCP servers, skills |
+
+In-proc and out-of-proc share one contract (the wire protocol is the bus,
+projected over a socket). Default to out-of-proc; promote only when usage
+proves out. Extension state lives in sqlite/config — never private.
+
+## Build Commands
+
+```bash
+# Build the project
+cargo build
+
+# Build release
+cargo build --release
+
+# Run linting
+cargo clippy --all-targets --all-features
+
+# Auto-fix clippy warnings
+cargo clippy --fix --allow-dirty
+
+# Format code
+cargo fmt
+
+# Check formatting
+cargo fmt -- --check
+
+# Harness 回归冒烟（改 prompt 装配/工具 desc/内置模板/conductor/cron 后跑；
+# 自建隔离 daemon，不碰生产）
+evals/harness-e2e.sh
+
+# daemon 单例锁改动后跑（自建隔离环境）
+evals/daemon-lock-e2e.sh
+
+# 通道类改动（slash 命令、卡片、回复行为）：另需真链路验证（测试账号，见 .agents/skills/yomi-dev）
+
+# running before commit
+just ci
+```
+
+e2e/调试起 daemon 必须三重隔离：`YOMI_DATA_DIR`（数据）、`YOMI_SOCKET`（socket/pid）、`YOMI_CONFIG`（**config 也必须隔离**——只隔离前两个的话，daemon 按默认发现读 `~/.yomi/config.toml`，以真 bot 身份连渠道 ws，测试实例与生产同号在线抢消息）。`evals/ext-e2e.sh` 已内置空 config 范例。
+
+## Architecture Overview
+
+### Crate Structure
+
+- **crates/kernel/** - Core agent system, tools, providers, and business logic
+- **crates/cli/** - Command-line interface and main entry point
+- **crates/gui/** - Desktop GUI built with Tauri v2
+- **crates/tui/** - Terminal UI components using tuirealm
+
+## Rules
+### Protocol
+- **统一 `snake_case`。** 全项目（Wire、Tauri IPC、数据库、前端 TypeScript）使用 `snake_case`。Rust 类型用 `#[serde(rename_all = "snake_case")]`；Tauri 命令加 `#[tauri::command(rename_all = "snake_case")]`。前端 TS 接口与 Rust serde 输出直接对齐，不做二次映射。内核核心数据结构（如 `Message`）本身不挂 `rename_all`，默认即 `snake_case`，与数据库一致。仅在需要格式化转换时（如审批级别枚举→显示字符串），由 GUI wrapper 层处理
+
+### Rust
+- write ut in separate test file.
+    - e.g. a.rs with a_test.rs. use `#[cfg(test)]`
+- **结构性搜索/重构**: 批量查找或改写代码模式优先用 `ast-grep`（本机已装，命令名即 `ast-grep`）而非文本 grep；写 scan 规则时用 `ignores: ["**/*_test.rs", "**/tests/**"]` 排除测试。
+
+### kernel
+- **Env Vars**: should follow prefix `kernel::ENV_PREFIX`
+- **Shell/子进程**: 「执行命令文本」的入口（shell 工具、cron shell job 等）一律经 `utils::shell::detect()` 选解释器（bash 优先；Windows Git Bash→pwsh→powershell→cmd；`YOMI_SHELL` 覆盖）；需要整体收尾的 spawn 一律走 `utils::process::spawn_in_new_tree`（unix setsid 进程组 / windows Job Object），强杀走 `kill_tree` / `terminate_tree_by_pid`。禁止在调用点自写 setsid、extern kill、taskkill。
+- **Channel features**: 平台适配器按同名 cargo feature 裁剪（`feishu` / `telegram`，默认 `all-channels` 全开）；`PlatformConfig` 等 serde 类型不随 feature 门控，编译外平台在 `build_adapter` 报 Config 错误。内建 `web_search` 工具同理（feature `websearch`，默认开；`WEBSEARCH_TOOL_NAME` 不门控，权限解析对扩展提供的同名工具仍生效）
+
+### gui
+- using tauri with npm as pkg manager
+- **Design**: Follow [`crates/gui/DESIGN.md`](./crates/gui/DESIGN.md) for GUI visual language and interaction principles.
+- **Colors**: 禁止硬编码 Tailwind 颜色值（如 `text-red-500`）和 `dark:` 前缀。一律使用语义化颜色，由 `app.css` 的 `@theme` 变量统一提供。可用语义色包括 `primary`, `secondary`, `destructive`, `success`, `warning`, `error`, `info`, `overlay`, `subtle`, `code-bg` 等。示例：`text-error`（light/dark 自动适配）、`bg-success/10`、`border-subtle`。
+
+### tui
+- **Unicode Handling**: must carefully handling of unicode width in TUI
+
+## Docs
+
+- Design: ./docs/design
+- `docs/config-schema.json` 由代码生成，勿手改：改了 Config 结构后跑 `cargo run -p cli -- config schema > docs/config-schema.json`（drift 测试兜底）
+
+---
+> Source: [Crescent617/yomi](https://github.com/Crescent617/yomi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
