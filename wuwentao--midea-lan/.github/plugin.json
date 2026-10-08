@@ -1,0 +1,9 @@
+{
+  "name": "wuwentao--midea-lan",
+  "displayName": "midea-lan",
+  "description": "Control your Midea M-Smart appliances via LAN.",
+  "version": "1.0.0",
+  "author": "wuwentao",
+  "homepage": "https://github.com/wuwentao/midea-lan",
+  "skills": []
+}
