@@ -1,0 +1,9 @@
+{
+  "name": "mxkissnr--gaggiuino-local-profiler",
+  "displayName": "gaggiuino-local-profiler",
+  "description": "Home Assistant app that records, stores and visualises espresso shots from Gaggiuino and GaggiMate machines",
+  "version": "1.0.0",
+  "author": "mxkissnr",
+  "homepage": "https://github.com/mxkissnr/gaggiuino-local-profiler",
+  "skills": []
+}
