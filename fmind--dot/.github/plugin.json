@@ -1,0 +1,9 @@
+{
+  "name": "fmind--dot",
+  "displayName": "dot",
+  "description": "AI-driven, CLI-first dotfiles for Linux & macOS \u2014 chezmoi + mise, Fish, Neovim, and a typed Python CLI",
+  "version": "1.0.0",
+  "author": "fmind",
+  "homepage": "https://github.com/fmind/dot",
+  "skills": []
+}
