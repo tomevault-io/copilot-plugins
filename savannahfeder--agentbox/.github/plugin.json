@@ -1,0 +1,9 @@
+{
+  "name": "savannahfeder--agentbox",
+  "displayName": "agentbox",
+  "description": "An inbox for your coding agents. macOS app, runs Claude Code and Codex on your own subscription, no server and no account.",
+  "version": "1.0.0",
+  "author": "savannahfeder",
+  "homepage": "https://github.com/savannahfeder/agentbox",
+  "skills": []
+}
