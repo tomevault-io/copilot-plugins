@@ -1,0 +1,9 @@
+{
+  "name": "beiev--max-chronicle",
+  "displayName": "max-chronicle",
+  "description": "Local-first durable memory system for AI agents",
+  "version": "1.0.0",
+  "author": "Beiev",
+  "homepage": "https://github.com/Beiev/max-chronicle",
+  "skills": []
+}
