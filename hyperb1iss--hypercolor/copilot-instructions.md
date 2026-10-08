@@ -1,0 +1,449 @@
+## hypercolor
+
+> Open-source RGB lighting orchestration engine for Linux, Windows, and macOS, written in Rust.
+
+# Hypercolor
+
+Open-source RGB lighting orchestration engine for Linux, Windows, and macOS, written in Rust.
+
+## Quick Start
+
+```bash
+# Primary interface: use justfile recipes
+just verify          # fmt + lint + test (run after every change)
+just check           # Type-check without building
+just build           # Debug build (dev profile)
+just build-preview   # Near-release performance, fast compile
+just release         # Full release build (LTO, stripped)
+
+# Run
+just daemon          # Daemon on :9420 (preview profile, debug logging)
+just daemon-servo    # Daemon with Servo HTML effect rendering
+just tui             # TUI client (auto-starts daemon)
+just app             # Unified desktop app with system tray
+just cli             # CLI tool (`hypercolor`)
+just dev             # Daemon + UI dev server together
+
+# UI / SDK
+just ui-dev          # Leptos dev server on :9430, proxies API to :9420
+just sdk-dev         # TypeScript SDK dev server with HMR
+just effects-build   # Build all HTML effects -> effects/hypercolor/*.html
+just effect-build X  # Build single effect by name
+
+# Testing
+just test            # All workspace tests
+just test-crate X    # Test specific crate
+just test-one X      # Run single test by name pattern
+just linux-guest-proof run X  # Linux installer scenario in a rootless systemd guest
+
+# Quality
+just lint            # Clippy with -D warnings
+just lint-fix        # Clippy auto-fix
+just deny            # License + advisory audit (cargo-deny)
+just doc-open        # Build and open API docs
+```
+
+All `just` commands route through `scripts/cargo-cache-build.sh`, which manages
+sccache/ccache, clang+lld linking on Linux, and Servo build state.
+
+## Project Structure
+
+```
+crates/
+  hypercolor-color/                # Color kernel: pixel types, conversions, hex, blending, device encoding; bottom of the graph
+  hypercolor-types/                # Shared data vocabulary above the color kernel; every crate depends on it
+  hypercolor-core/                 # Engine: render loop, device backends, Servo effect renderer, event bus, spatial sampler, input pipeline, scene/session management
+  hypercolor-hal/                  # Hardware abstraction: USB/HID/SMBus protocol encoding and transport for the local driver families
+  hypercolor-gpu-frame/            # Neutral imported-GPU-frame vocabulary (format, timings, origin, leases) shared by every interop crate
+  hypercolor-worker-retention/     # Leaf: process-wide reaper for workers that outlive bounded shutdown
+  hypercolor-pipewire-interop/     # Audited XDG Portal + PipeWire capture boundary (native on Linux, stubs elsewhere)
+  hypercolor-linux-gpu-interop/    # Linux GL/Vulkan texture import boundary for Servo frames
+  hypercolor-linux-input/          # Linux evdev host keyboard and pointer capture
+  hypercolor-linux-session/        # Linux session/power monitors, systemd notify, procfs, parent-death guard
+  hypercolor-macos-capture/        # macOS ScreenCaptureKit acquisition and retained frame ownership
+  hypercolor-macos-gpu-interop/    # macOS IOSurface/Metal texture import boundary
+  hypercolor-macos-input/          # macOS CGEventTap keyboard and pointer capture
+  hypercolor-macos-media/          # macOS now-playing media Automation adapters
+  hypercolor-macos-session/        # macOS session and system-power monitoring
+  hypercolor-macos-owner/          # Shared durable macOS daemon ownership, launchd adapter, kqueue lifetime guard
+  hypercolor-windows-gpu-interop/  # Windows D3D11/Vulkan texture import boundary
+  hypercolor-windows-pawnio/       # Windows SMBus access via the PawnIO kernel driver, with a broker service; stubbed on other platforms
+  hypercolor-windows-capture/      # Windows DXGI Desktop Duplication screen capture
+  hypercolor-windows-input/        # Windows Raw Input host keyboard and pointer capture
+  hypercolor-windows-session/      # Windows session and power event monitors
+  hypercolor-windows-telemetry/    # Windows WMI/PawnIO sensors and board identity (stubs elsewhere)
+  hypercolor-windows-helper/       # Signed elevated helper for Windows privileged operations
+  hypercolor-platform-fs/          # Audited platform filesystem operations
+  hypercolor-install/              # Transactional release installer library: install journal, coordinator, Linux systemd and macOS launchd platforms, payload validation
+  hypercolor-persistence/          # Durable file replacement and the process-wide flush registry every store writes through
+  hypercolor-driver-api/           # Stable trait/type boundary between the daemon and all driver implementations
+  hypercolor-driver-support/       # Native credential and discovery services layered on the driver API
+  hypercolor-driver-builtin/       # Compile-time bundle assembling HAL + network drivers into a registry via feature flags
+  hypercolor-driver-hue/           # Philips Hue Bridge driver (Entertainment API over DTLS)
+  hypercolor-driver-nanoleaf/      # Nanoleaf panels driver (HTTP pairing + UDP external control)
+  hypercolor-driver-wled/          # WLED driver (DDP / E1.31 sACN streaming)
+  hypercolor-driver-govee/         # Govee smart-lighting driver (LAN UDP + Govee Cloud API)
+  hypercolor-openrgb-sdk/          # Clean OpenRGB SDK protocol client
+  hypercolor-driver-openrgb/       # OpenRGB fallback bridge driver (opt-in)
+  hypercolor-openrgb-host/         # OpenRGB host integration: binary detection, server probe, install hints, permissions, managed config dir, headless server launch
+  hypercolor-network/              # Network driver registry and orchestration
+  hypercolor-daemon/               # Daemon binary: render-loop host + REST/WebSocket/MCP server on :9420
+  hypercolor-cli/                  # Package `hypercolor`: the CLI binary plus the `hypercolor_cli` extension library
+  hypercolor-tui/                  # Ratatui terminal UI library, launched via `hypercolor tui`
+  hypercolor-app/                  # Unified desktop app shell: supervises the daemon, owns the tray, handles autostart and single-instance
+  hypercolor-leptos-ext/           # Leptos 0.8 extension helpers for the web UI
+  hypercolor-ui/                   # Leptos 0.8 CSR web UI (WASM, Trunk), EXCLUDED from workspace
+sdk/                       # TypeScript SDK for HTML effects (Bun monorepo)
+data/drivers/vendors/      # Canonical device database (32 vendor TOMLs, consumed by `just compat`)
+data/compat/               # Generated compatibility matrix outputs (JSON + markdown snippets)
+docs/specs/                # Implementation specs (numbered)
+docs/design/               # Design documents (numbered)
+docs/archive/              # Superseded plans, shipped decisions, stale snapshots
+docs/content/              # Public documentation (Zola site at https://hyperb1iss.github.io/hypercolor)
+.agents/                   # AI agent skills and agent definitions
+```
+
+## Crate Dependency Graph
+
+```mermaid
+graph TD
+    C[hypercolor-color] --> T[hypercolor-types]
+    T --> HAL[hypercolor-hal]
+    T --> CORE[hypercolor-core]
+    HAL --> CORE
+    GF[hypercolor-gpu-frame] --> LGI & MGI & WGI & CORE & D
+    WR[hypercolor-worker-retention] --> CORE & LI & MI & WI & MS
+    PWI[hypercolor-pipewire-interop] --> CORE
+    LGI[hypercolor-linux-gpu-interop] --> CORE
+    LI[hypercolor-linux-input] --> CORE
+    MC[hypercolor-macos-capture] --> CORE
+    MGI[hypercolor-macos-gpu-interop] --> CORE
+    MI[hypercolor-macos-input] --> CORE
+    MM[hypercolor-macos-media] --> CORE
+    MO[hypercolor-macos-owner] --> D[hypercolor-daemon] & APP[hypercolor-app]
+    MO -.->|macOS only| CLI[hypercolor-cli]
+    WGI[hypercolor-windows-gpu-interop] --> CORE
+    WT[hypercolor-windows-telemetry] --> CORE
+    WPI[hypercolor-windows-pawnio] --> WT
+    WC[hypercolor-windows-capture] --> CORE & WGI
+    WI[hypercolor-windows-input] --> CORE
+    CORE --> LS[hypercolor-linux-session] & WS[hypercolor-windows-session] & MS[hypercolor-macos-session]
+    LS --> D & APP
+    WS & MS --> D
+    WH[hypercolor-windows-helper]
+    PER[hypercolor-persistence] --> CORE
+    T --> DAPI[hypercolor-driver-api]
+    DAPI & PER --> DS[hypercolor-driver-support]
+    DAPI & DS --> HUE[hypercolor-driver-hue]
+    DAPI & DS --> NL[hypercolor-driver-nanoleaf]
+    DAPI & DS --> WLED[hypercolor-driver-wled]
+    DAPI & DS --> GV[hypercolor-driver-govee]
+    ORS[hypercolor-openrgb-sdk] & DAPI --> ORD[hypercolor-driver-openrgb]
+    ORS & PER --> OH[hypercolor-openrgb-host]
+    OH --> APP & CLI
+    DAPI --> NET[hypercolor-network]
+    CORE & DAPI & HAL & HUE & NL & WLED & GV & ORD & DS --> DB[hypercolor-driver-builtin]
+    CORE & DAPI & DB & DS & NET & PFS[hypercolor-platform-fs] --> D[hypercolor-daemon]
+    CORE --> CLI[hypercolor-cli]
+    PFS --> INST[hypercolor-install] --> CLI
+    MO -.->|macOS only| INST
+    T --> TUI[hypercolor-tui]
+    TUI -.->|optional| CLI
+    CORE & T --> APP[hypercolor-app]
+    T --> UI[hypercolor-ui<br><i>excluded from workspace</i>]
+    LE[hypercolor-leptos-ext] --> UI & D & TUI
+```
+
+`hypercolor-windows-helper` is a standalone signed binary with no workspace
+dependencies; `hypercolor-app` invokes it as a subprocess for privileged
+Windows operations, and likewise supervises the daemon as a subprocess rather
+than linking it.
+
+Do NOT create cross-crate circular dependencies. `hypercolor-hal` must NEVER depend
+on `core` (would be circular). Network drivers depend on `driver-api`, not on `core` directly.
+
+**Platform layer (Design 72).** Shared engines in `core` and the daemon own
+lifecycle, publication, and policy; platform crates own native acquisition and
+OS calls behind one seam per capability, compile on every target via stubs,
+and produce neutral vocabulary (`hypercolor-types`, `hypercolor-gpu-frame`)
+rather than mirroring it. `cfg(target_os)` is allowed only inside platform
+crates and at composition roots (`daemon/src/{process.rs,session.rs,
+startup/services.rs,render_thread/gpu_device.rs,render_thread/sparkleflinger/
+gpu/{runtime.rs,native_screen.rs},api/config/live/capture.rs,api/system/audio.rs}`
+plus `core/src/input/{media.rs,audio/mod.rs}` until their seams land).
+`rg -l 'cfg\(target_os' crates/hypercolor-core/src crates/hypercolor-daemon/src
+| rg -v '/tests?(\.rs|/)'` must stay at or under ten files (the unfiltered
+command also matches two test modules, so it returns twelve). Nothing enforces
+this budget today, so the number above is the only guard. Never add a
+`Macos*`/`Windows*`/`Linux*` type, variant, or field to shared code; carry
+per-platform facts as data (`Option`, unit variants, opaque diagnostics
+envelopes). See `docs/design/72-cross-platform-boundary-review.md`.
+
+`hypercolor-leptos-ext::ws` (feature `ws-core`, pure, no leptos/wasm) is the
+single definition of the daemon's binary WebSocket wire format: the daemon's
+encoders conform to it (round-trip tested in `daemon/src/api/ws/tests.rs`), and
+both the web UI and the TUI decode with it. Never hand-roll those frame layouts.
+
+`hypercolor-types::api` is the single definition of the REST request/response
+contracts across seventeen domain modules (assets, attachments, capture,
+config, controls, devices, diagnose, displays, drivers, effects, layouts,
+library, output, scene, scenes, simulators, system) plus the shared
+`envelope` module that owns `ApiResponse`, `ListResponse`, `PageInfo`, and
+`ApiErrorBody`. The daemon serializes these types; the web UI, the TUI, the
+CLI, the tray, and the desktop app shell deserialize them, and the Python
+client is generated from the same schemas. Most list routes answer
+`ListResponse { items, total, page }`, where `page` is present only on the
+routes that genuinely page (twelve routes answer `ListResponse` at all). Five
+collection routes do not, and the exceptions are
+contract: `GET /displays`, `/capture/monitors`, `/simulators/displays`, and
+`/config/schema` put a bare JSON array in `data` (they register through
+`OperationDoc::get_vec`), and `GET /control-surfaces` answers
+`{ surfaces: [...] }`. Check the generated OpenAPI document before assuming a
+collection is paged. Diagnostic telemetry (system status internals,
+metrics) deliberately stays daemon-local; clients consume tolerant subsets.
+When adding or changing an endpoint in a shared domain, change the type in
+`hypercolor-types::api`, never a hand-mirrored copy.
+
+## Architecture
+
+### Render Pipeline
+
+The daemon runs a render loop on a dedicated thread, targeting adaptive FPS (10/20/30/45/60):
+
+```
+InputManager::sample_all()        → Collect audio, screen, keyboard data
+build_frame_scene_snapshot()      → Capture active scene, effect groups, and live control state
+SparkleFlinger::compose_frame()   → Each producer runs at its own cadence; the compositor latches the newest surface per producer and blends into one canonical RGBA canvas (640×480 default, configurable)
+SpatialEngine::sample()           → Map composed canvas pixels to LED positions → ZoneColors
+BackendManager::write_frame()     → Group by device, queue async sends
+HypercolorBus::publish()          → Publish frame data, canvas preview, timing metrics
+```
+
+`FpsController` auto-shifts between tiers: downshifts fast on budget misses, upshifts
+slowly on sustained headroom.
+
+### Event Bus
+
+`HypercolorBus` uses three lock-free communication patterns:
+
+- **Broadcast** (256 capacity): discrete events (device connected, effect changed).
+  Every subscriber sees every event. Non-blocking; drops silently if channel is full.
+- **Watch** (latest-value): high-frequency frame data and spectrum data.
+  Subscribers skip stale frames automatically. Used for device output and preview streaming.
+- **Watch** (canvas): render canvas and screen-source canvas as `CanvasFrame` (RGBA bytes).
+
+Rule of thumb: events are broadcast, data streams are watch.
+
+### Key Traits
+
+- **`DeviceBackend`** (`driver-api/src/backend.rs`): hardware communication.
+  Discovery adopts devices before connect; frame and display sinks own hot-path delivery.
+  Long-running I/O is dispatched internally.
+- **`EffectRenderer`** (`core/src/effect/traits.rs`): polymorphic renderer implemented by
+  `ServoRenderer` and the CPU builtins in `core/src/effect/builtin/`. There is no native GPU
+  shader renderer; wgpu drives the SparkleFlinger compositor instead.
+  Input: `FrameInput` (timing, audio, interaction, screen, sensors, sources). Output: `Canvas`.
+- **`ManagedSource`** (`core/src/input/traits.rs`): the base input-source trait, requiring `name`,
+  `start`, `stop`, `sample`, and `is_running`, and refined by `AudioSource`, `ScreenSource`,
+  `InteractionSource`, and `DataSource` via `SourceRoleBinding`. `InputSource` is a legacy alias
+  for it (`pub use ManagedSource as InputSource`), so prefer the canonical name in new code.
+  One broken source never crashes the render loop.
+- **`Protocol`** (`hal/src/protocol.rs`): USB/HID wire-format encoding per device family.
+  See hal-driver-development skill for implementation patterns.
+
+### AppState
+
+The daemon's shared state is `Arc`-wrapped and injected into every Axum handler. Subsystems
+that own a `!Sync` renderer or a serialized device path sit behind `Mutex` (`BackendManager`,
+`DeviceLifecycleManager`, `InputManager`); `EffectRegistry` is read-heavy and uses `RwLock`.
+Scene, layout, effect, and spatial state is not reached through raw locks at all: it lives
+behind the domain services in `AppState::domains` (`SceneService`, `SpatialService`, and the
+rest of `DomainContexts`), which own their own commit ordering and event publication.
+
+## UI Crate
+
+`hypercolor-ui` is **excluded from the Cargo workspace**. `cargo check --workspace` does NOT
+cover it. Build and test separately:
+
+```bash
+just ui-dev          # Dev server on :9430, proxies API to :9420
+just ui-test         # Run UI crate tests
+just ui-build        # Production build
+```
+
+Tech stack: Leptos 0.8 CSR, Tailwind v4 with SilkCircuit tokens, wasm-bindgen, leptos_icons.
+Trunk orchestrates Tailwind compilation before WASM build (see `crates/hypercolor-ui/Trunk.toml`).
+
+**Design system:** `docs/DESIGN-SYSTEM.md` is the canonical Luminary style guide:
+token architecture, color, typography, motion, glass, ambient reactivity, and
+component patterns. All UI design work follows it; §14 is the rules checklist.
+
+**Gotcha:** `leptos_icons::Icon`'s `style` prop accepts `MaybeProp<String>`: it takes
+`&str` or `String`, NOT closures. Use conditional rendering to vary icon styles reactively.
+
+**Never poll from the browser.** A timer-driven fetch loop anywhere in the UI is a
+fatal defect. The daemon relays every `HypercolorBus` event to ws `events`
+subscribers, and `WsManager`/`WsContext` expose them as hint signals
+(`last_device_event`, `last_scene_event`, `last_extension_event`, …). To make a
+`LocalResource` live, read a hint-derived signal inside its fetcher. Daemon
+extensions push their own state changes as
+`HypercolorEvent::ExtensionStateChanged { source, kind, payload }`; the relay and
+the `last_extension_event` hint carry them with no OSS changes. Events are not
+replayed across a socket gap, so also fold `connection_generation` (bumps on every
+ws open) into fetcher epochs to refetch after reconnects. One-shot handshakes
+with server-driven pacing (device-authorization login) are protocol, not polling.
+
+## SDK
+
+TypeScript SDK for building HTML effects, managed with **Bun**:
+
+```bash
+just sdk-install         # bun install
+just sdk-dev             # Dev server with HMR
+just sdk-build           # Build packages
+just effects-build       # Build all effects -> effects/hypercolor/*.html
+just effect-build NAME   # Build single effect
+```
+
+`effects/hypercolor/` is generated build output (gitignored). Never hand-edit, never commit.
+Make changes in `sdk/src/effects/` and regenerate.
+
+## Build Profiles
+
+| Profile   | Command              | Use For                                                                                         |
+| --------- | -------------------- | ----------------------------------------------------------------------------------------------- |
+| `dev`     | `just build`         | Edit-compile loops. Hypercolor crates at opt-level 1, deps at 2, Servo/mozjs at 3.              |
+| `preview` | `just build-preview` | Local testing. Like dev but disables debug-assertions and overflow-checks in Hypercolor crates. |
+| `release` | `just release`       | Distribution. LTO, codegen-units=1, panic=abort, stripped.                                      |
+
+The daemon defaults to `preview` profile (`just daemon`) for responsive local iteration
+without the runtime cliffs of unoptimized Servo.
+
+## Conventions
+
+- **Edition 2024**, Rust 1.94+
+- **Tests:** integration and public-API coverage lives in `tests/` directories, named `{feature}_tests.rs`. Small private-internals unit tests may use `#[cfg(test)]` modules; avoid large inline test bodies.
+- **`unsafe_code` is forbidden** workspace-wide by default. The sixteen audited opt-outs are `linux-gpu-interop`, `linux-session`, `macos-capture`, `macos-gpu-interop`, `macos-input`, `macos-media`, `macos-session`, `pipewire-interop`, `windows-gpu-interop`, `windows-pawnio`, `windows-capture`, `windows-input`, `windows-session`, `windows-helper`, `platform-fs`, and `hypercolor-app` (Win32 power-event FFI); each denies `clippy::undocumented_unsafe_blocks`
+- **Clippy pedantic** at deny level; see `Cargo.toml` for allowed exceptions
+- **`unwrap()` is forbidden**: use `?`, `.ok()`, `expect("reason")`, or handle errors properly
+- **`thiserror`** for library errors, **`anyhow`** for application errors
+- **`tracing`** for all logging (never `println!` in library code)
+- **Serde** with `#[serde(rename_all = "snake_case")]` on enums, `#[serde(default)]` for compat
+- **Conventional commits**: `feat(scope):`, `fix(scope):`, `refactor(scope):`, etc.
+- **Apache-2.0** license
+
+### Emoji
+
+Expressive, not excessive. One per heading max. Never multiple in a row.
+
+**Use:** 💜 (brand) 🔮 (magic/future) ⚡ (energy/fast) 💎 (quality) 🌈 (variety) 🌊 (flow)
+🎯 (goals) 🔥 (important, sparingly) 🪄 (automation) 🧪 (experiments) 🦋 (transformation)
+
+**Never use:** 🚀 (dead) ✨ (filler) 💯 (try-hard) 🙏 (ambiguous) 👀 (overused)
+
+In terminal output, emoji serve as status indicators, not decoration. In docs, they belong
+in section headers only, not body text. See `~/dev/conventions/shared/STYLE_GUIDE.md` for
+the full SilkCircuit emoji philosophy.
+
+## API Surface
+
+The daemon exposes REST + WebSocket on `:9420` (Axum):
+
+- `GET /api/v1/effects`: List all effects
+- `POST /api/v1/effects/{id}/apply`: Apply an effect to a scene zone
+- `GET/PATCH /api/v1/scene`: Read or update the live scene
+- `POST /api/v1/scene/deactivate`: Return to the default scene
+- `POST /api/v1/scene/clear`: Clear one zone or the whole live scene
+- `PATCH /api/v1/scene/zones/{zone}/layers/{layer}/controls`: Update live controls
+- `GET /api/v1/devices`: Connected devices
+- `GET/POST/DELETE /api/v1/library/favorites`: Favorites CRUD
+- `GET/POST /api/v1/scenes` + `POST /api/v1/scenes/snapshot`: Scene management
+- `POST /api/v1/scenes/{id}/activate`: Scene activation
+- `GET/POST /api/v1/layouts`: Spatial layout CRUD
+- `WebSocket /api/v1/ws`: Real-time state (events, canvas frames, metrics, spectrum)
+- **MCP server**: 17 tools, 5 resources, and 3 prompt templates for AI integration
+
+Response envelope: `{ data: T, meta: { api_version, request_id, timestamp } }`.
+
+## Gotchas
+
+- **EffectRenderer is Send not Sync.** Wrap in `Mutex`, not `RwLock`. This is by design:
+  Servo's renderer is single-threaded.
+- **Canvas defaults to 640x480 but is configurable.** Flow dimensions from `daemon.canvas_width`
+  and `daemon.canvas_height` through the engine; never hardcode. Both canvas size and target
+  FPS retune live: the frame executor notices new dimensions at the top of a frame and runs
+  `RenderPipeline::prepare_canvas_resize` then `commit_canvas_resize`, and `RenderLoop::set_tier`
+  retunes the tier. Spatial coordinates are normalized `[0.0, 1.0]`, so effects stay resolution-
+  independent. LED positions are generated once from topology and cached; call `update_layout()`
+  to regenerate.
+- **Watch vs broadcast.** Don't use broadcast for high-frequency data (frame colors, spectrum).
+  Watch gives latest-value semantics; broadcast queues every event.
+- **Cargo deny exceptions.** One transitive advisory is allow-listed in `deny.toml`: gtk3-rs
+  unmaintained (RUSTSEC-2024-0415), pulled in by tray-icon/Tauri. No upgrade path. Don't try
+  to fix it.
+- **Device fingerprinting.** Scanners provide stable fingerprints so re-discovered devices
+  keep their `DeviceId` even if transport details (IP, USB path) change.
+- **FPS adaptation.** The render loop auto-shifts between 5 tiers. Downshift is aggressive
+  (2 consecutive budget misses), upshift is conservative (sustained headroom).
+- **Performance baselines are product contracts.** Never reduce FPS caps, preview cadences,
+  render tiers, resolution, sample rates, device output rates, benchmark thresholds, or
+  default performance ceilings for convenience, to make telemetry look better, or "to see if
+  it helps." No lowering baselines for the fuck of it. Preserve the intended ceiling and fix
+  root causes with profiling, rendering changes, build/profile choices, adaptive policy that
+  keeps the full baseline under headroom, or explicit user controls.
+
+## Agent Coordination
+
+Multiple agents may work simultaneously. Follow these rules:
+
+1. **Own your files**: only modify files in your assigned module
+2. **Never touch `lib.rs`** of another crate without coordination
+3. **`cargo check --workspace`** must pass after your changes (does NOT cover `hypercolor-ui`)
+4. **No placeholder implementations**: implement the real logic or don't create the file
+5. **Tests are mandatory**: every public type/function needs coverage in `tests/`
+6. **Never edit generated code**: especially `effects/hypercolor/` (build artifacts, not source)
+
+## Agent Skills & Agents
+
+Domain-specific knowledge lives in `.agents/`. Skills trigger automatically based on the
+work being done. Each skill's `SKILL.md` contains core knowledge; `references/` subdirectories
+hold detailed deep-dives. Skills for people running Hypercolor (no source checkout, REST,
+MCP, or CLI only) live in top-level `skills/` and ship in the release bundle under
+`share/hypercolor/skills`; `.agents/skills/` symlinks them so they stay discoverable in-repo.
+
+```
+.agents/skills/
+  protocol-research/          # USB captures, community docs, spec writing workflow
+  hal-driver-development/     # Protocol trait, zerocopy, CommandBuffer, wire formats
+  native-effect-authoring/    # EffectRenderer contract, AudioData, Canvas API
+  rgb-effect-design/          # LED color science, HTML canvas effects, palette design
+  leptos-ui-development/      # Leptos 0.8 signals, WebSocket binary protocol, SilkCircuit tokens
+  daemon-development/         # AppState, REST API, event bus, render pipeline, MCP
+  hypercolor-control/ -> ../../skills/hypercolor-control
+  rig-setup/          -> ../../skills/rig-setup
+
+skills/                       # User-facing skills (shipped)
+  hypercolor-control/         # Drive a running daemon: apply effects, patch controls, and scenes
+  rig-setup/                  # Case research, device inventory, generated layout + scene, dial-in loop
+
+.agents/agents/
+  driver-porter/              # End-to-end driver porting (research -> spec -> implement -> test)
+  effect-reviewer/            # Validates effects against LED hardware best practices
+```
+
+**Driver families:** Razer, Lian Li (ENE/TL), ASUS Aura, Corsair (Lighting Node/LINK/LCD),
+Dygma, Ableton Push 2, QMK, PrismRGB, Nollie. Network backends: Hue, Nanoleaf, WLED, Govee,
+plus an opt-in OpenRGB SDK bridge as a fallback driver.
+
+For HAL driver implementation patterns (zerocopy structs, CommandBuffer, Protocol trait,
+wire-format gotchas), see the `hal-driver-development` skill. For protocol research
+methodology, see `protocol-research`.
+
+## Specs & Design Docs
+
+Implementation specs live in `docs/specs/` (numbered). Design docs in `docs/design/` (numbered).
+Always check the relevant spec before implementing a module.
+
+---
+> Source: [hyperb1iss/hypercolor](https://github.com/hyperb1iss/hypercolor) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
