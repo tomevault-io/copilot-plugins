@@ -1,0 +1,9 @@
+{
+  "name": "alexmx--codechat",
+  "displayName": "codechat",
+  "description": "Human-in-the-loop code review for AI agents.",
+  "version": "1.0.0",
+  "author": "alexmx",
+  "homepage": "https://github.com/alexmx/codechat",
+  "skills": []
+}
