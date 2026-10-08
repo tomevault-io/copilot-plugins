@@ -1,31 +1,36 @@
-## 03-backend-structure
+## 04-docker-setup
 
-> Overview of the Python FastAPI backend architecture, key components, and configuration files for understanding the server-side codebase structure.
+> Explanation of Docker configuration, service setup, and commands for running the application in different environments (production, development, local).
 
-# Backend Structure
+description: Explanation of Docker configuration, service setup, and commands for running the application in different environments (production, development, local).
 
-The backend is a Python FastAPI application with multiple components.
+# Docker Configuration
 
-## Key Directories and Files
+This project uses Docker Compose to manage multiple services.
 
-- [backend/src/app/](mdc:backend/src/app) - Main application package
-  - [backend/src/app/config.py](mdc:backend/src/app/config.py) - Configuration settings
-  - [backend/src/app/exceptions.py](mdc:backend/src/app/exceptions.py) - Custom exceptions
-- [backend/src/app/services/](mdc:backend/src/app/services) - Business logic services
-- [backend/src/app/schemas/](mdc:backend/src/app/schemas) - Pydantic models/schemas
-- [backend/src/app/infrastructure/](mdc:backend/src/app/infrastructure) - Database and external services integration
-- [backend/src/app/tgbot/](mdc:backend/src/app/tgbot) - Telegram bot implementation
-- [backend/src/app/worker/](mdc:backend/src/app/worker) - Background worker tasks
-- [backend/src/app/webhook/](mdc:backend/src/app/webhook) - Webhook handlers
-- [backend/src/app/migrations/](mdc:backend/src/app/migrations) - Database migrations
+## Docker Compose Files
 
-## Configuration
+- [docker-compose.yml](mdc:docker-compose.yml) - Production configuration
+- [docker-compose.dev.yml](mdc:docker-compose.dev.yml) - Development configuration
+- [docker-compose.local.yml](mdc:docker-compose.local.yml) - Local development configuration
 
-- [backend/pyproject.toml](mdc:backend/pyproject.toml) - Python dependencies and project metadata
-- [backend/src/alembic.ini](mdc:backend/src/alembic.ini) - Alembic (migrations) configuration
-- [backend/web.Dockerfile](mdc:backend/web.Dockerfile) - Web service Docker configuration
-- [backend/bot.Dockerfile](mdc:backend/bot.Dockerfile) - Bot service Docker configuration
-- [backend/worker.Dockerfile](mdc:backend/worker.Dockerfile) - Worker service Docker configuration
+## Service Dockerfiles
+
+- [backend/web.Dockerfile](mdc:backend/web.Dockerfile) - Backend web service
+- [backend/bot.Dockerfile](mdc:backend/bot.Dockerfile) - Telegram bot service
+- [backend/worker.Dockerfile](mdc:backend/worker.Dockerfile) - Background worker service
+- [frontend/Dockerfile.prod](mdc:frontend/Dockerfile.prod) - Frontend production build
+- [frontend/Dockerfile.local](mdc:frontend/Dockerfile.local) - Frontend local development
+
+## Nginx Configuration
+
+- [nginx.conf](mdc:nginx.conf) - Nginx configuration for routing requests
+
+## Running Services
+
+- Production: `docker-compose up`
+- Development: `docker-compose -f docker-compose.dev.yml up`
+- Local development: `docker-compose -f docker-compose.local.yml up`
 
 ---
 > Source: [AHTOOOXA/gramkit](https://github.com/AHTOOOXA/gramkit) — distributed by [TomeVault](https://tomevault.io).
