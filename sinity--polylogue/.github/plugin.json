@@ -1,0 +1,9 @@
+{
+  "name": "sinity--polylogue",
+  "displayName": "polylogue",
+  "description": "A local evidence system for AI work\u2014unifying ChatGPT, Claude, Codex, Gemini, and agent histories into one searchable, auditable archive.",
+  "version": "1.0.0",
+  "author": "Sinity",
+  "homepage": "https://github.com/Sinity/polylogue",
+  "skills": []
+}
