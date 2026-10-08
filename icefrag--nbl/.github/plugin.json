@@ -1,0 +1,9 @@
+{
+  "name": "icefrag--nbl",
+  "displayName": "nbl",
+  "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+  "version": "1.0.0",
+  "author": "icefrag",
+  "homepage": "https://github.com/icefrag/nbl",
+  "skills": []
+}
