@@ -1,0 +1,9 @@
+{
+  "name": "slaterain--nv-rs",
+  "displayName": "nv-rs",
+  "description": "Experimental Fallout: New Vegas engine reimplementation in Rust and Bevy. Requires your own game data; base-game foundations first.",
+  "version": "1.0.0",
+  "author": "slaterain",
+  "homepage": "https://github.com/slaterain/nv-rs",
+  "skills": []
+}
