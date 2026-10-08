@@ -1,0 +1,9 @@
+{
+  "name": "dannyhw--mobile-test",
+  "displayName": "mobile-test",
+  "description": "mobile-test is an early-stage mobile testing framework aimed at React Native teams that want a TypeScript API.",
+  "version": "1.0.0",
+  "author": "dannyhw",
+  "homepage": "https://github.com/dannyhw/mobile-test",
+  "skills": []
+}
