@@ -2,7 +2,7 @@
   "name": "orbit",
   "owner": "Noveum",
   "repo": "orbit",
-  "description": "Free, open source, realtime task manager. Issues, boards, sprints, projects and docs that sync instantly. Keyboard-first, self-hostable, with an MCP server for AI agents. No pricing, ever.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Noveum/orbit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-27T03:02:19Z"
+  "distributed_at": "2026-10-08T00:05:41Z"
 }
