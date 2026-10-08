@@ -1,0 +1,9 @@
+{
+  "name": "craigmccart--quell",
+  "displayName": "Quell",
+  "description": "Stop API keys and passwords leaking into AI tools. Offline secret detection and redaction for VSCode, Cursor, Windsurf, and Claude Code.",
+  "version": "1.0.0",
+  "author": "craigmccart",
+  "homepage": "https://github.com/craigmccart/Quell",
+  "skills": []
+}
