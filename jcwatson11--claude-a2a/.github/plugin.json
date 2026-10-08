@@ -1,0 +1,9 @@
+{
+  "name": "jcwatson11--claude-a2a",
+  "displayName": "claude-a2a",
+  "description": "An A2A implementation for claude code including server and client MCP tools.",
+  "version": "1.0.0",
+  "author": "jcwatson11",
+  "homepage": "https://github.com/jcwatson11/claude-a2a",
+  "skills": []
+}
