@@ -1,0 +1,18 @@
+## git-author
+
+> Git 提交作者只用 GitHub 用户名，禁止 Cursor 联名
+
+
+# Git 提交作者规范
+
+- 提交作者使用本地 `git config` 中的 GitHub 用户名与邮箱（本仓库为 `rosesmall2010` / `rosesmall2010@gmail.com`）
+- **禁止**在 commit message 中追加以下任一内容：
+  - `Co-authored-by: Cursor <cursoragent@cursor.com>`
+  - 任何含 `Cursor` / `cursoragent` 的作者、联名、trailer 行
+- **禁止**修改 `git config`（包括 user.name / user.email）
+- 提交信息正文只用 Conventional Commits 中文说明，不要附带 IDE/Agent 署名
+- 若环境在 `git commit` / `git commit --amend` 后仍自动插入 `Co-authored-by: Cursor`：用 `git commit-tree` 按当前 tree 与父提交重建同内容提交，再 `git reset --soft` 指向新提交，以去掉联名行（仅限刚由本会话创建、且未推送的 HEAD）
+
+---
+> Source: [rosesmall2010/xmmusic](https://github.com/rosesmall2010/xmmusic) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-08 -->
