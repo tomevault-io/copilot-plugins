@@ -1,0 +1,9 @@
+{
+  "name": "forkline--swaybeam",
+  "displayName": "swaybeam",
+  "description": "Miracast for Sway and wlroots-based Wayland compositors",
+  "version": "1.0.0",
+  "author": "forkline",
+  "homepage": "https://github.com/forkline/swaybeam",
+  "skills": []
+}
