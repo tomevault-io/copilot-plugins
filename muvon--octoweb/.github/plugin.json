@@ -1,0 +1,9 @@
+{
+  "name": "muvon--octoweb",
+  "displayName": "octoweb",
+  "description": "Keyboard-first AI browser for macOS \u2014 WebKit + Rust, built-in AI sidebar, isolated workspaces, and an MCP server that lets your agents drive the web.",
+  "version": "1.0.0",
+  "author": "Muvon",
+  "homepage": "https://github.com/Muvon/octoweb",
+  "skills": []
+}
