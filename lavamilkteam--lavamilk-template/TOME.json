@@ -1,0 +1,44 @@
+{
+  "name": "lavamilk.template",
+  "owner": "lavamilkTeam",
+  "repo": "lavamilk.template",
+  "description": "A mobile agent developed for Android, iOS, and HarmonyOS, allowing it to connect to Codex and other software on your computer so you can perform remote development and code editing from your phone.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lavamilkTeam/lavamilk.template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T01:31:38Z"
+}
