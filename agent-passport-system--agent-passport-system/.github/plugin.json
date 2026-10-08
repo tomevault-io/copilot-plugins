@@ -1,0 +1,9 @@
+{
+  "name": "agent-passport-system--agent-passport-system",
+  "displayName": "agent-passport-system",
+  "description": "TypeScript SDK for the Agent Passport System: agent identity, scoped delegation, enforcement and signed receipts.",
+  "version": "1.0.0",
+  "author": "agent-passport-system",
+  "homepage": "https://github.com/agent-passport-system/agent-passport-system",
+  "skills": []
+}
