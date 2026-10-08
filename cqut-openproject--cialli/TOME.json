@@ -1,0 +1,44 @@
+{
+  "name": "CiaLli",
+  "owner": "CQUT-OpenProject",
+  "repo": "CiaLli",
+  "description": "\u57fa\u4e8e Mizuki \u548c Directus SDK \u5f00\u53d1\u7684\u8f7b\u91cf\u5185\u5bb9\u793e\u533a\u95e8\u6237\uff5c\u6b64\u9879\u76ee\u66fe\u4e3a\u6821\u5185\u793e\u56e2\u5f00\u53d1\uff0c\u73b0\u7ecf\u8d39\u4e0d\u8db3\u6682\u5b58",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CQUT-OpenProject/CiaLli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T04:24:51Z"
+}
