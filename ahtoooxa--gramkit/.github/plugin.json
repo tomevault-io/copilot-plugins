@@ -1,0 +1,9 @@
+{
+  "name": "ahtoooxa--gramkit",
+  "displayName": "gramkit",
+  "description": "Web App + Telegram Mini App starter: Next.js/Vue + FastAPI + Tailwind + shadcn/ui. Auth, payments, type-safety out of the box.",
+  "version": "1.0.0",
+  "author": "AHTOOOXA",
+  "homepage": "https://github.com/AHTOOOXA/gramkit",
+  "skills": []
+}
