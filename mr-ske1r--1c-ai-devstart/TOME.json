@@ -1,0 +1,44 @@
+{
+  "name": "1c-ai-devstart",
+  "owner": "mr-ske1r",
+  "repo": "1c-ai-devstart",
+  "description": "\u0413\u043e\u0442\u043e\u0432\u044b\u0439 \u0431\u0430\u0437\u043e\u0432\u044b\u0439 \u0448\u0430\u0431\u043b\u043e\u043d 1\u0421 \u043f\u0440\u043e\u0435\u043a\u0442\u0430 \u0434\u043b\u044f Claude Code",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mr-ske1r/1c-ai-devstart",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T02:37:54Z"
+}
