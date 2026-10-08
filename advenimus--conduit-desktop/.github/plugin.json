@@ -1,0 +1,9 @@
+{
+  "name": "advenimus--conduit-desktop",
+  "displayName": "conduit-desktop",
+  "description": "Cross-platform SSH, RDP, VNC & web connection manager with a built-in MCP server \u2014 let Claude Code or Codex drive your infrastructure",
+  "version": "1.0.0",
+  "author": "advenimus",
+  "homepage": "https://github.com/advenimus/conduit-desktop",
+  "skills": []
+}
