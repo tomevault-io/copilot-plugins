@@ -1,0 +1,9 @@
+{
+  "name": "safety-research--agent-escape-bench",
+  "displayName": "agent-escape-bench",
+  "description": "Sandbox escape benchmark for LLM capability evaluation",
+  "version": "1.0.0",
+  "author": "safety-research",
+  "homepage": "https://github.com/safety-research/agent-escape-bench",
+  "skills": []
+}
