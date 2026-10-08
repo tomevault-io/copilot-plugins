@@ -1,0 +1,9 @@
+{
+  "name": "wolf5996--agentic-skills",
+  "displayName": "agentic-skills",
+  "description": "Agent skills for R, bioinformatics, and scientific documentation. Works with Claude Code and Codex.",
+  "version": "1.0.0",
+  "author": "wolf5996",
+  "homepage": "https://github.com/wolf5996/agentic-skills",
+  "skills": []
+}
