@@ -1,33 +1,82 @@
-## 05-frontend-components
+## 06-backend-services
 
-> Guidelines for frontend component organization, development principles, and state management practices for maintaining a consistent UI architecture.
+> Detailed explanation of backend service architecture, including service layer design, data model structure, database access patterns, and dependency injection principles.
 
-description: Guidelines for frontend component organization, development principles, and state management practices for maintaining a consistent UI architecture.
+description: Detailed explanation of backend service architecture, including service layer design, data model structure, database access patterns, and dependency injection principles.
 
-# Frontend Components Structure
+# Backend Services Architecture
 
-The frontend follows a structured approach to organization.
+The backend follows a modular architecture with clear separation of concerns.
 
-## Presentation Layer
+## Service Layer
 
-- [frontend/src/presentation/components/](mdc:frontend/src/presentation/components) - Reusable UI components
-- [frontend/src/presentation/screens/](mdc:frontend/src/presentation/screens) - Page components
-- [frontend/src/presentation/layouts/](mdc:frontend/src/presentation/layouts) - Layout components
-- [frontend/src/presentation/assets/](mdc:frontend/src/presentation/assets) - Static assets
+- [backend/src/app/services/](mdc:backend/src/app/services) - Business logic services
+- Services should be focused on specific domain functionality
+- Use dependency injection for external dependencies
+- Keep services testable and independent
 
-## Component Guidelines
+## Data Models
 
-1. Components should follow Single Responsibility Principle
-2. Use composition with Vue 3 Composition API
-3. Keep components small and focused
-4. Leverage TypeScript for type safety
-5. Use Tailwind CSS for styling
+- [backend/src/app/schemas/](mdc:backend/src/app/schemas) - Pydantic models for validation and serialization
+- Input validation models should be prefixed with "Create" or "Update"
+- Response models should represent the exact API response structure
 
-## State Management
+## Database Access
 
-- [frontend/src/store/](mdc:frontend/src/store) - Pinia stores for state management
-- Use composables for reusable logic
-- Keep UI and business logic separated
+- [backend/src/app/infrastructure/](mdc:backend/src/app/infrastructure) - Database access and external integrations
+- Use SQLAlchemy for ORM
+- Define clear repository interfaces
+- Keep SQL queries in repository classes
+
+## API Structure
+
+- APIs should follow RESTful principles
+- Use appropriate HTTP methods and status codes
+- Document APIs with OpenAPI/Swagger
+- Validate all input data with Pydantic models
+
+# Backend Services Structure
+
+The backend services layer follows a structured approach:
+
+1. Each service extends `BaseService` which provides common infrastructure
+2. Services are organized by domain (users, subscriptions, messages, etc.)
+3. Services contain business logic and orchestrate between repositories and external systems
+
+## Repository Layer
+
+The repository layer provides data access:
+
+1. Each repository extends `BaseRepo` which provides common CRUD methods:
+   - `get_by_id`: Get entity by primary key
+   - `get_all`: Get all entities
+   - `create`: Create a new entity
+   - `update`: Update an existing entity
+   - `delete`: Delete an entity
+   - `upsert`: Insert or update an entity based on conflict keys
+
+2. Only implement custom repository methods for specialized queries that aren't covered by BaseRepo
+
+3. Keep repository methods focused on data access only (no business logic)
+
+## Service Layer Responsibilities
+
+Services are responsible for:
+
+1. Business logic implementation
+2. Validation and error handling
+3. Orchestrating between multiple repositories
+4. Integrating with external systems
+5. Event dispatching
+6. Monitoring and logging
+
+## Dependency Injection
+
+Services and repositories use dependency injection:
+
+1. Services receive repositories and other dependencies in their constructor
+2. This facilitates testing and loose coupling
+3. The service container assembles the dependency graph
 
 ---
 > Source: [AHTOOOXA/gramkit](https://github.com/AHTOOOXA/gramkit) — distributed by [TomeVault](https://tomevault.io).
