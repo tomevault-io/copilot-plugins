@@ -1,0 +1,9 @@
+{
+  "name": "cyberpatrolunit--null-signal",
+  "displayName": "null-signal",
+  "description": "Browser-based live VJ instrument for minimal techno \u2014 p5.js, WebGL compositor, 69 audio-reactive modes",
+  "version": "1.0.0",
+  "author": "cyberpatrolunit",
+  "homepage": "https://github.com/cyberpatrolunit/null-signal",
+  "skills": []
+}
