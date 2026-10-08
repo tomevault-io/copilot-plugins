@@ -1,0 +1,9 @@
+{
+  "name": "bgyss--snatcher-port",
+  "displayName": "snatcher-port",
+  "description": "Reverse-engineering Konami's Snatcher (Sega CD, 1994) into a native Mac/Windows build. Bring your own disc: no game data included.",
+  "version": "1.0.0",
+  "author": "bgyss",
+  "homepage": "https://github.com/bgyss/snatcher-port",
+  "skills": []
+}
