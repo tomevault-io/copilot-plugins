@@ -1,0 +1,9 @@
+{
+  "name": "mushkyqt--slyterm",
+  "displayName": "SlyTerm",
+  "description": "A macOS terminal that floats over your game: click-through overlay, global hotkeys, Claude Code and Codex status and answers, web tabs for guides and video, and a wiki lookup of what is under the poin",
+  "version": "1.0.0",
+  "author": "MushkyQT",
+  "homepage": "https://github.com/MushkyQT/SlyTerm",
+  "skills": []
+}
