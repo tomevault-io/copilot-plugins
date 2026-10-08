@@ -4,7 +4,7 @@
   "repo": "CrestApps.Core",
   "description": "CrestApps.Core is the AI application framework for .NET. It gives you the orchestration, management, chat, document, RAG, MCP, A2A, agent, reporting, and extensibility building blocks needed to add production-ready AI to an existing application without stitching together a pile of disconnected SDK samples.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CrestApps/CrestApps.Core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T18:10:28Z"
+  "distributed_at": "2026-10-08T04:05:19Z"
 }
