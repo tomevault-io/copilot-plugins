@@ -1,0 +1,9 @@
+{
+  "name": "responsibleai-guide--website",
+  "displayName": "website",
+  "description": "The website hosting our responsible AI usage documents.",
+  "version": "1.0.0",
+  "author": "responsibleai-guide",
+  "homepage": "https://github.com/responsibleai-guide/website",
+  "skills": []
+}
