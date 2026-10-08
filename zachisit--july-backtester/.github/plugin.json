@@ -1,0 +1,9 @@
+{
+  "name": "zachisit--july-backtester",
+  "displayName": "july-backtester",
+  "description": "Python backtesting engine for US equity strategies. Point-in-time survivorship-free universes, Monte Carlo (+ block-bootstrap) & Walk-Forward Analysis, advanced position sizing, data-quality validatio",
+  "version": "1.0.0",
+  "author": "zachisit",
+  "homepage": "https://github.com/zachisit/july-backtester",
+  "skills": []
+}
