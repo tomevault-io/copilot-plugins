@@ -4,7 +4,7 @@
   "repo": "Deckboy",
   "description": "Free, open-source cue deck for theatre and live video: clips, slides, a live camera, a web page or any window on the machine on one cue list \u2014 out to a screen, NDI, SRT, Blackmagic SDI or SMPTE ST 2110 while it records. Fired from the lighting desk by MIDI Show Control, or by Stream Deck, Companion, OSC, MIDI and timecode. Windows, macOS, Linux.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Utopian-Academy/Deckboy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T19:39:32Z"
+  "distributed_at": "2026-10-08T00:59:57Z"
 }
