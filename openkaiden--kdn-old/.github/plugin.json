@@ -1,0 +1,9 @@
+{
+  "name": "openkaiden--kdn-old",
+  "displayName": "kdn-old",
+  "description": "CLI for Kaiden",
+  "version": "1.0.0",
+  "author": "openkaiden",
+  "homepage": "https://github.com/openkaiden/kdn-old",
+  "skills": []
+}
