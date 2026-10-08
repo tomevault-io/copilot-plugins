@@ -1,0 +1,9 @@
+{
+  "name": "datadog--ddtest",
+  "displayName": "ddtest",
+  "description": "Test execution planning and test runner for Datadog Test Parallelization",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/ddtest",
+  "skills": []
+}
