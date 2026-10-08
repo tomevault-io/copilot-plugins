@@ -1,31 +1,28 @@
-## mcp
+## security
 
-> MCP server (ship-status) for SHIP Dashboard REST API tools
+> Authentication, authorization, and credential handling rules for Ship Status Dashboard
 
 
-MCP server **`ship-status`** wraps the dashboard REST API for AI agents. Code lives in:
+### Authentication model
 
-- `mcp/shared.py` -- `DashboardClient` and `ShipStatusAPI` (HTTP client and domain logic)
-- `mcp/public_server.py` -- public read-only MCP server (no credentials required)
-- `mcp/auth_server.py` -- authenticated write MCP server (behind oauth-proxy, requires SA token)
+The dashboard uses a dual-ingress architecture:
 
-Local config: [`.mcp.json`](../../.mcp.json) → `mcp/run.sh` (runs `public_server.py` by default)
+* **Public route** (`ship-status.ci.openshift.org`, port 8080) -- read-only API, no authentication required.
+* **Protected route** (`protected.ship-status.ci.openshift.org`, port 8443) -- routes through an oauth-proxy that authenticates callers via Kubernetes `TokenReview`, sets `X-Forwarded-User`, and signs requests with an HMAC `GAP-Signature` header before proxying to the dashboard on loopback.
 
-- Env: `SHIP_STATUS_PUBLIC_API_URL`, `SHIP_STATUS_PROTECTED_API_URL`, `SHIP_STATUS_AUTH_TOKEN_FILE`
-- Tests: `mcp/.venv/bin/pytest mcp/` (install `mcp/requirements-dev.txt` first)
+The oauth-proxy is the bearer-token authentication boundary. The dashboard (`cmd/dashboard/auth.go`) validates the `X-Forwarded-User` header and `GAP-Signature` HMAC to confirm the request passed through oauth-proxy untampered, then enforces authorization against `Owner.User`, `Owner.ServiceAccount`, and `Owner.RoverGroup`. Outage writes match those fields on the component. Team SLO workspace writes match them on that team's `team_slos` entry (`IsUserAuthorizedForTeamSLO`). Component owners do not grant team SLO write access. The dashboard never sees or validates bearer tokens directly. Trusted service accounts (configured in `trusted_delegators`) can act on behalf of a user by providing the `X-Acting-For` HTTP header; the auth middleware resolves the delegated identity before handlers run, so authorization and auditing use the delegated user transparently.
 
-The two servers are entirely separate entry points:
+### Credential placement
 
-- **`public_server.py`**: Read-only tools, accepts unauthenticated traffic. Stateless, holds no credentials.
-- **`auth_server.py`**: Write tools, sits behind oauth-proxy. Holds its own SA token to call the dashboard's protected API. Only authenticated callers can reach it.
+Never mount secret tokens (service account tokens, API keys) on containers that accept unauthenticated inbound traffic. If a container is publicly accessible, it must not have access to credentials that grant write access to other services.
 
-The deployment overrides `CMD` to run `auth_server.py` for the authenticated container.
+`jira_monitor` searches Jira anonymously. It only sees issues the site grants **Browse** to Anyone (TRT and OCPBUGS on `redhat.atlassian.net` do). Do not mount a Jira token on any Ship Status pod.
 
-SLO reads (`get_team_slo`, `get_team_slo_summary`) belong on `public_server.py`. SLO writes (`upsert_slo_item`, `add_slo_item_link`) belong on `auth_server.py`.
+Services behind oauth-proxy (not publicly accessible) may hold credentials needed for downstream authenticated calls. This is acceptable because oauth-proxy ensures only authenticated callers can reach the service. Services that accept unauthenticated traffic must remain stateless and credential-free; the caller supplies their own bearer token, which is forwarded unmodified to oauth-proxy for authentication.
 
-See `security.instructions.md` for the full auth model and credential placement rules.
+### Write endpoint authorization
 
-Do not add dev workflow tools here -- use **`ship-status-dev`** (`ship-status-dev/`).
+All mutating API endpoints (create, update, delete) must be served exclusively on the protected route. The public route must never expose write operations, even behind application-level checks. Defense in depth: the oauth-proxy layer authenticates, the HMAC layer verifies request integrity, and the dashboard authorizes against the owner list for that resource. Outage mutations use the component `owners`. Team SLO item and link mutations use `team_slos[].owners` via `IsUserAuthorizedForTeamSLO`. Do not authorize a team SLO write from component owners when the caller is absent from that team's `team_slos` owners.
 
 ---
 > Source: [openshift-eng/ship-status-dash](https://github.com/openshift-eng/ship-status-dash) — distributed by [TomeVault](https://tomevault.io).
