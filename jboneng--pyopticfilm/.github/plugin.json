@@ -1,0 +1,9 @@
+{
+  "name": "jboneng--pyopticfilm",
+  "displayName": "pyopticfilm",
+  "description": "PyUSB driver for Plustek OpticFilm scanners (Genesys ASIC).",
+  "version": "1.0.0",
+  "author": "jboneng",
+  "homepage": "https://github.com/jboneng/pyopticfilm",
+  "skills": []
+}
