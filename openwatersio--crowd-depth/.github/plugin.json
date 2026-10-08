@@ -1,0 +1,9 @@
+{
+  "name": "openwatersio--crowd-depth",
+  "displayName": "crowd-depth",
+  "description": "Collect and share depth data from your marine vessel with crowd-sourced bathymetry programs.",
+  "version": "1.0.0",
+  "author": "openwatersio",
+  "homepage": "https://github.com/openwatersio/crowd-depth",
+  "skills": []
+}
