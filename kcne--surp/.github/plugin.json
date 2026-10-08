@@ -1,0 +1,9 @@
+{
+  "name": "kcne--surp",
+  "displayName": "surp",
+  "description": "Multi-tenant ride operations platform for managing lines, stations, passengers, rides, and reservations. NestJS + Prisma backend with a Next.js + Tailwind frontend.",
+  "version": "1.0.0",
+  "author": "kcne",
+  "homepage": "https://github.com/kcne/surp",
+  "skills": []
+}
