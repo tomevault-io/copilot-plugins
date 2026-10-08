@@ -1,60 +1,31 @@
-## general
+## mcp
 
-> Ship Status Dashboard repository overview and general coding guidelines
+> MCP server (ship-status) for SHIP Dashboard REST API tools
 
 
-### APM context generation
+MCP server **`ship-status`** wraps the dashboard REST API for AI agents. Code lives in:
 
-Sources under **`.apm/`** (instructions, prompts, `apm.yml`, etc.) drive generated agent context. After editing those files, run **`make apm`** to regenerate **AGENTS.md**, **CLAUDE.md**, **GEMINI.md**, and the integrated copies under **`.claude/`**, **`.cursor/`**, **`.gemini/`**, and **`.opencode/`**. CI enforces freshness with **`make verify-apm`**.
+- `mcp/shared.py` -- `DashboardClient` and `ShipStatusAPI` (HTTP client and domain logic)
+- `mcp/public_server.py` -- public read-only MCP server (no credentials required)
+- `mcp/auth_server.py` -- authenticated write MCP server (behind oauth-proxy, requires SA token)
 
-**Slash / agent commands:** content under **`.apm/prompts/*.prompt.md`** is the single source of truth. **`apm install`** (part of **`make apm`**) copies each prompt into editor command targets (e.g. **`.claude/commands/`**, **`.opencode/commands/`**, **`.gemini/commands/`**). Do not add those generated paths by hand or installs will skip them as unmanaged duplicates.
+Local config: [`.mcp.json`](../../.mcp.json) → `mcp/run.sh` (runs `public_server.py` by default)
 
-### Overview
+- Env: `SHIP_STATUS_PUBLIC_API_URL`, `SHIP_STATUS_PROTECTED_API_URL`, `SHIP_STATUS_AUTH_TOKEN_FILE`
+- Tests: `mcp/.venv/bin/pytest mcp/` (install `mcp/requirements-dev.txt` first)
 
-**Ship Status Dashboard** is a status monitoring and availability tracking system for OpenShift CI components. It provides:
+The two servers are entirely separate entry points:
 
-* Real-time component status and outage tracking
-* Automated monitoring via HTTP probes, Prometheus queries, and systemd checks
-* Slack integration for outage notifications
-* Audit logging for all outage modifications
+- **`public_server.py`**: Read-only tools, accepts unauthenticated traffic. Stateless, holds no credentials.
+- **`auth_server.py`**: Write tools, sits behind oauth-proxy. Holds its own SA token to call the dashboard's protected API. Only authenticated callers can reach it.
 
-The system consists of:
+The deployment overrides `CMD` to run `auth_server.py` for the authenticated container.
 
-* A **Go-based API backend** with dual-ingress auth (public + OAuth-protected routes)
-* A **React/Vite/Material-UI frontend** (located in `frontend/`)
-* **Component-monitor** services that probe infrastructure components and report to the dashboard
-* **MCP servers** that expose dashboard API tools to AI agents (a public read-only instance and an authenticated write instance behind oauth-proxy)
-* **PostgreSQL** for data storage
+SLO reads (`get_team_slo`, `get_team_slo_summary`) belong on `public_server.py`. SLO writes (`upsert_slo_item`, `add_slo_item_link`) belong on `auth_server.py`.
 
-### Deployment topology
+See `security.instructions.md` for the full auth model and credential placement rules.
 
-Deployment manifests live in the [openshift/release](https://github.com/openshift/release) repository under `clusters/`. Configuration files (component definitions, monitor configs) live in `core-services/ship-status/` in that same repo.
-
-**app.ci cluster** (`clusters/app.ci/ship-status-dash/`):
-
-* **Dashboard pod** -- runs in the `ship-status` namespace with six containers:
-  - `dashboard` (port 8080) -- Go API backend, reads config from openshift/release via git-sync
-  - `oauth-proxy` (port 8443) -- authenticates requests to the dashboard via OpenShift OAuth / Kubernetes TokenReview, signs with HMAC
-  - `oauth-proxy-mcp` (port 9443) -- authenticates requests to the write MCP via the same mechanism
-  - `ship-status-mcp` (port 8090) -- public read-only MCP server for AI agents
-  - `ship-status-mcp-auth` (port 8091) -- authenticated write MCP server, behind oauth-proxy-mcp
-  - `git-sync` -- continuously syncs the openshift/release repo for config
-* **Component-monitor pod** (`app-ci-component-monitor`) -- probes Prow services (deck, crier, sinker, tide, gangway), Boskos pools, and build farm clusters (build01-11). Reports results to the dashboard's protected API using its own service account token.
-* **Ingress routes:**
-  - `ship-status.ci.openshift.org` -- public read-only API (port 8080)
-  - `protected.ship-status.ci.openshift.org` -- OAuth-protected dashboard API (port 8443)
-  - `mcp.ship-status.ci.openshift.org` -- public read-only MCP server (port 8090)
-  - `protected-mcp.ship-status.ci.openshift.org` -- OAuth-protected write MCP (port 9443)
-
-**DPCR cluster:**
-
-* **Component-monitor instance** (`dpcr-component-monitor`) -- monitors Sippy components (Sippy, Sippy-Auth, Sippy Chat). Runs on the DPCR cluster but reports back to the same dashboard on app.ci. Has its own service account and non-expiring token for cross-cluster auth.
-
-**Build clusters** (`clusters/build-clusters/build-shared/ship-status/`):
-
-* **Service account and RBAC** for component-monitor to access Prometheus and routes on build farm clusters. The app.ci component-monitor uses kubeconfigs for these clusters to run remote probes.
-
-Favor clarity and maintainability over cleverness. Comments should be minimal, helpful, and explain the "why" not the "what".
+Do not add dev workflow tools here -- use **`ship-status-dev`** (`ship-status-dev/`).
 
 ---
 > Source: [openshift-eng/ship-status-dash](https://github.com/openshift-eng/ship-status-dash) — distributed by [TomeVault](https://tomevault.io).
