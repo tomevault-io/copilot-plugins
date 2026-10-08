@@ -1,0 +1,9 @@
+{
+  "name": "holon-run--mdorigin",
+  "displayName": "mdorigin",
+  "description": "Markdown-first publishing for humans and agents.",
+  "version": "1.0.0",
+  "author": "holon-run",
+  "homepage": "https://github.com/holon-run/mdorigin",
+  "skills": []
+}
