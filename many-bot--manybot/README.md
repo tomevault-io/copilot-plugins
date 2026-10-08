@@ -7,11 +7,11 @@ Framework to build WhatsApp bots, without the boring part
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [many-bot/manybot](https://github.com/many-bot/manybot).
+Original source: `AGENTS.md` in [many-bot/manybot](https://github.com/many-bot/manybot).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
