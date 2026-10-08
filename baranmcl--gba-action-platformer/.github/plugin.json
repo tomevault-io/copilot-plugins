@@ -1,0 +1,9 @@
+{
+  "name": "baranmcl--gba-action-platformer",
+  "displayName": "GBA-action-platformer",
+  "description": "an experiment in creating a gameboy advance action-adventure game",
+  "version": "1.0.0",
+  "author": "baranmcl",
+  "homepage": "https://github.com/baranmcl/GBA-action-platformer",
+  "skills": []
+}
