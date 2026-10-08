@@ -1,0 +1,9 @@
+{
+  "name": "parkscloud--hearsay",
+  "displayName": "Hearsay",
+  "description": "Windows desktop app that transcribes system audio and microphone input in real-time using OpenAI's Whisper model running locally.",
+  "version": "1.0.0",
+  "author": "parkscloud",
+  "homepage": "https://github.com/parkscloud/Hearsay",
+  "skills": []
+}
