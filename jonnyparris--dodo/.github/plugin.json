@@ -1,0 +1,9 @@
+{
+  "name": "jonnyparris--dodo",
+  "displayName": "dodo",
+  "description": "Autonomous coding agent on Cloudflare Workers + Durable Objects",
+  "version": "1.0.0",
+  "author": "jonnyparris",
+  "homepage": "https://github.com/jonnyparris/dodo",
+  "skills": []
+}
