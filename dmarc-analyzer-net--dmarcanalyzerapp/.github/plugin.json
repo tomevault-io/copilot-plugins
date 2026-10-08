@@ -1,0 +1,9 @@
+{
+  "name": "dmarc-analyzer-net--dmarcanalyzerapp",
+  "displayName": "DmarcAnalyzerApp",
+  "description": "Open-source, self-hosted DMARC monitoring for agencies \u2014 unlimited domains, automatic report ingestion, no per-domain pricing.",
+  "version": "1.0.0",
+  "author": "dmarc-analyzer-net",
+  "homepage": "https://github.com/dmarc-analyzer-net/DmarcAnalyzerApp",
+  "skills": []
+}
