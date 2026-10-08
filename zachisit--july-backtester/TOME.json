@@ -1,0 +1,44 @@
+{
+  "name": "july-backtester",
+  "owner": "zachisit",
+  "repo": "july-backtester",
+  "description": "Python backtesting engine for US equity strategies. Point-in-time survivorship-free universes, Monte Carlo (+ block-bootstrap) & Walk-Forward Analysis, advanced position sizing, data-quality validation, intraday, regime heatmaps, PDF tearsheets, and ML-ready trade export. Five data providers \u2014 free with Yahoo Finance, no API key required.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zachisit/july-backtester",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T00:31:32Z"
+}
