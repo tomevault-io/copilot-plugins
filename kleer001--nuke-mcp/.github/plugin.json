@@ -1,0 +1,9 @@
+{
+  "name": "kleer001--nuke-mcp",
+  "displayName": "nuke-mcp",
+  "description": "MCP server for Nuke: drive the compositor from Claude and other LLMs. 57 tools \u2014 node graph, 3D, deep, tracking, render.",
+  "version": "1.0.0",
+  "author": "kleer001",
+  "homepage": "https://github.com/kleer001/nuke-mcp",
+  "skills": []
+}
