@@ -1,0 +1,9 @@
+{
+  "name": "carlaiau--jev-reranking",
+  "displayName": "jev-reranking",
+  "description": "Search engine experimentation on the TREC collections. Currently focused on zero-shot reranking implementations with typesafe.ai's JEV model",
+  "version": "1.0.0",
+  "author": "carlaiau",
+  "homepage": "https://github.com/carlaiau/jev-reranking",
+  "skills": []
+}
