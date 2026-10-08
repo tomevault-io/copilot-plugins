@@ -1,0 +1,9 @@
+{
+  "name": "lonestone--astrocms",
+  "displayName": "astrocms",
+  "description": "Simple CMS for Astro static websites with MDX support",
+  "version": "1.0.0",
+  "author": "lonestone",
+  "homepage": "https://github.com/lonestone/astrocms",
+  "skills": []
+}
