@@ -1,0 +1,9 @@
+{
+  "name": "endstonemc--spyglass",
+  "displayName": "spyglass",
+  "description": "Packet decode diagnostics for the Minecraft: Bedrock Edition client on Windows",
+  "version": "1.0.0",
+  "author": "EndstoneMC",
+  "homepage": "https://github.com/EndstoneMC/spyglass",
+  "skills": []
+}
