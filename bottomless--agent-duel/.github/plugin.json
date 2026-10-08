@@ -1,0 +1,9 @@
+{
+  "name": "bottomless--agent-duel",
+  "displayName": "agent-duel",
+  "description": "Blinded battles between coding agents: two agents, one prompt, you pick the winner. Desktop app, runs locally.",
+  "version": "1.0.0",
+  "author": "bottomless",
+  "homepage": "https://github.com/bottomless/agent-duel",
+  "skills": []
+}
