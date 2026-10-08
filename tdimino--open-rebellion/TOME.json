@@ -4,7 +4,7 @@
   "repo": "open-rebellion",
   "description": "Open-source Rust rebuild of Star Wars Rebellion (1998, LucasArts). macOS + WebAssembly. 100% fully moddable",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tdimino/open-rebellion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T21:39:44Z"
+  "distributed_at": "2026-10-08T04:42:57Z"
 }
