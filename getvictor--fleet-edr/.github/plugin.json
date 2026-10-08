@@ -1,0 +1,9 @@
+{
+  "name": "getvictor--fleet-edr",
+  "displayName": "fleet-edr",
+  "description": "Open-source macOS Endpoint Detection and Response (EDR): real-time process + network telemetry, behavioral detection rules, and host response actions, all in a single self-hosted server + agent.",
+  "version": "1.0.0",
+  "author": "getvictor",
+  "homepage": "https://github.com/getvictor/fleet-edr",
+  "skills": []
+}
