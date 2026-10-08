@@ -1,0 +1,9 @@
+{
+  "name": "hoangsonww--threadline-realtime-collab",
+  "displayName": "Threadline-RealTime-Collab",
+  "description": "\ud83e\uddf5 A room-centered workspace for live engineering collaboration - meet now, sketch, pair-program, and chat in real time via WebRTC & WebSockets & Cloudflare Durable Objects, then return to a durable, s",
+  "version": "1.0.0",
+  "author": "hoangsonww",
+  "homepage": "https://github.com/hoangsonww/Threadline-RealTime-Collab",
+  "skills": []
+}
