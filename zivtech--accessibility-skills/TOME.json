@@ -4,7 +4,7 @@
   "repo": "accessibility-skills",
   "description": "AI agent skills for accessibility testing and WCAG 2.2 audits in Claude Code: planner, critic, Playwright/axe-core tester, screen reader reviews, bug reports, and draft ACRs.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zivtech/accessibility-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T20:02:32Z"
+  "distributed_at": "2026-10-08T01:44:14Z"
 }
