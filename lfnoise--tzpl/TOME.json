@@ -1,0 +1,44 @@
+{
+  "name": "tzpl",
+  "owner": "lfnoise",
+  "repo": "tzpl",
+  "description": "Audio coding platform: a statically typed real-time language (Tzopilotl), a signal-graph-to-native-plugin compiler, and a real-time audio engine for composing and performing music",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lfnoise/tzpl",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T00:22:39Z"
+}
