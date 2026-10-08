@@ -1,0 +1,9 @@
+{
+  "name": "harrywang--suzuri",
+  "displayName": "suzuri",
+  "description": "A writing environment (Obsidian, Overleaf, Typst, Zotero) built on Zed",
+  "version": "1.0.0",
+  "author": "harrywang",
+  "homepage": "https://github.com/harrywang/suzuri",
+  "skills": []
+}
