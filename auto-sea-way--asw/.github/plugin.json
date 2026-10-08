@@ -1,0 +1,9 @@
+{
+  "name": "auto-sea-way--asw",
+  "displayName": "asw",
+  "description": "Open source sea routing between any two coordinates. Global routing graph built from OpenStreetMap coastlines with H3 hexagons. Rust, HTTP API, self-hosted.",
+  "version": "1.0.0",
+  "author": "auto-sea-way",
+  "homepage": "https://github.com/auto-sea-way/asw",
+  "skills": []
+}
