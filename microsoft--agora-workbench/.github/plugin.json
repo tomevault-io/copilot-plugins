@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--agora-workbench",
+  "displayName": "agora-workbench",
+  "description": "A workbench for wrapping your tooling with MCP",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/agora-workbench",
+  "skills": []
+}
