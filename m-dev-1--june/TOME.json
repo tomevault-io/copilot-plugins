@@ -4,7 +4,7 @@
   "repo": "june",
   "description": "your computer's memory, on linux",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/M-DEV-1/june",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T22:03:29Z"
+  "distributed_at": "2026-10-08T04:47:30Z"
 }
