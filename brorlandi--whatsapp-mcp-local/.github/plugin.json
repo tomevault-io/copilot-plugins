@@ -1,0 +1,9 @@
+{
+  "name": "brorlandi--whatsapp-mcp-local",
+  "displayName": "whatsapp-mcp-local",
+  "description": "WhatsApp MCP Local: o seu WhatsApp no Claude, num app para macOS, Windows e Linux que roda no seu computador",
+  "version": "1.0.0",
+  "author": "BrOrlandi",
+  "homepage": "https://github.com/BrOrlandi/whatsapp-mcp-local",
+  "skills": []
+}
