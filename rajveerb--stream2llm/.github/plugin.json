@@ -1,0 +1,9 @@
+{
+  "name": "rajveerb--stream2llm",
+  "displayName": "stream2llm",
+  "description": "Stream2LLM: Overlap Context Streaming and Prefill for Reduced Time-to-First-Token (MLSys'26)",
+  "version": "1.0.0",
+  "author": "rajveerb",
+  "homepage": "https://github.com/rajveerb/stream2llm",
+  "skills": []
+}
