@@ -4,7 +4,7 @@
   "repo": "factorio-blueprint-editor",
   "description": "Browser-based Factorio blueprint editor with Factorio 2.0 and Space Age support. Actively maintained; a separate project from teoxoy/factorio-blueprint-editor.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FactoryGameFan/factorio-blueprint-editor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T21:34:42Z"
+  "distributed_at": "2026-10-08T04:37:51Z"
 }
