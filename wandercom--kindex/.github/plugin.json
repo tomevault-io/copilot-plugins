@@ -1,0 +1,9 @@
+{
+  "name": "wandercom--kindex",
+  "displayName": "kindex",
+  "description": "Knowledge index that learns from your conversations",
+  "version": "1.0.0",
+  "author": "wandercom",
+  "homepage": "https://github.com/wandercom/kindex",
+  "skills": []
+}
