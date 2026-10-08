@@ -4,7 +4,7 @@
   "repo": "iterion",
   "description": "Build, run and orchestrate agentic AI workflows.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SocialGouv/iterion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T20:07:17Z"
+  "distributed_at": "2026-10-08T06:31:04Z"
 }
