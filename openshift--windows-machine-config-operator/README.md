@@ -1,6 +1,6 @@
 # windows-machine-config-operator
 
-> Source: [openshift/windows-machine-config-operator](https://github.com/openshift/windows-machine-config-operator). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [openshift/windows-machine-config-operator](https://github.com/openshift/windows-machine-config-operator). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
