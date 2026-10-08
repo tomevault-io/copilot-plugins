@@ -1,0 +1,9 @@
+{
+  "name": "agent-facets--facets",
+  "displayName": "facets",
+  "description": "Official repo for Agent Facets CLI, Protocol, and Adapter SDK",
+  "version": "1.0.0",
+  "author": "agent-facets",
+  "homepage": "https://github.com/agent-facets/facets",
+  "skills": []
+}
