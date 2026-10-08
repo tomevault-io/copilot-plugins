@@ -1,50 +1,118 @@
-## 08-common-issues
+## 09-api-and-store-conventions
 
-> Solutions for common problems encountered during development, including Docker setup issues, frontend/backend troubleshooting, testing problems, and environment configuration.
+> Conventions for implementing API clients and Pinia stores, including patterns for handling API requests, state management best practices, error handling, and common pitfalls to avoid.
 
-description: Solutions for common problems encountered during development, including Docker setup issues, frontend/backend troubleshooting, testing problems, and environment configuration.
+description: Conventions for implementing API clients and Pinia stores, including patterns for handling API requests, state management best practices, error handling, and common pitfalls to avoid.
 
-# Common Issues and Solutions
+# API and Store Implementation Conventions
 
-## Docker Issues
+## API Client
 
-- **Problem**: Docker containers failing to start
-  **Solution**: Check logs with `docker-compose logs` and ensure all required environment variables are set
+- The project uses `openapi-fetch` for API calls
+- [frontend/src/api/client.ts](mdc:frontend/src/api/client.ts) defines the central API client
+- API client is initialized with the Telegram Web App init data
+- All API calls should use this imported client with proper typing
 
-- **Problem**: Frontend hot reload not working
-  **Solution**: Ensure volumes are correctly mounted in docker-compose.local.yml
+```typescript
+// API client implementation
+import createClient from 'openapi-fetch';
+import type { paths } from '../types/schema';
+import useTelegram from '@/services/useTelegram';
 
-- **Problem**: Backend database connection issues
-  **Solution**: Verify database container is running and credentials are correct
+const { webAppInitData } = useTelegram();
 
-## Frontend Development
+const API_HOST = import.meta.env.VITE_API_HOST || 'http://localhost:3779';
+const apiClient = createClient<paths>({
+  baseUrl: API_HOST,
+  headers: {
+    initData: webAppInitData,
+  },
+});
 
-- **Problem**: TypeScript errors in the frontend
-  **Solution**: Run `cd frontend && yarn type-check` to identify and fix type issues
+export default apiClient;
+```
 
-- **Problem**: ESLint/Prettier conflicts
-  **Solution**: Use `cd frontend && yarn lint --fix` to apply automatic fixes
+## Store Implementation
 
-## Backend Development
+- API calls are made directly in the store actions, NOT in components
+- Stores follow the Pinia pattern with state, actions, and getters
+- Each domain feature has its own dedicated store:
+  - [frontend/src/store/tarot.ts](mdc:frontend/src/store/tarot.ts) - Tarot card operations
+  - [frontend/src/store/user.ts](mdc:frontend/src/store/user.ts) - User data and settings
+  - [frontend/src/store/readings.ts](mdc:frontend/src/store/readings.ts) - Reading history
+  - [frontend/src/store/payments.ts](mdc:frontend/src/store/payments.ts) - Payment processing
+  - [frontend/src/store/subscription.ts](mdc:frontend/src/store/subscription.ts) - Subscription status
 
-- **Problem**: Database migrations failing
-  **Solution**: Check migration history and ensure proper sequencing
+## Typical Store Pattern
 
-- **Problem**: API endpoint returning 500 errors
-  **Solution**: Check backend logs for exceptions and verify input validation
+```typescript
+// Store with API calls pattern
+import { defineStore } from 'pinia';
+import apiClient from '@/api/client';
+import type { components, paths } from '@/types/schema';
 
-## Testing
+export const useSomeStore = defineStore('storeName', {
+  state: () => ({
+    // Type your state properly
+    items: [] as SomeType[],
+    loading: false,
+    error: null as string | null,
+  }),
 
-- **Problem**: Tests failing in CI/CD pipeline
-  **Solution**: Run tests locally with the same environment variables as CI to reproduce and fix
+  actions: {
+    async fetchData() {
+      this.loading = true;
+      this.error = null;
 
-## Environment Setup
+      try {
+        const { data, error } = await apiClient.GET('/some/endpoint', {
+          params: { query: { param1: 'value' } },
+        });
 
-- **Problem**: Missing environment variables
-  **Solution**: Check example .env files in the repository and ensure all required variables are set
+        if (error) {
+          this.error = 'Error message';
+          console.error('Failed to fetch data:', error);
+          return null;
+        }
 
-- **Problem**: ngrok configuration issues
-  **Solution**: Verify [ngrok.yml](mdc:ngrok.yml) configuration matches the expected setup
+        this.items = data;
+        return data;
+      } catch (e) {
+        this.error = e instanceof Error ? e.message : 'Unknown error';
+        throw e;
+      } finally {
+        this.loading = false;
+      }
+    }
+  }
+});
+```
+
+## Common LLM Mistakes to Avoid
+
+1. ❌ DO NOT create fetch/axios calls in components - all API calls go through the store
+2. ❌ DO NOT create local component state for API data - use the appropriate store
+3. ❌ DO NOT use standard fetch or axios - always use the typed openapi-fetch client
+4. ❌ DO NOT bypass the store layer for API access
+5. ✅ DO use proper typing from the OpenAPI schema via `type { components, paths }`
+6. ✅ DO handle loading and error states in the store
+7. ✅ DO use PostHog for analytics when appropriate
+8. ✅ DO ensure proper error handling in all API calls
+
+## Best Practices
+
+- Always use typed API responses from OpenAPI schema
+- Handle loading and error states at the store level
+- Keep UI components free from direct API calls
+- Use composables for reusable API-related logic
+- Cache API responses in stores when appropriate
+
+## Anti-patterns to Avoid
+
+- DO NOT create new API clients in components
+- DO NOT make direct fetch/axios calls bypassing the apiClient
+- DO NOT store API response data directly in components
+- DO NOT duplicate API call logic across different stores
 
 ---
 > Source: [AHTOOOXA/gramkit](https://github.com/AHTOOOXA/gramkit) — distributed by [TomeVault](https://tomevault.io).
