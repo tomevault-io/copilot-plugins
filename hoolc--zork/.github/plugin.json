@@ -1,0 +1,9 @@
+{
+  "name": "hoolc--zork",
+  "displayName": "zork",
+  "description": "A local-first agent mesh. Run persistent agents on your own devices and connect them to collaborate.",
+  "version": "1.0.0",
+  "author": "HOOLC",
+  "homepage": "https://github.com/HOOLC/zork",
+  "skills": []
+}
