@@ -1,0 +1,9 @@
+{
+  "name": "plantcontrol--controlsys",
+  "displayName": "controlsys",
+  "description": "Go library for linear state-space control systems",
+  "version": "1.0.0",
+  "author": "PlantControl",
+  "homepage": "https://github.com/PlantControl/controlsys",
+  "skills": []
+}
