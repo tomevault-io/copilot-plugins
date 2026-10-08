@@ -1,0 +1,9 @@
+{
+  "name": "vesiumjs--cesium-vector-tileset",
+  "displayName": "cesium-vector-tileset",
+  "description": "Experimental high-performance MVT renderer for Cesium (Buffer*Collection + MapLibre)  | \u57fa\u4e8e Cesium\uff08Buffer*Collection + MapLibre\uff09 \u7684\u5b9e\u9a8c\u6027\u9ad8\u6027\u80fd MVT \u6e32\u67d3\u5668",
+  "version": "1.0.0",
+  "author": "vesiumjs",
+  "homepage": "https://github.com/vesiumjs/cesium-vector-tileset",
+  "skills": []
+}
