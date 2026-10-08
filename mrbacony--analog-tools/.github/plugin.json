@@ -1,0 +1,9 @@
+{
+  "name": "mrbacony--analog-tools",
+  "displayName": "analog-tools",
+  "description": "AnalogTools is a collection of utilities and libraries designed to enhance and extend AnalogJS - the fullstack meta-framework for Angular.",
+  "version": "1.0.0",
+  "author": "MrBacony",
+  "homepage": "https://github.com/MrBacony/analog-tools",
+  "skills": []
+}
