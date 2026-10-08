@@ -1,17 +1,15 @@
 # AI instruction files for havm
 
-> Sourced from [IngmarStein/havm](https://github.com/IngmarStein/havm) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Zero-config CLI for running Home Assistant OS on Apple Silicon using the native Virtualization framework. macOS 27+.
+> Sourced from [IngmarStein/havm](https://github.com/IngmarStein/havm), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [IngmarStein/havm](https://github.com/IngmarStein/havm).
+Original source: `AGENTS.md` in [IngmarStein/havm](https://github.com/IngmarStein/havm).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
