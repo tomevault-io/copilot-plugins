@@ -4,7 +4,7 @@
   "repo": "themia",
   "description": "Desktop widgets for Windows 10 & 11, lightweight, customizable, native.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/crazy-rabbit-software/themia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T22:51:32Z"
+  "distributed_at": "2026-10-08T02:38:51Z"
 }
