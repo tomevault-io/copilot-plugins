@@ -1,0 +1,44 @@
+{
+  "name": "stock_website",
+  "owner": "xie96808",
+  "repo": "stock_website",
+  "description": "\u80a1\u5e02\u6a21\u62df\u76d8\u5c0f\u6e38\u620f\u548c\u57fa\u672c\u76d8\u5c0f\u77e5\u8bc6\uff01",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xie96808/stock_website",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T04:12:30Z"
+}
