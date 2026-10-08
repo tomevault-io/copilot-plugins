@@ -1,0 +1,83 @@
+## rp1-jtag
+
+> rp1-jtag: High-speed JTAG via Raspberry Pi 5 RP1 PIO. C library (`librp1jtag`) wrapping PIOLib for autonomous JTAG shift operations, plus drivers for openFPGALoader and OpenOCD.
+
+# CLAUDE.md
+
+## Project Overview
+
+rp1-jtag: High-speed JTAG via Raspberry Pi 5 RP1 PIO. C library (`librp1jtag`) wrapping PIOLib for autonomous JTAG shift operations, plus drivers for openFPGALoader and OpenOCD.
+
+**This is the development repository, not a distribution one.** CI builds the
+library and both tools from unpatched upstream and uploads the binaries as
+workflow artifacts. It publishes no Debian packages and no releases, and its
+GitHub Pages apt repository is frozen and superseded. The only workflow that
+touches Pages is `pages.yml`, which runs by hand (`workflow_dispatch`) and
+replaces that frozen repository with the pointer page in `docs/pages/`.
+
+Packages and static binaries for fpgas.online are built and published by
+[fpgas-online/fpgas.online-fpga-tools](https://github.com/fpgas-online/fpgas.online-fpga-tools),
+which vendors these drivers as part of a larger patch series. Feature work
+that is not about RP1 PIO JTAG — SPI flash info, NeTV2 board definitions,
+Tiny Tapeout, ECP5 TraceID — belongs there or in the upstream projects, not
+here. That repository also packages `librp1jtag0` / `librp1jtag-dev`, from
+its own `packaging/debian/rp1jtag/`; this repository carries no packaging.
+
+## Build
+
+```bash
+cmake -B build
+cmake --build build
+ctest --test-dir build    # Run PIO simulator + unit tests
+```
+
+Requires PIOLib from `raspberrypi/utils` installed system-wide for hardware builds. Simulator and unit tests build on any Linux host without PIOLib.
+
+## Testing on RPi 5
+
+Target: `tim@10.1.10.14` (rpi5-netv2) with NeTV2 FPGA board connected via JTAG.
+
+```bash
+# Hardware tests (need sudo for /dev/pio0)
+sudo ./build/tests/hardware/test_pio_loopback     # No wiring needed
+sudo ./build/tests/hardware/test_gpio_loopback     # 1 jumper: TDI→TDO
+sudo ./build/tests/hardware/test_target_loopback   # 4 jumpers
+sudo ./build/tests/hardware/test_idcode            # Needs NeTV2
+```
+
+## Code Style
+
+- **C library**: C11, snake_case, 4-space indent, `rp1_jtag_` prefix
+- **PIO programs**: .pio format, assembled with pioasm, generated headers committed
+- **openFPGALoader driver**: C++, PascalCase class, camelCase methods, spaces, `#pragma once`
+- **OpenOCD driver**: C, snake_case, tab indent, LOG_INFO/LOG_ERROR, ERROR_OK returns
+- **Tests**: C, CTest, each test is a standalone executable
+
+## Architecture
+
+- `lib/` — Core C library with PIOLib abstraction layer
+- `lib/src/pio/` — PIO programs (.pio source + generated .pio.h)
+- `drivers/openfpgaloader/` — openFPGALoader cable driver (C++)
+- `drivers/openocd/` — OpenOCD adapter driver (C, GPL-2.0)
+- `tests/pio_sim/` — Custom PIO simulator (C, no hardware)
+- `tests/unit/` — Unit tests with mock PIOLib backend
+- `tests/hardware/` — Hardware integration tests (RPi 5 required)
+
+## Key Design Decisions
+
+- TMS controlled by host GPIO (not PIO pin) because TDI and TMS are non-contiguous
+- TMS vector split into constant-value runs, each becoming one PIO transfer
+- Phase 1: word-by-word FIFO interleaving — what `main` ships, `use_dma = false`,
+  measured ~97 kB/s (3.8 MB bitstream in ~39 s on rpi5-netv2, 2026-09-22)
+- Phase 2: DMA for bulk transfers — work in progress, not on `main`
+- 1 state machine used (of 4 available on RP1's single PIO block)
+
+## NeTV2 JTAG Pins (default)
+
+TCK=GPIO4, TMS=GPIO17, TDI=GPIO27, TDO=GPIO22
+FPGA: Xilinx Artix-7 XC7A100T, IDCODE 0x13631093
+FPGA: Xilinx Artix-7 XC7A35T, IDCODE 0x0362D093
+
+---
+> Source: [mithro/rp1-jtag](https://github.com/mithro/rp1-jtag) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
