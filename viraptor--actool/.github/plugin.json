@@ -1,0 +1,9 @@
+{
+  "name": "viraptor--actool",
+  "displayName": "actool",
+  "description": "Cleanroom actool reimplementation",
+  "version": "1.0.0",
+  "author": "viraptor",
+  "homepage": "https://github.com/viraptor/actool",
+  "skills": []
+}
