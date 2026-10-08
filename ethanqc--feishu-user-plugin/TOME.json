@@ -1,0 +1,44 @@
+{
+  "name": "feishu-user-plugin",
+  "owner": "EthanQC",
+  "repo": "feishu-user-plugin",
+  "description": "\u98de\u4e66 MCP \u670d\u52a1\u5668 + CLI \u5de5\u5177\uff1a\u8ba9 Claude Code/Codex/\u811a\u672c \u76f4\u63a5\u63a5\u7ba1\u4f60\u7684\u98de\u4e66\u5de5\u4f5c\u6d41 \u2014 84 \u4e2a\u5de5\u5177\u30013 \u5c42\u9274\u6743 cookie / \u5b98\u65b9 API / OAuth\uff0c\u4ee5\u4f60\u672c\u4eba\u8eab\u4efd\u53d1\u6d88\u606f\u3001\u8bfb\u53d6\u7fa4\u548c\u79c1\u804a\u3001\u64cd\u4f5c\u6587\u6863 / \u591a\u7ef4\u8868\u683c / \u77e5\u8bc6\u5e93 / \u4e91\u7a7a\u95f4 / \u65e5\u5386 / \u4efb\u52a1 / OKR",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/EthanQC/feishu-user-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T01:41:13Z"
+}
