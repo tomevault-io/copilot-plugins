@@ -7,11 +7,11 @@ TypeScript port of Pandas
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [githubnext/tsb](https://github.com/githubnext/tsb).
+Original source: `AGENTS.md` in [githubnext/tsb](https://github.com/githubnext/tsb).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
