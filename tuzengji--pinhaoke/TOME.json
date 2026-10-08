@@ -1,0 +1,44 @@
+{
+  "name": "Pinhaoke",
+  "owner": "tuzengji",
+  "repo": "Pinhaoke",
+  "description": "\u62fc\u597d\u8bfe\uff0c\u5317\u4eac\u5927\u5b66\u8bfe\u7a0b\u67e5\u8be2\u5e73\u53f0\u3002\u8bfe\u7a0b\u641c\u7d22\uff0c\u8e6d\u8bfe\uff0c\u8bfe\u7a0b\u67e5\u8be2\u3002\u514d\u8d39\u516c\u76ca\u9879\u76ee\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tuzengji/Pinhaoke",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T00:08:30Z"
+}
