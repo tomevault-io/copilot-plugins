@@ -1,0 +1,9 @@
+{
+  "name": "andreszs--comfyui-ultralytics-studio",
+  "displayName": "ComfyUI-Ultralytics-Studio",
+  "description": "Ultralytics Studio node for ComfyUI workflows.",
+  "version": "1.0.0",
+  "author": "andreszs",
+  "homepage": "https://github.com/andreszs/ComfyUI-Ultralytics-Studio",
+  "skills": []
+}
