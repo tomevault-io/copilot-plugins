@@ -1,0 +1,9 @@
+{
+  "name": "ignaziods--langgraph-fastapi-starter",
+  "displayName": "langgraph-fastapi-starter",
+  "description": "Open-source LangGraph + FastAPI starter for stateful AI agent APIs with PostgreSQL/pgvector, RAG, API-key auth, Docker, migrations, and tests.",
+  "version": "1.0.0",
+  "author": "IgnazioDS",
+  "homepage": "https://github.com/IgnazioDS/langgraph-fastapi-starter",
+  "skills": []
+}
