@@ -1,0 +1,82 @@
+## agentic-skills
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Repository Purpose
+
+This repo (`wolf5996/agentic-skills`) contains opinionated skills for R/bioinformatics workflows that work with both **Claude Code** and **Codex**. Each skill is a directory with a single `SKILL.md` file that teaches domain-specific conventions. Skills are tool-agnostic — both Claude Code and Codex read `SKILL.md` for workflow guidance.
+
+## Dual-Tool Support
+
+This repository is cloned into both `~/.claude/skills/personal_skills/` and `~/.codex/skills/personal_skills/`, with both local repos pushing to the same GitHub remote. Shared skill content (`SKILL.md`, `references/`, etc.) is identical across both installations.
+
+- **Claude Code** reads `SKILL.md` YAML frontmatter (`name`, `description`) directly for skill discovery and triggering.
+- **Codex** uses `agents/openai.yaml` files for interface metadata (display name, short description, default prompt). These are Codex-specific but tracked in the shared repo so both installations stay in sync. Claude Code ignores `agents/` directories entirely.
+
+## Repo Structure
+
+```
+~/.claude/skills/
+├── personal_skills/          ← this git repo
+│   ├── creating-analysis-projects/SKILL.md
+│   ├── developing-r-packages/SKILL.md
+│   ├── md-to-html/SKILL.md
+│   ├── tailoring-applications/SKILL.md
+│   ├── writing-labarchive-entries/SKILL.md
+│   ├── writing-qmd-scientific/SKILL.md
+│   ├── writing-r-code/SKILL.md
+│   ├── git-hygiene/SKILL.md
+│   ├── md-format/SKILL.md
+│   ├── hugo-blog/SKILL.md
+│   ├── recommendation-letter-workflow/SKILL.md
+│   └── write-readme/SKILL.md
+├── creating-analysis-projects -> personal_skills/creating-analysis-projects
+├── developing-r-packages -> personal_skills/developing-r-packages
+├── md-to-html -> personal_skills/md-to-html
+├── tailoring-applications -> personal_skills/tailoring-applications
+├── writing-labarchive-entries -> personal_skills/writing-labarchive-entries
+├── writing-qmd-scientific -> personal_skills/writing-qmd-scientific
+├── writing-r-code -> personal_skills/writing-r-code
+├── git-hygiene -> personal_skills/git-hygiene
+├── md-format -> personal_skills/md-format
+├── hugo-blog -> personal_skills/hugo-blog
+├── recommendation-letter-workflow -> personal_skills/recommendation-letter-workflow
+└── write-readme -> personal_skills/write-readme
+```
+
+## Symlink Requirement
+
+Claude Code discovers skills from `~/.claude/skills/<skill-name>/SKILL.md`. Since this repo lives at `~/.claude/skills/personal_skills/`, each skill directory needs a **symlink one level up** to be visible:
+
+```bash
+# From ~/.claude/skills/
+ln -s personal_skills/<skill-name> <skill-name>
+```
+
+**Every new skill must have a corresponding symlink created in `~/.claude/skills/`.** Without it, Claude Code will not discover or load the skill. After adding a new skill directory to this repo, always create the symlink before committing.
+
+## Adding a New Skill
+
+1. Create `<skill-name>/SKILL.md` in this repo with YAML frontmatter (`name`, `description`)
+2. Create symlink: `ln -s personal_skills/<skill-name> ~/.claude/skills/<skill-name>`
+3. If Codex support is desired, create `<skill-name>/agents/openai.yaml` with interface metadata
+4. Update `README.md`: add to the skills table and dependency graph
+5. Naming convention: lowercase, hyphen-separated (e.g., `writing-r-code`)
+
+## Editing Skills
+
+- Skills are invoked via the `Skill` tool, not `Read`. Never use `Read` on a SKILL.md to invoke it.
+- The `description` field in frontmatter controls when Claude triggers the skill — make it specific about file types, task types, and contexts.
+- Skills reference each other (see dependency graph in README.md). When changing shared conventions in `writing-r-code`, check downstream skills (`writing-qmd-scientific`, `creating-analysis-projects`).
+
+## Shared Preferences
+
+- **HTML output is dark by default.** Any skill that renders HTML (Quarto, R Markdown) uses `theme: {dark: darkly, light: cosmo}` with `dark` listed first. Never ship a light-only theme
+
+---
+> Source: [wolf5996/agentic-skills](https://github.com/wolf5996/agentic-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
