@@ -1,0 +1,9 @@
+{
+  "name": "cristianodabc--aludel",
+  "displayName": "aludel",
+  "description": "Phoenix-native LLM evaluation, prompt testing, model comparison, red teaming, and observability for Elixir",
+  "version": "1.0.0",
+  "author": "cristianodabc",
+  "homepage": "https://github.com/cristianodabc/aludel",
+  "skills": []
+}
