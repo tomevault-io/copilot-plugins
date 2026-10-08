@@ -4,7 +4,7 @@
   "repo": "JUPASCal.github.io",
   "description": "Unofficial JUPAS Calculator for HKDSE students",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JUPASCal/JUPASCal.github.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T08:35:36Z"
+  "distributed_at": "2026-10-08T06:55:11Z"
 }
