@@ -1,0 +1,9 @@
+{
+  "name": "cv-cat--catbus",
+  "displayName": "catbus",
+  "description": "\u4e00\u4e2a\u547d\u4ee4\u64cd\u4f5c\u5c0f\u7ea2\u4e66\u3001\u6296\u97f3\u3001TikTok\u3001B \u7ad9\u3001\u5feb\u624b\u3001\u5fae\u535a\u3001\u95f2\u9c7c\u3001\u6dd8\u5b9d\u3001\u4eac\u4e1c\u3001X\uff1a\u7edf\u4e00\u7684\u547d\u4ee4\u4e0e JSON \u8f93\u51fa\uff0c\u7ed9\u4eba\u548c AI Agent \u7528",
+  "version": "1.0.0",
+  "author": "cv-cat",
+  "homepage": "https://github.com/cv-cat/catbus",
+  "skills": []
+}
