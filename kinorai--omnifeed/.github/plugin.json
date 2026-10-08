@@ -1,0 +1,9 @@
+{
+  "name": "kinorai--omnifeed",
+  "displayName": "omnifeed",
+  "description": "LLM-friendly web crawler & scraper with a dedicated Reddit engine, built on Crawl4AI \u2014 Open WebUI compatible",
+  "version": "1.0.0",
+  "author": "kinorai",
+  "homepage": "https://github.com/kinorai/omnifeed",
+  "skills": []
+}
