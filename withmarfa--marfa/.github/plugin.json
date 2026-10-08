@@ -1,0 +1,9 @@
+{
+  "name": "withmarfa--marfa",
+  "displayName": "marfa",
+  "description": "A typed, self-hosted data layer for structured personal data, built to make that data usable anywhere.",
+  "version": "1.0.0",
+  "author": "withmarfa",
+  "homepage": "https://github.com/withmarfa/marfa",
+  "skills": []
+}
