@@ -1,0 +1,9 @@
+{
+  "name": "skepjandi--gitnotes",
+  "displayName": "gitnotes",
+  "description": "A mobile notes, todos, thought dumps and canvas app that uses Git repositories as durable, versioned storage. Built with Expo and React Native.",
+  "version": "1.0.0",
+  "author": "skepjandi",
+  "homepage": "https://github.com/skepjandi/gitnotes",
+  "skills": []
+}
