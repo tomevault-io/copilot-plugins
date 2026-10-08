@@ -7,11 +7,11 @@ Local IDM heat pump / Wärmepumpe integration for Home Assistant via Modbus TCP 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Xerolux/idm-heatpump-hass](https://github.com/Xerolux/idm-heatpump-hass).
+Original source: `AGENTS.md` in [Xerolux/idm-heatpump-hass](https://github.com/Xerolux/idm-heatpump-hass).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
