@@ -1,0 +1,9 @@
+{
+  "name": "evdanil--vscode-nexterminal",
+  "displayName": "vscode-NexTerminal",
+  "description": "Terminal manager supporting ssh and serial connections",
+  "version": "1.0.0",
+  "author": "evdanil",
+  "homepage": "https://github.com/evdanil/vscode-NexTerminal",
+  "skills": []
+}
