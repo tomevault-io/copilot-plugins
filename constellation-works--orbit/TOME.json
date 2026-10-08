@@ -4,7 +4,7 @@
   "repo": "orbit",
   "description": "Local-first delivery layer for AI coding agents. Your agent files the work as a task, and Orbit runs it in a sandboxed worktree with file locks and review gates. Every run ends in a pull request, with an audit log of every step. Works with Claude Code, Codex, Cursor, Copilot and more.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/constellation-works/orbit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T22:18:32Z"
+  "distributed_at": "2026-10-08T05:45:47Z"
 }
