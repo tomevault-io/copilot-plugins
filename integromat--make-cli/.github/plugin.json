@@ -1,0 +1,9 @@
+{
+  "name": "integromat--make-cli",
+  "displayName": "make-cli",
+  "description": "A command-line tool for Make automation platform",
+  "version": "1.0.0",
+  "author": "integromat",
+  "homepage": "https://github.com/integromat/make-cli",
+  "skills": []
+}
