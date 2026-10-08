@@ -1,0 +1,9 @@
+{
+  "name": "opendrone-hw--opendrone-web",
+  "displayName": "OpenDrone-Web",
+  "description": "OpenDrone webshop: React Router 7 storefront on Cloudflare Workers, backed by Shopify.",
+  "version": "1.0.0",
+  "author": "OpenDrone-hw",
+  "homepage": "https://github.com/OpenDrone-hw/OpenDrone-Web",
+  "skills": []
+}
