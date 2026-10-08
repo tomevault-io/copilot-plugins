@@ -1,0 +1,9 @@
+{
+  "name": "todoforai--cli",
+  "displayName": "cli",
+  "description": "CLI for TODO for AI \u2014 run an AI agent on your own machine from the terminal. Any model, your tools, your logins.",
+  "version": "1.0.0",
+  "author": "todoforai",
+  "homepage": "https://github.com/todoforai/cli",
+  "skills": []
+}
