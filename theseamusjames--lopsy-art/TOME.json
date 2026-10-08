@@ -4,7 +4,7 @@
   "repo": "lopsy.art",
   "description": "A single page image editor",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theseamusjames/lopsy.art",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T18:27:18Z"
+  "distributed_at": "2026-10-08T04:30:54Z"
 }
