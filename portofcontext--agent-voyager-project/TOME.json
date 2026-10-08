@@ -4,7 +4,7 @@
   "repo": "agent-voyager-project",
   "description": "AVP - Command your agent fleet with Open Source ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/portofcontext/agent-voyager-project",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T23:20:42Z"
+  "distributed_at": "2026-10-08T02:58:19Z"
 }
