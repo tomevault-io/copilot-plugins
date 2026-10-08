@@ -7,11 +7,11 @@ AVP - Command your agent fleet with Open Source
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [portofcontext/agent-voyager-project](https://github.com/portofcontext/agent-voyager-project).
+Original source: `AGENTS.md` in [portofcontext/agent-voyager-project](https://github.com/portofcontext/agent-voyager-project).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
