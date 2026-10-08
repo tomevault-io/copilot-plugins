@@ -1,8 +1,6 @@
 # bhamm-lab
 
-> Tome by [blake-hamm](https://github.com/blake-hamm/bhamm-lab) — distributed by [TomeVault](https://tomevault.io)
-
-My homelab
+> Tome by [blake-hamm](https://github.com/blake-hamm/bhamm-lab), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,12 @@ Original source: `AGENTS.md` in [blake-hamm/bhamm-lab](https://github.com/blake-
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [blake-hamm/bhamm-lab](https://github.com/blake-hamm/bhamm-lab) — a repo with 41+ stars on GitHub.
+## Bundled Skills (2)
+
+- [bhamm-lab](https://github.com/blake-hamm/bhamm-lab/tree/main/nix/modules/gui/pi/skills/council/SKILL.md)
+- [bhamm-lab](https://github.com/blake-hamm/bhamm-lab/tree/main/nix/modules/gui/pi/skills/interview/SKILL.md)
+
+From [blake-hamm/bhamm-lab](https://github.com/blake-hamm/bhamm-lab) — a repo with 0+ stars on GitHub.
 
 ---
 
