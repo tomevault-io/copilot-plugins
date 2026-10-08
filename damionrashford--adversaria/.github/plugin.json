@@ -1,0 +1,9 @@
+{
+  "name": "damionrashford--adversaria",
+  "displayName": "Adversaria",
+  "description": "Critical thinking plugin for Claude Code. Three specialized agents (advocate, adversary, judge) argue, stress-test, and judge any idea using a shared argument graph, 10 reasoning traditions, and persi",
+  "version": "1.0.0",
+  "author": "damionrashford",
+  "homepage": "https://github.com/damionrashford/Adversaria",
+  "skills": []
+}
