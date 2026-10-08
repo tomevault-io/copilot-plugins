@@ -1,0 +1,9 @@
+{
+  "name": "forumcopilot--xenforoapp",
+  "displayName": "xenforoapp",
+  "description": "Open-source Flutter template for a single-forum XenForo mobile app (iOS, Android, macOS). Fork it, point it at your forum, ship your own branded app.",
+  "version": "1.0.0",
+  "author": "forumcopilot",
+  "homepage": "https://github.com/forumcopilot/xenforoapp",
+  "skills": []
+}
