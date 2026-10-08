@@ -4,7 +4,7 @@
   "repo": "wga",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -73,9 +73,51 @@
       "path": ".claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md",
       "github_url": "https://github.com/blackfyre/wga/tree/main/.claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "wga",
+      "path": ".agents/skills/htmx/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.agents/skills/htmx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wga",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wga",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wga",
+      "path": ".agents/skills/visual-overhaul-reference-parity/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.agents/skills/visual-overhaul-reference-parity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wga",
+      "path": ".agents/skills/conventional-git/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.agents/skills/conventional-git/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wga",
+      "path": ".agents/skills/dependency-update-first-release/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.agents/skills/dependency-update-first-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wga",
+      "path": ".agents/skills/design-intake/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.agents/skills/design-intake/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/blackfyre/wga",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T14:04:13Z"
+  "distributed_at": "2026-10-08T13:20:22Z"
 }
