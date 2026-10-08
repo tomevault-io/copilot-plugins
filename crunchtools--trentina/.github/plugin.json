@@ -1,0 +1,9 @@
+{
+  "name": "crunchtools--trentina",
+  "displayName": "trentina",
+  "description": "MCP gateway between AI agents and their tools, the web and Matrix: three-layer prompt-injection defense, smaller tool lists and responses, gateway-enforced parameter and response guards, OAuth/DCR, an",
+  "version": "1.0.0",
+  "author": "crunchtools",
+  "homepage": "https://github.com/crunchtools/trentina",
+  "skills": []
+}
