@@ -1,26 +1,29 @@
-## 01-project-overview
+## 02-frontend-structure
 
-> description: Overview of the project structure and quick start instructions for running the application in different environments.
+> Details of the Vue.js frontend architecture, key directories, and configuration files for understanding and navigating the frontend codebase.
 
-description: Overview of the project structure and quick start instructions for running the application in different environments.
+# Frontend Structure
 
-# Tarot Project Overview
+The frontend is a Vue.js application with TypeScript and Tailwind CSS.
 
-This is a tarot application with a Vue.js frontend and Python FastAPI backend.
+## Key Files and Directories
 
-## Project Structure
+- [frontend/src/main.ts](mdc:frontend/src/main.ts) - Entry point
+- [frontend/src/App.vue](mdc:frontend/src/App.vue) - Root component
+- [frontend/src/router/](mdc:frontend/src/router) - Vue Router configuration
+- [frontend/src/store/](mdc:frontend/src/store) - State management
+- [frontend/src/presentation/](mdc:frontend/src/presentation) - UI components and screens
+- [frontend/src/services/](mdc:frontend/src/services) - Service layer for API communication
+- [frontend/src/api/](mdc:frontend/src/api) - API client implementations
+- [frontend/src/utils/](mdc:frontend/src/utils) - Utility functions
+- [frontend/src/composables/](mdc:frontend/src/composables) - Vue composables (reusable logic)
+- [frontend/src/i18n/](mdc:frontend/src/i18n) - Internationalization
 
-- [frontend/](mdc:frontend) - Vue.js frontend application
-- [backend/](mdc:backend) - Python FastAPI backend application
-- [docker-compose.yml](mdc:docker-compose.yml) - Production Docker configuration
-- [docker-compose.dev.yml](mdc:docker-compose.dev.yml) - Development Docker configuration
-- [docker-compose.local.yml](mdc:docker-compose.local.yml) - Local development configuration
+## Configuration
 
-## Quick Start
-
-1. For development: `docker-compose -f docker-compose.dev.yml up`
-2. For local development: `docker-compose -f docker-compose.local.yml up`
-3. For production: `docker-compose up`
+- [frontend/vite.config.ts](mdc:frontend/vite.config.ts) - Vite configuration
+- [frontend/tailwind.config.js](mdc:frontend/tailwind.config.js) - Tailwind CSS configuration
+- [frontend/tsconfig.json](mdc:frontend/tsconfig.json) - TypeScript configuration
 
 ---
 > Source: [AHTOOOXA/gramkit](https://github.com/AHTOOOXA/gramkit) — distributed by [TomeVault](https://tomevault.io).
