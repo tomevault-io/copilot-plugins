@@ -4,7 +4,7 @@
   "repo": "tg-cli",
   "description": "Agent-first Telegram CLI client built on MTProto. Designed for Claude Code agents and power users who need structured, scriptable access to Telegram.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/miolamio/tg-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T18:28:40Z"
+  "distributed_at": "2026-10-08T04:36:06Z"
 }
