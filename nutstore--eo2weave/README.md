@@ -7,11 +7,11 @@ Local-first AI workspace for creators — browser-based,   privacy-first, multi-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nutstore/eo2weave](https://github.com/nutstore/eo2weave).
+Original source: `AGENTS.md` in [nutstore/eo2weave](https://github.com/nutstore/eo2weave).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
