@@ -1,0 +1,9 @@
+{
+  "name": "productofamerica--mcp-server-kicad",
+  "displayName": "mcp-server-kicad",
+  "description": "KiCad MCP server: 100+ Model Context Protocol tools that let an AI assistant do schematic capture and PCB layout. Place parts, route traces, run ERC and DRC, export Gerbers, BOM, and 3D models.",
+  "version": "1.0.0",
+  "author": "ProductOfAmerica",
+  "homepage": "https://github.com/ProductOfAmerica/mcp-server-kicad",
+  "skills": []
+}
