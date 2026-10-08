@@ -7,11 +7,11 @@ CrestApps.Core is the AI application framework for .NET. It gives you the orches
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [CrestApps/CrestApps.Core](https://github.com/CrestApps/CrestApps.Core).
+Original source: `AGENTS.md` in [CrestApps/CrestApps.Core](https://github.com/CrestApps/CrestApps.Core).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
