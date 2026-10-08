@@ -7,11 +7,11 @@ Memora is a local-first workspace for learning across documents, audio, images, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [MaxtuneLee/memora](https://github.com/MaxtuneLee/memora).
+Original source: `AGENTS.md` in [MaxtuneLee/memora](https://github.com/MaxtuneLee/memora).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
