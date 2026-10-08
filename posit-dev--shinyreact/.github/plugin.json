@@ -1,0 +1,9 @@
+{
+  "name": "posit-dev--shinyreact",
+  "displayName": "shinyreact",
+  "description": "Shiny UI infrastructure for React-based component rendering",
+  "version": "1.0.0",
+  "author": "posit-dev",
+  "homepage": "https://github.com/posit-dev/shinyreact",
+  "skills": []
+}
