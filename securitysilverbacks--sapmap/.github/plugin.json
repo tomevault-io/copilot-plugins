@@ -1,0 +1,9 @@
+{
+  "name": "securitysilverbacks--sapmap",
+  "displayName": "SAPMAP",
+  "description": "SAP Landscape Attack Path Mapper \u2014 Red team tool for mapping SAP RFC connections and lateral movement paths",
+  "version": "1.0.0",
+  "author": "SecuritySilverbacks",
+  "homepage": "https://github.com/SecuritySilverbacks/SAPMAP",
+  "skills": []
+}
