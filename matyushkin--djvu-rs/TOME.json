@@ -4,7 +4,7 @@
   "repo": "djvu-rs",
   "description": "Pure-Rust DjVu codec \u2014 decode and encode DjVu documents. MIT licensed, no GPL dependencies.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/matyushkin/djvu-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T02:18:51Z"
+  "distributed_at": "2026-10-08T03:45:09Z"
 }
