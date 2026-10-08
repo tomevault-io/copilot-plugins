@@ -1,0 +1,9 @@
+{
+  "name": "aibtcdev--skills",
+  "displayName": "skills",
+  "description": "AI agent skills for Bitcoin, Stacks, and DeFi operations",
+  "version": "1.0.0",
+  "author": "aibtcdev",
+  "homepage": "https://github.com/aibtcdev/skills",
+  "skills": []
+}
