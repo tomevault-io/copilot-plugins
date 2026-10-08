@@ -4,7 +4,7 @@
   "repo": "CodexAI---Skills",
   "description": "Instruction-first Codex skill pack for end-to-end developer workflow: intent analysis, workflow routing, domain rules, docs sync, quality gate, and project memory with practical helper scripts.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Bang-isme/CodexAI---Skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T01:27:17Z"
+  "distributed_at": "2026-10-08T03:53:49Z"
 }
