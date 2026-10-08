@@ -1,0 +1,9 @@
+{
+  "name": "lavamilkteam--lavamilk-template",
+  "displayName": "lavamilk.template",
+  "description": "A mobile agent developed for Android, iOS, and HarmonyOS, allowing it to connect to Codex and other software on your computer so you can perform remote development and code editing from your phone.",
+  "version": "1.0.0",
+  "author": "lavamilkTeam",
+  "homepage": "https://github.com/lavamilkTeam/lavamilk.template",
+  "skills": []
+}
