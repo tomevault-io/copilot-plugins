@@ -1,0 +1,9 @@
+{
+  "name": "axellum--m5-tab5-esphome-lvgl",
+  "displayName": "M5-Tab5-ESPHome-LVGL",
+  "description": "Home Assistant wall screen for the M5Stack Tab5 (ESP32-P4), built with ESPHome and LVGL. Home Assistant pushes, the tablet never polls. Screen in 7 languages (FR, EN, DE, NL, ES, IT, TR). Local wake w",
+  "version": "1.0.0",
+  "author": "Axellum",
+  "homepage": "https://github.com/Axellum/M5-Tab5-ESPHome-LVGL",
+  "skills": []
+}
