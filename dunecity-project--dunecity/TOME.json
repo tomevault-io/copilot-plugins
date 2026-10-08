@@ -4,7 +4,7 @@
   "repo": "dunecity",
   "description": "DuneCity \u2014 Dune Legacy RTS + Micropolis city-building simulation",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dunecity-project/dunecity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T22:43:40Z"
+  "distributed_at": "2026-10-08T06:37:05Z"
 }
