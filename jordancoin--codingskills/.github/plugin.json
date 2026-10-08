@@ -1,0 +1,9 @@
+{
+  "name": "jordancoin--codingskills",
+  "displayName": "codingskills",
+  "description": "Coding principles for Claude Code and AI agents. KISS, DRY, SOLID, YAGNI, separation of concerns, and more. Language-agnostic skills that help agents ship production-quality code.",
+  "version": "1.0.0",
+  "author": "JordanCoin",
+  "homepage": "https://github.com/JordanCoin/codingskills",
+  "skills": []
+}
