@@ -4,7 +4,7 @@
   "repo": "sint-protocol",
   "description": "Runtime authorization & audit layer for physical AI \u2014 T0\u2013T3 tiers, capability tokens, Ed25519, ROS2/MCP/MAVLink bridges, OWASP ASI coverage",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pshkv/sint-protocol",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T22:32:03Z"
+  "distributed_at": "2026-10-08T06:00:53Z"
 }
