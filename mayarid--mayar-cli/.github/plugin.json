@@ -1,0 +1,9 @@
+{
+  "name": "mayarid--mayar-cli",
+  "displayName": "mayar-cli",
+  "description": "Zero-dependency Node.js CLI for the Mayar API (production endpoint).",
+  "version": "1.0.0",
+  "author": "mayarid",
+  "homepage": "https://github.com/mayarid/mayar-cli",
+  "skills": []
+}
