@@ -1,0 +1,9 @@
+{
+  "name": "nnmalex--ha-ai-conversation-cloudflare",
+  "displayName": "ha-ai-conversation-cloudflare",
+  "description": "Cloudflare Agent worker and HACS integration for use of Cloudflare Workers AI as Conversation agent with Home Assistant",
+  "version": "1.0.0",
+  "author": "nnmalex",
+  "homepage": "https://github.com/nnmalex/ha-ai-conversation-cloudflare",
+  "skills": []
+}
