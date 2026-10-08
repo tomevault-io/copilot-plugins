@@ -1,126 +1,49 @@
-## ship-status-dash
+## dev-commands
 
-> This is a Go-based dashboard application for monitoring component status, availability, and outages. The system integrates with Prometheus for metrics, PostgreSQL for persistence, and Kubernetes/OpenShift for infrastructure monitoring.
+> Common dev commands for database migration, linting, and testing
 
-# SHIP Status and Availability Dashboard Monitor
 
-## Project Overview
-This is a Go-based dashboard application for monitoring component status, availability, and outages. The system integrates with Prometheus for metrics, PostgreSQL for persistence, and Kubernetes/OpenShift for infrastructure monitoring.
+### Database migration
 
-## Technology Stack
-- **Language**: Go 1.25
-- **Web Framework**: gorilla/mux
-- **Database**: PostgreSQL with GORM ORM
-- **Monitoring**: Prometheus client
-- **Infrastructure**: Kubernetes/OpenShift client-go
-- **Logging**: logrus
-- **Testing**: testify, testcontainers
+Run migrations: `go run ./cmd/migrate --dsn "$SHIP_STATUS_DSN"`
 
-## Project Structure
-- `cmd/`: Command-line applications
-- `pkg/types/`: Core data models and types
-- `deploy/`: Deployment configurations
-- `test/`: Test utilities and fixtures
-- `hack/`: Development scripts
+If `SHIP_STATUS_DSN` is not set, use the dev default: `postgres://postgres:password@localhost:5433/ship_status?sslmode=disable`
 
-## Code Style and Standards
+### SLO seed
 
-### General Go Best Practices
-- Follow standard Go conventions and idioms
-- Use `gofmt` for formatting (enforced)
-- Organize imports in standard library, external, local order
-- Keep functions focused and testable
-- Don't do anything too clever, focus on readibility
-- Look to reuse logic instead of copying where possible
-- Use meaningful variable and function names
-- Add godoc comments for exported types and functions
+After migrate, local dev loads sample payload workspace rows:
 
-### Comments
-- Avoid excessive commenting - let the code speak for itself
-- Comments should explain **why**, not **what** the code does
-- Use comments to clarify non-obvious business logic or design decisions
-- Document edge cases, workarounds, or temporary solutions
-- If code needs comments to explain what it does, consider refactoring for clarity
+`go run ./cmd/seed-slo --dsn "$SHIP_STATUS_DSN" --config hack/local/dashboard/config.yaml`
 
-### Error Handling
-- Always check and handle errors explicitly
-- Use descriptive error messages with context
-- Wrap errors with additional context when propagating
-- Use `logrus` for logging errors with appropriate levels
+`--dsn` is required. `--config` defaults to `hack/local/dashboard/config.yaml`. `hack/local/dashboard/local-dev.sh` runs this after migrate. E2e passes `test/e2e/scripts/dashboard-config.yaml`.
 
-### Database Patterns
-- Use GORM models with proper struct tags
-- Define indexes on frequently queried columns
-- Use transactions for multi-step operations
-- Handle NULL values with sql.NullTime, sql.NullString, or pointers
-- Add `gorm.Model` for standard ID, CreatedAt, UpdatedAt, DeletedAt fields
+### Linting
 
-### Configuration
-- Accept configuration via YAML files
-- Support command-line flags for runtime options
-- Validate all configuration on startup
-- Use the `types.Config` struct for component definitions
+Run lint: `make lint`
 
-### HTTP API Design
-- Use gorilla/mux for routing
-- Return proper HTTP status codes
-- Use JSON for request/response bodies
-- Add proper error handling and logging for all endpoints
-- Include CORS headers where appropriate
-
-### Logging
-- Use `logrus` as the structured logger
-- Set appropriate log levels (Debug, Info, Warn, Error, Fatal)
-- Include context in log messages (component names, IDs, etc.)
-- Use `log.WithFields()` for structured logging ALWAYS use the same instance where possible, DO NOT redifine fields all over a single method
-
-## Data Models
-
-### Outage Model
-The core model for tracking component outages:
-- Includes severity, start/end times, and auto-resolution flags
-- Supports confirmation workflow with `ConfirmedBy` and `ConfirmedAt`
-- Tracks who discovered, created, and resolved the outage
-- Allows triage notes for incident documentation
-
-### Component Configuration
-Components are defined in YAML with:
-- Name, description, and ownership (SHIP team, Slack channel)
-- Subcomponents with management and confirmation flags
-- Owner groups (Rover groups or service accounts)
-
-## Development Workflow
-
-### Building
-- Use the `Makefile` for build commands
-- Ensure all dependencies are in `vendor/` directory
-- Module name: `component-monitor`
+The lint script uses `golangci-lint` directly when available, falling back to a container otherwise.
 
 ### Testing
-- Write table-driven tests
-- Place tests in `*_test.go` files
-- Run tests with `go test ./...`
 
-### Database Migrations
-- Use the `cmd/migrate` utility for schema changes
-- Test migrations with both up and down operations
-- Document schema changes in migration files
+Run unit tests: `make test`
 
-## Important Considerations
+Run frontend BDD tests: `make bdd`
 
-### Security
-- Never commit database credentials
-- Use environment variables or secure configuration for DSN
-- Validate all user inputs
-- Use parameterized queries (GORM handles this)
+Run e2e tests: `make local-e2e`
 
-## Dependencies to Know
-- `github.com/gorilla/mux`: HTTP routing
-- `gorm.io/gorm`: ORM with PostgreSQL driver
-- `github.com/sirupsen/logrus`: Structured logging
-- `github.com/prometheus/client_golang`: Prometheus metrics
-- `k8s.io/client-go`: Kubernetes API client
-- `github.com/openshift/client-go`: OpenShift API client
+### Frontend
+
+Install dependencies: `cd frontend && npm ci --no-audit --ignore-scripts`
+
+Start dev server: `cd frontend && npm run start`
+
+Run lint/format: `cd frontend && npx eslint . --fix && npx prettier --write .`
+
+### APM
+
+Regenerate agent context (rules, commands, `AGENTS.md`): `make apm`
+
+Requires **uv** / **uvx** (preinstalled in the devcontainer). `make verify-apm` regenerates and fails if those outputs differ from HEAD. That is the CI check. `make lint` does not run it.
 
 ---
 > Source: [openshift-eng/ship-status-dash](https://github.com/openshift-eng/ship-status-dash) — distributed by [TomeVault](https://tomevault.io).
