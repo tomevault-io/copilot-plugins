@@ -1,0 +1,44 @@
+{
+  "name": "Tiangong",
+  "owner": "silent-rs",
+  "repo": "Tiangong",
+  "description": "\u57fa\u4e8e Rust + Tauri \u7684\u684c\u9762\u7ea7\u4e2a\u4eba AI \u667a\u80fd\u7ec8\u7aef\uff1a\u5185\u7f6e\u5d4c\u5165\u5f0f\u6d4f\u89c8\u5668\u4eba\u673a\u534f\u540c\u3001\u591a\u667a\u80fd\u4f53\u534f\u4f5c\u3001\u957f\u671f\u8bb0\u5fc6\u4e0e\u5b9a\u65f6\u4efb\u52a1\uff0c\u591a\u5f62\u6001\u63d2\u4ef6\u751f\u6001\uff08WASM / TypeScript / \u7eaf UI\uff09\u652f\u6301\u81ea\u5efa\u6269\u5c55\uff0c\u98de\u4e66/\u5fae\u4fe1/QQ \u79fb\u52a8\u7aef\u8fdc\u7a0b\u53ef\u63a7\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/silent-rs/Tiangong",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T02:57:25Z"
+}
