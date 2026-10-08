@@ -1,0 +1,9 @@
+{
+  "name": "kyle-visner--stellarjay",
+  "displayName": "stellarjay",
+  "description": "Safe write access for AI agents. An append-only business fact store with an MCP server: every change is kept, attributed to the agent that made it, and can be undone.",
+  "version": "1.0.0",
+  "author": "kyle-visner",
+  "homepage": "https://github.com/kyle-visner/stellarjay",
+  "skills": []
+}
