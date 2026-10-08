@@ -1,0 +1,9 @@
+{
+  "name": "scottjones--omarchy-webapp-theme",
+  "displayName": "omarchy-webapp-theme",
+  "description": "Sync the Slack web app's Light/Dark mode and main-pane background with your Omarchy theme.",
+  "version": "1.0.0",
+  "author": "scottjones",
+  "homepage": "https://github.com/scottjones/omarchy-webapp-theme",
+  "skills": []
+}
