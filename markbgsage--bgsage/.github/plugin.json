@@ -1,0 +1,9 @@
+{
+  "name": "markbgsage--bgsage",
+  "displayName": "bgsage",
+  "description": "The Backgammon Sage backgammon bot engine library",
+  "version": "1.0.0",
+  "author": "markbgsage",
+  "homepage": "https://github.com/markbgsage/bgsage",
+  "skills": []
+}
