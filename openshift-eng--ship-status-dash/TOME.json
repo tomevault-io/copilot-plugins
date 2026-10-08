@@ -4,7 +4,7 @@
   "repo": "ship-status-dash",
   "description": "Status dashboard and monitor for SHIP components",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openshift-eng/ship-status-dash",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-08T03:33:41Z"
+  "distributed_at": "2026-10-08T03:36:01Z"
 }
