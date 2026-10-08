@@ -1,0 +1,9 @@
+{
+  "name": "perongh--embednfs",
+  "displayName": "embednfs",
+  "description": "An embeddable NFSv4.1 server library in Rust.",
+  "version": "1.0.0",
+  "author": "PeronGH",
+  "homepage": "https://github.com/PeronGH/embednfs",
+  "skills": []
+}
