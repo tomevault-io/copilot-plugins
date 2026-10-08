@@ -1,163 +1,136 @@
 ## agentkernel
 
-> This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
-
-# Agent Instructions
-
-This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
-
-## Quick Reference
-
-```bash
-bd ready              # Find available work
-bd show <id>          # View issue details
-bd update <id> --status in_progress  # Claim work
-bd close <id>         # Complete work
-bd dolt commit        # Persist pending bd changes to Dolt
-```
-
-## Landing the Plane (Session Completion)
-
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
-
-**MANDATORY WORKFLOW:**
-
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
-   ```bash
-   git pull --rebase
-   bd dolt commit
-   bd dolt push  # If a Dolt remote is configured
-   git push
-   git status  # MUST show "up to date with origin"
-   ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
-
-**CRITICAL RULES:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
+> Use Google's Gemini CLI with agentkernel for isolated code execution.
 
 
-<!-- BEGIN BEADS INTEGRATION -->
-## Issue Tracking with bd (beads)
+# Google Gemini CLI
 
-**IMPORTANT**: This project uses **bd (beads)** for ALL issue tracking. Do NOT use markdown TODOs, task lists, or other tracking methods.
+Use Google's Gemini CLI with agentkernel for isolated code execution.
 
-### Why bd?
+## Integration Levels
 
-- Dependency-aware: Track blockers and relationships between issues
-- Git-friendly: Dolt-powered version control with native sync
-- Agent-optimized: JSON output, ready work detection, discovered-from links
-- Prevents duplicate tracking systems and confusion
+| Level | How It Works | Setup |
+|-------|-------------|-------|
+| **MCP Tools** | Gemini calls agentkernel tools for sandbox management | `agentkernel plugin install gemini` |
+| **Full Isolation** | Run Gemini CLI itself inside an agentkernel sandbox | `agentkernel sandbox create` + `agentkernel attach` |
 
-### Quick Start
+Gemini CLI also has its own [native Docker sandbox](https://geminicli.com/docs/cli/sandbox/) that is separate from agentkernel. That sandbox is managed by Gemini itself and cannot be replaced with a custom runtime.
 
-**Check for ready work:**
+## Plugin Mode (Recommended)
+
+Gemini runs locally, code execution is sandboxed via MCP:
 
 ```bash
-bd ready --json
+# Install the MCP config into your project
+agentkernel plugin install gemini
+
+# This adds the agentkernel MCP server to .gemini/settings.json
+# Gemini will have access to: run_command, create_sandbox, exec_in_sandbox, list_sandboxes, remove_sandbox
 ```
 
-**Create new issues:**
+For global installation:
 
 ```bash
-bd create "Issue title" --description="Detailed context" -t bug|feature|task -p 0-4 --json
-bd create "Issue title" --description="What this issue is about" -p 1 --deps discovered-from:bd-123 --json
+agentkernel plugin install gemini --global
 ```
 
-**Claim and update:**
+### MCP Tools
+
+The agentkernel MCP server gives Gemini access to:
+
+| Tool | Description |
+|------|-------------|
+| `run_command` | Run a command in a temporary sandbox |
+| `create_sandbox` | Create a persistent sandbox |
+| `exec_in_sandbox` | Execute in an existing sandbox |
+| `remove_sandbox` | Remove a sandbox |
+| `list_sandboxes` | List all sandboxes |
+
+## Full Isolation Mode
+
+Run Gemini CLI itself inside an agentkernel sandbox:
 
 ```bash
-bd update <id> --claim --json
-bd update bd-42 --priority 1 --json
+# Create sandbox with Gemini pre-installed
+agentkernel sandbox create gemini-dev --config examples/agents/gemini/agentkernel.toml
+
+# Start the sandbox
+agentkernel sandbox start gemini-dev
+
+# Run Gemini with your API key
+agentkernel attach gemini-dev -e GEMINI_API_KEY=$GEMINI_API_KEY
+
+# Inside the sandbox:
+gemini
 ```
 
-**Complete work:**
+## Native Sandbox
+
+Gemini CLI has its own [Docker-based sandbox](https://geminicli.com/docs/cli/sandbox/) separate from agentkernel. Enable it with:
 
 ```bash
-bd close bd-42 --reason "Completed" --json
+# Environment variable
+GEMINI_SANDBOX=docker gemini
+
+# CLI flag
+gemini --sandbox
+
+# Or in .gemini/settings.json
+# { "sandbox": true }
 ```
 
-### Issue Types
+This uses Gemini's own container image and lifecycle. It cannot be replaced with agentkernel. Use the MCP plugin for agentkernel-managed sandboxes, or Full Isolation Mode to run Gemini itself inside agentkernel.
 
-- `bug` - Something broken
-- `feature` - New functionality
-- `task` - Work item (tests, docs, refactoring)
-- `epic` - Large feature with subtasks
-- `chore` - Maintenance (dependencies, tooling)
+## API Key
 
-### Priorities
+Gemini CLI requires a Google AI API key. Get one from [aistudio.google.com](https://aistudio.google.com/).
 
-- `0` - Critical (security, data loss, broken builds)
-- `1` - High (major features, important bugs)
-- `2` - Medium (default, nice-to-have)
-- `3` - Low (polish, optimization)
-- `4` - Backlog (future ideas)
+```bash
+# Interactive session
+agentkernel attach gemini-dev -e GEMINI_API_KEY=$GEMINI_API_KEY
 
-### Workflow for AI Agents
+# One-off command
+agentkernel exec gemini-dev -e GEMINI_API_KEY=$GEMINI_API_KEY -- \
+  gemini "Explain this code"
+```
 
-1. **Check ready work**: `bd ready` shows unblocked issues
-2. **Claim your task atomically**: `bd update <id> --claim`
-3. **Work on it**: Implement, test, document
-4. **Discover new work?** Create linked issue:
-   - `bd create "Found bug" --description="Details about what was found" -p 1 --deps discovered-from:<parent-id>`
-5. **Complete**: `bd close <id> --reason "Done"`
+## Configuration
 
-### Auto-Sync
+The example config at `examples/agents/gemini/agentkernel.toml`:
 
-bd automatically syncs via Dolt:
+```toml
+[sandbox]
+name = "gemini-sandbox"
 
-- Each write auto-commits to Dolt history
-- Use `bd dolt push`/`bd dolt pull` for remote sync
-- No manual export/import needed!
+[build]
+dockerfile = "Dockerfile"
 
-### Important Rules
+[agent]
+preferred = "gemini"
+compatibility_mode = "gemini"
 
-- ✅ Use bd for ALL task tracking
-- ✅ Always use `--json` flag for programmatic use
-- ✅ Link discovered work with `discovered-from` dependencies
-- ✅ Check `bd ready` before asking "what should I work on?"
-- ❌ Do NOT create markdown TODO lists
-- ❌ Do NOT use external issue trackers
-- ❌ Do NOT duplicate tracking systems
+[resources]
+vcpus = 2
+memory_mb = 1024
 
-For more details, see README.md and docs/QUICKSTART.md.
+[security]
+profile = "moderate"
+network = true      # Gemini needs network for API calls
+mount_cwd = true    # Mount project directory
+```
 
-## Landing the Plane (Session Completion)
+## What's Included
 
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+The Gemini image includes:
 
-**MANDATORY WORKFLOW:**
-
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
-   ```bash
-   git pull --rebase
-   bd dolt commit
-   bd dolt push  # If a Dolt remote is configured
-   git push
-   git status  # MUST show "up to date with origin"
-   ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
-
-**CRITICAL RULES:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
-
-<!-- END BEADS INTEGRATION -->
+- **Node.js 22** - Runtime
+- **Gemini CLI** - `@google/gemini-cli`
+- **Git** - Version control
+- **Python 3** - For Python projects
+- **ripgrep** - Fast code search
+- **fd** - Fast file finder
+- **jq** - JSON processing
 
 ---
 > Source: [thrashr888/agentkernel](https://github.com/thrashr888/agentkernel) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
