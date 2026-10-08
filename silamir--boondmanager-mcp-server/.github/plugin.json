@@ -1,0 +1,9 @@
+{
+  "name": "silamir--boondmanager-mcp-server",
+  "displayName": "boondmanager-mcp-server",
+  "description": "Serveur MCP pour l'API BoondManager (ERP/CRM des ESN) : 182 outils, 12 prompts et 22 ressources pour piloter candidats, consultants, opportunit\u00e9s, projets, CRA, notes de frais et facturation depuis Cl",
+  "version": "1.0.0",
+  "author": "silamir",
+  "homepage": "https://github.com/silamir/boondmanager-mcp-server",
+  "skills": []
+}
