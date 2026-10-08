@@ -1,29 +1,31 @@
-## 02-frontend-structure
+## 03-backend-structure
 
-> Details of the Vue.js frontend architecture, key directories, and configuration files for understanding and navigating the frontend codebase.
+> Overview of the Python FastAPI backend architecture, key components, and configuration files for understanding the server-side codebase structure.
 
-# Frontend Structure
+# Backend Structure
 
-The frontend is a Vue.js application with TypeScript and Tailwind CSS.
+The backend is a Python FastAPI application with multiple components.
 
-## Key Files and Directories
+## Key Directories and Files
 
-- [frontend/src/main.ts](mdc:frontend/src/main.ts) - Entry point
-- [frontend/src/App.vue](mdc:frontend/src/App.vue) - Root component
-- [frontend/src/router/](mdc:frontend/src/router) - Vue Router configuration
-- [frontend/src/store/](mdc:frontend/src/store) - State management
-- [frontend/src/presentation/](mdc:frontend/src/presentation) - UI components and screens
-- [frontend/src/services/](mdc:frontend/src/services) - Service layer for API communication
-- [frontend/src/api/](mdc:frontend/src/api) - API client implementations
-- [frontend/src/utils/](mdc:frontend/src/utils) - Utility functions
-- [frontend/src/composables/](mdc:frontend/src/composables) - Vue composables (reusable logic)
-- [frontend/src/i18n/](mdc:frontend/src/i18n) - Internationalization
+- [backend/src/app/](mdc:backend/src/app) - Main application package
+  - [backend/src/app/config.py](mdc:backend/src/app/config.py) - Configuration settings
+  - [backend/src/app/exceptions.py](mdc:backend/src/app/exceptions.py) - Custom exceptions
+- [backend/src/app/services/](mdc:backend/src/app/services) - Business logic services
+- [backend/src/app/schemas/](mdc:backend/src/app/schemas) - Pydantic models/schemas
+- [backend/src/app/infrastructure/](mdc:backend/src/app/infrastructure) - Database and external services integration
+- [backend/src/app/tgbot/](mdc:backend/src/app/tgbot) - Telegram bot implementation
+- [backend/src/app/worker/](mdc:backend/src/app/worker) - Background worker tasks
+- [backend/src/app/webhook/](mdc:backend/src/app/webhook) - Webhook handlers
+- [backend/src/app/migrations/](mdc:backend/src/app/migrations) - Database migrations
 
 ## Configuration
 
-- [frontend/vite.config.ts](mdc:frontend/vite.config.ts) - Vite configuration
-- [frontend/tailwind.config.js](mdc:frontend/tailwind.config.js) - Tailwind CSS configuration
-- [frontend/tsconfig.json](mdc:frontend/tsconfig.json) - TypeScript configuration
+- [backend/pyproject.toml](mdc:backend/pyproject.toml) - Python dependencies and project metadata
+- [backend/src/alembic.ini](mdc:backend/src/alembic.ini) - Alembic (migrations) configuration
+- [backend/web.Dockerfile](mdc:backend/web.Dockerfile) - Web service Docker configuration
+- [backend/bot.Dockerfile](mdc:backend/bot.Dockerfile) - Bot service Docker configuration
+- [backend/worker.Dockerfile](mdc:backend/worker.Dockerfile) - Worker service Docker configuration
 
 ---
 > Source: [AHTOOOXA/gramkit](https://github.com/AHTOOOXA/gramkit) — distributed by [TomeVault](https://tomevault.io).
