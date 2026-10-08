@@ -7,11 +7,11 @@ EoS — Embedded Operating System Platform
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [embeddedos-org/embeddedos-org.github.io](https://github.com/embeddedos-org/embeddedos-org.github.io).
+Original source: `AGENTS.md` in [embeddedos-org/embeddedos-org.github.io](https://github.com/embeddedos-org/embeddedos-org.github.io).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
