@@ -1,0 +1,44 @@
+{
+  "name": "buildwright",
+  "owner": "raunakkathuria",
+  "repo": "buildwright",
+  "description": "Approve intent, ship autonomously. Agent-first autonomous development workflow for Claude Code, OpenCode, and OpenClaw \u2014 you read a one-page spec and say yes, the agent handles research, planning, build, security scan, code review, and PR. Everything else is automated. Works on any project via a single curl | bash",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/raunakkathuria/buildwright",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T00:16:34Z"
+}
