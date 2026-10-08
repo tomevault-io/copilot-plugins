@@ -1,0 +1,81 @@
+{
+  "name": "claude-skill-creator",
+  "owner": "tomique34",
+  "repo": "claude-skill-creator",
+  "description": "A comprehensive collection of Claude Agent Skills for automating development   workflows. Includes meta-skill for creating new skills,   changelog-to-newsletter converter, Terraform documentation generator, meeting    notes processor, and API docs generator.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-skill-creator",
+      "path": "claude-skill-creator",
+      "github_url": "https://github.com/tomique34/claude-skill-creator/tree/main/claude-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "api-docs-generator",
+      "path": "api-docs-generator",
+      "github_url": "https://github.com/tomique34/claude-skill-creator/tree/main/api-docs-generator",
+      "description": ""
+    },
+    {
+      "name": "changelog-newsletter",
+      "path": "changelog-newsletter",
+      "github_url": "https://github.com/tomique34/claude-skill-creator/tree/main/changelog-newsletter",
+      "description": ""
+    },
+    {
+      "name": "terraform-docs",
+      "path": "terraform-docs",
+      "github_url": "https://github.com/tomique34/claude-skill-creator/tree/main/terraform-docs",
+      "description": ""
+    },
+    {
+      "name": "tmq-markdown2anything",
+      "path": "tmq-markdown2anything",
+      "github_url": "https://github.com/tomique34/claude-skill-creator/tree/main/tmq-markdown2anything",
+      "description": ""
+    },
+    {
+      "name": "tomique-linkedin-copywriter",
+      "path": "tomique-linkedin-copywriter",
+      "github_url": "https://github.com/tomique34/claude-skill-creator/tree/main/tomique-linkedin-copywriter",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tomique34/claude-skill-creator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T05:30:22Z"
+}
