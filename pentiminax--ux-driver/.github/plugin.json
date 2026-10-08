@@ -1,0 +1,9 @@
+{
+  "name": "pentiminax--ux-driver",
+  "displayName": "ux-driver",
+  "description": "UX Driver is a Symfony bundle integrating the Driver.js library in Symfony applications.",
+  "version": "1.0.0",
+  "author": "pentiminax",
+  "homepage": "https://github.com/pentiminax/ux-driver",
+  "skills": []
+}
