@@ -1,0 +1,9 @@
+{
+  "name": "qiulinfan--obsidian-latex-live",
+  "displayName": "obsidian-latex-live",
+  "description": "Read and write LaTeX projects in Obsidian with live math, fast real-time auto PDF preview, proof-reference graphs, and self-contained HTML export.",
+  "version": "1.0.0",
+  "author": "qiulinfan",
+  "homepage": "https://github.com/qiulinfan/obsidian-latex-live",
+  "skills": []
+}
