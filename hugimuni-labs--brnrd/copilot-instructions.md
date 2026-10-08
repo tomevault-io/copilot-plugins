@@ -1,0 +1,783 @@
+## brnrd
+
+> > Revision: 2026-07-12. Structural arc: `plan-agent-orientation-layering.md`
+
+# Project
+
+> Revision: 2026-07-12. Structural arc: `plan-agent-orientation-layering.md`
+> in the kb (see "Knowledge base" below for where that is — not a
+> repo-relative link, since the kb's physical location is no longer fixed
+> to this tree). Bump this date when you restructure universal sections so
+> cached workspace-rule injections can detect drift against the file on
+> disk.
+
+This file is brnrd's playbook — the contract every AI tool follows in
+**this** repo, and nothing else. It is **not** the template adopters
+receive: `brnrd init` works from `src/brr/templates/constitution.md` and
+the setup wake authors the adopter's own `AGENTS.md` from it. Nothing
+copies this file into an adopted repo. (`adopt.py`'s module docstring
+says so in as many words — "`templates/constitution.md`, *not* brr's own
+playbook" — and `constitution.py` records the split: three jobs used to
+live in this one file, and Layer 0 of `design-init-as-a-wake.md`
+separated them.) The canonical copy lives at `src/brr/AGENTS.md`; the
+repo root `AGENTS.md` is a symlink. Python >=3.10; see [`README.md`](README.md)
+for the user-facing product overview.
+
+## How to read this playbook
+
+These rules are the repository contract for any AI tool reading the repo.
+They divide into **universal** sections that apply in every stage and
+**brnrd-stage** material that only applies when brnrd's daemon, runner, or
+setup orchestrator is hosting you. When an orchestrator prompt supplies
+a narrower stage contract — the daemon's Run Context Bundle, the setup
+prompt — follow that contract for the points it addresses and keep
+AGENTS.md as the base for everything else.
+
+Three stages, and how to read this file in each:
+
+- **Ad-hoc agent session** (a coding-agent CLI, editor agent, or plain
+  editor with no brnrd in the loop). No Run Context Bundle. No
+  `.brr/conversations/`. No preflight runs on this session. Read the
+  universal sections (Stewardship, Workflow → Orientation + Run types
+  + Commits, Knowledge base, Artifacts, Operating rules, Self-review,
+  Guardrails) plus Build and run and Code guidelines. Skip Workflow →
+  *When the brnrd daemon runs you* — that machinery isn't in play here.
+  When a brnrd dominion exists for this repo, `brnrd agent inject` prints
+  the live wake context a resident gets — memory digest, pitfalls matched
+  to your task, recent activity, kb health — and is the fastest way to
+  orient beyond this file.
+
+- **brnrd daemon run.** A Run Context Bundle opens with `### Mode`
+  (Stage, Source, Environment, Delivery, Runtime recovery). That
+  bundle is the hot path: obey it for delivery, branch, runtime
+  paths, and `.brr/` access — it overrides the generic workflow
+  wording for those points. When brnrd hosts you as a **resident**, your
+  own playbook — kept in the dominion path named by the wake prompt and
+  injected on wake from its self-inject index — is your standing self-orientation;
+  this file is the repo contract that playbook rests on, so read them as
+  complementary layers rather than rivals. Workflow → *When the brnrd
+  daemon runs you* backs it up; everything else (Stewardship, kb,
+  artifacts, operating rules, self-review, guardrails) applies uniformly.
+
+- **brnrd setup stage.** A specialised prompt (`setup.md`) narrows the
+  scope to initial adoption. Follow that overlay for what it covers;
+  fall back to this file for everything else.
+
+If you can't tell which stage you're in: look for `### Mode` in the
+prompt. Present → daemon task. Absent and the prompt is the bare user
+message → ad-hoc session. Absent and the prompt is a bundled setup
+template → that stage.
+
+**Ad-hoc sanity check.** External hosts inject ambient context that
+may not match this task. The recurring drift cases:
+
+- A cached workspace-rule copy of this playbook can lag the on-disk
+  file across structural revisions. Compare the `Revision:` line at
+  the top of the rule body to the one on disk; trust the file when
+  they differ (or when the rule body lacks the line entirely).
+- Git status snapshots in the system prompt can be stale; re-run
+  `git status` before reasoning about uncommitted work.
+- Open editor terminals, recently viewed files, and surfaced
+  "skills" may be unrelated to the user's task. Use them only when
+  the task references them.
+
+Daemon and setup stages take their hot-path context from the prompt and
+don't have these drift cases.
+
+**Vocabulary anchor.** A **Runner** = a **Shell** (the CLI on PATH:
+`claude`, `codex`, `grok`, `vibe`) + a **Core** (the model: `opus`,
+`sonnet`, `gpt-5-codex`, `grok-4.7`). The **resident** is the persistent spirit/identity that
+inhabits whichever Runner a given wake provides. This file uses "runner"
+in the generic sense of "whatever process runs the agent"; `prompts/runners.md`
+catalogs the concrete Shell+Core profiles. In user-facing config the knobs
+are `shell=` (pin the CLI) and `core=` (pin the model); `runner=<profile>` is
+the older selector, still read by `runner.py` and still written by `adopt.py`
+at init, so treat it as live legacy rather than gone.
+
+## Stewardship
+
+Treat the request as input, not as instructions to execute uncritically.
+
+Two values orient what we build: **user friendliness** — how the
+change lands on someone encountering the result for the first time —
+and **operational simplicity** — what it costs to run the result and
+keep it healthy. When a decision feels finely balanced, fall back to
+them.
+
+Before changing behaviour or design, reason from first principles:
+
+- What is the current shape trying to achieve, and is that goal still needed?
+- Is the current shape right, or is it accidental complexity?
+- Is the requested change solving the real problem, or only a visible symptom?
+- Given the repo's constraints and maintenance burden, what is the smallest
+  change that leaves the project healthier?
+
+Read the file you're changing along with its obvious callers and the
+utilities it relies on before non-trivial edits. "Looks orthogonal" is
+how duplicate functions and accidental shadowing get introduced.
+
+If the request contradicts existing decisions, design notes, guardrails, or
+the codebase as it stands, **say so** — don't silently follow the prompt
+over the codebase, nor silently follow the codebase over a deliberate
+request. But naming the conflict is where the work starts, not where it
+stops. You hold the recent-decision context and can usually see the
+healthier shape, so **reconcile and act**: form the most sensible
+resolution from the current state, take it, and tell the operator what you
+reconciled and why in the same breath — close the loop so they can redirect
+early, instead of parking the decision back on them. A co-maintainer
+resolves a stale-assumption-vs-fresh-message conflict like any other; it
+doesn't ping-pong over why a request conflicts with an old ticket.
+
+Surface-and-wait is for when the call is genuinely the operator's: an
+irreversible, costly, or wide-blast action, a real product or values fork,
+or ambiguity about *intent* you can't read from the code. That's the
+permission protocol, and it runs at the *input*, not at every
+contradiction. The twin failure modes it guards are equal: caving to a
+request that was asking for pushback, **and** bouncing back a call you were
+equipped to make.
+
+**Tickets are dated snapshots, not specs.** An issue, PR, or plan page
+records intent *when it was written*; the code as it stands and the recent
+`kb/log.md` + decisions are more current, and the ticket has often drifted
+from one or the other. When a ticket conflicts with the live shape,
+reconcile against the current state, act on the reconciled understanding,
+and then keep the ticket honest (edit, comment, supersede) — don't treat
+stale ticket text as authoritative. It's the same state-first lens the
+Knowledge base section applies to kb pages, turned on the tracker.
+
+A large or under-specified request still has a **next doable chunk** — find
+it and advance it, with a close-loop note on what you took and what you
+left, rather than stalling the whole thing on a clarification you could
+resolve or defer. When a chunk genuinely needs sign-off before you spend on
+it, propose the plan and proceed on approval — not a generic "what do you
+want me to do?".
+
+Prefer improving an underlying design over layering more conditions onto a
+weak abstraction. Slash code, tests, and pages that no longer fit; carrying
+old shape costs more than it saves.
+
+## Build and run
+
+**To run the tests, run `pytest`. Nothing else.** `pyproject.toml` sets
+`pythonpath = ["src"]` relative to pytest's rootdir, so the suite already
+imports the tree it is running in — the checkout, or a worktree, whichever
+holds the tests you invoked.
+
+**To run what CI runs, run `python scripts/gate.py`.** `pytest` is one of
+four legs; the others are the frontend suite, its lint and type-check, and
+the npm launcher pack — in two different working directories. The script
+does not carry a copy of that list: it parses
+`.github/workflows/ci.yml` and executes the `run:` steps it finds there, so
+a leg added to CI is a leg it runs next time with no edit. `--list` shows
+what it would do without doing it.
+
+Under a brnrd run it also **leaves a receipt** — `.gate-receipts.json` beside
+the run's other control dotfiles, a map keyed per tree (one run can gate more
+than one, e.g. a scratch `git worktree add /tmp/brr-wt-<slug>` plus the
+checkout itself; each gate's receipt is its own entry, not a shared file that
+the second gate overwrites). That is not bookkeeping: with `hooks.gate_command`
+set in `.brr/config`, the Stop hook reads *this tree's own entry* and blocks a
+run that changed the tree and never ran the gate on *that* tree, or ran it and
+then edited. A green verdict for code nobody ran is the failure the receipt
+makes checkable, and this sentence is not what stops it — the receipt is.
+(The block fires at most once per run, and never asks for *green*, only for
+*ran*; a run may legitimately end red and report it.)
+
+Its one refusal is `pip install -e`, reported as SKIPPED with the reason
+(see the trap below), never silently dropped. Everything else CI installs,
+it installs — skipping `npm ci` and then running `npm test` reports
+*228 pass / 2 fail* against a suite that is 238/238 green, and an install
+you skipped does not raise an error, it returns a plausible wrong answer.
+
+The editable install is a **one-time setup step for the operator's own
+checkout**, not something a task re-runs:
+
+```bash
+pip install -e ".[dev]"   # once, in the main checkout only
+```
+
+**Never run `pip install -e` from a worktree, a linked checkout, or any
+task that did not create its own virtualenv.** A worktree gets its own
+files; it shares the operator's venv. An editable install from there writes
+a `.pth` into that shared venv pointing at a path that will not exist in ten
+minutes, and until it is torn down every *fresh* Python process on this
+machine — including the CLI and the hooks subprocess the daemon spawns at
+every tool boundary — imports the worktree instead of the checkout. When the
+worktree goes, `site.addpackage` skips the dead path without a word and
+resolution falls back, so the damage is invisible while it is happening and
+gone before anyone looks for it (issue #762).
+
+Two related traps in the same neighbourhood:
+
+- A bare `python -c "import brr"` run *inside* a worktree imports the
+  **host's** installed copy, not the worktree's. Under pytest you get the
+  worktree; outside it you do not. When it matters which tree you are
+  testing, assert `module.__file__` rather than trusting the working
+  directory.
+- Needing a real install inside a task means needing a real virtualenv:
+  create one under the task's own tree and use its interpreter explicitly.
+
+See [`README.md`](README.md) → Development for variants (uv, fork
+install, dev-reload daemon). Build system is setuptools; the source
+of truth for commands and dependencies is `pyproject.toml`.
+
+## Code guidelines
+
+- Python >=3.10. Prefer stdlib, but small runtime dependencies that do
+  not require native compilation are acceptable when they pay for
+  themselves; avoid native-extension-heavy packages unless a task
+  explicitly settles that trade-off.
+- Dev dependency: `pytest>=7.0`. Tests live in `tests/`.
+- No formatter/linter configured yet — follow existing code style.
+- Commit messages: conventional style (`fix:`, `feat:`, `chore:`,
+  `refactor:`), explain *why* in the body.
+
+## Workflow
+
+### Orientation
+
+Run this at the start of every session, ad-hoc or daemon. It collapses
+what older versions of this file split between "Session startup" and
+"Work re-review" — they were the same job under different names.
+
+The paths below (`kb/index.md`, `kb/log.md`) are the repo-committed-`kb/`
+shape. If this repo dogfoods home knowledge instead (see "Knowledge base"
+→ "Where the kb lives"), read the equivalent files at the checkout root
+(`.brnrd-kb/index.md`, `.brnrd-kb/log.md`, no `kb/` prefix) or use `brnrd
+kb <query>` — the daemon's wake prompt already resolves this for you via
+`knowledge.render_injection`, so a daemon-hosted wake usually doesn't need
+to read these by hand at all.
+
+1. Read `kb/index.md` first. It's organised by subject hub and the
+   links carry inline lifecycle markers, so a 30-second skim tells you
+   what current shape exists in `kb/`.
+2. Read recent activity from `kb/log.md`. The log appends **newest
+   entries to the bottom** and carries curated entries only (not every
+   task); headings are `## [YYYY-MM-DD] <type> | <title>`. Fetch the
+   tail, not the whole file:
+   - Tool-agnostic: `Read kb/log.md offset=-300` gives roughly the
+     last 10-15 entries.
+   - Shell: `grep '^## \[' kb/log.md | tail -10` to skim headings,
+     then targeted reads of any entry you want in full.
+   - When the brnrd daemon is hosting you, the prompt already embeds a
+     `Recent Activity (from kb/log.md)` extract plus the bundle's
+     recent-turns block (under `### Communication snapshot`) — those
+     satisfy this step unless you need older history than the extract
+     carries.
+3. If a **dominion** exists here, read its playbook — your standing
+   self-orientation as this repo's resident, which past wakes may have
+   reshaped. In current brnrd daemon runs, the Run Context Bundle names the
+   account-scoped dominion path; older repo-local installs may still use
+   `.brr/dominion/playbook.md` as a legacy fallback. Its daemon mechanics
+   (scheduled wakes, outbox delivery, liveness) only bind when brnrd hosts you;
+   the ownership and memory stance applies whenever you act here.
+   - Under brnrd it's already injected as the *Your dominion (working
+     memory)* block — so this step is for plain editor sessions.
+   - It's gitignored runtime; skip it if brnrd hasn't bootstrapped a
+     dominion here yet.
+4. If continuing previous work, read the relevant subject hubs
+   (`kb/subject-*.md`) and any plan / design / decision pages the
+   prior work touches before changing anything. If the previous
+   session left TODOs or open questions in the log, address them.
+
+### Run types
+
+Adapt your approach:
+
+- **Implement / fix** — code, test, commit.
+- **Review / verify / check** — read, analyse, report. Commit only if you
+  produced files (e.g. wrote findings to `kb/`); otherwise the chat reply
+  is the deliverable.
+- **Research / plan** — investigate, write findings to `kb/`. Commit.
+- **Release / deploy** — follow the project's release process exactly.
+
+### Commits
+
+Commit directly on the current branch unless the task explicitly needs
+a feature branch (`git switch -c <name>` first).
+
+One logical commit per task. The message should explain *why*, not
+*what* — the diff shows the what. Include the task summary in the
+first line.
+
+If you wrote files, commit them. The diff is the receipt that the work
+happened. Read-only tasks (Q&A, review, verify) are the only
+commit-free case, and only because nothing changed.
+
+### Issue and PR descriptions
+
+The same instinct as a commit message, turned outward: lead with the
+*why* (the problem or the goal), state the *want* (the change or
+outcome), then point at the code and the neighbouring kb pages or issues
+so a reader can pick up the thread. Match depth to size — a one-line
+tracking issue earns a sentence, not three headings; a cross-cutting
+proposal earns the full shape.
+
+### Pushing, rebasing, and open PRs
+
+When you've pushed work on a feature branch and the branch has an
+open PR, judge whether the same situation also calls for two
+follow-ons. Skip them when they don't fit:
+
+- **Rebase onto the base branch** when the branch is materially
+  behind, when your work would conflict with recent base work, or
+  when the PR description claims a state main has since changed.
+  `git fetch && git rebase origin/<base>`; resolve conflicts; force
+  push (`--force-with-lease`, never `--force`). Skip the rebase
+  when the branch is only a few non-conflicting commits behind and
+  a merge-base diff is still clear — extra history rewrites cost
+  reviewer attention.
+- **Update the PR title and body** when the substance of the change
+  has shifted since open (scope grew or shrank, the diff now spans
+  unrelated material, the original title was an auto-generated
+  branch name). `gh pr edit <num> --title ... --body ...`. Skip
+  when the PR is still a faithful summary of HEAD.
+
+Don't force-push to `main` / `master`. Don't bypass hooks
+(`--no-verify`). If a rebase would rewrite commits you didn't
+author, stop and surface the conflict instead.
+
+### When the brnrd daemon runs you
+
+Everything in this subsection applies only when you're being launched
+by `brnrd up` / the daemon worker — the Run Context Bundle's `### Mode`
+section confirms the stage. In an ad-hoc coding-agent or editor session
+Claude Code without brnrd orchestrating), skip the subsection — the
+machinery it describes isn't in play.
+
+**Daemon freshness.** Before resolving the branch plan for a task, the
+daemon runs `sync.refresh_before_run`: a single
+`git fetch <default-remote>` plus a best-effort fast-forward of the
+local default branch (and any structured branch named in the event,
+e.g. a PR head branch carried by a forge gate). Fast-forward is
+`--ff-only`, so it never destroys local commits and quietly skips on a
+dirty working tree, diverged history, or any branch checked out in
+another worktree.
+
+The invariant this gives task code: the seed ref the worktree sprouts
+from reflects the remote at task start, not whatever the host last
+pulled. Sync outcomes ride on the progress card as a short
+`synced: ff main -> abc1234` line; no card noise on the no-op path.
+
+Two opt-out knobs in `.brr/config`, both default-on:
+
+- `sync.fetch_before_run=false` — never touch the network.
+- `sync.fast_forward_default=false` — fetch but leave local refs alone
+  (for users sharing the daemon's checkout with active dev work).
+
+**Branch and commit nuance.** Every worktree starts on a fresh
+`brr/<run-id>` branch from the seed ref named in the bundle. If the
+bundle names an auto-land branch, staying on the run branch lets brnrd
+fast-forward that target after the run. If no auto-land branch is
+named, commit on `brr/<run-id>`; brnrd preserves and publishes that
+run branch for human routing when a remote is configured. Use
+`git switch -c <name>` first only when the work belongs on a different
+branch. If a checkout on your chosen name collides with a concurrent
+run that picked the same name, fall back to a unique variant — the
+default `brr/<run-id>` namespace is collision-free, so this only
+matters if you opted out of it.
+Generated run ids use the `run-...` shape; treat them as opaque run ids
+when reading prompts, branches, and runtime files.
+
+**Delivery and runtime recovery.** The Run Context Bundle is the hot
+path — it carries the Mode block (stage / source / environment /
+delivery / runtime recovery), the branch plan, the recent conversation,
+and the original event body. The generated run context file (named in
+`Mode → Runtime recovery`) is recovery detail: open it only when the
+bundle didn't include something you need. Don't explore or modify
+`.brr/` beyond the run context file, your own dominion (the path named by the
+wake prompt; legacy installs may still use `.brr/dominion/`), and any paths the
+task explicitly requires.
+
+## Knowledge base
+
+**The kb** is a persistent, LLM-maintained knowledge base. It compounds
+across sessions. Maintenance is everyone's job — brnrd's daemon, ad-hoc
+editor sessions, direct coding-agent CLI invocations, anyone editing
+the repo. Everything below (state-first writing, memory layers, graph
+topology, lifecycle markers, log format, health checks) is maintenance
+discipline that applies the same way regardless of where the pages
+physically live — read "kb" in the rest of this section as "wherever this
+repo's knowledge base is checked out," per the location model here.
+
+### Where the kb lives
+
+Two physical shapes, chosen per repo, not per task:
+
+- **Repo-committed `kb/`** — a directory of `.md` files inside this repo,
+  versioned with the code. This is what `brnrd init` scaffolds by default
+  for a repo with no connected account, and it's a fully portable,
+  git-native wiki: clone the repo, get the kb, no extra auth or fetch.
+- **Home knowledge** — for a repo connected to a brnrd account
+  (`account.resolve_context` resolves an account-kind home), the kb lives
+  outside the project tree entirely, in that account's own backing git
+  repo (`<home>/knowledge/`), split per-repo by default
+  (`<home>/knowledge/repos/<org>__<repo>/`, plus an account-wide
+  `_cross-repo/` bucket once more than one repo shares real cross-cutting
+  material). `knowledge.py` materializes it for a wake through one chain:
+  **inject** (`render_injection` — a compact home→repo→docs slice folded
+  into the wake prompt directly, no tool call needed) → **checkout**
+  (`ensure_checkout` clones `<home>/knowledge/` to a gitignored
+  `.brnrd-kb/` beside the repo, the writable surface an agent edits) →
+  **query** (`brnrd kb <query>` / `knowledge.search()` for the long tail
+  that doesn't fit the wake-time slice). `knowledge.sources()` is the one
+  resolution path both the inject and query rungs walk, in order: home
+  knowledge (repo-scoped, then account-wide) → the `.brnrd-kb/` checkout →
+  repo-committed `kb/` (if one exists — the two shapes aren't mutually
+  exclusive; a home-knowledge repo can still have a legacy or
+  deliberately-portable repo `kb/` layered in) → repo `docs/`.
+
+**Write through the checkout; the push is brnrd's.** `.brnrd-kb/` is the
+writable surface — a real git repo an agent can commit to with a message.
+The account path (`<home>/knowledge/`) is machinery: it is what
+`active_kb_dir`, the preflight and the graph stats read, and brnrd keeps the
+two in step. After every thought `knowledge.capture()` commits both, pushes
+checkout → account → forge, and marks a rejected push instead of swallowing
+it. So: edit in `.brnrd-kb/`, commit if you have something to say in the
+message, and **never hand-run a push chain** — if a page seems to need one to
+reach the forge, that's a bug to report, not a ritual to learn.
+
+**Which of the two you write into depends on how you were started, and the
+prompt tells you.** These are two audiences, not two opinions:
+
+- **A brnrd-hosted wake.** The wake prompt's Knowledge Sources block names the
+  authoring directory explicitly, and it is the **account path** — the same one
+  `active_kb_dir` resolves and every reader (injection, preflight, graph, plan)
+  reads. Write there. `.brnrd-kb/` is a clone that can lag; a page authored
+  into a stale mirror looks filed and is invisible to the next wake.
+- **An ad-hoc session with no wake prompt** (editor, bare coding-agent CLI).
+  Nothing named a path for you, so `.brnrd-kb/` beside the repo is the
+  discoverable surface and the paragraph above is your instruction.
+
+Either way the push is brnrd's, and `capture()` reconciles the two. The rule in
+one line: **the prompt named a directory ⇒ that directory wins.**
+
+**This repo dogfoods home knowledge, not a committed `kb/`.** `hugimuni-labs/brnrd`
+is public, and a committed `kb/` was carrying maintainer-personal and
+pre-decision material in public git history — moved 2026-07-09 to the
+account's private `hugimuni-labs/brnrd-knowledge` repo
+(`repos/hugimuni-labs__brnrd/` inside it). There is no `kb/` directory in this tree
+to browse; read the kb via `.brnrd-kb/` (once checked out) or `brnrd kb
+<query>`, and edit it there — commits land in the knowledge repo, not this
+one. A fresh adopter repo with no connected account still gets the
+repo-committed `kb/` path by default; nothing here removes that option.
+
+### State first, history in git
+
+The kb describes **how things are now**. Deep history lives in `git log` and
+`kb/log.md`; the rest of the kb is current-state synthesis.
+
+When work refines a subject hub, decision, or design page, **rewrite** the
+page so a cold reader sees the current shape — don't append a "before /
+after" diff inline. The git history already records the change with diffs
+and dates; duplicating that in the page just dilutes signal.
+
+When the *fact that something changed* still matters for understanding the
+current shape (a decision was reversed; a design was superseded; an
+abstraction was removed because of a footgun), leave a one-line **lineage
+breadcrumb** that says what changed, when, and why, and points at the
+successor or the commit. The full prior text doesn't need to stay.
+
+Concretely:
+
+- Bad (changelog-style):  
+  `The HTTP client previously retried 5xx with exponential backoff; we
+  removed it on 2026-05-11 because…`
+- Good (state + breadcrumb):  
+  `The HTTP client surfaces 5xx responses to the caller without retrying,
+  letting the caller decide whether the request is idempotent. (Earlier
+  versions retried with backoff; removed 2026-05-11, see commit abc1234,
+  when blind retries started masking caller bugs.)`
+
+If a breadcrumb wouldn't load-bear for anyone reading the page today, just
+delete the old paragraph. Git keeps it.
+
+### Memory layers
+
+The kb has four layers, each with a distinct job:
+
+| Layer | Purpose | Lives in |
+|-------|---------|----------|
+| Raw | What was said / what happened, verbatim | `.brr/conversations/`, `.brr/runs/`, `.brr/traces/` (gitignored) |
+| Episodic | Curated chronological narrative | `log.md` (kb root — repo `kb/log.md` or home knowledge's `log.md`, see "Where the kb lives") |
+| Semantic + decisional | Current-state synthesis of what we know / why we chose it | `subject-*.md`, `decision-*.md`, `research-*.md`, `plan-*.md`, `design-*.md` (same kb root) |
+| Schema | How the kb is structured + how to maintain it | this file, `src/brr/docs/` |
+
+The split matters because conflating them produces noise. A chronological
+log is not a synthesis. A research page is not a hub. A decision is not a
+work-in-flight plan. The semantic + decisional layer in particular is **not
+append-only** — it gets rewritten to reflect the current shape, not grown
+with each new layer of edits.
+
+### Graph topology
+
+The kb is a graph, not a stack of memos:
+
+- **Entry point**: `index.md` at the kb root. Organised by subject hub, not
+  by artifact type.
+- **Nodes**: every `.md` file at the kb root (repo `kb/`, or the home-
+  knowledge checkout — see "Where the kb lives").
+- **Edges**: markdown relative links between nodes. A node with no inbound
+  edges is an orphan.
+- **Splits and merges are normal**. A subject page that grows past
+  comfortable reading splits into a hub plus daughter pages. Two related
+  small pages merge when their material is one thing.
+- **Health is edge density and freshness**, not page count. Cross-references
+  reflecting the current state of the world matter more than coverage.
+
+### Subject pages
+
+A `kb/subject-<name>.md` page is the canonical synthesis for a major repo
+area — a subsystem, a cross-cutting concern, an external integration, the
+runtime entrypoints, the build system, whatever the repo's natural seams
+are. It absorbs "what we currently know about X" and links to the
+relevant decisions, plans, research, reviews. Subject pages don't
+pre-seed by ontology — let the work surface what deserves a hub.
+
+**When to create one.** When work touches an area that doesn't yet have a
+subject page, *and* the current work plus the existing related material is
+enough to make a useful hub today, create the page as part of the current
+work. Otherwise, file the material under the existing artifact types
+(`research-*`, `plan-*`, `design-*`, `decision-*`) and let those serve as
+in-flight material for a future hub.
+
+The honest test: *Could a future agent or human, opening this page cold,
+learn the canonical shape of this area from it today?* Three sentences is
+rarely enough; a two-paragraph synthesis plus links to the relevant
+decisions and plans usually is.
+
+### Lifecycle markers
+
+Plan, design, and decision pages carry a top-of-page status line:
+
+```
+Status: <active | accepted on YYYY-MM-DD | superseded by <link> on YYYY-MM-DD | abandoned on YYYY-MM-DD>
+```
+
+When a plan ships or a decision is reversed, update the status line and link
+to the successor. Don't silently mutate page content over time — the
+history of why beliefs evolved is itself knowledge.
+
+### Cross-link discipline
+
+Every kb page (except `index.md`, `log.md`, and subject hubs
+themselves) should link from at least one subject hub or peer page, and
+should link out to at least one neighbour. Orphan pages (no inbound links
+from any hub or peer) should not exist for long.
+
+### Log format
+
+Each entry in the kb's `log.md` uses this format for parseability:
+
+```
+## [YYYY-MM-DD] <type> | <title>
+
+<what was done, what was learned, outcome>
+```
+
+Types: `implement`, `review`, `research`, `plan`, `fix`, `decision`.
+
+`grep '^## \[' <kb-root>/log.md | tail -10` gives recent activity at a
+glance; see Workflow → Orientation for the orientation-time reading
+recipe (and where `<kb-root>` resolves to for this repo).
+
+The log is a **curated** narrative. Add an entry when your task produced a
+meaningful learning, decision, or shipped change. If it didn't, don't.
+
+**An entry is compact and verdict-first, not a report.** Orientation tooling
+injects a fixed-byte tail of this log into every session start, so entry size
+directly sets how many entries of continuity a reader gets: fat entries
+silently narrow the window while it still looks populated — and the injected
+tail is also the writing example the next session learns from, so a
+prose-heavy entry teaches prose-heavy entries. Aim for ≤ ~1,500 bytes, shaped
+verdict line → facts and receipts as rows → the one transferable lesson;
+the full reasoning belongs on the kb page or PR the entry points at.
+(Measured 2026-07-24: average entry size doubled over six weeks and the
+injected tail's carrying capacity fell from ~4-8 entries to ~1-2.)
+
+### What to persist
+
+- **Decisions** — context, alternatives considered, why this option was
+  chosen. Rewrite to the current choice when later work refines or
+  reverses them, with a lineage breadcrumb.
+- **Discoveries** — non-obvious gotchas, undocumented dependencies, patterns
+  that would save time next run.
+- **Research** — investigation results, comparisons, analysis.
+- **Architecture / subjects** — system overviews, data flows, component
+  maps, hubs synthesising what we know about a major area *as it stands
+  today*.
+
+### What not to persist
+
+- Per-task scratch (status, todos, "checklists for next session"). That
+  belongs in your task's response or in `.brr/` (gitignored), not the kb.
+- Verbose debug output.
+- Anything that duplicates what's already in the codebase — reference, don't
+  copy.
+- Empty hubs. A subject page with three sentences and a TODO list is worse
+  than no page; either fill it with real synthesis or don't create it.
+- "Originally we did X, then Y, now Z" running diffs of a page's own
+  earlier wording. Collapse to current state plus a one-line breadcrumb;
+  the diff lives in git.
+
+### Contradiction handling
+
+If new work contradicts a previous decision, **rewrite** the decision page
+to reflect the current choice, and leave a one-line lineage breadcrumb
+(see "State first, history in git") noting what changed, when, and why,
+with a link to the successor or commit. Don't silently overwrite, and
+don't preserve the entire prior page inline — the breadcrumb load-bears
+for readers who remember the old shape; the diff load-bears for
+historians, and git already has it.
+
+### Health checks
+
+When resuming work or between tasks, scan the kb for:
+
+- Pages referenced in `index.md` that no longer exist (or vice versa).
+- `plan-*` / `design-*` pages whose work has shipped without a lifecycle
+  marker.
+- Decisions reversed by later work without updating the decision page.
+- Material clearly outgrown its current artifact type (a `plan-*` page that
+  has shipped and contains canonical knowledge for an area without a
+  subject hub — promote it).
+- Orphans (pages with no inbound link from any subject hub or peer).
+- Pages reading like running diffs of their own past wording ("originally
+  X, then Y, now Z") instead of describing the current shape with a
+  lineage breadcrumb. Compress.
+- Pages marked `Status: proposed, not yet accepted` that have been sitting
+  for a while — surface them so the user can accept / reject / supersede.
+- **Aspirational drift.** Pages describing *what was designed* — "X is
+  pluggable", "supports A, B, C", "future Y includes…" — as if it were
+  shipped. Spot-check against the source the page links to (resolver, CLI
+  dispatch, the module that owns the surface). When the shape on disk and
+  the shape in prose disagree, trim the un-wired surface area or move it
+  to a `design-*` / `plan-*` page with a `Status: designed` / `Status: in
+  flight` marker — current-state pages should not advertise capability the
+  code does not provide.
+- **Sibling drift.** Subject hubs disagreeing with their sibling design or
+  research pages about labels (e.g. `local` vs `host`), field names, backend
+  lists, CLI surface, or packet types. Reconcile to one consistent
+  picture; the failure mode is each page reading fine in isolation while
+  the graph contradicts itself.
+
+Clean up as you go. If a page no longer adds value — operational scratch
+absorbed by a successor, a review whose findings are addressed and never
+will be revisited — delete it; record the deletion in `kb/log.md` if it's
+worth a sentence. Lifecycle markers preserve history when the history
+matters; deletion is for noise.
+
+## Artifacts
+
+### Long output
+
+If your response would exceed a few hundred lines, write it to a file or
+create a gist (`gh gist create`) and reference the link. Chat connectors
+have message size limits.
+
+### Rich artifacts
+
+When the task warrants it, produce artifacts a human would want to share:
+
+- **Mermaid diagrams** for architecture, data flows, state machines.
+- **Markdown tables** for comparisons and structured data.
+- **Marp slide decks** for presentations and executive summaries.
+- **Charts** (matplotlib, etc.) for data analysis.
+
+Match the artifact to the task — a one-line fix does not need a slide deck,
+but a research task or architecture review deserves a well-structured,
+readable output.
+
+### An analysis names its own edges
+
+Any artifact that surveys something — a review, an audit, a compliance or
+security assessment, a "what is the state of X" answer — carries an explicit
+section naming **what it could not verify**: the questions it could not
+resolve from the material available, and what would resolve them.
+
+This is not a hedge and it is not a disclaimer. It is the difference between
+an analysis and an implied claim of completeness. A survey with no stated
+boundary reads as exhaustive to every future reader, including the one who
+skips the check *because the page already covered it*. The failure is
+structural, not careless: a surface that narrows — truncated by a limit,
+filtered by a query, bounded by the access you happened to have — renders
+identically to one that didn't. Only the author knows where the edge was, and
+only at the moment of writing.
+
+Keep it concrete and ranked: the unverified thing that would most change the
+conclusion goes first, with what it would take to settle it. "Nothing
+material" is a legitimate section when it is true and you checked.
+
+The same instinct one step further: when the limit is an *act* you cannot
+perform rather than a fact you could not reach — sign, indemnify, deploy,
+accept someone else's risk — name that act precisely, in its own sentence,
+after the analysis. A limit stated that way is information the reader can act
+on. The same words used to *end* the analysis early are the opposite: a
+receipt for depth that was never spent.
+
+### Filing artifacts
+
+Research results, analysis, and reusable artifacts go into `kb/`. One-off
+answers and short summaries go directly in the response.
+
+## Operating rules
+
+**Proportionality.** Match effort to task size. A one-line fix does not need
+a multi-file refactor. A question does not need a prototype.
+
+**Scope drift.** If work expands beyond the original task, pause and note
+what you found. Do not silently take on unbounded scope.
+
+**Dead ends.** Two failed attempts at the same approach — stop and report
+what you tried rather than retrying. Suggest alternatives.
+
+**Dependencies.** If the task requires something outside your reach
+(credentials, external service, human decision), note it clearly and move
+on to what you can do.
+
+## Self-review
+
+Before marking a task complete:
+
+1. Re-read the original task. Does your work actually address it?
+2. If the task contained a contradiction with the current code, design
+   notes, or guardrails — did you reconcile it against the current state
+   and either resolve-and-tell or, when the call was genuinely the user's,
+   surface it? (See Stewardship.) Two failure modes this catches:
+   path-of-least-resistance compliance with a request that was asking for
+   pushback, and aloof bounce-back of a call you were equipped to make.
+3. Review every changed file. Look for leftover debug code, TODOs you forgot
+   to address, commented-out code.
+4. Run tests if available and applicable.
+5. If you touched kb pages, run through the Knowledge base → Health
+   checks. The classic miss is adding a new page without an inbound
+   link from a subject hub or peer.
+6. If your work produced a substantive learning, decision, or shipped
+   change, add an entry to `kb/log.md`. If it didn't, leave the log alone.
+
+## Guardrails
+
+- Do not commit files containing secrets (`.env`, credentials, tokens).
+- Two failed attempts at the same approach → stop and report.
+- Do not delete or overwrite files outside the project scope.
+- When in doubt about *intent*, or facing a call that's genuinely the
+  user's (irreversible, costly, wide-blast, a values/product fork), write
+  down what you know and what you're unsure about and let them decide. Doubt
+  you can resolve from the code and recent decisions is yours to resolve —
+  don't bounce it back.
+
+## Constraints
+
+- `.brr/` is a runtime directory (gitignored) — do not commit its contents.
+- `src/brr/AGENTS.md` is brnrd's own playbook and nothing else — adopters
+  receive `src/brr/templates/constitution.md` via `brnrd init` (the top of
+  this file records the split). An edit here reaches every AI tool working
+  *this* repo; an edit meant for adopters belongs in the template.
+- `src/brr/prompts/` contains bundled prompt templates — changes affect all
+  users.
+- Gate implementations (`src/brr/gates/`) follow the file protocol spec in
+  `src/brr/gates/README.md` — maintain protocol compatibility.
+
+---
+> Source: [hugimuni-labs/brnrd](https://github.com/hugimuni-labs/brnrd) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
