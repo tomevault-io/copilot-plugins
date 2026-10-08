@@ -1,0 +1,9 @@
+{
+  "name": "datacenter--aci-pre-upgrade-validation-script",
+  "displayName": "ACI-Pre-Upgrade-Validation-Script",
+  "description": "ACI-Pre-Upgrade-Validation-Script",
+  "version": "1.0.0",
+  "author": "datacenter",
+  "homepage": "https://github.com/datacenter/ACI-Pre-Upgrade-Validation-Script",
+  "skills": []
+}
