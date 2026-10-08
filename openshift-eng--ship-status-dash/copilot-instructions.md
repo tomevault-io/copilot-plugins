@@ -1,22 +1,26 @@
-## docs
+## frontend
 
-> Keep documentation up-to-date alongside code changes
+> React/Vite/Material-UI frontend guidelines for Ship Status Dashboard
 
 
-* When your change alters setup steps, usage instructions, or architecture,
-  update the relevant README in the same PR.
-* When API endpoints are added, removed, or modified, update
-  `API_ENDPOINTS.md`.
-* When configuration options, environment variables, or CLI flags change,
-  update the relevant section of the root `README.md`.
-* When new conventions, workflows, or tooling are introduced, consider
-  adding or updating an `.apm/instructions/` file so that AI coding
-  assistants stay aligned with the project's practices.
-* When authentication flows, credential handling, or deployment security
-  change, update `.apm/instructions/security.instructions.md`.
-* Documentation and code belong in the same PR; never treat a docs update
-  as a follow-up task.
-* Do not use em dashes when writing docs. Use commas, parentheses, or periods instead.
+* After making changes, always run formatting and linting to maintain consistency:
+
+```bash
+cd frontend && npx eslint . --fix && npx prettier --write .
+```
+
+* Prefer functional components and React hooks over class components.
+* Keep UI elements consistent with Material-UI standards.
+* Use MUI's `styled()` for custom component styling — never use inline `sx` for non-trivial styles. Follow these patterns:
+  - Import from `@mui/material`: `import { styled } from '@mui/material'`
+  - Wrap MUI components: `const StyledCard = styled(Card)(({ theme }) => ({ ... }))`
+  - Wrap HTML elements: `const Logo = styled('img')(({ theme }) => ({ ... }))`
+  - Custom props with TypeScript generics: `const StatusChip = styled(Chip)<{ status: string }>(({ theme, status }) => ({ ... }))`
+  - Always use theme values (`theme.palette`, `theme.spacing()`, `theme.breakpoints`) instead of hardcoded colors or sizes.
+* The frontend uses `npm`. If you must install or update any dependencies, always use the `--ignore-scripts` flag.
+* Environment variables use the `VITE_` prefix (e.g. `VITE_PUBLIC_DOMAIN`, `VITE_PROTECTED_DOMAIN`).
+* When adding or changing a React Router route, also update the `metaRoutes` patterns in `cmd/dashboard/meta.go` so the server-side Open Graph metadata injection stays in sync. This drives link previews in Slack and other clients that read OG tags.
+* Team SLO workspace UI is selected in `frontend/src/components/team/slo/registry.tsx`. Versioned renderers live under `frontend/src/components/team/slo/{team}/v{n}/` (TRT `payload_streams` v1 is `trt/v1/`). Unknown `(kind, schema_version)` pairs use `UnknownSLOWorkspace`. Add and edit controls render only when `isTeamSLOAdmin(team)` is true.
 
 ---
 > Source: [openshift-eng/ship-status-dash](https://github.com/openshift-eng/ship-status-dash) — distributed by [TomeVault](https://tomevault.io).
