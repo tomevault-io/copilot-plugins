@@ -1,0 +1,9 @@
+{
+  "name": "liaolongdong--account-password-helper",
+  "displayName": "account-password-helper",
+  "description": "\ud83d\udd10 Free open-source password manager Chrome extension (MV3). Local AES-256-GCM encryption, zero cloud - passwords never leave your browser. One-click autofill & auto-login, auto-save credentials, TOTP ",
+  "version": "1.0.0",
+  "author": "liaolongdong",
+  "homepage": "https://github.com/liaolongdong/account-password-helper",
+  "skills": []
+}
