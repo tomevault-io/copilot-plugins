@@ -1,0 +1,44 @@
+{
+  "name": "portable-ai-memory",
+  "owner": "portable-ai-memory",
+  "repo": "portable-ai-memory",
+  "description": "PAM: Portable AI Memory \u2014 A universal JSON interchange format for AI user memories across providers. Think vCard for AI memories.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/portable-ai-memory/portable-ai-memory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T04:14:21Z"
+}
