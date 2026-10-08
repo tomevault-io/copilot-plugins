@@ -1,0 +1,9 @@
+{
+  "name": "magnus-gille--tokenatlas",
+  "displayName": "tokenatlas",
+  "description": "Claude Code statusline showing real-time token usage and estimated energy consumption",
+  "version": "1.0.0",
+  "author": "Magnus-Gille",
+  "homepage": "https://github.com/Magnus-Gille/tokenatlas",
+  "skills": []
+}
