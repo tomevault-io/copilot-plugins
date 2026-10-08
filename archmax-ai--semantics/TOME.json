@@ -4,7 +4,7 @@
   "repo": "semantics",
   "description": "A semantic layer for your data: archmax describes it, you sharpen it, agents query it.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/archmax-ai/semantics",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T23:32:10Z"
+  "distributed_at": "2026-10-08T03:37:10Z"
 }
