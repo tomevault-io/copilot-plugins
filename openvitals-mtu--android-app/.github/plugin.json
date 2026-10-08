@@ -1,0 +1,9 @@
+{
+  "name": "openvitals-mtu--android-app",
+  "displayName": "android-app",
+  "description": "Privacy-first Android dashboard for viewing and adding Health Connect data locally, with no account or cloud required. ",
+  "version": "1.0.0",
+  "author": "OpenVitals-MTU",
+  "homepage": "https://github.com/OpenVitals-MTU/android-app",
+  "skills": []
+}
