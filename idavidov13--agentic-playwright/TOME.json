@@ -1,0 +1,207 @@
+{
+  "name": "agentic-playwright",
+  "owner": "idavidov13",
+  "repo": "agentic-playwright",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pr-reviewer",
+      "path": ".cursor/skills/pr-reviewer",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/pr-reviewer",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/enums/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/enums/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/enums/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/enums/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/config/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/config/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/helpers/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/helpers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/helpers/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/helpers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/fixtures/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/fixtures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/fixtures/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/fixtures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/debugging/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/debugging/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/selectors/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/selectors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/selectors/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/selectors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/pr-reviewer/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/pr-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/pr-reviewer/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/pr-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/page-objects/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/page-objects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/page-objects/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/page-objects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/common-tasks/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/common-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/common-tasks/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/common-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/test-standards/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/test-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/test-standards/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/test-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/refactor-values/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/refactor-values/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/refactor-values/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/refactor-values/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".cursor/skills/ai-native-workflow/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.cursor/skills/ai-native-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-playwright",
+      "path": ".claude/skills/ai-native-workflow/SKILL.md",
+      "github_url": "https://github.com/idavidov13/agentic-playwright/tree/main/.claude/skills/ai-native-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/idavidov13/agentic-playwright",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-08T18:22:55Z"
+}
