@@ -1,0 +1,9 @@
+{
+  "name": "charmillionaire--xread",
+  "displayName": "xread",
+  "description": "Next-gen web novel & media reader built with Rust and Vue, featuring Legado source parsing, audio/video streaming, and liquid-glass UI.",
+  "version": "1.0.0",
+  "author": "Charmillionaire",
+  "homepage": "https://github.com/Charmillionaire/xread",
+  "skills": []
+}
