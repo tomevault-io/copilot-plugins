@@ -1,9 +1,126 @@
 {
   "name": "rexleimo--aios",
   "displayName": "aios",
-  "description": "Local-first AI agent bootstrap: Playwright Browser MCP + ContextDB for Codex CLI, Claude     Code, Gemini CLI, and OpenCode.",
+  "description": "aios",
   "version": "1.0.0",
   "author": "rexleimo",
   "homepage": "https://github.com/rexleimo/aios",
-  "skills": []
+  "skills": [
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    },
+    {
+      "name": "aios",
+      "description": ""
+    }
+  ]
 }
