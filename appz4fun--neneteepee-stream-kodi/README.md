@@ -7,11 +7,11 @@ Kodi 21 addon — stream Usenet via NZBHydra2 + nzbdav WebDAV. TMDBHelper player
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Appz4Fun/NeNeTeePee-Stream-Kodi](https://github.com/Appz4Fun/NeNeTeePee-Stream-Kodi).
+Original source: `AGENTS.md` in [Appz4Fun/NeNeTeePee-Stream-Kodi](https://github.com/Appz4Fun/NeNeTeePee-Stream-Kodi).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
