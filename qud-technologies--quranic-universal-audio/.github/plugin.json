@@ -1,0 +1,9 @@
+{
+  "name": "qud-technologies--quranic-universal-audio",
+  "displayName": "quranic-universal-audio",
+  "description": "Unified audio and timing (word + letter) for Quran apps, developers, and researchers. A timestamps visualizer, editing tool and community-verified recitations dataset",
+  "version": "1.0.0",
+  "author": "QUD-Technologies",
+  "homepage": "https://github.com/QUD-Technologies/quranic-universal-audio",
+  "skills": []
+}
