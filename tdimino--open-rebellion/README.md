@@ -7,11 +7,11 @@ Open-source Rust rebuild of Star Wars Rebellion (1998, LucasArts). macOS + WebAs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tdimino/open-rebellion](https://github.com/tdimino/open-rebellion).
+Original source: `AGENTS.md` in [tdimino/open-rebellion](https://github.com/tdimino/open-rebellion).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
