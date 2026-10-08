@@ -1,82 +1,43 @@
-## 06-backend-services
+## 07-development-workflow
 
-> Detailed explanation of backend service architecture, including service layer design, data model structure, database access patterns, and dependency injection principles.
+> Development workflow guidelines covering local setup, code standards, version control practices, and tarot app-specific conventions for maintaining code quality.
 
-description: Detailed explanation of backend service architecture, including service layer design, data model structure, database access patterns, and dependency injection principles.
+description: Development workflow guidelines covering local setup, code standards, version control practices, and tarot app-specific conventions for maintaining code quality.
 
-# Backend Services Architecture
+# Development Workflow
 
-The backend follows a modular architecture with clear separation of concerns.
+This project follows specific development practices to ensure code quality.
 
-## Service Layer
+## Local Development
 
-- [backend/src/app/services/](mdc:backend/src/app/services) - Business logic services
-- Services should be focused on specific domain functionality
-- Use dependency injection for external dependencies
-- Keep services testable and independent
+1. Use the local Docker setup with: `docker-compose -f docker-compose.local.yml up`
+2. Hot reload is enabled in development mode
+3. For frontend-only development, you can run: `cd frontend && yarn dev`
+4. For backend-only development:
+   - Set up Python virtual environment
+   - Install dependencies: `cd backend && pip install -e .`
+   - Run the development server
 
-## Data Models
+## Code Standards
 
-- [backend/src/app/schemas/](mdc:backend/src/app/schemas) - Pydantic models for validation and serialization
-- Input validation models should be prefixed with "Create" or "Update"
-- Response models should represent the exact API response structure
+- Frontend follows ESLint and Prettier configurations
+  - [frontend/.eslintrc.cjs](mdc:frontend/.eslintrc.cjs)
+  - [frontend/.prettierrc.json](mdc:frontend/.prettierrc.json)
+- Backend follows PEP 8 with additional project-specific rules
+- Pre-commit hooks enforce code standards
+  - [.pre-commit-config.yaml](mdc:.pre-commit-config.yaml)
 
-## Database Access
+## Version Control
 
-- [backend/src/app/infrastructure/](mdc:backend/src/app/infrastructure) - Database access and external integrations
-- Use SQLAlchemy for ORM
-- Define clear repository interfaces
-- Keep SQL queries in repository classes
+- Use feature branches for new work
+- Create pull requests for code reviews
+- Version bumping is handled by the script: [bump_version.py](mdc:bump_version.py)
 
-## API Structure
+## Tarot App-Specific Conventions
 
-- APIs should follow RESTful principles
-- Use appropriate HTTP methods and status codes
-- Document APIs with OpenAPI/Swagger
-- Validate all input data with Pydantic models
-
-# Backend Services Structure
-
-The backend services layer follows a structured approach:
-
-1. Each service extends `BaseService` which provides common infrastructure
-2. Services are organized by domain (users, subscriptions, messages, etc.)
-3. Services contain business logic and orchestrate between repositories and external systems
-
-## Repository Layer
-
-The repository layer provides data access:
-
-1. Each repository extends `BaseRepo` which provides common CRUD methods:
-   - `get_by_id`: Get entity by primary key
-   - `get_all`: Get all entities
-   - `create`: Create a new entity
-   - `update`: Update an existing entity
-   - `delete`: Delete an entity
-   - `upsert`: Insert or update an entity based on conflict keys
-
-2. Only implement custom repository methods for specialized queries that aren't covered by BaseRepo
-
-3. Keep repository methods focused on data access only (no business logic)
-
-## Service Layer Responsibilities
-
-Services are responsible for:
-
-1. Business logic implementation
-2. Validation and error handling
-3. Orchestrating between multiple repositories
-4. Integrating with external systems
-5. Event dispatching
-6. Monitoring and logging
-
-## Dependency Injection
-
-Services and repositories use dependency injection:
-
-1. Services receive repositories and other dependencies in their constructor
-2. This facilitates testing and loose coupling
-3. The service container assembles the dependency graph
+- Keep tarot-specific logic isolated in dedicated services
+- Use consistent naming for tarot card entities
+- Follow the established data models for readings and interpretations
 
 ---
 > Source: [AHTOOOXA/gramkit](https://github.com/AHTOOOXA/gramkit) — distributed by [TomeVault](https://tomevault.io).
