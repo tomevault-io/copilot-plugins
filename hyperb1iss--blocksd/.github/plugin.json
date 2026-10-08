@@ -1,0 +1,9 @@
+{
+  "name": "hyperb1iss--blocksd",
+  "displayName": "blocksd",
+  "description": "OSS support for ROLI Blocks devices :: topology, keepalive, LED control",
+  "version": "1.0.0",
+  "author": "hyperb1iss",
+  "homepage": "https://github.com/hyperb1iss/blocksd",
+  "skills": []
+}
