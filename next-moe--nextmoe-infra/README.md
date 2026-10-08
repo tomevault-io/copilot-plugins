@@ -7,13 +7,13 @@ NextMoe infrastructures, oauth service, image service, moderation service, artif
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [next-moe/nextmoe-infra](https://github.com/next-moe/nextmoe-infra).
+Original source: `CLAUDE.md` in [next-moe/nextmoe-infra](https://github.com/next-moe/nextmoe-infra).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
