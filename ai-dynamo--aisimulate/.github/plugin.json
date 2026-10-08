@@ -1,0 +1,9 @@
+{
+  "name": "ai-dynamo--aisimulate",
+  "displayName": "aisimulate",
+  "description": "AISimulate predicts LLM serving behavior and searches for strong deployment configurations offline, without bringing up a GPU serving cluster",
+  "version": "1.0.0",
+  "author": "ai-dynamo",
+  "homepage": "https://github.com/ai-dynamo/aisimulate",
+  "skills": []
+}
