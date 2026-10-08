@@ -1,0 +1,9 @@
+{
+  "name": "mithro--rp1-jtag",
+  "displayName": "rp1-jtag",
+  "description": "High-speed JTAG via Raspberry Pi 5 RP1 PIO",
+  "version": "1.0.0",
+  "author": "mithro",
+  "homepage": "https://github.com/mithro/rp1-jtag",
+  "skills": []
+}
