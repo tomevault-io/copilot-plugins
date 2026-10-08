@@ -1,0 +1,9 @@
+{
+  "name": "holon-run--indexbind",
+  "displayName": "indexbind",
+  "description": "Embedded retrieval artifacts for Node, browsers, and Workers.",
+  "version": "1.0.0",
+  "author": "holon-run",
+  "homepage": "https://github.com/holon-run/indexbind",
+  "skills": []
+}
