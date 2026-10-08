@@ -7,11 +7,11 @@ Design skills for Claude Code and AI agents — powered by Gemini 3.1 Flash Imag
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ArnavPuri/designskills](https://github.com/ArnavPuri/designskills).
+Original source: `AGENTS.md` in [ArnavPuri/designskills](https://github.com/ArnavPuri/designskills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
