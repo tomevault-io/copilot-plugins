@@ -1,0 +1,9 @@
+{
+  "name": "george-rd--rive-rs-cli",
+  "displayName": "rive-rs-cli",
+  "description": "Author Rive (.riv) animations from JSON, then prove they load, render, and match a reference file. Rust CLI built for AI agents.",
+  "version": "1.0.0",
+  "author": "George-RD",
+  "homepage": "https://github.com/George-RD/rive-rs-cli",
+  "skills": []
+}
