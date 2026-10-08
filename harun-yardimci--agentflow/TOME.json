@@ -4,7 +4,7 @@
   "repo": "agentflow",
   "description": "AI agent orchestration platform \u2014 pipeline-based task runner for Claude, Codex, and Gemini CLI agents with a visual dashboard and MCP server",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/harun-yardimci/agentflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T07:24:46Z"
+  "distributed_at": "2026-10-08T06:34:52Z"
 }
