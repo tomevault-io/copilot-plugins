@@ -1,0 +1,9 @@
+{
+  "name": "hrygo--clawreel",
+  "displayName": "clawreel",
+  "description": "AI short-video automation pipeline \u2014 from script to publish, Agent-driven with HITL checkpoints and FinOps cost optimization",
+  "version": "1.0.0",
+  "author": "hrygo",
+  "homepage": "https://github.com/hrygo/clawreel",
+  "skills": []
+}
