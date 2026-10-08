@@ -1,0 +1,9 @@
+{
+  "name": "pageton--tui-design-skill",
+  "displayName": "tui-design-skill",
+  "description": "Production-grade AI skill for designing and building polished terminal user interfaces. Works with Claude Code and OpenCode.",
+  "version": "1.0.0",
+  "author": "pageton",
+  "homepage": "https://github.com/pageton/tui-design-skill",
+  "skills": []
+}
