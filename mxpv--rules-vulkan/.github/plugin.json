@@ -1,0 +1,9 @@
+{
+  "name": "mxpv--rules-vulkan",
+  "displayName": "rules_vulkan",
+  "description": "Bazel rules to build Vulkan applications",
+  "version": "1.0.0",
+  "author": "mxpv",
+  "homepage": "https://github.com/mxpv/rules_vulkan",
+  "skills": []
+}
