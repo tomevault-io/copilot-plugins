@@ -4,7 +4,7 @@
   "repo": "PLVS",
   "description": "Real-time audio metering desktop app. Free and open source, for Windows and macOS.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SounDoer/PLVS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T23:45:57Z"
+  "distributed_at": "2026-10-08T07:03:17Z"
 }
