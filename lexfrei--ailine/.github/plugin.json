@@ -1,0 +1,9 @@
+{
+  "name": "lexfrei--ailine",
+  "displayName": "ailine",
+  "description": "Claude Code statusline with real usage limits from Anthropic API",
+  "version": "1.0.0",
+  "author": "lexfrei",
+  "homepage": "https://github.com/lexfrei/ailine",
+  "skills": []
+}
