@@ -1,0 +1,9 @@
+{
+  "name": "sareegpt--edgartools-mcp",
+  "displayName": "edgartools-mcp",
+  "description": "EdgarTools MCP server for SEC EDGAR data",
+  "version": "1.0.0",
+  "author": "sareegpt",
+  "homepage": "https://github.com/sareegpt/edgartools-mcp",
+  "skills": []
+}
