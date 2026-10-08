@@ -1,36 +1,33 @@
-## 04-docker-setup
+## 05-frontend-components
 
-> Explanation of Docker configuration, service setup, and commands for running the application in different environments (production, development, local).
+> Guidelines for frontend component organization, development principles, and state management practices for maintaining a consistent UI architecture.
 
-description: Explanation of Docker configuration, service setup, and commands for running the application in different environments (production, development, local).
+description: Guidelines for frontend component organization, development principles, and state management practices for maintaining a consistent UI architecture.
 
-# Docker Configuration
+# Frontend Components Structure
 
-This project uses Docker Compose to manage multiple services.
+The frontend follows a structured approach to organization.
 
-## Docker Compose Files
+## Presentation Layer
 
-- [docker-compose.yml](mdc:docker-compose.yml) - Production configuration
-- [docker-compose.dev.yml](mdc:docker-compose.dev.yml) - Development configuration
-- [docker-compose.local.yml](mdc:docker-compose.local.yml) - Local development configuration
+- [frontend/src/presentation/components/](mdc:frontend/src/presentation/components) - Reusable UI components
+- [frontend/src/presentation/screens/](mdc:frontend/src/presentation/screens) - Page components
+- [frontend/src/presentation/layouts/](mdc:frontend/src/presentation/layouts) - Layout components
+- [frontend/src/presentation/assets/](mdc:frontend/src/presentation/assets) - Static assets
 
-## Service Dockerfiles
+## Component Guidelines
 
-- [backend/web.Dockerfile](mdc:backend/web.Dockerfile) - Backend web service
-- [backend/bot.Dockerfile](mdc:backend/bot.Dockerfile) - Telegram bot service
-- [backend/worker.Dockerfile](mdc:backend/worker.Dockerfile) - Background worker service
-- [frontend/Dockerfile.prod](mdc:frontend/Dockerfile.prod) - Frontend production build
-- [frontend/Dockerfile.local](mdc:frontend/Dockerfile.local) - Frontend local development
+1. Components should follow Single Responsibility Principle
+2. Use composition with Vue 3 Composition API
+3. Keep components small and focused
+4. Leverage TypeScript for type safety
+5. Use Tailwind CSS for styling
 
-## Nginx Configuration
+## State Management
 
-- [nginx.conf](mdc:nginx.conf) - Nginx configuration for routing requests
-
-## Running Services
-
-- Production: `docker-compose up`
-- Development: `docker-compose -f docker-compose.dev.yml up`
-- Local development: `docker-compose -f docker-compose.local.yml up`
+- [frontend/src/store/](mdc:frontend/src/store) - Pinia stores for state management
+- Use composables for reusable logic
+- Keep UI and business logic separated
 
 ---
 > Source: [AHTOOOXA/gramkit](https://github.com/AHTOOOXA/gramkit) — distributed by [TomeVault](https://tomevault.io).
