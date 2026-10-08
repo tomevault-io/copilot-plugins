@@ -1,0 +1,9 @@
+{
+  "name": "cwida--lpts",
+  "displayName": "lpts",
+  "description": "Logical Plan To SQL DuckDB Extension",
+  "version": "1.0.0",
+  "author": "cwida",
+  "homepage": "https://github.com/cwida/lpts",
+  "skills": []
+}
