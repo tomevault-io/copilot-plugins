@@ -1,0 +1,9 @@
+{
+  "name": "octopusdeploy--terraform-provider-octopusdeploy",
+  "displayName": "terraform-provider-octopusdeploy",
+  "description": "Terraform Provider for Octopus Deploy \ud83d\udc19",
+  "version": "1.0.0",
+  "author": "OctopusDeploy",
+  "homepage": "https://github.com/OctopusDeploy/terraform-provider-octopusdeploy",
+  "skills": []
+}
