@@ -1,0 +1,9 @@
+{
+  "name": "faborsky--whisper-cz-en",
+  "displayName": "whisper-cz-en",
+  "description": "Local Czech & English audio/video transcription using whisper.cpp on Apple Silicon. Anti-hallucination pipeline with chunking + VAD. CLI tool designed for Claude Code agent orchestration.",
+  "version": "1.0.0",
+  "author": "faborsky",
+  "homepage": "https://github.com/faborsky/whisper-cz-en",
+  "skills": []
+}
