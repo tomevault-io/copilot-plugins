@@ -1,0 +1,9 @@
+{
+  "name": "incident-io--inc",
+  "displayName": "inc",
+  "description": "The incident.io command-line interface",
+  "version": "1.0.0",
+  "author": "incident-io",
+  "homepage": "https://github.com/incident-io/inc",
+  "skills": []
+}
