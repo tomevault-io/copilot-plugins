@@ -1,0 +1,9 @@
+{
+  "name": "logoslang--prologos",
+  "displayName": "prologos",
+  "description": "Prologos is a functional-logic language unifying dependent types, session types, linear types (QTT), logic programming, and propagators.",
+  "version": "1.0.0",
+  "author": "LogosLang",
+  "homepage": "https://github.com/LogosLang/prologos",
+  "skills": []
+}
