@@ -1,0 +1,9 @@
+{
+  "name": "zarpay--praxis-cli",
+  "displayName": "praxis-cli",
+  "description": "An eval and enforcement toolkit for your team's conventions \u2014 the standards a linter can't check",
+  "version": "1.0.0",
+  "author": "zarpay",
+  "homepage": "https://github.com/zarpay/praxis-cli",
+  "skills": []
+}
