@@ -1,148 +1,174 @@
 ## goca
 
-> This file defines specialized agent modes for working with the Goca codebase. Each agent has a specific focus area and tooling strategy.
+> The dependency rule is strict and non-negotiable:
 
-# Goca — Custom AI Agent Modes
 
-This file defines specialized agent modes for working with the Goca codebase. Each agent has a specific focus area and tooling strategy.
+# Clean Architecture Rules for Goca Internal Packages
 
----
+## Layer Dependency Direction
 
-## CodegenAuditor
+The dependency rule is strict and non-negotiable:
 
-**Purpose:** Audit and validate code that Goca generates. Verify templates produce compilable, vet-clean Go code across all database backends and handler types.
-
-**When to invoke:** When modifying any template in `cmd/templates.go`, `cmd/template_components.go`, or `cmd/project_templates.go`.
-
-**Tools strategy:**
-- Use **Serena** `get_symbols_overview` on `cmd/templates.go` to see all template constants
-- Use **Serena** `find_symbol` with `include_body=true` for the specific template being changed
-- After changes, use **Context7** for `text/template` docs to verify template syntax
-- Trigger integration test run to confirm generated code compiles
-
-**Workflow:**
-1. Identify which template was changed using Serena symbolic search
-2. Trace all code paths that render the template via `find_referencing_symbols`
-3. Verify `TemplateData` fields used in template match the struct definition
-4. Check that all conditional blocks (`{{if .Features.Timestamps}}`) handle both true/false paths
-5. Run `go build ./...` and `go vet ./...` on a generated sample
-6. Check for unused import edge cases in all database variants
-
-**Quality gates:**
-- Zero `go build` errors for all 8 database backends (postgres, mysql, sqlite, sqlserver, mongodb, redis, cassandra, dynamodb)
-- Zero `go vet` warnings
-- Zero unused imports in generated files
-- Template renders correctly with empty `Fields` slice (edge case)
-
----
-
-## TestEngineer
-
-**Purpose:** Write and maintain comprehensive tests for Goca. Focus on both unit tests (`cmd/*_test.go`) and integration tests (`internal/testing/tests/`).
-
-**When to invoke:** When adding a new command, modifying validation logic, or when test coverage drops below 80%.
-
-**Tools strategy:**
-- Use **Serena** `find_symbol` to read function signatures before writing tests
-- Use **Serena** `find_referencing_symbols` to understand how a function is called
-- Use **Context7** for `testify` docs when using advanced mock/assert features
-- Never read an entire file — get function signatures only, then write targeted tests
-
-**Workflow:**
-1. Run `go test ./... -cover` to see current coverage baseline
-2. Use Serena to get symbols overview of the target file
-3. Identify untested exported functions
-4. Write table-driven tests covering: happy path, edge cases, error cases, security cases
-5. Add `t.TempDir()` for all filesystem interactions
-6. Add `t.Parallel()` to all independent tests
-7. For new commands: add integration test verifying generated code compiles
-
-**Test structure checklist:**
-- [ ] `TestFunctionName_Scenario` naming format
-- [ ] Table-driven for multi-variant functions
-- [ ] `t.TempDir()` for filesystem tests
-- [ ] `t.Parallel()` where state-safe
-- [ ] Security test cases (path traversal, empty input, special chars)
-- [ ] `require.NoError` / `assert.Equal` from `testify`
-- [ ] Integration test runs `go build ./...` and `go vet ./...` on output
-
----
-
-## ArchitectGuard
-
-**Purpose:** Enforce Clean Architecture layer boundaries. Detect and fix dependency violations in `internal/`.
-
-**When to invoke:** When reviewing changes to `internal/` packages or when adding new features to the generated code templates.
-
-**Tools strategy:**
-- Use **Serena** `get_symbols_overview` on each `internal/` sub-package
-- Use **Serena** `find_referencing_symbols` to trace import chains
-- Never accept upward dependency violations (handler → usecase ✓, usecase → handler ✗)
-
-**Violation detection:**
 ```
-# Check for violations
-grep -r "internal/handler" internal/usecase/   # MUST be empty
-grep -r "internal/usecase" internal/domain/    # MUST be empty
-grep -r "internal/repository" internal/domain/ # MUST be empty
+Handler → UseCase (interface) → Repository (interface) → Entity
 ```
 
-**Workflow:**
-1. Map import dependencies using Serena symbol overview for each package
-2. Verify direction: Handler → UseCase interface → Repository interface → Entity
-3. Confirm all constructors accept interfaces, not concrete types
-4. Verify DI container is the only place that wires concrete implementations
-5. Check that DTOs live in `usecase/` — never expose raw domain entities in HTTP responses
+- Handlers import `usecase` interfaces — NEVER `repository` or `domain` directly for business logic
+- UseCases import `repository` interfaces — NEVER import handler packages
+- Repositories import `domain` — NEVER import usecase or handler packages
+- Domain (entities) imports NOTHING from internal packages
 
----
+### Import Violations — Immediately Fix
 
-## DocsWriter
+```go
+// FORBIDDEN in usecase/ package
+import "github.com/sazardev/goca/internal/handler/http"
 
-**Purpose:** Update and maintain the VitePress documentation site and GitHub Wiki.
+// FORBIDDEN in domain/ package
+import "github.com/sazardev/goca/internal/usecase"
 
-**When to invoke:** After adding a new command, changing command flags, or updating generated code structure.
+// FORBIDDEN in repository/ package
+import "github.com/sazardev/goca/internal/handler/http"
+```
 
-**Tools strategy:**
-- Read existing command docs first: `docs/commands/<similar-command>.md`
-- Check VitePress config: `docs/.vitepress/config.mts`
-- Maintain wiki mirror in `wiki/Command-<Name>.md`
-- Use **Context7** for VitePress and Vue 3 docs when working with custom components
+## Entity (Domain) Layer Rules
 
-**Workflow:**
-1. Read `docs/commands/entity.md` as a template reference (most complete example)
-2. Create new command doc following exact structure
-3. Update `docs/commands/index.md` table
-4. Update sidebar in `docs/.vitepress/config.mts`
-5. Mirror to `wiki/Command-<Name>.md`
-6. Update `wiki/Home.md` navigation
-7. Verify all internal links use `/goca/` base prefix
+Entities in `internal/domain/` MUST:
 
-**Quality gates:**
-- All internal links include `/goca/` prefix
-- Frontmatter has `layout`, `title`, `titleTemplate`, `description`
-- Command docs include all 7 required sections
-- No broken links to non-existent pages
+- Be pure Go structs with no framework imports (no GORM, no validator libs in actual business logic methods)
+- GORM struct tags are allowed for ORM mapping (they are annotations, not dependencies)
+- Have business validation methods that return domain errors
+- Use domain-specific error variables (`var ErrProductNotFound = errors.New("product not found")`)
 
----
+```go
+// CORRECT entity
+type Product struct {
+    ID    uint    `json:"id" gorm:"primaryKey;autoIncrement"`
+    Name  string  `json:"name" gorm:"type:varchar(255);not null" validate:"required"`
+    Price float64 `json:"price" gorm:"type:decimal(10,2)" validate:"required,gte=0"`
+}
 
-## SecurityAuditor
+func (p *Product) Validate() error {
+    if p.Name == "" {
+        return ErrProductNameRequired
+    }
+    if p.Price < 0 {
+        return ErrProductPriceNegative
+    }
+    return nil
+}
+```
 
-**Purpose:** Review code for security vulnerabilities following OWASP guidelines.
+## UseCase Layer Rules
 
-**When to invoke:** Before any release, when adding new user input handling, or when modifying file system operations.
+UseCase files in `internal/usecase/` MUST:
 
-**Audit checklist:**
-- [ ] All user inputs validated via `CommandValidator` before use
-- [ ] Name validation regex: `^[A-Za-z][A-Za-z0-9]*$`
-- [ ] Path construction uses `filepath.Join` only
-- [ ] Constructed paths verified to stay within `os.Getwd()`
-- [ ] `exec.Command` uses argument arrays — no shell string concatenation
-- [ ] Module paths validated before `go get`
-- [ ] File permissions: source `0644`, dirs `0755`
-- [ ] No deletion operations in any command
-- [ ] Template data is pre-validated `TemplateData` — no raw user strings in templates
-- [ ] No sensitive data (DB passwords) logged or surfaced in CLI output
+- Define an interface (e.g., `ProductUseCase`) AND implement it (`productService` struct — unexported)
+- Accept repository interfaces in the constructor — never concrete implementations
+- Define DTOs (Input/Output types) in `dto.go` — never expose domain entities directly in HTTP responses
+- Constructor uses `New<Entity>Service(repo repository.Interface) UseCase` pattern
+
+```go
+// CORRECT usecase pattern
+type productService struct {
+    repo repository.ProductRepository
+}
+
+func NewProductService(repo repository.ProductRepository) ProductUseCase {
+    return &productService{repo: repo}
+}
+
+func (s *productService) Create(input CreateProductInput) (*domain.Product, error) {
+    product := input.toDomain()
+    if err := product.Validate(); err != nil {
+        return nil, fmt.Errorf("create product: %w", err)
+    }
+    return s.repo.Create(product)
+}
+```
+
+## Repository Layer Rules
+
+Repository files in `internal/repository/` define interfaces ONLY. Implementations go in a sub-package named after the database (e.g., `postgres/`, `sqlite/`):
+
+```go
+// internal/repository/interfaces.go — interface definition
+type ProductRepository interface {
+    Create(product *domain.Product) (*domain.Product, error)
+    GetByID(id uint) (*domain.Product, error)
+    List() ([]domain.Product, error)
+    Update(product *domain.Product) (*domain.Product, error)
+    Delete(id uint) error
+}
+```
+
+## Handler Layer Rules
+
+Handlers in `internal/handler/http/` MUST:
+
+- Accept UseCase interfaces in the constructor
+- Never contain business logic — delegate 100% to UseCase
+- Handle HTTP concerns only: status codes, request parsing, response encoding
+- Use `json.NewDecoder` for request bodies — never `ioutil.ReadAll` + Unmarshal
+
+```go
+// CORRECT handler
+func (h *ProductHandler) Create(w http.ResponseWriter, r *http.Request) {
+    var input usecase.CreateProductInput
+    if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+        http.Error(w, "invalid request body", http.StatusBadRequest)
+        return
+    }
+    product, err := h.usecase.Create(input)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(http.StatusCreated)
+    json.NewEncoder(w).Encode(product)
+}
+```
+
+## DI Container Rules
+
+`internal/di/container.go` MUST:
+
+- Wire ALL dependencies using constructor injection
+- Accept `*gorm.DB` (or relevant DB connection) as the single infrastructure input
+- Never instantiate concrete implementations in non-`di` packages
+- Expose getters for each handler (used by `main.go`)
+
+```go
+type Container struct {
+    productHandler *httphandler.ProductHandler
+    // ...
+}
+
+func NewContainer(db *gorm.DB) *Container {
+    productRepo := repository.NewProductGORMRepository(db)
+    productUseCase := usecase.NewProductService(productRepo)
+    productHandler := httphandler.NewProductHandler(productUseCase)
+    return &Container{productHandler: productHandler}
+}
+```
+
+## Testing in `internal/testing/`
+
+- `test_framework.go` — base test utilities and shared helpers
+- `suite.go` — test suite definitions (optional, for grouped integration tests)
+- `validator.go` — helpers to assert generated code structure
+- `tests/` — integration tests that invoke `goca` commands and verify output
+- All integration tests use `t.TempDir()` — never write to the real workspace
+
+## Seed Data Files (`*_seeds.go`)
+
+Seed files are only for local development and testing. They MUST:
+
+- Be in the `domain` package
+- Not import any test packages in production builds (use build tags if needed)
+- Return deterministic data — no random values without a fixed seed
 
 ---
 > Source: [sazardev/goca](https://github.com/sazardev/goca) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
