@@ -1,6 +1,6 @@
 # goca
 
-> Source: [sazardev/goca](https://github.com/sazardev/goca). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [sazardev/goca](https://github.com/sazardev/goca). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,19 +15,11 @@ Original source: `AGENTS.md` in [sazardev/goca](https://github.com/sazardev/goca
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (9)
+## Bundled Skills (1)
 
-- [goca](https://github.com/sazardev/goca/tree/main/.agents/skills/caveman/SKILL.md)
-- [goca](https://github.com/sazardev/goca/tree/main/skills/goca-helper-skill/SKILL.md)
-- [goca](https://github.com/sazardev/goca/tree/main/skills/ddd-teaching-skill/SKILL.md)
-- [goca](https://github.com/sazardev/goca/tree/main/.agents/skills/golang-testing/SKILL.md)
-- [goca](https://github.com/sazardev/goca/tree/main/.agents/skills/caveman-commit/SKILL.md)
-- [goca](https://github.com/sazardev/goca/tree/main/.agents/skills/golang-patterns/SKILL.md)
-- [goca](https://github.com/sazardev/goca/tree/main/.github/skills/mcp-tools/SKILL.md)
-- [goca](https://github.com/sazardev/goca/tree/main/.github/skills/codegen-testing/SKILL.md)
-- [goca](https://github.com/sazardev/goca/tree/main/.github/skills/goca-architecture/SKILL.md)
+- [shiki](https://github.com/sazardev/goca/tree/main/.opencode/skill/deploy/SKILL.md)
 
-From [sazardev/goca](https://github.com/sazardev/goca) — a repo with 288+ stars on GitHub.
+From [sazardev/goca](https://github.com/sazardev/goca) — a repo with 0+ stars on GitHub.
 
 ---
 
