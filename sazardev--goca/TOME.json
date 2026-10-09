@@ -39,61 +39,13 @@
   ],
   "skills": [
     {
-      "name": "goca",
-      "path": ".agents/skills/caveman/SKILL.md",
-      "github_url": "https://github.com/sazardev/goca/tree/main/.agents/skills/caveman/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "goca",
-      "path": "skills/goca-helper-skill/SKILL.md",
-      "github_url": "https://github.com/sazardev/goca/tree/main/skills/goca-helper-skill/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "goca",
-      "path": "skills/ddd-teaching-skill/SKILL.md",
-      "github_url": "https://github.com/sazardev/goca/tree/main/skills/ddd-teaching-skill/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "goca",
-      "path": ".agents/skills/golang-testing/SKILL.md",
-      "github_url": "https://github.com/sazardev/goca/tree/main/.agents/skills/golang-testing/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "goca",
-      "path": ".agents/skills/caveman-commit/SKILL.md",
-      "github_url": "https://github.com/sazardev/goca/tree/main/.agents/skills/caveman-commit/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "goca",
-      "path": ".agents/skills/golang-patterns/SKILL.md",
-      "github_url": "https://github.com/sazardev/goca/tree/main/.agents/skills/golang-patterns/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "goca",
-      "path": ".github/skills/mcp-tools/SKILL.md",
-      "github_url": "https://github.com/sazardev/goca/tree/main/.github/skills/mcp-tools/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "goca",
-      "path": ".github/skills/codegen-testing/SKILL.md",
-      "github_url": "https://github.com/sazardev/goca/tree/main/.github/skills/codegen-testing/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "goca",
-      "path": ".github/skills/goca-architecture/SKILL.md",
-      "github_url": "https://github.com/sazardev/goca/tree/main/.github/skills/goca-architecture/SKILL.md",
+      "name": "shiki",
+      "path": ".opencode/skill/deploy/SKILL.md",
+      "github_url": "https://github.com/sazardev/goca/tree/main/.opencode/skill/deploy/SKILL.md",
       "description": ""
     }
   ],
   "source_url": "https://github.com/sazardev/goca",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T11:52:22Z"
+  "distributed_at": "2026-10-09T06:12:45Z"
 }
