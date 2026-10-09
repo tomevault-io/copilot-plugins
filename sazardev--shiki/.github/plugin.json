@@ -1,9 +1,14 @@
 {
   "name": "sazardev--shiki",
   "displayName": "shiki",
-  "description": "TUI note-taking app in Rust \u2014 Yazi-style navigation, notebooks as independent git repos, real per-note version history, themes, and fast fuzzy search.",
+  "description": "shiki",
   "version": "1.0.0",
   "author": "sazardev",
   "homepage": "https://github.com/sazardev/shiki",
-  "skills": []
+  "skills": [
+    {
+      "name": "shiki",
+      "description": ""
+    }
+  ]
 }
