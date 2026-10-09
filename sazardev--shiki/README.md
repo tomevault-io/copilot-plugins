@@ -2,22 +2,24 @@
 
 > Tome by [sazardev](https://github.com/sazardev/shiki), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-TUI note-taking app in Rust — Yazi-style navigation, notebooks as independent git repos, real per-note version history, themes, and fast fuzzy search.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sazardev/shiki](https://github.com/sazardev/shiki).
+Original source: `AGENTS.md` in [sazardev/shiki](https://github.com/sazardev/shiki).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [sazardev/shiki](https://github.com/sazardev/shiki) — a repo with 9+ stars on GitHub.
+## Bundled Skills (1)
+
+- [shiki](https://github.com/sazardev/shiki/tree/main/.opencode/skill/deploy/SKILL.md)
+
+From [sazardev/shiki](https://github.com/sazardev/shiki) — a repo with 0+ stars on GitHub.
 
 ---
 
