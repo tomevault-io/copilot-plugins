@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "ssochi",
   "homepage": "https://github.com/ssochi/hiphone",
-  "skills": []
+  "skills": [
+    {
+      "name": "hiphone",
+      "description": ""
+    }
+  ]
 }
