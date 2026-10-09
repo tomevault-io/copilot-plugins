@@ -3,8 +3,8 @@
   "owner": "ssochi",
   "repo": "hiphone",
   "description": "",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "hiphone",
+      "path": "docs/skills/hiphone-cloudflare-pages-deploy/SKILL.md",
+      "github_url": "https://github.com/ssochi/hiphone/tree/main/docs/skills/hiphone-cloudflare-pages-deploy/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/ssochi/hiphone",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T05:31:49Z"
+  "distributed_at": "2026-10-09T17:28:02Z"
 }
