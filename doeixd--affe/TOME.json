@@ -4,7 +4,7 @@
   "repo": "affe",
   "description": "Effect-native fine-grained JSX runtime with Layer-powered services, async atoms, and optimistic actions.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/doeixd/affe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-08T01:54:34Z"
+  "distributed_at": "2026-10-09T02:30:05Z"
 }
