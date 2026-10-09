@@ -1,0 +1,57 @@
+{
+  "name": "glide-mq",
+  "owner": "avifenesh",
+  "repo": "glide-mq",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "glide-mq",
+      "path": "skills/glide-mq-migrate-bee/SKILL.md",
+      "github_url": "https://github.com/avifenesh/glide-mq/tree/main/skills/glide-mq-migrate-bee/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "glide-mq",
+      "path": "skills/glide-mq/SKILL.md",
+      "github_url": "https://github.com/avifenesh/glide-mq/tree/main/skills/glide-mq/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/avifenesh/glide-mq",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-09T05:21:35Z"
+}
