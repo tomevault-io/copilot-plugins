@@ -4,7 +4,7 @@
   "repo": "brasa",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/wilsonfreitas/brasa",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T08:13:23Z"
+  "distributed_at": "2026-10-10T10:25:27Z"
 }
