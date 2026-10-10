@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "wayn111",
   "homepage": "https://github.com/wayn111/waynboot-mall",
-  "skills": []
+  "skills": [
+    {
+      "name": "waynboot-mall",
+      "description": ""
+    },
+    {
+      "name": "waynboot-mall",
+      "description": ""
+    }
+  ]
 }
