@@ -2,9 +2,9 @@
   "name": "ha-home-keeper",
   "owner": "prestomation",
   "repo": "ha-home-keeper",
-  "description": "Home Keeper is a Home Assistant plugin for tracking home maintenance and chores with deep HA integration ",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ha-home-keeper",
+      "path": ".claude/skills/open-work/SKILL.md",
+      "github_url": "https://github.com/prestomation/ha-home-keeper/tree/main/.claude/skills/open-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ha-home-keeper",
+      "path": ".claude/skills/ux-review/SKILL.md",
+      "github_url": "https://github.com/prestomation/ha-home-keeper/tree/main/.claude/skills/ux-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ha-home-keeper",
+      "path": ".claude/skills/preset-upkeep/SKILL.md",
+      "github_url": "https://github.com/prestomation/ha-home-keeper/tree/main/.claude/skills/preset-upkeep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ha-home-keeper",
+      "path": ".claude/skills/preview-comment/SKILL.md",
+      "github_url": "https://github.com/prestomation/ha-home-keeper/tree/main/.claude/skills/preview-comment/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/prestomation/ha-home-keeper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T01:40:37Z"
+  "distributed_at": "2026-10-10T18:26:48Z"
 }
