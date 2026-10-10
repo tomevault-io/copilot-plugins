@@ -1,9 +1,26 @@
 {
   "name": "prestomation--ha-home-keeper",
   "displayName": "ha-home-keeper",
-  "description": "Home Keeper is a Home Assistant plugin for tracking home maintenance and chores with deep HA integration ",
+  "description": "ha-home-keeper",
   "version": "1.0.0",
   "author": "prestomation",
   "homepage": "https://github.com/prestomation/ha-home-keeper",
-  "skills": []
+  "skills": [
+    {
+      "name": "ha-home-keeper",
+      "description": ""
+    },
+    {
+      "name": "ha-home-keeper",
+      "description": ""
+    },
+    {
+      "name": "ha-home-keeper",
+      "description": ""
+    },
+    {
+      "name": "ha-home-keeper",
+      "description": ""
+    }
+  ]
 }
