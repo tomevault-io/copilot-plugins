@@ -15,7 +15,11 @@ Original source: `AGENTS.md` in [rarnu/ExGhostty](https://github.com/rarnu/ExGho
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [rarnu/ExGhostty](https://github.com/rarnu/ExGhostty) — a repo with 8+ stars on GitHub.
+## Bundled Skills (1)
+
+- [ExGhostty](https://github.com/rarnu/ExGhostty/tree/main/.agents/skills/writing-commit-messages/SKILL.md)
+
+From [rarnu/ExGhostty](https://github.com/rarnu/ExGhostty) — a repo with 0+ stars on GitHub.
 
 ---
 
