@@ -1,0 +1,9 @@
+{
+  "name": "emersonfelipesp--proxmox-sdk",
+  "displayName": "proxmox-sdk",
+  "description": "Proxmox Async SDK",
+  "version": "1.0.0",
+  "author": "emersonfelipesp",
+  "homepage": "https://github.com/emersonfelipesp/proxmox-sdk",
+  "skills": []
+}
