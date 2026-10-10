@@ -2,22 +2,28 @@
 
 > Tome by [prestomation](https://github.com/prestomation/ha-home-keeper), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-Home Keeper is a Home Assistant plugin for tracking home maintenance and chores with deep HA integration 
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [prestomation/ha-home-keeper](https://github.com/prestomation/ha-home-keeper).
+Original source: `` in [prestomation/ha-home-keeper](https://github.com/prestomation/ha-home-keeper).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [prestomation/ha-home-keeper](https://github.com/prestomation/ha-home-keeper) — a repo with 9+ stars on GitHub.
+## Bundled Skills (4)
+
+- [ha-home-keeper](https://github.com/prestomation/ha-home-keeper/tree/main/.claude/skills/open-work/SKILL.md)
+- [ha-home-keeper](https://github.com/prestomation/ha-home-keeper/tree/main/.claude/skills/ux-review/SKILL.md)
+- [ha-home-keeper](https://github.com/prestomation/ha-home-keeper/tree/main/.claude/skills/preset-upkeep/SKILL.md)
+- [ha-home-keeper](https://github.com/prestomation/ha-home-keeper/tree/main/.claude/skills/preview-comment/SKILL.md)
+
+From [prestomation/ha-home-keeper](https://github.com/prestomation/ha-home-keeper) — a repo with 0+ stars on GitHub.
 
 ---
 
