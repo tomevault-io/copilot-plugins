@@ -1,6 +1,6 @@
 # sdd-in-action
 
-> Source: [huangjia2019/sdd-in-action](https://github.com/huangjia2019/sdd-in-action). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [huangjia2019/sdd-in-action](https://github.com/huangjia2019/sdd-in-action). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -52,7 +52,7 @@ Original source: `AGENTS.md` in [huangjia2019/sdd-in-action](https://github.com/
 - [sdd-in-action](https://github.com/huangjia2019/sdd-in-action/tree/main/week2/code/.opencode/skills/openspec-bulk-archive-change/SKILL.md)
 - [sdd-in-action](https://github.com/huangjia2019/sdd-in-action/tree/main/week3/code/.opencode/skills/openspec-bulk-archive-change/SKILL.md)
 
-From [huangjia2019/sdd-in-action](https://github.com/huangjia2019/sdd-in-action) — a repo with 95+ stars on GitHub.
+From [huangjia2019/sdd-in-action](https://github.com/huangjia2019/sdd-in-action) — a repo with 0+ stars on GitHub.
 
 ---
 
