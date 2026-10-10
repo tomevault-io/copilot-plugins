@@ -1,145 +1,208 @@
 ## brasa
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Instructions for building Model Context Protocol (MCP) servers using the Python SDK
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Python MCP Server Development
 
-## Project Overview
+## Instructions
 
-**brasa** is a Python library for extracting, processing, and querying financial market data from Brazilian institutions (B3, ANBIMA, Tesouro Direto, CVM, BCB). It uses a template-driven ETL architecture where YAML templates in `brasa/files/templates/` declaratively define download, parsing, transformation, and storage pipelines.
+- Use **uv** for project management: `uv init mcp-server-demo` and `uv add "mcp[cli]"`
+- Import FastMCP from `mcp.server.fastmcp`: `from mcp.server.fastmcp import FastMCP`
+- Use `@mcp.tool()`, `@mcp.resource()`, and `@mcp.prompt()` decorators for registration
+- Type hints are mandatory - they're used for schema generation and validation
+- Use Pydantic models, TypedDicts, or dataclasses for structured output
+- Tools automatically return structured output when return types are compatible
+- For stdio transport, use `mcp.run()` or `mcp.run(transport="stdio")`
+- For HTTP servers, use `mcp.run(transport="streamable-http")` or mount to Starlette/FastAPI
+- Use `Context` parameter in tools/resources to access MCP capabilities: `ctx: Context`
+- Send logs with `await ctx.debug()`, `await ctx.info()`, `await ctx.warning()`, `await ctx.error()`
+- Report progress with `await ctx.report_progress(progress, total, message)`
+- Request user input with `await ctx.elicit(message, schema)`
+- Use LLM sampling with `await ctx.session.create_message(messages, max_tokens)`
+- Configure icons with `Icon(src="path", mimeType="image/png")` for server, tools, resources, prompts
+- Use `Image` class for automatic image handling: `return Image(data=bytes, format="png")`
+- Define resource templates with URI patterns: `@mcp.resource("greeting://{name}")`
+- Implement completion support by accepting partial values and returning suggestions
+- Use lifespan context managers for startup/shutdown with shared resources
+- Access lifespan context in tools via `ctx.request_context.lifespan_context`
+- For stateless HTTP servers, set `stateless_http=True` in FastMCP initialization
+- Enable JSON responses for modern clients: `json_response=True`
+- Test servers with: `uv run mcp dev server.py` (Inspector) or `uv run mcp install server.py` (Claude Desktop)
+- Mount multiple servers in Starlette with different paths: `Mount("/path", mcp.streamable_http_app())`
+- Configure CORS for browser clients: expose `Mcp-Session-Id` header
+- Use low-level Server class for maximum control when FastMCP isn't sufficient
 
-## Important: Always Use uv
+## Best Practices
 
-This project uses **uv** for dependency management. **Every** Python command must be run through `uv run` — never use bare `python`, `pytest`, `ruff`, or `mypy` directly.
+- Always use type hints - they drive schema generation and validation
+- Return Pydantic models or TypedDicts for structured tool outputs
+- Keep tool functions focused on single responsibilities
+- Provide clear docstrings - they become tool descriptions
+- Use descriptive parameter names with type hints
+- Validate inputs using Pydantic Field descriptions
+- Implement proper error handling with try-except blocks
+- Use async functions for I/O-bound operations
+- Clean up resources in lifespan context managers
+- Log to stderr to avoid interfering with stdio transport (when using stdio)
+- Use environment variables for configuration
+- Test tools independently before LLM integration
+- Consider security when exposing file system or network access
+- Use structured output for machine-readable data
+- Provide both content and structured data for backward compatibility
 
-## Common Commands
+## Common Patterns
 
-```bash
-# Install dependencies
-uv sync
-
-# Run all tests
-uv run pytest
-
-# Run tests without internet connection (skip integration tests)
-uv run pytest --no-integration
-
-# Run a single test file
-uv run pytest tests/test_templates.py
-
-# Run a specific test
-uv run pytest tests/test_templates.py::test_function_name -v
-
-# Linting
-uv run ruff check .
-uv run ruff check . --fix
-
-# Formatting
-uv run ruff format .
-
-# Type checking
-uv run mypy brasa/
-
-# Pre-commit hooks
-uv run pre-commit run --all-files
-```
-
-## Architecture
-
-### Data Flow
-
-```
-YAML Template → Download → Cache (raw/) → Parse/Read → Parquet (db/) → ETL → Query
-```
-
-1. **Templates** (`brasa/files/templates/**/*.yaml`): Declarative pipeline configs defining how to download, parse, and store each dataset. SQL DDL lives in `brasa/files/sql/`. Use pipeline-based templates (not legacy function-based).
-2. **Downloaders** (`brasa/downloaders/`): HTTP/API clients that fetch raw data files.
-3. **Cache** (`brasa/engine/`): `CacheManager` singleton manages file storage, metadata (SQLite), and checksum-based deduplication. Cache lives in `.brasa-cache/` (override with `BRASA_DATA_PATH` env var).
-4. **Parsers/Readers** (`brasa/parsers/`, `brasa/readers/`): Parse raw files (CSV, FWF, XML, JSON) into DataFrames.
-5. **Field System** (`brasa/fieldsets/`): Declarative type system for fields — `date(format='%Y%m%d')`, `numeric(dec=2.0)`, `character`, `category`. Adapters for pandas and pyarrow.
-6. **Storage Layers** in `.brasa-cache/db/`: `input/` (raw parsed) → `staging/` (intermediate) → `curated/` (analytical).
-7. **ETL** (`brasa/etl.py`): Transformations that load from one layer and write to another.
-8. **Queries** (`brasa/queries.py`): Query interface via PyArrow datasets, helper functions (`get_returns`, `get_prices`, `get_symbols`), and DuckDB (`BrasaDB`).
-
-### Public API
-
-Exports are in `brasa/__init__.py` (`__all__`). Core workflow:
+### Basic Server Setup (stdio)
 ```python
-from brasa import download_marketdata, import_marketdata, process_marketdata, process_etl, get_marketdata
+from mcp.server.fastmcp import FastMCP
 
-# Download for a specific refdate (kwargs forwarded to the template's downloader)
-download_marketdata("b3-bvbg028", refdate="2026-04-23")
+mcp = FastMCP("My Server")
 
-# Import a local file into a template instead of downloading it (no download URL,
-# manual/vendor file, or backfill of a corrected file). Works on any download
-# template via `path=`, or on a standalone `importer:`-block template.
-import_marketdata("b3-bvbg028", path="/data/backfill/file.zip", refdate="2026-04-23")
+@mcp.tool()
+def calculate(a: int, b: int, op: str) -> int:
+    """Perform calculation"""
+    if op == "add":
+        return a + b
+    return a - b
 
-# Process all downloaded (unprocessed) entries for a template
-process_marketdata("b3-bvbg028")
-
-# Reprocess everything, regardless of prior state
-process_marketdata("b3-bvbg028", reprocess=True)
-
-# Process a single cache entry by its meta_id
-process_marketdata("b3-bvbg028", meta_id="<id>")
+if __name__ == "__main__":
+    mcp.run()  # stdio by default
 ```
 
-See [TEMPLATES.md](docs/TEMPLATES.md#importing-local-files-importer) and [CLI.md](docs/CLI.md#import) for the `importer:` template block and `brasa import` CLI command.
+### HTTP Server
+```python
+from mcp.server.fastmcp import FastMCP
 
-`process_marketdata` does **not** accept `refdate` — it operates on already-downloaded cache entries.
-To target a specific date, use `meta_id` (look up the id via `CacheManager()`).
+mcp = FastMCP("My HTTP Server")
 
-### Template Types
+@mcp.tool()
+def hello(name: str = "World") -> str:
+    """Greet someone"""
+    return f"Hello, {name}!"
 
-- **Single dataset**: `reader.pipeline` + `fields` block
-- **Multi-dataset**: `reader.pipeline` + `datasets` block (each with its own `fields`)
-- **ETL**: `etl.pipeline` that loads from upstream datasets
+if __name__ == "__main__":
+    mcp.run(transport="streamable-http")
+```
 
-### Key Patterns
+### Tool with Structured Output
+```python
+from pydantic import BaseModel, Field
 
-- `CacheManager` is a singleton — always use `CacheManager()` to get the instance
-- Templates use `KwargsIterator` to expand download parameters (e.g., date ranges)
-- Parquet files are partitioned (typically by `refdate`) for efficient querying
-- Custom exceptions in `brasa/engine/exceptions.py` for download/cache/content errors
+class WeatherData(BaseModel):
+    temperature: float = Field(description="Temperature in Celsius")
+    condition: str
+    humidity: float
 
-## Code Style
+@mcp.tool()
+def get_weather(city: str) -> WeatherData:
+    """Get weather for a city"""
+    return WeatherData(
+        temperature=22.5,
+        condition="sunny",
+        humidity=65.0
+    )
+```
 
-- **Ruff** for linting and formatting (line-length 88, double quotes, target py310)
-- Google-style docstrings with `Args:` and `Returns:` blocks
-- Type hints in new code
-- Imports: stdlib → third-party → local
-- Field names in templates: `snake_case`
-- All commands run through `uv run`
+### Dynamic Resource
+```python
+@mcp.resource("users://{user_id}")
+def get_user(user_id: str) -> str:
+    """Get user profile data"""
+    return f"User {user_id} profile data"
+```
 
-## Testing
+### Tool with Context
+```python
+from mcp.server.fastmcp import Context
+from mcp.server.session import ServerSession
 
-- pytest with `pythonpath = ["."]` configured in pyproject.toml
-- `conftest.py` sets `BRASA_DATA_PATH` to a temp directory (session-scoped) to isolate tests from real cache
-- Tests that require an internet connection are marked `@pytest.mark.integration` and can be skipped with `--no-integration`
-- Use `pytest.mark.skip` for tests depending on external/unstable APIs (broken endpoints, resources no longer available)
-- Tests live in `tests/test_*.py`
+@mcp.tool()
+async def process_data(
+    data: str,
+    ctx: Context[ServerSession, None]
+) -> str:
+    """Process data with logging"""
+    await ctx.info(f"Processing: {data}")
+    await ctx.report_progress(0.5, 1.0, "Halfway done")
+    return f"Processed: {data}"
+```
 
-## Definition of Done — MANDATORY
+### Tool with Sampling
+```python
+from mcp.server.fastmcp import Context
+from mcp.server.session import ServerSession
+from mcp.types import SamplingMessage, TextContent
 
-**A task is NOT complete until all three checks pass.** This is non-negotiable:
+@mcp.tool()
+async def summarize(
+    text: str,
+    ctx: Context[ServerSession, None]
+) -> str:
+    """Summarize text using LLM"""
+    result = await ctx.session.create_message(
+        messages=[SamplingMessage(
+            role="user",
+            content=TextContent(type="text", text=f"Summarize: {text}")
+        )],
+        max_tokens=100
+    )
+    return result.content.text if result.content.type == "text" else ""
+```
 
-1. **Tests pass**: `uv run pytest`
-2. **Ruff passes**: `uv run ruff check . && uv run ruff format --check .`
-3. **Pre-commit passes**: `uv run pre-commit run --all-files`
+### Lifespan Management
+```python
+from contextlib import asynccontextmanager
+from dataclasses import dataclass
+from mcp.server.fastmcp import FastMCP, Context
 
-Never consider a task finished if any of these fail. Fix all issues before declaring the work done.
+@dataclass
+class AppContext:
+    db: Database
 
-## Plans
+@asynccontextmanager
+async def app_lifespan(server: FastMCP):
+    db = await Database.connect()
+    try:
+        yield AppContext(db=db)
+    finally:
+        await db.disconnect()
 
-Plans must be saved in `docs/plans/`. Filenames must include the creation date and a meaningful title in kebab-case: `YYYY-MM-DD-<title>.md`. Example: `2026-03-14-refactor-cache-manager.md`.
+mcp = FastMCP("My App", lifespan=app_lifespan)
 
-## Data Sources
+@mcp.tool()
+def query(sql: str, ctx: Context) -> str:
+    """Query database"""
+    db = ctx.request_context.lifespan_context.db
+    return db.execute(sql)
+```
 
-B3 (equities, futures, options, indexes), ANBIMA (fixed income, curves), BCB/SGS (CDI, SELIC, IPCA, FX), CVM (company filings), Tesouro Direto (treasury bonds).
+### Prompt with Messages
+```python
+from mcp.server.fastmcp.prompts import base
+
+@mcp.prompt(title="Code Review")
+def review_code(code: str) -> list[base.Message]:
+    """Create code review prompt"""
+    return [
+        base.UserMessage("Review this code:"),
+        base.UserMessage(code),
+        base.AssistantMessage("I'll review the code for you.")
+    ]
+```
+
+### Error Handling
+```python
+@mcp.tool()
+async def risky_operation(input: str) -> str:
+    """Operation that might fail"""
+    try:
+        result = await perform_operation(input)
+        return f"Success: {result}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+```
 
 ---
 > Source: [wilsonfreitas/brasa](https://github.com/wilsonfreitas/brasa) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
