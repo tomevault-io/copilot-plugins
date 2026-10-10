@@ -4,7 +4,7 @@
   "repo": "retort",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -403,9 +403,21 @@
       "path": "experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep3-failed/.agents/skills/beads/SKILL.md",
       "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep3-failed/.agents/skills/beads/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-67-quant-6bit-knee/rest-api-crud/runs/agent=hermes-0205_language=python_model=mlxlocal/mlx-community--Qwen3-Coder-30B-A3B-Instruct-6bit_prompt=neutral_stack=q6/rep1/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-67-quant-6bit-knee/rest-api-crud/runs/agent=hermes-0205_language=python_model=mlxlocal/mlx-community--Qwen3-Coder-30B-A3B-Instruct-6bit_prompt=neutral_stack=q6/rep1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-67-quant-6bit-knee/rest-api-crud/runs/agent=hermes-0205_language=python_model=mlxlocal/mlx-community--Qwen3-Coder-30B-A3B-Instruct-6bit_prompt=neutral_stack=q6/rep1-failed/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-67-quant-6bit-knee/rest-api-crud/runs/agent=hermes-0205_language=python_model=mlxlocal/mlx-community--Qwen3-Coder-30B-A3B-Instruct-6bit_prompt=neutral_stack=q6/rep1-failed/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/adrianco/retort",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T12:08:44Z"
+  "distributed_at": "2026-10-10T09:22:15Z"
 }
