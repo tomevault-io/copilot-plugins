@@ -1,0 +1,219 @@
+{
+  "name": "hubble.md",
+  "owner": "bholmesdev",
+  "repo": "hubble.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/done/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/done/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/triage/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/ask-cc/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/ask-cc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/release/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/comments/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/simplify/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/simplify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/to-issues/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/to-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/write-tech-spec/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/write-tech-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/test-desktop-app/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/test-desktop-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/review-readiness/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/review-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/write-product-spec/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/write-product-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": "packages/sync-backend/.agents/skills/convex/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/packages/sync-backend/.agents/skills/convex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": "packages/sync-backend/.agents/skills/convex-quickstart/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/packages/sync-backend/.agents/skills/convex-quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": "packages/sync-backend/.agents/skills/convex-setup-auth/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/packages/sync-backend/.agents/skills/convex-setup-auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": "packages/sync-backend/.agents/skills/convex-migration-helper/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/packages/sync-backend/.agents/skills/convex-migration-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": "packages/sync-backend/.agents/skills/convex-create-component/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/packages/sync-backend/.agents/skills/convex-create-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": "packages/sync-backend/.agents/skills/convex-performance-audit/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/packages/sync-backend/.agents/skills/convex-performance-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/changelog/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/implementation/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/request-pr-review/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/request-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/taste-review/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/taste-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/review-cycle/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/review-cycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/code-comments/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/code-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hubble.md",
+      "path": ".agents/skills/writing-tests/SKILL.md",
+      "github_url": "https://github.com/bholmesdev/hubble.md/tree/main/.agents/skills/writing-tests/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bholmesdev/hubble.md",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-10T14:41:45Z"
+}
