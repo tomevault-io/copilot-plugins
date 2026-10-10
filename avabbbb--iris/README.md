@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [avabbbb/Iris](https://github.com/avabbbb/Iris).
+Original source: `CLAUDE.md` in [avabbbb/Iris](https://github.com/avabbbb/Iris).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -25,7 +25,7 @@ Original source: `AGENTS.md` in [avabbbb/Iris](https://github.com/avabbbb/Iris).
 - [Iris](https://github.com/avabbbb/Iris/tree/main/.claude/skills/open-flovart/SKILL.md)
 - [Iris](https://github.com/avabbbb/Iris/tree/main/integrations/workbuddy/flovart/skills/flovart/SKILL.md)
 
-From [avabbbb/Iris](https://github.com/avabbbb/Iris) — a repo with 139+ stars on GitHub.
+From [avabbbb/Iris](https://github.com/avabbbb/Iris) — a repo with 0+ stars on GitHub.
 
 ---
 
