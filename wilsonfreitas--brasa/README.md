@@ -5,10 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wilsonfreitas/brasa](https://github.com/wilsonfreitas/brasa).
+Original source: `` in [wilsonfreitas/brasa](https://github.com/wilsonfreitas/brasa).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
@@ -20,7 +21,7 @@ Original source: `CLAUDE.md` in [wilsonfreitas/brasa](https://github.com/wilsonf
 - [brasa](https://github.com/wilsonfreitas/brasa/tree/main/.claude/skills/brasa-db-explorer/SKILL.md)
 - [brasa](https://github.com/wilsonfreitas/brasa/tree/main/.claude/skills/brasa-template-writer/SKILL.md)
 
-From [wilsonfreitas/brasa](https://github.com/wilsonfreitas/brasa) — a repo with 48+ stars on GitHub.
+From [wilsonfreitas/brasa](https://github.com/wilsonfreitas/brasa) — a repo with 0+ stars on GitHub.
 
 ---
 
