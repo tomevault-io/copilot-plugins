@@ -1,18 +1,41 @@
 ## nibrun
 
-> Scripts the repo runs outside the apps — CI steps, deploys, maintenance. Add
+> Internal tracking shared by the marketing site and dashboard.
 
-# @repo/internal-scripts
+# @repo/analytics
 
-Scripts the repo runs outside the apps — CI steps, deploys, maintenance. Add
-one here instead of writing a shell script.
+Internal tracking shared by the marketing site and dashboard.
 
-- One script file in `src/` = one entry in `package.json`'s `scripts`, named after
-  the file.
-- Anything shared between scripts lives in `src/shared/`.
-- Invoke from anywhere in the repo:
-  `bun run --filter @repo/internal-scripts <script>`.
+- Seed one Umami website named `nibrun` for marketing and dashboard tracking.
+- Keep both sites on the same Umami website. Derive its ID from `src/config.ts`
+  in clients and seeding; separate websites cannot form one native funnel.
+- `www` and `dashboard` identify the emitting site inside the shared collection.
+- Require `VITE_UMAMI_HOSTNAME` at build time; do not add a hostname fallback.
+- Declare Vite environment types in `src/vite-env.d.ts`, without local casts.
+- Keep the browser's Distinct ID stable across sites and sign-in. Changing it
+  during authentication splits Umami sessions and breaks conversion funnels.
+- Attach the opaque account ID as Umami session data and custom event data, and
+  clear it on sign-out. Never send names or emails. Persist the pre-sign-in
+  identity state across OAuth so completed sign-ins can distinguish anonymous
+  upgrades from visitor logins.
+- Use Umami's automatic SPA tracking and documented `data-before-send` hook.
+  Add a navigation fallback only for a verified gap in the pinned tracker.
+- Gate tracking through `trackingAllowed()`, including custom events. Preserve
+  production-host, HTTPS, top-level-window and Do Not Track restrictions.
+- Preserve URL hashes in pageviews, custom events and performance payloads.
+  Hash navigation is a pageview; deduplicate by origin, pathname and hash.
+- Sanitize every outgoing payload. Exclude credentials, query values, referrer hashes,
+  app names, custom hostnames, file paths, prompt contents, configuration values
+  and raw errors. Opaque app and attempt IDs may correlate events; settings
+  events carry changed field names only.
+- Define event contracts in `src/events.ts`; derive callers' types from them.
+  Keep acquisition context separate from the preset actually deployed.
+- Record outcomes after confirmation. Deployment success requires observed
+  `running`; sign-in requires an account session; app claims require the same
+  anonymous app to become permanent in that account. Browser events cannot
+  guarantee outcomes after the page closes.
+- Keep initialization in a `.ts` hook. Add `.tsx` files only when they contain JSX.
 
 ---
 > Source: [ilbertt/nibrun](https://github.com/ilbertt/nibrun) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-06 -->
