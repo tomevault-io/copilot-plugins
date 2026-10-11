@@ -1,21 +1,25 @@
 # AI instruction files for omni
 
-> Sourced from [fajarhide/omni](https://github.com/fajarhide/omni) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [fajarhide/omni](https://github.com/fajarhide/omni), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [fajarhide/omni](https://github.com/fajarhide/omni).
+Original source: `AGENTS.md` in [fajarhide/omni](https://github.com/fajarhide/omni).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/fajarhide/omni](https://github.com/fajarhide/omni)
+## Bundled Skills (1)
+
+- [omni](https://github.com/fajarhide/omni/tree/main/plugins/claude-code/skills/omni/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/fajarhide/omni](https://github.com/fajarhide/omni)
 
 ---
 
