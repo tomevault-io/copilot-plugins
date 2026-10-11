@@ -1,8 +1,6 @@
 # accountant24
 
-> Tome by [machulav](https://github.com/machulav/accountant24) — distributed by [TomeVault](https://tomevault.io)
-
-Local-first AI agent for personal accounting. Your data stays as plain text files on your machine. Works with any LLM — including local ones. Log spending, import statements, ask questions, teach the agent, track changes with git, and more.
+> Tome by [machulav](https://github.com/machulav/accountant24), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -16,6 +14,13 @@ Original source: `AGENTS.md` in [machulav/accountant24](https://github.com/machu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (4)
+
+- [accountant24](https://github.com/machulav/accountant24/tree/main/.claude/skills/a24-preview/SKILL.md)
+- [accountant24](https://github.com/machulav/accountant24/tree/main/.claude/skills/a24-docs-writing/SKILL.md)
+- [accountant24](https://github.com/machulav/accountant24/tree/main/.claude/skills/a24-writing-guidelines/SKILL.md)
+- [accountant24](https://github.com/machulav/accountant24/tree/main/packages/desktop/.claude/skills/verify/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/machulav/accountant24](https://github.com/machulav/accountant24)
 
