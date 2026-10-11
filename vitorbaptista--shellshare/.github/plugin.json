@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "vitorbaptista",
   "homepage": "https://github.com/vitorbaptista/shellshare",
-  "skills": []
+  "skills": [
+    {
+      "name": "shellshare",
+      "description": ""
+    }
+  ]
 }
