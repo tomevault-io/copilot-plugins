@@ -2,8 +2,8 @@
   "name": "accountant24",
   "owner": "machulav",
   "repo": "accountant24",
-  "description": "Local-first AI agent for personal accounting. Your data stays as plain text files on your machine. Works with any LLM \u2014 including local ones. Log spending, import statements, ask questions, teach the agent, track changes with git, and more.",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "accountant24",
+      "path": ".claude/skills/a24-preview/SKILL.md",
+      "github_url": "https://github.com/machulav/accountant24/tree/main/.claude/skills/a24-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accountant24",
+      "path": ".claude/skills/a24-docs-writing/SKILL.md",
+      "github_url": "https://github.com/machulav/accountant24/tree/main/.claude/skills/a24-docs-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accountant24",
+      "path": ".claude/skills/a24-writing-guidelines/SKILL.md",
+      "github_url": "https://github.com/machulav/accountant24/tree/main/.claude/skills/a24-writing-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accountant24",
+      "path": "packages/desktop/.claude/skills/verify/SKILL.md",
+      "github_url": "https://github.com/machulav/accountant24/tree/main/packages/desktop/.claude/skills/verify/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/machulav/accountant24",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:37:04Z"
+  "distributed_at": "2026-10-11T02:15:01Z"
 }
