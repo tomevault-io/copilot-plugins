@@ -3,8 +3,8 @@
   "owner": "fajarhide",
   "repo": "omni",
   "description": "",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "omni",
+      "path": "plugins/claude-code/skills/omni/SKILL.md",
+      "github_url": "https://github.com/fajarhide/omni/tree/main/plugins/claude-code/skills/omni/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/fajarhide/omni",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T19:02:05Z"
+  "distributed_at": "2026-10-11T07:45:28Z"
 }
