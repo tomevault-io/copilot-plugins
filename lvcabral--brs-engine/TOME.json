@@ -4,7 +4,7 @@
   "repo": "brs-engine",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/lvcabral/brs-engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T11:33:22Z"
+  "distributed_at": "2026-10-11T06:34:40Z"
 }
