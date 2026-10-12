@@ -4,7 +4,7 @@
   "repo": "secedgar-mcp-server",
   "description": "Query SEC EDGAR filings, XBRL financials, and company data via MCP. STDIO or Streamable HTTP.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cyanheads/secedgar-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-07T23:57:08Z"
+  "distributed_at": "2026-10-12T05:39:06Z"
 }
