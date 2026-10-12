@@ -7,11 +7,11 @@ Render and push styled pixel art, text, dashboards, and animations to Divoom Pix
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cyanheads/pixoo-mcp-server](https://github.com/cyanheads/pixoo-mcp-server).
+Original source: `AGENTS.md` in [cyanheads/pixoo-mcp-server](https://github.com/cyanheads/pixoo-mcp-server).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
