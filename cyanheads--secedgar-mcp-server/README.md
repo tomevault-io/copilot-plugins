@@ -7,17 +7,17 @@ Query SEC EDGAR filings, XBRL financials, and company data via MCP. STDIO or Str
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cyanheads/secedgar-mcp-server](https://github.com/cyanheads/secedgar-mcp-server).
+Original source: `AGENTS.md` in [cyanheads/secedgar-mcp-server](https://github.com/cyanheads/secedgar-mcp-server).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cyanheads/secedgar-mcp-server](https://github.com/cyanheads/secedgar-mcp-server) — a repo with 10+ stars on GitHub.
+From [cyanheads/secedgar-mcp-server](https://github.com/cyanheads/secedgar-mcp-server) — a repo with 0+ stars on GitHub.
 
 ---
 
