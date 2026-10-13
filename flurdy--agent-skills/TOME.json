@@ -4,7 +4,7 @@
   "repo": "agent-skills",
   "description": "Shared AI agent skills",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/flurdy/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T16:30:17Z"
+  "distributed_at": "2026-10-13T13:28:26Z"
 }
