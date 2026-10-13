@@ -4,7 +4,7 @@
   "repo": "Salesforce-Code-Review-Agent",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/rediga/Salesforce-Code-Review-Agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-06T22:21:02Z"
+  "distributed_at": "2026-10-13T12:06:24Z"
 }
