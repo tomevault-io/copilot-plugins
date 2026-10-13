@@ -1,6 +1,6 @@
 # Assistant
 
-> Source: [bearlike/Assistant](https://github.com/bearlike/Assistant) — distributed by [TomeVault](https://tomevault.io)
+> Source: [bearlike/Assistant](https://github.com/bearlike/Assistant). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,16 @@ Original source: `CLAUDE.md` in [bearlike/Assistant](https://github.com/bearlike
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
+## Bundled Skills (8)
 
 - [Assistant](https://github.com/bearlike/Assistant/tree/main/.claude/skills/mewbo-cli-smoketest/SKILL.md)
 - [Assistant](https://github.com/bearlike/Assistant/tree/main/packages/mewbo_core/src/mewbo_core/builtin_plugins/widget_builder/skills/st-widget-builder/SKILL.md)
+- [Assistant](https://github.com/bearlike/Assistant/tree/main/apps/mewbo_api/src/mewbo_api/apps/plugin/skills/app-builder/SKILL.md)
+- [Assistant](https://github.com/bearlike/Assistant/tree/main/packages/mewbo_core/src/mewbo_core/builtin_plugins/harness/skills/mewbo-harness/SKILL.md)
+- [Assistant](https://github.com/bearlike/Assistant/tree/main/packages/mewbo_core/src/mewbo_core/builtin_plugins/generative_ui/skills/generative-ui/SKILL.md)
+- [Assistant](https://github.com/bearlike/Assistant/tree/main/packages/mewbo_core/src/mewbo_core/builtin_plugins/device_control/skills/device-control/SKILL.md)
+- [Assistant](https://github.com/bearlike/Assistant/tree/main/demo/plugins/cache/claude-plugins-official/superpowers/6.2.0/skills/brainstorming/SKILL.md)
+- [Assistant](https://github.com/bearlike/Assistant/tree/main/demo/plugins/cache/claude-plugins-official/claude-md-management/1.0.0/skills/claude-md-improver/SKILL.md)
 
 From [bearlike/Assistant](https://github.com/bearlike/Assistant) — a repo with 0+ stars on GitHub.
 
