@@ -5,13 +5,13 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rediga/Salesforce-Code-Review-Agent](https://github.com/rediga/Salesforce-Code-Review-Agent).
+Original source: `.cursor/rules/*.mdc` in [rediga/Salesforce-Code-Review-Agent](https://github.com/rediga/Salesforce-Code-Review-Agent).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [rediga/Salesforce-Code-Review-Agent](https://gi
 
 - [Salesforce-Code-Review-Agent](https://github.com/rediga/Salesforce-Code-Review-Agent/tree/main/.cursor/skills/salesforce-code-review/SKILL.md)
 
-From [rediga/Salesforce-Code-Review-Agent](https://github.com/rediga/Salesforce-Code-Review-Agent) — a repo with 94+ stars on GitHub.
+From [rediga/Salesforce-Code-Review-Agent](https://github.com/rediga/Salesforce-Code-Review-Agent) — a repo with 0+ stars on GitHub.
 
 ---
 
