@@ -49,9 +49,45 @@
       "path": "packages/mewbo_core/src/mewbo_core/builtin_plugins/widget_builder/skills/st-widget-builder/SKILL.md",
       "github_url": "https://github.com/bearlike/Assistant/tree/main/packages/mewbo_core/src/mewbo_core/builtin_plugins/widget_builder/skills/st-widget-builder/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "Assistant",
+      "path": "apps/mewbo_api/src/mewbo_api/apps/plugin/skills/app-builder/SKILL.md",
+      "github_url": "https://github.com/bearlike/Assistant/tree/main/apps/mewbo_api/src/mewbo_api/apps/plugin/skills/app-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Assistant",
+      "path": "packages/mewbo_core/src/mewbo_core/builtin_plugins/harness/skills/mewbo-harness/SKILL.md",
+      "github_url": "https://github.com/bearlike/Assistant/tree/main/packages/mewbo_core/src/mewbo_core/builtin_plugins/harness/skills/mewbo-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Assistant",
+      "path": "packages/mewbo_core/src/mewbo_core/builtin_plugins/generative_ui/skills/generative-ui/SKILL.md",
+      "github_url": "https://github.com/bearlike/Assistant/tree/main/packages/mewbo_core/src/mewbo_core/builtin_plugins/generative_ui/skills/generative-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Assistant",
+      "path": "packages/mewbo_core/src/mewbo_core/builtin_plugins/device_control/skills/device-control/SKILL.md",
+      "github_url": "https://github.com/bearlike/Assistant/tree/main/packages/mewbo_core/src/mewbo_core/builtin_plugins/device_control/skills/device-control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Assistant",
+      "path": "demo/plugins/cache/claude-plugins-official/superpowers/6.2.0/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/bearlike/Assistant/tree/main/demo/plugins/cache/claude-plugins-official/superpowers/6.2.0/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Assistant",
+      "path": "demo/plugins/cache/claude-plugins-official/claude-md-management/1.0.0/skills/claude-md-improver/SKILL.md",
+      "github_url": "https://github.com/bearlike/Assistant/tree/main/demo/plugins/cache/claude-plugins-official/claude-md-management/1.0.0/skills/claude-md-improver/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/bearlike/Assistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T06:37:11Z"
+  "distributed_at": "2026-10-13T03:04:37Z"
 }
